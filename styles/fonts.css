@@ -16,27 +16,7 @@ This set of fonts are used in this project under the license: (.....)
 --------------------------------------------------------------------------------------
 *	
 **/
-@font-face {
-	font-family: iranyekan;
-	font-style: normal;
-	font-weight: bold;
-	src: url('../public/fonts/eot/iranyekanwebbold.eot');
-	src: url('../public/fonts/eot/iranyekanwebbold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-		 url('../public/fonts/woff/iranyekanwebbold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-		 url('../public/fonts/woff2/iranyekanwebbold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-		 url('../public/fonts/ttf/iranyekanwebbold.ttf') format('truetype');
-}
 
-@font-face {
-	font-family: iranyekan;
-	font-style: normal;
-	font-weight: 100;
-	src: url('../public/fonts/eot/iranyekanwebthin.eot');
-	src: url('../public/fonts/eot/iranyekanwebthin.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-		 url('../public/fonts/woff/iranyekanwebthin.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-		 url('../public/fonts/woff2/iranyekanwebthin.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-		 url('../public/fonts/ttf/iranyekanwebthin.ttf') format('truetype');
-}
 
 @font-face {
 	font-family: iranyekan;
