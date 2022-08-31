@@ -39,7 +39,7 @@ const Header = () => {
     return (  
         <>
             <header className="flex relative  justify-between px-10 py-2 bg-gray-50 items-center z-10">
-                <div onClick={()=>{closeCategory(); setIsOpenMobileMenu(false)} } className={`fixed ${isOpen? "" : "hidden" || isOpenMobileMenu ? "" : "hidden"} mt-14 inset-0 overflow-y-auto h-full w-full z-20`}></div>
+            <div onClick={()=>{closeCategory(); setIsOpenMobileMenu(false)} } className={`fixed ${isOpen? "" : "hidden"} mt-14 inset-0  h-full w-full z-10`}></div>
                 
                 <section className="hidden sm:flex  gap-x-6 font-sans text-sm">
                         {
@@ -47,7 +47,7 @@ const Header = () => {
                                 return(
                                     <nav className="flex gap-x-4 " key={index}>
                                         <a  className="hover:text-red-500  cursor-pointer font-sans text-gray-500" onClick={()=> handleCategory(category.id)}>{category.name}</a>
-                                        <div className={`${category.status ? "" : "hidden"} z-30 absolute mx-10 right-0 left-0 rounded-md top-14`}>
+                                        <div className={`${category.status ? "" : "hidden"} z-40 absolute mx-10 right-0 left-0 rounded-md top-14`}>
                                         
                                             <div className="bg-gray-50 pb-4">
                                                 <nav className="px-5 py-4">
@@ -79,7 +79,7 @@ const Header = () => {
                 </section>
 
                 <section className="sm:hidden">
-                    <button className="flex items-center justify-center" onClick={()=>setIsOpenMobileMenu(!isOpenMobileMenu)}>
+                    <button className="flex items-center justify-center" onClick={()=>setIsOpen(!isOpen)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
@@ -91,12 +91,12 @@ const Header = () => {
                 </section>
             </header>
 
-            <section className={`fixed w-1/2 ${isOpenMobileMenu ? "" : "hidden"} z-40 sm:hidden  bg-gray-50 h-full`}>
+            <section className={`fixed w-1/2 ${isOpen ? "" : "hidden"} z-40 sm:hidden  bg-gray-50 h-full`}>
 
                     <p className="relative  font-sans text-sm text-gray-600  top-3 px-5">دسته بندی ها : </p>
 
             
-                <div className="flex py-4 gap-x-4 mt-4 w-full whitespace-nowrap overflow-x-auto px-3">                    
+                <div className="flex py-4 gap-x-4 mt-4 z-20 w-full whitespace-nowrap overflow-x-auto px-3">                    
                     {data&&data.map((category,index) => {
                         return(
                             <a key={index}  className="hover:text-red-500 text-sm bg-gray-100 border px-4 py-1 rounded-md border-gray-300 cursor-pointer flex font-sans text-gray-500" onClick={()=> handleCategory(category.id)}>{category.name}</a>
