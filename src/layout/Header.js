@@ -92,7 +92,7 @@ const Header = () => {
                 <div className="flex py-4 gap-x-4 mt-4 w-full whitespace-nowrap overflow-x-scroll px-3">                    
                     {data&&data.map((category,index) => {
                         return(
-                            <a  className="hover:text-red-500 text-sm bg-gray-100 border px-4 py-1 rounded-md border-gray-300 cursor-pointer flex font-sans text-gray-500" onClick={()=> handleCategory(category.id)}>{category.name}</a>
+                            <a key={index}  className="hover:text-red-500 text-sm bg-gray-100 border px-4 py-1 rounded-md border-gray-300 cursor-pointer flex font-sans text-gray-500" onClick={()=> handleCategory(category.id)}>{category.name}</a>
                         )
                     })}
                 </div>
