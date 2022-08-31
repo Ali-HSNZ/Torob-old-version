@@ -1,13 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import localData from './data'
 const Header = () => {
     
-    const [data , setData] = useState(localData)
+    const [data , setData] = useState(null)
     const [isOpen , setIsOpen] = useState(false)
     const  [isOpenMobileMenu,setIsOpenMobileMenu] = useState(false)
 
-    
+
+
+    useEffect(()=> {
+        const getData = async() => {
+            const {data} = await axios.get('https://project-torob-clone.iran.liara.run/api/categories').then(res => res.data)
+            setData(data)
+        }
+        getData()
+    },[])
     const  closeCategory = () => {
         const allData = [...data]
         allData.forEach(category => {
@@ -89,7 +96,7 @@ const Header = () => {
                     <p className="relative  font-sans text-sm text-gray-600  top-3 px-5">دسته بندی ها : </p>
 
             
-                <div className="flex py-4 gap-x-4 mt-4 w-full whitespace-nowrap overflow-x-scroll px-3">                    
+                <div className="flex py-4 gap-x-4 mt-4 w-full whitespace-nowrap overflow-x-auto px-3">                    
                     {data&&data.map((category,index) => {
                         return(
                             <a key={index}  className="hover:text-red-500 text-sm bg-gray-100 border px-4 py-1 rounded-md border-gray-300 cursor-pointer flex font-sans text-gray-500" onClick={()=> handleCategory(category.id)}>{category.name}</a>
@@ -110,7 +117,7 @@ const Header = () => {
                                         <hr/>
                                         {category.sub_categories.length > 0 && category.sub_categories.map((sub,index) => {
                                                 return(
-                                                    <div className="mt-4 overflow-x-scroll pb-3" key={index}>
+                                                    <div className="mt-4 overflow-x-auto pb-3" key={index}>
                                                         <nav className="flex gap-x-4 ">
                                                             <a className="hover:text-red-500 font-sans font-bold cursor-pointer " >{sub.name}</a>
                                                         </nav>
