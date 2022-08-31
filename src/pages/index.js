@@ -3,8 +3,8 @@ import Header from '@/layout/Header'
 
 export default function Home() {
   return (
-    <section className='absolute top-0 bottom-0 z-0  w-full flex justify-center flex-col items-center '>
-        <article className='flex items-center justify-center px-4'>
+    <section className='absolute top-0 bottom-0  w-full flex justify-center flex-col items-center '>
+        <article className='flex items-center  justify-center px-4'>
             <div className='w-24'>
               <img className='w-full h-auto' src='https://storage.irantalent.com/brand-data/brand_data_7903eDd_603e2f4ab6949.png?w=120'/>
             </div>
