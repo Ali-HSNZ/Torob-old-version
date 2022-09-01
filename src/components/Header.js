@@ -44,7 +44,7 @@ const Header = () => {
     
             <div onClick={()=>{closeCategory() } } className={`fixed ${isOpen? "" : "hidden"}  inset-0  h-full w-full z-10`}></div>
     
-            <header className="flex relative  justify-between px-10 py-2 bg-gray-50 items-center z-10">
+            <header className="flex relative  justify-between md:px-10  px-4 py-2 bg-gray-50 items-center z-10">
                 
             <Modal
                 open={isModal}
@@ -54,12 +54,12 @@ const Header = () => {
                 >
                 <section className="w-full absolute top-[50%] px-4 left-[50%] translate-y-[-50%]  translate-x-[-50%] sm:w-[500px] ">
                     <div className="bg-[#ffffff] rounded-md p-4">
-                        <section className="flex w-full justify-end">
+                        <button className="flex w-fit justify-end float-left" onClick={()=> setIsModal(false)}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                        </section>
-                        <hr className="mt-4 border border-gray-200"/>
+                        </button>
+                        <hr className="mt-8 border border-gray-200"/>
                         <div className="mt-[-15px] font-sans w-full flex justify-center">
                             <span className="bg-white px-3 text-gray-600 text-sm">ورود یا ثبت نام</span>
                         </div>
@@ -119,7 +119,7 @@ const Header = () => {
                 </section>
 
                 <section className="sm:hidden">
-                    <button className="flex items-center justify-center" onClick={()=>setIsOpen(!isOpen)}>
+                    <button className="flex items-center justify-center p-2 bg-white" onClick={()=>setIsOpen(!isOpen)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
@@ -146,31 +146,33 @@ const Header = () => {
                 {
                     data&&data.map((category,index) => {
                         return(
-                            <aside className="flex gap-x-4 " key={index}>
+                            <aside className="flex gap-x-4 h-auto overflow-y-auto" key={index}>
 
-                                <div className={`${category.status ? "" : "hidden"} z-30 absolute px-5 right-0 left-0 rounded-md`}>
+                                <div className={`${category.status ? "" : "hidden"} z-30 overflow-y-auto h-full  px-5 right-0 left-0 rounded-md`}>
                                 
                                     <div className="bg-gray-50 ">
                                         <nav className="py-4">
                                             <a href="#" className="hover:text-red-500 font-bold font-sans text-gray-700">{category.name}</a>
                                         </nav>
                                         <hr/>
-                                        {category.sub_categories.length > 0 && category.sub_categories.map((sub,index) => {
-                                                return(
-                                                    <div className="mt-4 overflow-x-auto pb-3" key={index}>
-                                                        <nav className="flex gap-x-4 ">
-                                                            <a className="hover:text-red-500 font-sans font-bold cursor-pointer " >{sub.name}</a>
-                                                        </nav>
-                                                        {sub.sub_categories.length > 0 && sub.sub_categories.map((sub_sub,index) => {
-                                                            return(
-                                                            <nav className="flex gap-x-4 mt-2 text-gray-600  whitespace-nowrap" key={index}>
-                                                                <a className="hover:text-red-500  cursor-pointer" >{sub_sub.name}</a>
-                                                            </nav>
-                                                            )
-                                                        })}
-                                                    </div>
-                                                )}
-                                            )}
+                                        <div className="overflow-y-auto h-full overflow-x-auto">
+                                                {category.sub_categories.length > 0 && category.sub_categories.map((sub,index) => {
+                                                        return(
+                                                            <div className="mt-4 overflow-x-auto pb-3" key={index}>
+                                                                <nav className="flex gap-x-4 ">
+                                                                    <a className="hover:text-red-500 font-sans font-bold cursor-pointer " >{sub.name}</a>
+                                                                </nav>
+                                                                {sub.sub_categories.length > 0 && sub.sub_categories.map((sub_sub,index) => {
+                                                                    return(
+                                                                    <nav className="flex gap-x-4 mt-2 text-gray-600  whitespace-nowrap" key={index}>
+                                                                        <a className="hover:text-red-500  cursor-pointer" >{sub_sub.name}</a>
+                                                                    </nav>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        )}
+                                                    )}
+                                        </div>
                                     </div>
                                 </div>
                             </aside>
