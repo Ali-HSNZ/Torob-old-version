@@ -65,7 +65,7 @@ useEffect(()=>{
                     <h3 className="font-sans text-sm text-right w-full mt-5">{product.title}</h3>
                 
                     <div className=" flex flex-col justify-end w-full mt-5 flex-1 gap-y-2">
-                        <h6 className="font-sans text-sm text-gray-700">از {toPersianDigits(product.price_start)}</h6>
+                        <h6 className={`font-sans text-sm  ${product.price_start===0 ? "text-red-600" : "text-gray-700"}`}>{product.price_start === 0 ? "ناموجود" :  toPersianDigits(product.price_start)+" تومان " }</h6>
                         <h6 className="font-sans text-sm text-gray-500">در {toPersianDigits(product.shops_count)} فروشگاه</h6>
                     </div>
                     <div className="flex my-4 justify-between w-full px-9">
