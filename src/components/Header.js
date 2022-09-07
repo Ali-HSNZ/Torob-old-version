@@ -79,7 +79,7 @@ const Header = () => {
                         </section>
                     </div>
                 </section>
-                </Modal>   
+            </Modal>   
                 
                 <section className="hidden sm:flex  gap-x-6 font-sans text-sm">
                         {
@@ -100,7 +100,7 @@ const Header = () => {
                                                                 <nav className="flex gap-x-4 ">
                                                                     <a className="hover:text-red-500 font-sans font-bold cursor-pointer " >{sub.name}</a>
                                                                 </nav>
-                                                                {sub.sub_categories.length > 0 && sub.sub_categories.map((sub_sub,index) => {
+                                                                {sub.sub_categories && sub.sub_categories.length > 0 && sub.sub_categories.map((sub_sub,index) => {
                                                                     return(
                                                                     <nav className="flex gap-x-4 mr-4 mt-2 text-gray-600" key={index}>
                                                                         <a className="hover:text-red-500 font-sans cursor-pointer" >{sub_sub.name}</a>
@@ -156,13 +156,13 @@ const Header = () => {
                                         </nav>
                                         <hr/>
                                         <div className="overflow-y-auto h-full overflow-x-auto">
-                                                {category.sub_categories.length > 0 && category.sub_categories.map((sub,index) => {
+                                                {category.sub_categories && category.sub_categories.length > 0 && category.sub_categories.map((sub,index) => {
                                                         return(
                                                             <div className="mt-4 overflow-x-auto pb-3" key={index}>
                                                                 <nav className="flex gap-x-4 ">
                                                                     <a className="hover:text-red-500 font-sans font-bold cursor-pointer " >{sub.name}</a>
                                                                 </nav>
-                                                                {sub.sub_categories.length > 0 && sub.sub_categories.map((sub_sub,index) => {
+                                                                {sub.sub_categories && sub.sub_categories.length > 0 && sub.sub_categories.map((sub_sub,index) => {
                                                                     return(
                                                                     <nav className="flex gap-x-4 mt-2 text-gray-600  whitespace-nowrap" key={index}>
                                                                         <a className="hover:text-red-500  cursor-pointer" >{sub_sub.name}</a>
