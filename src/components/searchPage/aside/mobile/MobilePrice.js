@@ -2,11 +2,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const MobilePrice = ({query , closeHandler}) => {
+const MobilePrice = ({closeHandler}) => {
     
     const router = useRouter()
-
-    const [isPriceTaggle, setIsPriceTaggle] = useState(true)
+    const {query} = useRouter()
     const [minPriceinput,setMinPriceinput] = useState(0)
     const [maxPriceinput,setMaxPriceinput] = useState(0)
 
@@ -36,8 +35,6 @@ const MobilePrice = ({query , closeHandler}) => {
                         <input dir="ltr" type="number" value={maxPriceinput} onChange={e => setMaxPriceinput(e.target.value)} className="border w-full border-gray-400 rounded-md"/>
                     </div>
                 </div>
-
-
 
                 <div className="bg-gray-100 flex gap-x-4 w-full h-auto absolute bottom-0 left-0 py-4 px-4">
 

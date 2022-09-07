@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
-const Price = ({query}) => {
-    
+const Price = () => {
+    const {query} = useRouter()
     const [isPriceTaggle, setIsPriceTaggle] = useState(true)
     const [minPriceinput,setMinPriceinput] = useState(0)
     const [maxPriceinput,setMaxPriceinput] = useState(0)

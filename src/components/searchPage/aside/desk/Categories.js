@@ -2,7 +2,8 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
-const Categories = ({similarCategories , categories , query}) => {
+const Categories = ({similarCategories , categories}) => {
+    const {query} = useRouter()
     const {category} = query
     const [isSuggestedCategories, setIsSuggestedCategories] = useState(true)
 
@@ -22,7 +23,6 @@ const Categories = ({similarCategories , categories , query}) => {
                     sub_subName : category,
                     text:"دسته های مشابه",
                     data : [{name : "زیر دسته ایی وجود ندارد" , status : false}]
-    
                 }
             }
              else if(similarCategories && similarCategories.sub_categories.name === name){
@@ -42,7 +42,6 @@ const Categories = ({similarCategories , categories , query}) => {
                     data :  similarCategories.sub_categories.sub_categories.sub_categories.length === 0 ? [{name : "زیر دسته ایی وجود ندارد" , status : false}] : similarCategories.sub_categories.sub_categories.sub_categories
                 }
             }
-
             const sub_sub_sub =  similarCategories.sub_categories.sub_categories.sub_categories  && similarCategories.sub_categories.sub_categories.sub_categories.find(e => e.name === category)
             if(sub_sub_sub){
                 return {
@@ -84,41 +83,40 @@ const Categories = ({similarCategories , categories , query}) => {
                         <Link key={index} href={{pathname: "/search",query: { ...query, category: category.name }}}>
                             <a className="hover:text-red-500  text-sm font-sans text-gray-700">{category.name}</a>
                         </Link>
-                        
                     );
                 }) : (
                     <div className="flex flex-col ">
                         {returnSubcategory(category).mainName && (
                             <Link href={{pathname : '/search' , query : {...query , category : returnSubcategory(category).mainName}}}>
-                                    <a className="flex items-center  gap-x-2 mr-2 pb-3"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-                                        </svg>
-                                        <p className="font-sans hover:text-red-500 text-sm ">{returnSubcategory(category).mainName}</p>
-                                    </a>
-                                </Link>
+                                <a className="flex items-center  gap-x-2 mr-2 pb-3"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                                    </svg>
+                                    <p className="font-sans hover:text-red-500 text-sm ">{returnSubcategory(category).mainName}</p>
+                                </a>
+                            </Link>
                         )}
                         {returnSubcategory(category).subName && (
-                                <Link href={{pathname : '/search' , query : {...query , category : returnSubcategory(category).subName}}}>
-                                    <a className="flex items-center  gap-x-2 mr-4 py-3"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-                                        </svg>
-                                        <p className="font-sans hover:text-red-500 text-sm ">{returnSubcategory(category).subName}</p>
-                                    </a>
-                                </Link>
+                            <Link href={{pathname : '/search' , query : {...query , category : returnSubcategory(category).subName}}}>
+                                <a className="flex items-center  gap-x-2 mr-4 py-3"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                                    </svg>
+                                    <p className="font-sans hover:text-red-500 text-sm ">{returnSubcategory(category).subName}</p>
+                                </a>
+                            </Link>
                         )}
                         {returnSubcategory(category).sub_subName && (
-                                <Link href={{pathname : '/search' , query : {...query , category : returnSubcategory(category).sub_subName}}}>
-                                    <a className="flex items-center  gap-x-2 mr-6 py-3"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-                                        </svg>
-                                        <p className="font-sans hover:text-red-500 text-sm ">{returnSubcategory(category).sub_subName}</p>
-                                    </a>
-                                </Link>
+                            <Link href={{pathname : '/search' , query : {...query , category : returnSubcategory(category).sub_subName}}}>
+                                <a className="flex items-center  gap-x-2 mr-6 py-3"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                                    </svg>
+                                    <p className="font-sans hover:text-red-500 text-sm ">{returnSubcategory(category).sub_subName}</p>
+                                </a>
+                            </Link>
                         )}
-                        {/* Maping On Data */}
+                        {/* //? Maping On Data */}
                         {returnSubcategory(category) !== null && returnSubcategory(category).data.map((category, index) => {
                             {if(category.status === false) return <p key={index} className=" mr-12 py-3  text-sm font-sans text-gray-700">{category.name}</p>};
                             return(
@@ -130,9 +128,7 @@ const Categories = ({similarCategories , categories , query}) => {
                     </div>
                 )}
             </nav>
-
         </section>
      );
 }
- 
 export default Categories;

@@ -2,7 +2,8 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
-const MobileCategories = ({similarCategories , categories , query , closeHandler}) => {
+const MobileCategories = ({similarCategories , categories, closeHandler}) => {
+    const {query} = useRouter()
     const {category} = query
     const [isSuggestedCategories, setIsSuggestedCategories] = useState(true)
 
