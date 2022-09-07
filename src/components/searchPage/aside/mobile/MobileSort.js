@@ -12,8 +12,8 @@ const MobileSort = ({closeHandler}) => {
         <div className="bg-white   w-full sm:w-2/5 fixed z-50 right-0 bottom-0 top-0  cursor-default">
             <div className="px-4 mt-6 flex w-full">
                 <button onClick={()=> closeHandler(false)}>
-                    <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
                 <h6 className="text-sm  text-center w-full font-sans">مرتب‌سازی</h6>
