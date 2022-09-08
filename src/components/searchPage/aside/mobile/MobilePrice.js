@@ -38,12 +38,12 @@ const MobilePrice = ({closeHandler}) => {
 
                 <div className="bg-gray-100 flex gap-x-4 w-full h-auto absolute bottom-0 left-0 py-4 px-4">
 
-                    <Link  href={{pathname : "/search" , query : {...query , priceMin :minPriceinput , priceMax  : maxPriceinput}}} >
+                    <Link  href={{pathname : "/search" , query : {...query , fromPrice :minPriceinput , toPrice  : maxPriceinput}}} >
                         <a className="bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md w-3/4 text-center" onClick={()=> closeHandler("")}>
                             اعمال فیلتر 
                         </a>
                     </Link>
-                    <button onClick={()=> {delete query.priceMin & delete query.priceMax &  router.push({pathname : "/search" , query : {...query}}) & closeHandler("") }}  className="w-1/4 border border-gray-700 rounded-md text-sm font-sans  py-3">حذف</button>
+                    <button onClick={()=> {delete query.fromPrice & delete query.toPrice &  router.push({pathname : "/search" , query : {...query}}) & closeHandler("") }}  className="w-1/4 border border-gray-700 rounded-md text-sm font-sans  py-3">حذف</button>
                 </div>
             </section>
         </div>
