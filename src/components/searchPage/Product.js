@@ -60,9 +60,9 @@ useEffect(()=>{
             {products.map((product,index) => {
 
                 return(
-                    <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
+                    <Link  key={index} href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
                         <a>
-                            <div key={index} className="bg-white rounded-md w-full h-auto min-w-[200px] px-4 flex flex-col items-center">
+                            <div className="bg-white rounded-md w-full h-auto min-w-[200px] px-4 flex flex-col items-center">
                                 <div className="w-24 lg:w-28 flex justify-center pt-4 ">
                                     <img src={product.image_url} className="w-full h-auto"/>
                                 </div>

@@ -207,7 +207,9 @@ const ProductPage = ({product}) => {
                                             </svg>
                                         </button>
                                     </div>
-                                    <a className='text-red-600  rounded-full  font-sans text-sm' href='/'>راهنمای خرید امن</a>
+                                    <Link  href='/'>
+                                        <a className='text-red-600  rounded-full  font-sans text-sm'>راهنمای خرید امن</a>
+                                    </Link>
                                 </section>
 
                                 {/* //? Store */}
@@ -419,12 +421,14 @@ const ProductPage = ({product}) => {
                                         </div>
                                     )
                                 })}
+
+
                                 <div className='w-full px-4'>
                                     <button onClick={() => setShowAllStore(!showAllStors)} className='mt-4 rounded-md font-sans text-sm bg-[#d73948] w-full py-3 text-white'> 
                                         {showAllStors ? "نمایش کمتر" :  `نمایش تمام ${toPersianDigits(product.sales.length)} فروشگاه `}
-
                                     </button>
                                 </div>
+
                             </div>
 
 
