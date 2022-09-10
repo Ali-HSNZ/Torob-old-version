@@ -1,0 +1,63 @@
+.gridParent{
+    display: grid;
+    grid-template-columns: minmax(0px, 1fr) 216px ;
+    grid-template-areas:
+    "product  product product"
+    "store  store   store"
+    "chart  chart  chart"
+    "properties  properties properties";
+}
+.product{
+    grid-area: product; 
+}
+.chart{
+    grid-area: chart; 
+}
+.store{
+    grid-area: store; 
+}
+.properties{
+    grid-area: properties; 
+}
+.properties_scroll::-webkit-scrollbar{
+    border-radius: 5px;
+    background-color: rgb(214, 214, 214);
+    width: 7px;
+}
+.properties_scroll::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background-color: rgb(158, 158, 158);
+    width: 7px;
+}
+@media (min-width: 750px) {
+    .gridParent {
+        
+        display: grid;
+        grid-template-columns: minmax(0px, 1fr) 416px ;
+        grid-template-areas:
+        "product   product"
+        "store      store"
+        "chart  chart"
+        " properties properties";
+    }
+  }
+  @media (min-width: 1024px) {
+    .gridParent {
+        display: grid;
+        grid-template-columns: minmax(0px, 1fr) 416px ;
+        grid-template-areas:
+        "product    product"
+        "store   properties"
+        "chart    properties";
+    }
+  }
+  @media (min-width: 1360px) {
+    .gridParent {
+        
+        display: grid;
+        grid-template-columns: 840px 416px;
+        grid-template-areas:
+        "product    chart"
+        "store  properties";
+    }
+  }
