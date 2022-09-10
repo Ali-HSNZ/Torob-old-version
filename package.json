@@ -9,30 +9,38 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@alireza-ab/persian-date": "^2.6.2",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@headlessui/react": "^1.6.6",
     "@mui/material": "^5.10.3",
     "@persian-tools/persian-tools": "^3.4.0",
     "axios": "^0.27.2",
+    "chart.js": "^3.9.1",
     "flowbite": "^1.5.2",
     "flowbite-react": "^0.1.10",
+    "iran-info": "^0.6.1",
     "next": "12.2.5",
     "nextjs-progressbar": "^0.0.14",
     "persian-number": "^1.5.1",
     "query-string": "^7.1.1",
     "react": "18.2.0",
+    "react-chartjs-2": "^4.3.1",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-iran-provinces-cities-select": "^1.0.4",
     "react-loading": "^2.0.3",
-    "styled-components": "^5.3.5"
+    "react-multi-carousel-18": "^2.8.1",
+    "styled-components": "^5.3.5",
+    "swiper": "^8.3.2"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "autoprefixer": "^10.4.8",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
+    "persian-date": "^0.3.1-b",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
   }
