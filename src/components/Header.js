@@ -56,8 +56,8 @@ const Header = () => {
                 onClose={()=>setIsModal(false)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                className="flex justify-center items-center px-4"
                 >
-                <section className="w-full absolute top-[50%] px-4 left-[50%] translate-y-[-50%]  translate-x-[-50%] sm:w-[500px] ">
                     <div className="bg-[#ffffff] rounded-md p-4">
                         <button className="flex w-fit justify-end float-left" onClick={()=> setIsModal(false)}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -83,7 +83,6 @@ const Header = () => {
 
                         </section>
                     </div>
-                </section>
             </Modal>   
                 
                 <section className="hidden sm:flex  gap-x-6 font-sans text-sm">
