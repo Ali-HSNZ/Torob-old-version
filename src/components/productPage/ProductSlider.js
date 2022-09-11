@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 export default function ProductSlider({models}) {
     const {query} = useRouter()
     return (
-            <Swiper tag="div"  wrapperTag="div" spaceBetween={20}
+            <Swiper tag="div"  wrapperTag="div" spaceBetween={20} loop={false}
                 className="mx-5" 
                 breakpoints= {{
                     0: {
