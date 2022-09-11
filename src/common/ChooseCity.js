@@ -52,9 +52,9 @@ const ChooseCity = ({isModal , setIsModal}) => {
                     {/* //? Tags */}
                     {selectedCity.length > 0 && (
                         <div className="whitespace-nowrap py-2 gap-x-2 overflow-x-auto flex text-white mt-4 px-4">                                
-                        {selectedCity.map(item => {
+                        {selectedCity.map((item,index) => {
                             return(
-                                <div onClick={()=>insertOrDeleteCity(item)} className="cursor-pointer flex px-3 py-2 rounded-full bg-gray-700 gap-x-3">
+                                <div key={index} onClick={()=>insertOrDeleteCity(item)} className="cursor-pointer flex px-3 py-2 rounded-full bg-gray-700 gap-x-3">
                                     <p className="font-sans text-xs">{item}</p>
                                     <svg  className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -89,9 +89,9 @@ const ChooseCity = ({isModal , setIsModal}) => {
                     <section className="mt-4 w-full max-h-[250px] overflow-auto">
                         {!currentCity ? (
                             <>
-                                {removeDuplicate('state').map(item => {
+                                {removeDuplicate('state').map((item,index) => {
                                     return(
-                                        <>
+                                        <div key={index}>
                                             <button onClick={() => setCurrentCity(item.state)} className="flex w-full justify-between items-center py-3 px-3 hover:bg-gray-100">
                                                 <span className="text-sm">{item.state}</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -99,7 +99,7 @@ const ChooseCity = ({isModal , setIsModal}) => {
                                                 </svg>
                                             </button>
                                             <hr/>
-                                        </>
+                                        </div>
                                     )
                                 })}
                             </>
@@ -107,7 +107,7 @@ const ChooseCity = ({isModal , setIsModal}) => {
                             <>
                                 {returnCity().map((item,index) => {
                                     return(
-                                        <div>
+                                        <div key={index}>
                                             <input id={`name_${index}`} onChange={()=>insertOrDeleteCity(item.city)}  className=" hidden" type={'checkbox'}/>
                                             <label htmlFor={`name_${index}`}   className={`${checkSelectedCity(item.city) ? "bg-gray-700 text-white " : "hover:bg-gray-100"} cursor-pointer peer-checked: flex justify-between items-center py-3 px-4 `}>
                                                 <div className="w-full flex justify-start items-center">
