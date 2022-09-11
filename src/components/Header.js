@@ -95,7 +95,7 @@ const Header = () => {
                                         
                                             <div className="bg-gray-50 pb-4">
                                                 <nav className="px-5 py-4">
-                                                    <Link href={{pathname : '/search' , query : {query:category.name}}}>
+                                                    <Link href={{pathname : '/search' , query : {category:category.name}}}>
                                                         <a className="hover:text-red-500 font-bold font-sans text-gray-700">{category.name}</a>
                                                     </Link>
                                                 </nav>
@@ -104,14 +104,14 @@ const Header = () => {
                                                         return(
                                                             <div className="mr-10 mt-4" key={index}>
                                                                 <nav className="flex gap-x-4 ">
-                                                                <Link href={{pathname : '/search' , query : {query:sub.name}}}>
+                                                                <Link href={{pathname : '/search' , query : {category:sub.name}}}>
                                                                     <a className="hover:text-red-500 font-sans font-bold cursor-pointer " >{sub.name}</a>
                                                                 </Link>
                                                                 </nav>
                                                                 {sub.sub_categories && sub.sub_categories.length > 0 && sub.sub_categories.map((sub_sub,index) => {
                                                                     return(
                                                                         <nav className="flex gap-x-4 mr-4 mt-2 text-gray-600" key={index}>
-                                                                            <Link href={{pathname : '/search' , query : {query:sub_sub.name}}}>
+                                                                            <Link href={{pathname : '/search' , query : {category:sub_sub.name}}}>
                                                                             <a className="hover:text-red-500 font-sans cursor-pointer" >{sub_sub.name}</a>
                                                                             </Link>
                                                                         </nav>
