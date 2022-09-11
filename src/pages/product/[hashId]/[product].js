@@ -11,12 +11,26 @@ import { useState } from 'react';
 import Styles from './grid.module.css'
 import { TbTruckDelivery } from "react-icons/tb";
 import { toPersianPrice } from '@/utils/toPersianPrice';
+import ChooseCity from '@/common/ChooseCity';
 
 
 const ProductPage = ({product}) => {
     const [isModal , setIsModal] = useState(false)
+    const [chooseCity_Modal , setChooseCity_Modal] = useState(false)
 
     const [showAllStors , setShowAllStore] = useState(false)
+
+    function timeDifference(time){
+        const date = new Date(time*1000)
+        const toPersianDate = date.toLocaleDateString("fa-IR")
+        const year = toPersianDate.split('/')[0]
+        const month = toPersianDate.split('/')[1]
+        const day = toPersianDate.split('/')[2]
+        const splitDate = toEnDigits(`${year}/${month}/${day}`)
+        let dateNow = new PersianDate(null)
+        return toPersianDigits(dateNow.diffForHumans( splitDate , false))
+    }
+
 
     let store;
     if(!showAllStors){
@@ -194,7 +208,7 @@ const ProductPage = ({product}) => {
                                 <section className='w-full flex peer  justify-between items-center mb-8 px-8'>
                                     <div className='flex flex-col md:flex-row gap-x-8 items-center'>
                                         <span className='font-sans font-bold'>فروشگاه های اینترنتی</span>
-                                        <button className='bg-gray-800 hover:bg-gray-700 rounded-full text-white font-sans px-2 mt-4 md:mt-0 py-1.5 flex text-sm items-center justify-center'>
+                                        <button onClick={()=> setChooseCity_Modal(true)}  className='bg-gray-800 hover:bg-gray-700 rounded-full text-white font-sans px-2 mt-4 md:mt-0 py-1.5 flex text-sm items-center justify-center'>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
@@ -206,6 +220,7 @@ const ProductPage = ({product}) => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                             </svg>
                                         </button>
+                                        <ChooseCity setIsModal={setChooseCity_Modal} isModal={chooseCity_Modal}/>
                                     </div>
                                     <Link  href='/'>
                                         <a className='text-red-600  rounded-full  font-sans text-sm'>راهنمای خرید امن</a>
@@ -215,16 +230,6 @@ const ProductPage = ({product}) => {
                                 {/* //? Store */}
 
                                 {store.map((shop,index) => {
-
-                                    const date = new Date(shop.shop.activity_time*1000)
-                                    const toPersianDate = date.toLocaleDateString("fa-IR")
-                                    const year = toPersianDate.split('/')[0]
-                                    const month = toPersianDate.split('/')[1]
-                                    const day = toPersianDate.split('/')[2]
-                                    const splitDate = toEnDigits(`${year}/${month}/${day}`)
-                                    let dateNow = new PersianDate(null)
-                                    const shopActivity = dateNow.diffForHumans( splitDate , false)
-
                                     return(
                                         <div  key={index}>
                                             <section className='  flex flex-col xl:flex-row justify-between mt-0 group py-4 px-3 md:px-8 hover:bg-gray-50'>
@@ -248,7 +253,7 @@ const ProductPage = ({product}) => {
                                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                                                                         </svg>
                                                                         {toPersianDigits(shop.shop.rate)}
-                                                                        <div className='mx-2'>(  {toPersianDigits(shopActivity)} در ترب)</div>
+                                                                        <div className='mx-2'>(  {timeDifference(shop.shop.activity_time)} در ترب)</div>
                                                                         <div className='peer-active:rotate-3'>
                                                                         <svg className="w-4 h-4 peer-active:bg-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -263,7 +268,7 @@ const ProductPage = ({product}) => {
                                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                                                                     </svg>
                                                                     <div className='font-sans mr-0.5 text-sm'>{toPersianDigits(shop.shop.rate)}</div>
-                                                                    <div className='mx-2 text-sm  font-sans'>( {toPersianDigits(shopActivity)}  در ترب)</div>
+                                                                    <div className='mx-2 text-sm  font-sans'>( {timeDifference(shop.shop.activity_time)}  در ترب)</div>
                                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                                     </svg>
@@ -422,7 +427,7 @@ const ProductPage = ({product}) => {
                                     )
                                 })}
 
-
+{/* last_update */}
                                 <div className='w-full px-4'>
                                     <button onClick={() => setShowAllStore(!showAllStors)} className='mt-4 rounded-md font-sans text-sm bg-[#d73948] w-full py-3 text-white'> 
                                         {showAllStors ? "نمایش کمتر" :  `نمایش تمام ${toPersianDigits(product.sales.length)} فروشگاه `}
