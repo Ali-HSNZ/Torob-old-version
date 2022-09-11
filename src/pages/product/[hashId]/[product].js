@@ -12,9 +12,23 @@ import Styles from './grid.module.css'
 import { TbTruckDelivery } from "react-icons/tb";
 import { toPersianPrice } from '@/utils/toPersianPrice';
 import ChooseCity from '@/common/ChooseCity';
+import Product from '@/components/searchPage/Product';
+import SuggestedProducts from '@/components/productPage/SuggestedProducts';
+import { useRouter } from 'next/router';
 
 
-const ProductPage = ({product}) => {
+
+
+
+
+
+
+const ProductPage = ({product , productSimilars}) => {
+    const {query} = useRouter()
+    const hashId = query
+    
+    console.log(product)
+
     const [isModal , setIsModal] = useState(false)
     const [chooseCity_Modal , setChooseCity_Modal] = useState(false)
 
@@ -42,9 +56,8 @@ const ProductPage = ({product}) => {
 
     return (  
         <Layout>
-    
 
-            <section className="w-full text-center px-2 md:px-8 flex justify-center">
+            <section className="w-full px-2 md:px-8 flex justify-center">
                 <div className='w-full max-w-7xl'>
                         {/* //? BreadCrump */}
                         <div className='flex whitespace-nowrap overflow-x-auto  pb-4'>
@@ -64,28 +77,25 @@ const ProductPage = ({product}) => {
                         <div className={`${Styles.gridParent} gap-4 mt-4 `}>
 
 
-
-
-
-
-
                             {/* //? Product */}
                             <article className={`${Styles.product} overflow-hidden bg-white flex flex-col lg:flex-row lg:justify-between w-full lg:flex p-5`}>
                                 {/* //! Image */}
-                                <div className="w-full lg:w-fit flex justify-center">
+                                <div className="mx-4  flex justify-center">
                                     <section className=''>
-                                        <img className='w-auto h-full' src={product.product.image_url}/>
+                                        <img className='w-auto h-full ' src={product.product.image_url}/>
                                     </section>
                                 </div>
 
                                 <section className=' md:pr-5 w-full flex flex-col justify-between mt-6 lg:mt-0 '>
                                     <p className='font-sans text-bold w-full text-right'>{product.product.title}</p>
                                     <p className='w-full text-right font-sans mt-6 text-red-600'>از {toPersianPrice(product.prices_range.min)} تومان تا {toPersianPrice(product.prices_range.max)} تومان</p>
-                                    <div className='mt-6 w-full'>
+                                    <div className='mt-6 max-w-[600px] 1360:max-w-[600px]'>
                                         <ProductSlider models={product.models}/>
                                     </div>
                                     <div className='w-full  mt-6 flex flex-col-reverse md:flex-row justify-between'>
-                                        <button className='whitespace-nowrap mt-4 md:mt-0 rounded-md py-3 md:py-2 px-4 font-bold  font-sans text-sm text-white bg-[#d73948]'>خرید از ارزان ترین فروشنده ریجستر شده</button>
+                                        <Link href={product.cheapest_shop_url}>
+                                            <a className='whitespace-nowrap mt-4 md:mt-0 rounded-md py-3 md:py-2 px-4 font-bold  font-sans text-sm text-white bg-[#d73948]'>خرید از ارزان ترین فروشنده ریجستر شده</a>
+                                        </Link>
                                         
                                         <div className='  flex justify-between w-full'>
 
@@ -126,38 +136,7 @@ const ProductPage = ({product}) => {
                                     </div>
                                 </section>
                             </article>
-                        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                      
 
                             {/* //? Chart */}
                             <div className={`${Styles.chart} bg-white  font-sans p-4 relative`}>
@@ -185,22 +164,6 @@ const ProductPage = ({product}) => {
                             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            
 
                             {/* //? Store */}
                             <div className={`${Styles.store}  bg-white py-5`}>
@@ -273,13 +236,13 @@ const ProductPage = ({product}) => {
                                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                                     </svg>
                                                                 </div>
-                                                                <div className='flex flex-col items-start mt-3 gap-y-2'>
-                                                                    <p className='font-sans text-xs'>حدود ۲۰۰۰ تا ۳۰۰۰ سفارش در ۹۰ روز اخیر فعالیت در ترب</p>
-                                                                    <p className='font-sans text-xs'>۴ کاربر از طریق ترب سفارش خود را پیگیری کرده اند.</p>
-                                                                    <div className='flex gap-x-3 py-2'>
+                                                                <div className='flex flex-col items-start mt-3 gap-y-2 pb-1'>
+                                                                    <p className='font-sans text-xs'>حدود {toPersianDigits(shop.shop.stats.orders.min)} تا {toPersianDigits(shop.shop.stats.orders.max)} سفارش در {toPersianDigits(90)} روز اخیر فعالیت در ترب</p>
+                                                                    <p className='font-sans text-xs'>{toPersianDigits(shop.shop.stats.trackings)} کاربر از طریق ترب سفارش خود را پیگیری کرده اند.</p>
+                                                                    {/* <div className='flex gap-x-3 py-2'>
                                                                         <button className='hover:bg-blue-100 rounded-md text-xs font-sans bg-white px-3 py-2 border border-blue-400'>پروفایل فروشگاه</button>
                                                                         <button className='hover:bg-blue-100 rounded-md text-xs font-sans bg-white px-3 py-2 border border-blue-400'>شیوه ارزیابی فروشگاه</button>
-                                                                    </div>
+                                                                    </div> */}
                                                                 </div>
                                                             </section>
                                                         </section>
@@ -296,46 +259,108 @@ const ProductPage = ({product}) => {
                                                     <section>
                                                         {/* //* Button */}
                                                         <input type={'checkbox'} id={`offer_id_${index}`} name='s' className=' peer hidden'/>
-                                                        <label  htmlFor={`offer_id_${index}`} className=' border hover:border-blue-700 cursor-pointer group-hover:bg-white bg-gray-50 rounded-full mt-3 flex w-fit gap-x-2 font-sans text-xs py-1 px-3'>
-                                                                    <div className='flex items-center gap-x-1'>
-                                                                        <TbTruckDelivery size={21} className="text-gray-500"/>
-                                                                        <p className='font-sans text-xs text-gray-700'>پرداخت در محل</p>
-                                                                    </div>
-                                                                    <div className='flex items-center gap-x-1'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
-                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-                                                                        </svg>
-                                                                        <p className='font-sans text-xs text-gray-700'>ارسال رایگان</p>
-                                                                    </div>
-                                                                    <div className='flex items-center gap-x-1'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
-                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                                                                        </svg>
-                                                                        <p className='font-sans text-xs text-gray-700'>تحویل فوری</p>
-                                                                    </div>
+                                                            {shop.shop.badges.length > 0 ? (
+                                                                <label  htmlFor={`offer_id_${index}`} className=' border hover:border-blue-700 cursor-pointer group-hover:bg-white bg-gray-50 rounded-full mt-3 flex w-fit gap-x-2 font-sans text-xs py-1 px-3'>
+                                                                    {/* //? تحویل فوری */}
+                                                                    {shop.shop.badges.map(badge => {
+                                                                        return(
+                                                                            <>
+                                                                                {badge.type === "instant_delivery" && (
+                                                                                    <div className='flex items-center gap-x-1'>
+                                                                                        <TbTruckDelivery size={21} className="text-gray-500"/>
+                                                                                        <p className='font-sans text-xs text-gray-700'>{badge.title}</p>
+                                                                                    </div>
+                                                                                )}
+                                                                            </>
+                                                                        )
+                                                                    })}
+
+                                                                    {/* //? پرداخت در محل */}
+                                                                    {shop.shop.badges.map(badge => {
+                                                                        return(
+                                                                            <>
+                                                                                {badge.type === "inplace_pay" && (
+                                                                                    <div className='flex items-center gap-x-1'>
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
+                                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                                                                                        </svg> 
+                                                                                        <p className='font-sans text-xs text-gray-700'>{badge.title}</p>
+                                                                                    </div>
+                                                                                )}
+                                                                            </>
+                                                                        )
+                                                                    })}
+
+                                                                    {/* //?  ارسال رایگان  */}
+                                                                    {shop.shop.badges.map(badge => {
+                                                                        return(
+                                                                            <>
+                                                                                {badge.type === "free_delivery" && (
+                                                                                    <div className='flex items-center gap-x-1'>
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
+                                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                                                                                        </svg>
+                                                                                        <p className='font-sans text-xs text-gray-700'>{badge.title}</p>
+                                                                                    </div>
+                                                                                )}
+                                                                            </>
+                                                                        )
+                                                                    })}
                                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                                     </svg>
-                                                        </label>
+                                                                </label>
+                                                            ) : (
+                                                                <label  htmlFor={`offer_id_${index}`} className=' border hover:border-blue-700 cursor-pointer group-hover:bg-white bg-gray-50 rounded-full mt-3 flex w-fit gap-x-2 font-sans text-xs py-1 px-3'>
+                                                                    روش های ارسال
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                    </svg>
+                                                                </label>
+                                                            )}
 
                                                         {/* //? Content */}
                                                         <div className={`peer-checked:flex bg-gray-50 group-hover:bg-white  hidden  mt-4  flex-col gap-y-2 p-3 rounded-md `}>
-                                                            <div className='flex items-center gap-x-1'>
-                                                                <TbTruckDelivery size={21} className="text-gray-500"/>
-                                                                <p className='font-sans text-xs text-gray-700'>امکان پرداخت در محل در تهران با هماهنگی</p>
-                                                            </div>
-                                                            <div className='flex items-center gap-x-1'>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-                                                                </svg>
-                                                                <p className='font-sans text-xs text-gray-700'>امکان ارسال رایگان برای خریدهای بالای ۳۰۰٫۰۰۰ تومان</p>
-                                                            </div>
-                                                            <div className='flex items-center gap-x-1'>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                                                                </svg>
-                                                                <p className='font-sans text-xs text-gray-700'>امکان تحویل در همان روز برای تهران با هماهنگی</p>
-                                                            </div>
+                                                            {shop.shop.advantage.map(advan => {
+                                                                return(
+                                                                    <>
+                                                                        {advan.type === "inplace_pay" && (
+                                                                            <div className='flex items-center gap-x-1'>
+                                                                                <TbTruckDelivery size={21} className="text-gray-500"/>
+                                                                                <p className='font-sans text-xs text-gray-700'>{toPersianDigits(advan.title)}</p>
+                                                                            </div>
+                                                                        )}
+                                                                    </>
+                                                                )
+                                                            })}
+                                                            {shop.shop.advantage.map(advan => {
+                                                                return(
+                                                                    <>
+                                                                        {advan.type === "free_delivery" && (
+                                                                            <div className='flex items-center gap-x-1'>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
+                                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                                                                                </svg>
+                                                                                <p className='font-sans text-xs text-gray-700'>{toPersianDigits(advan.title)}</p>
+                                                                            </div>
+                                                                        )}
+                                                                    </>
+                                                                )
+                                                            })}
+                                                            {shop.shop.advantage.map(advan => {
+                                                                return(
+                                                                    <>
+                                                                        {advan.type === "instant_delivery" && (
+                                                                            <div className='flex items-center gap-x-1'>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
+                                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                                                                                </svg>
+                                                                                <p className='font-sans text-xs text-gray-700'>{toPersianDigits(advan.title)}</p>
+                                                                            </div>
+                                                                        )}
+                                                                    </>
+                                                                )
+                                                            })}
                                                             <p className='font-sans font-bold text-xs'>روش های ارسال</p>
                                                             <section className='flex'>
                                                                 {shop.shop.delivery_methods.map((item,index) => {
@@ -344,9 +369,9 @@ const ProductPage = ({product}) => {
                                                                     )
                                                                 })}
                                                             </section>
-                                                            <div className='w-full flex flex-end'>
+                                                            {/* <div className='w-full flex flex-end'>
                                                                 <button className='mt-2 text-xs font-sans border px-3 py-2  rounded-md text-blue-600 border-blue-400'>پروفایل فروشگاه</button>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
 
                                                     </section>
@@ -417,7 +442,7 @@ const ProductPage = ({product}) => {
                                                     </div>
                                                     <div className='mt-5 flex flex-row justify-end xl:flex-col gap-y-1 text-left'>
                                                         <p className='whitespace-nowrap text-xs text-gray-600 font-sans'>آخرین تغییر قیمت فروشگاه : </p>
-                                                        <p  className='whitespace-nowrap text-xs text-gray-600 font-sans'>{toPersianDigits(6)} ساعت پیش</p>
+                                                        <p  className='whitespace-nowrap text-xs text-gray-600 font-sans'>{timeDifference(shop.offer.last_update)} پیش</p>
                                                     </div>
                                                 </div>
 
@@ -435,34 +460,6 @@ const ProductPage = ({product}) => {
                                 </div>
 
                             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                             {/* //? Properties */}
@@ -515,23 +512,32 @@ const ProductPage = ({product}) => {
 
 
 
-
                         {/* //?    <===   Main Content */}
                         </div>
                 </div>
             </section>
+
+
+            <section className="mt-4 w-full px-2 md:px-8 flex justify-center">
+                <div className='w-full max-w-7xl'>
+                        <p className='font-sans font-bold text-lg w-full text-center'>محصولات مشابه</p>
+                        {productSimilars.length > 0 &&<SuggestedProducts data={productSimilars} hashId={hashId}/>}
+                </div>
+            </section>
+            
         </Layout>
     );
 }
- 
 export default ProductPage;
 
 export const getServerSideProps = async({query}) => {
     const {hashId} = query
     const {data : product} = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId}`)).then(res => res.data)
+    const {data : productSimilars} = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId}/similars?perPage=9&page=1`)).then(res => res.data)
     return{
         props : {
             product,
+            productSimilars,
         }
     }
 }
