@@ -106,7 +106,7 @@ const Header = () => {
 
                     <form onSubmit={(e)=> {e.preventDefault() ; router.push({pathname : "/search" , query : {query : inputValue}})}} method='get' className="w-full hidden pr-6 md:flex md:justify-center lg:justify-start items-center">
                             <input className="w-1/2 py-3 sm:w-9/12 font-sans border lg:w-[420px] border-gray-300 px-4" value={inputValue} onChange={input => setInputValue(input.target.value)} placeholder="نام کالا را وارد کنید"/>
-                            <button className="bg-[#d73948] py-3 px-5 rounded-l-md">
+                            <button type={'submit'} className="bg-[#d73948] py-3 px-5 rounded-l-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                 </svg>
