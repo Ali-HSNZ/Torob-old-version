@@ -7,7 +7,7 @@ const MainTags = ({priceMax , priceMin}) => {
 
     return (
         <>
-            {query.query && (
+          
                  <section className="overflow-x-auto py-4 flex gap-x-4 flex-nowrap whitespace-nowrap">
                  {query.category && (
                      <div onClick={()=> {delete query.category ; router.push({pathname : "/search" , query : {...query}})}} className="bg-white text-xs font-sans rounded-full py-2 px-3 max-w-fit flex gap-x-3 cursor-pointer text-gray-700">
@@ -55,7 +55,7 @@ const MainTags = ({priceMax , priceMin}) => {
                      </div>
                  )}
              </section>
-            )}
+            
         </>
     );
 }
