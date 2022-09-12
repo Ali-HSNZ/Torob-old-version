@@ -119,14 +119,14 @@ const Header = () => {
                 </div>
 
             {/* //? Mobile Search Input For Mediom With =>  */}
-                <section className="w-full flex md:hidden px-4 md:px-8 mt-4 md:justify-center items-center">
+                <form onSubmit={(e)=> {e.preventDefault() ; router.push({pathname : "/search" , query : {query : inputValue}})}} method='get'  className="w-full flex md:hidden px-4 md:px-8 mt-4 md:justify-center items-center">
                             <input className="w-full py-2  font-sans border  border-gray-300 px-4" value={inputValue} onChange={input => setInputValue(input.target.value)} placeholder="نام کالا را وارد کنید"/>
                             <button className="bg-[#d73948] py-2 px-5 rounded-l-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                 </svg>
                             </button>
-                </section>
+                </form>
             
     
                 {/* //?  Menu For Windows  ==> */}
@@ -141,8 +141,8 @@ const Header = () => {
                                         
                                             <div className="bg-gray-50 pb-4">
                                                 <nav className="px-5 py-4">
-                                                    <Link href={{pathname : '/search' , query : {query:category.name}}}>
-                                                        <a className="hover:text-red-500 font-bold font-sans text-gray-700">{category.name}</a>
+                                                    <Link href={{pathname : '/search' , query : {category:category.name}}}>
+                                                        <a onClick={()=> closeCategory()} className="hover:text-red-500 font-bold font-sans text-gray-700">{category.name}</a>
                                                     </Link>
                                                 </nav>
                                                 <hr/>
@@ -150,15 +150,15 @@ const Header = () => {
                                                         return(
                                                             <div className="mr-10 mt-4" key={index}>
                                                                 <nav className="flex gap-x-4 ">
-                                                                <Link href={{pathname : '/search' , query : {query:sub.name}}}>
-                                                                    <a className="hover:text-red-500 font-sans font-bold cursor-pointer " >{sub.name}</a>
+                                                                <Link href={{pathname : '/search' , query : {category:sub.name}}}>
+                                                                    <a onClick={()=> closeCategory()} className="hover:text-red-500 font-sans font-bold cursor-pointer " >{sub.name}</a>
                                                                 </Link>
                                                                 </nav>
                                                                 {sub.sub_categories && sub.sub_categories.length > 0 && sub.sub_categories.map((sub_sub,index) => {
                                                                     return(
                                                                         <nav className="flex gap-x-4 mr-4 mt-2 text-gray-600" key={index}>
-                                                                            <Link href={{pathname : '/search' , query : {query:sub_sub.name}}}>
-                                                                            <a className="hover:text-red-500 font-sans cursor-pointer" >{sub_sub.name}</a>
+                                                                            <Link href={{pathname : '/search' , query : {category:sub_sub.name}}}>
+                                                                            <a onClick={()=> closeCategory()} className="hover:text-red-500 font-sans cursor-pointer" >{sub_sub.name}</a>
                                                                             </Link>
                                                                         </nav>
                                                                     )
