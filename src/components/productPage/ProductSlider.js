@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { toPersianPrice } from "@/utils/toPersianPrice";
 
 export default function ProductSlider({models}) {
     const {query} = useRouter()
@@ -35,7 +36,7 @@ export default function ProductSlider({models}) {
                                    <Link href={`/product/${model.hash_id}/${model.title}`}>
                                         <a className="py-2 ">
                                             <p className="font-sans font-bold text-xs px-2 w-full">{model.model_trait} </p>
-                                            <p className="font-sans text-xs px-2 w-full">از {model.price_start} تومان</p>
+                                            <p className="font-sans mt-1 text-xs px-2 w-full">از {toPersianPrice(model.price_start)} تومان</p>
                                         </a>
                                    </Link>
                             </SwiperSlide>  
