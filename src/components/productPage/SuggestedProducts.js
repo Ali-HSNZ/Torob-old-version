@@ -26,7 +26,6 @@ useEffect(()=>{
     const getMorePost = async () => {
         setPageCount(pageCount+1)
         const {data : productSimilars} = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId}/similars?perPage=9&page=${pageCount}`)).then(res => res.data)
-        console.log("productSimilars : ",productSimilars)
         productSimilars.length < 9 && setIsProducts(false)
         setProducts(product => [...product, ...productSimilars]);
     };
