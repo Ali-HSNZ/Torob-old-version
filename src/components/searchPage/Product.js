@@ -5,6 +5,7 @@ import Styles from './product.module.css'
 import ReactLoading from 'react-loading';
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { toPersianPrice } from "@/utils/toPersianPrice";
 
 const Product = ({ data}) => {
   const [products, setProducts] = useState(data);
@@ -62,7 +63,7 @@ useEffect(()=>{
                 return(
                     <Link  key={index} href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
                         <a>
-                            <div className="bg-white rounded-md w-full h-auto min-w-[200px] px-4 flex flex-col items-center">
+                            <div className="bg-white rounded-md w-full h-full min-w-[200px] px-4 flex flex-col items-center">
                                 <div className="w-24 lg:w-28 flex justify-center pt-4 ">
                                     <img src={product.image_url} className="w-full h-auto"/>
                                 </div>
@@ -70,7 +71,7 @@ useEffect(()=>{
                                 <h3 className="font-sans text-sm text-right w-full mt-5">{product.title}</h3>
                             
                                 <div className=" flex flex-col justify-end w-full mt-5 flex-1 gap-y-2">
-                                    <h6 className={`font-sans text-sm  ${product.price_start===0 ? "text-red-600" : "text-gray-700"}`}>{product.price_start === 0 ? "ناموجود" :  toPersianDigits(product.price_start)+" تومان " }</h6>
+                                    <h6 className={`font-sans text-sm  ${product.price_start===0 ? "text-red-600" : "text-gray-700"}`}>{product.price_start === 0 ? "ناموجود" :  toPersianPrice(product.price_start)+" تومان " }</h6>
                                     <h6 className="font-sans text-sm text-gray-500">در {toPersianDigits(product.shops_count)} فروشگاه</h6>
                                 </div>
                                 <div className="flex my-4 justify-between w-full px-9">
