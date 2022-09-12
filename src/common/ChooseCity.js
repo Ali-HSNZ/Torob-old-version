@@ -2,11 +2,12 @@ import { allCities } from "@/common/cities";
 import {Modal } from "@mui/material";
 import { useState } from "react";
 
-const ChooseCity = ({isModal , setIsModal}) => {
+const ChooseCity = ({isModal , setIsModal , setSelectedCities , setCityStore}) => {
     const [currentCity , setCurrentCity] = useState("")
-    const [selectedCity , setSelectedCity] = useState([])
     const [inputValue , setInputValue] = useState('')
+    const [selectedCity , setSelectedCity] = useState([])
 
+    
 
     function removeDuplicate(key) {
         let check = new Set();
@@ -127,8 +128,8 @@ const ChooseCity = ({isModal , setIsModal}) => {
                     </section>
                     {/* //? Submit */}
                     <section className="py-3 flex gap-x-4 px-4">
-                        <button className={`py-2.5 w-3/4 ${selectedCity.length > 0 ? "bg-gray-700 text-white" : " border-gray-600 bg-gray-500 text-white"} border rounded-md text-sm `}>تایید</button>
-                        <button onClick={()=> setIsModal(false)} className={`py-2.5 w-1/4 bg-gray-100 border border-gray-300 rounded-md text-sm `}>انصراف</button>
+                        <button onClick={()=> {setSelectedCities(selectedCity) & setIsModal(false)}} className={`py-2.5 w-3/4 ${selectedCity.length > 0 ? "bg-gray-700 text-white" : " border-gray-600 bg-gray-500 text-white"} border rounded-md text-sm `}>تایید</button>
+                        <button onClick={()=>{ setIsModal(false) & setSelectedCities(null) & setCityStore([])}} className={`py-2.5 w-1/4 bg-gray-100 border border-gray-300 rounded-md text-sm `}>لغو</button>
                     </section>
                 </div>
             </Modal>
