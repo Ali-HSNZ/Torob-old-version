@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 const BreadCrumpAndSort = ({category , similarCategories}) => {
 
-    const [currentFilter,setCurrentFilter] = useState("محبوب ترین")
+    const [currentFilter,setCurrentFilter] = useState("جدید ترین")
 
     const router = useRouter()
     const {query} = useRouter()
