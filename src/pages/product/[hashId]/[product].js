@@ -196,7 +196,7 @@ const ProductPage = ({product , productSimilars}) => {
                                             <div className='w-full flex justify-start '>
                                                 <div className='flex flex-col  lg:flex-row'>
                                                     <h4 className='font-sans text-lg font-bold'>فروشگاه‌های اینترنتی در شهر</h4>
-                                                    <button onClick={()=> setChooseCity_Modal(true)}  className=' lg:mt-0 lg:mr-6 bg-gray-800 hover:bg-gray-700 rounded-full text-white font-sans px-2 mt-4  py-1.5 flex text-sm items-center justify-center'>
+                                                    <button onClick={()=> setChooseCity_Modal(true)}  className=' lg:mt-0 lg:mr-6 bg-gray-800 hover:bg-gray-700 rounded-full text-white font-sans px-2 mt-4  py-1.5 flex text-sm items-center justify-between'>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
@@ -204,8 +204,8 @@ const ProductPage = ({product , productSimilars}) => {
         
                                                         <p className='mx-2 '>{citiesNameHandler()}</p>
         
-                                                        <svg xmlns="http://www.w3.org/2000/svg"  className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                                         </svg>
                                                     </button>
                                                 </div>
