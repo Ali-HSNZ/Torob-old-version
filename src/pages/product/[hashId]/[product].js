@@ -21,6 +21,15 @@ import { useEffect } from 'react';
 
 const ProductPage = ({product , productSimilars}) => {
 
+    const citiesNameHandler = () => {
+        if(selectedCities.length === 1){
+            return selectedCities[0]
+        }else if(selectedCities.length > 1){
+            return selectedCities[0] + " و " +  toPersianDigits(selectedCities.length -1)  +  " شهر دیگر "
+        }
+        return "انتخاب شهر"
+    }
+
     const {query} = useRouter()
     const hashId = query
     const [selectedCities,setSelectedCities] = useState([])
@@ -184,7 +193,7 @@ const ProductPage = ({product , productSimilars}) => {
                                 {/* //? Header */}
                                 
                                 {selectedCities && selectedCities.length > 0 && (
-                                    <div className='w-full bg-white flex mb-8 flex-col '>
+                                    <div className='w-full bg-white flex mb-6 flex-col '>
                                         <div className='py-5 mb-5  flex flex-row  whitespace-nowrap justify-between px-4 md:px-8'>
                                             <div className='w-full flex justify-start '>
                                                 <div className='flex flex-col  lg:flex-row'>
@@ -195,7 +204,7 @@ const ProductPage = ({product , productSimilars}) => {
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                                                         </svg>
         
-                                                        <p className='mx-2 '>{selectedCities && selectedCities.length > 0 ? selectedCities[0] +" و " + selectedCities.length + " شهر دیگر " : "انتخاب شهر"}</p>
+                                                        <p className='mx-2 '>{citiesNameHandler()}</p>
         
                                                         <svg xmlns="http://www.w3.org/2000/svg"  className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
