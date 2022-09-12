@@ -18,12 +18,7 @@ const SearchQuery = ({categories , similarCategories , brands , mainSearch}) => 
 
     const [isFilterTaggle , setIsFilterTaggle] = useState(false)    
 
-    
-
     const {query} = useRouter()
-    const router = useRouter()
-
-
     const {category , priceMin , priceMax} = query
     return (  
                 <Layout>

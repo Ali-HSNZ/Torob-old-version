@@ -9,7 +9,7 @@ const notFoundPage = () => {
                 <h1 className="error-text mt-5 font-sans text-2xl font-bold">صفحه مورد نظر یافت نشد</h1>
                 <p className="text font-sans mt-4  font-bold">لطفا بررسی کنید که آدرس سایت به درستی نوشته شده باشد. </p>
                 <Link href="/">
-                    <a class="error block font-sans mt-4 font-bold text-red-600" > به فروشگاه بازگردید </a>
+                    <a className="error block font-sans mt-4 font-bold text-red-600" > به فروشگاه بازگردید </a>
                 </Link>
 
             </div>
