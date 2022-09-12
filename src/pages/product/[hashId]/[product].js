@@ -50,7 +50,8 @@ const ProductPage = ({product , productSimilars}) => {
     useEffect( ()=>{
         const getData = async () => {
             const {data : resualt} = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId.hashId}/sales?cities=${CitiesToText}`)).then(res => res.data)
-            setCityStore(resualt)
+             console.log(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId.hashId}/sales?cities=${CitiesToText}`))
+            setCityStore(resualt.filtered)
         }
         getData()
     },[selectedCities])
@@ -208,9 +209,9 @@ const ProductPage = ({product , productSimilars}) => {
     
     
                                         <div className='w-full'>
-                                            {selectedCities && selectedCities.length > 0 ? (
+                                            {cityStore && cityStore.length > 0 ? (
                                                 <>
-                                                    {store.map((shop,index) => {
+                                                    {cityStore.map((shop,index) => {
                                                         return(
                                                             <div  key={index}>
                                                                 <section className='  flex flex-col xl:flex-row justify-between mt-0 group py-4 px-3 md:px-8 hover:bg-gray-50'>
@@ -417,7 +418,11 @@ const ProductPage = ({product , productSimilars}) => {
                                                         )
                                                     })}
                                                 </>
-                                            ) : <></>}
+                                            ) : (
+                                                <div className='mb-4 w-full flex justify-center'>
+                                                    <p className='text-center font-sans  px-4 py-2 rounded-md text-sm bg-[#FFEEBF] text-[#85660E]'  >فروشگاهی با این شرایط پیدا نشد.</p>
+                                                </div>
+                                            )}
                                         </div>
                                 
                                 
