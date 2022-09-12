@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import axios from "axios";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 import Brands from "@/components/searchPage/aside/desk/Brands";
 import Categories from "@/components/searchPage/aside/desk/Categories";
@@ -11,12 +11,19 @@ import Product from "@/components/searchPage/Product";
 import MainMenu from "@/components/searchPage/main/Menu";
 import BreadCrumpAndSort from "@/components/searchPage/main/BreadCrumpAndSort";
 import MainTags from "@/components/searchPage/main/Tags";
+import { useEffect } from "react";
 
 const SearchQuery = ({categories , similarCategories , brands , mainSearch}) => {
 
+
     const [isFilterTaggle , setIsFilterTaggle] = useState(false)    
 
+    
+
     const {query} = useRouter()
+    const router = useRouter()
+
+
     const {category , priceMin , priceMax} = query
     return (  
                 <Layout>
@@ -53,6 +60,13 @@ const SearchQuery = ({categories , similarCategories , brands , mainSearch}) => 
 export default SearchQuery;
 
 export  async function getServerSideProps({query}) {
+
+    if(!query.category && !query.brand && !query.query){
+        return {
+            notFound : true,
+        };
+    }
+
     const {
         query : productName, 
         fromPrice, 
@@ -63,17 +77,22 @@ export  async function getServerSideProps({query}) {
         brand
     } = query;
 
-    const {data : categories} = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/search?q=${productName}`)).then(res => res.data)
-    const brands  = category &&  await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/categories/${category}/brands`)).then(res => res.data)
+
+    const categories =  await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/search?q=${productName}`)).then(res => res.data)
+    const brands  =  category &&  await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/categories/${category}/brands`)).then(res => res.data)
     const similarCategories  = category &&  await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/categories/${category}/sub`)).then(res => res.data)
-    const mainSearch = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/search?${productName?"&q="+productName:""}&perPage=10&page=1${brand ? "&brand="+brand : ""}${available ? "&available="+brand : ""}${category ? "&category="+category : ""}${sort ? `&sort=${sort}` : "" }${fromPrice ? "&fromPrice="+fromPrice : ""}${toPrice ? "&toPrice="+toPrice : ""}`))
+    const mainSearch =  await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/search?${productName?"&q="+productName:""}&perPage=10&page=1${brand ? "&brand="+brand : ""}${available ? "&available="+brand : ""}${category ? "&category="+category : ""}${sort ? `&sort=${sort}` : "" }${fromPrice ? "&fromPrice="+fromPrice : ""}${toPrice ? "&toPrice="+toPrice : ""}`))
+
+
 
     return {
-      props: {
-        categories : categories ? categories : null,
-        brands : brands ? brands.data : null,
-        similarCategories : similarCategories ? similarCategories.data : null ,
-        mainSearch : mainSearch ? mainSearch.data : null  
-      }
+        
+        props: {
+            categories : categories ? categories.data : null,
+            brands : brands ? brands.data : null,
+            similarCategories : similarCategories ? similarCategories.data : null ,
+            mainSearch : mainSearch ? mainSearch.data : null  
+        }
+        
     }
   }
