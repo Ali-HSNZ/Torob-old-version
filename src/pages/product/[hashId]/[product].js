@@ -235,8 +235,8 @@ const ProductPage = ({product , productSimilars}) => {
             
                                                                             <section className=''>
                                                                             {/* //?button */}
-                                                                                <input type={'checkbox'} id={`shop_id_${index}`} name='s' className=' peer hidden'/>
-                                                                                <label htmlFor={`shop_id_${index}`}  className='whitespace-nowrap mt-4 xl:mt-0 cursor-pointer w-fit border hover:border-blue-700 bg-[#DAF2D5] font-sans text-green py-1 px-3 rounded-full text-xs items-center flex justify-between'>
+                                                                                <input type={'checkbox'} id={`cityStore_shop_id_${index}`} name='s' className=' peer hidden'/>
+                                                                                <label htmlFor={`cityStore_shop_id_${index}`}  className='whitespace-nowrap mt-4 xl:mt-0 cursor-pointer w-fit border hover:border-blue-700 bg-[#DAF2D5] font-sans text-green py-1 px-3 rounded-full text-xs items-center flex justify-between'>
             
                                                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="#025c17" viewBox="0 0 24 24" strokeWidth={0} stroke="currentColor" className="w-3 h-3">
                                                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
@@ -284,9 +284,9 @@ const ProductPage = ({product , productSimilars}) => {
             
                                                                         <section>
                                                                             {/* //* Button */}
-                                                                            <input type={'checkbox'} id={`offer_id_${index}`} name='s' className=' peer hidden'/>
+                                                                            <input type={'checkbox'} id={`cityStore_offer_id_${index}`} name='s' className=' peer hidden'/>
                                                                                 {shop.shop.badges.length > 0 ? (
-                                                                                    <label  htmlFor={`offer_id_${index}`} className=' border hover:border-blue-700 cursor-pointer group-hover:bg-white bg-gray-50 rounded-full mt-3 flex w-fit gap-x-2 font-sans text-xs py-1 px-3'>
+                                                                                    <label  htmlFor={`cityStore_offer_id_${index}`} className=' border hover:border-blue-700 cursor-pointer group-hover:bg-white bg-gray-50 rounded-full mt-3 flex w-fit gap-x-2 font-sans text-xs py-1 px-3'>
                                                                                         {/* //? تحویل فوری */}
                                                                                         {shop.shop.badges.map(badge => {
                                                                                             return(
