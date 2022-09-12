@@ -102,10 +102,8 @@ const ProductPage = ({product , productSimilars}) => {
                             {/* //? Product */}
                             <article className={`${Styles.product} overflow-hidden bg-white flex flex-col lg:flex-row lg:justify-between w-full lg:flex p-5`}>
                                 {/* //! Image */}
-                                <div className="mx-4  flex justify-center">
-                                    <section className=''>
-                                        <img className='w-auto h-full ' src={product.product.image_url}/>
-                                    </section>
+                                <div className=" flex justify-center items-center">
+                                        <img className='w-auto h-auto ' src={product.product.image_url}/>
                                 </div>
 
                                 <section className=' md:pr-5 w-full flex flex-col justify-between mt-6 lg:mt-0 '>
