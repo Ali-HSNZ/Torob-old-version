@@ -21,6 +21,7 @@ import { useEffect } from 'react';
 
 const ProductPage = ({product , productSimilars}) => {
 
+
     const citiesNameHandler = () => {
         if(selectedCities.length === 1){
             return selectedCities[0]
@@ -59,13 +60,11 @@ const ProductPage = ({product , productSimilars}) => {
     useEffect( ()=>{
         const getData = async () => {
             const {data : resualt} = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId.hashId}/sales?cities=${CitiesToText}`)).then(res => res.data)
-             console.log(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId.hashId}/sales?cities=${CitiesToText}`))
+           
             setCityStore(resualt.filtered)
         }
         getData()
     },[selectedCities])
-
-    console.log("cityStore : ",cityStore)
 
 
     let store;
@@ -87,11 +86,12 @@ const ProductPage = ({product , productSimilars}) => {
                                         <a className='hover:text-red-500 before:hover:text-gray-500 cursor-pointer mt-4 before:content-["›"] before:px-2 first:before:content-none text-xs text-gray-500 font-sans'>ترب</a>
                                 </Link>                    
                                 {product.path.map((path,index) => {
-                                return(
-                                    <Link key={index} href={{pathname : "/search" , query : {category : path}}}>
-                                        <a className='hover:text-red-500 before:hover:text-gray-500 cursor-pointer mt-4 before:content-["›"] before:px-2 first:before:content-none text-xs text-gray-500 font-sans'>{path}</a>
-                                    </Link>
-                                )
+                                    const newPath = path.type === 'brand' ? {category : path.category , brand : path.brand} : {category : path.title}
+                                    return(
+                                        <Link key={index} href={{pathname : "/search" , query : newPath}}>
+                                            <a className='hover:text-red-500 before:hover:text-gray-500 cursor-pointer mt-4 before:content-["›"] before:px-2 first:before:content-none text-xs text-gray-500 font-sans'>{path.title}</a>
+                                        </Link>
+                                    )
                             })}
                         </div>
 
@@ -682,10 +682,10 @@ const ProductPage = ({product , productSimilars}) => {
 
 
                             {/* //? Properties */}
-                            <div className={`${Styles.properties}  bg-white px-5 py-5`}>
+                            <div className={`${Styles.properties}  bg-white max-h-[1200px] px-5 py-5`}>
                                 <p className='font-sans font-bold pb-3 text-right text-[18px]'>مشخصات {product.product.title}</p>
                                 
-                                <div className={`${Styles.properties_scroll}  overflow-y-auto max-h-[700px]`}>
+                                <div className={`${Styles.properties_scroll}  overflow-y-auto max-h-[1200px]`}>
                                     <div className={` mt-4 w-full text-right`}>
                                         <p className=' font-sans font-bold '>مشخصات کلی</p>
                                         <hr className='mt-2'/>
