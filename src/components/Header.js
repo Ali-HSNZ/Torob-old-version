@@ -1,8 +1,12 @@
+import { toPersianDigits } from "@/utils/toPersianDigits";
 import {Modal } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useAuth } from "../contexts/Auth";
+import Login from "./Login";
+import VerifyUser from "./VerifyUser";
 const Header = () => {
     
     const [data , setData] = useState(null)
@@ -13,15 +17,15 @@ const Header = () => {
     const [currentCategory , setCurrentCategory] = useState("")
 
     useEffect(()=> {
-        const getData = async() => {
-            const {data} = await axios.get('https://project-torob-clone.iran.liara.run/api/categories').then(res => res.data)
+        const getData = async () => {
+            const {data} =await axios.get('https://project-torob-clone.iran.liara.run/api/categories').then(res => res.data)
             setData(data)
         }
         getData()
     },[])
 
     const  closeCategory = () => {
-        const allData = [...data]
+        const allData = data && data.length > 0 ? [...data] : []
         allData.forEach(category => {
             category.status = false;
         });
@@ -41,8 +45,8 @@ const Header = () => {
         setIsOpen(true)
     }
 
-
-
+    const user = useAuth()
+    console.log("User : " ,user )
 
     return (  
         <>
@@ -50,46 +54,27 @@ const Header = () => {
             <div onClick={()=>{closeCategory() } } className={`fixed ${isOpen? "" : "hidden"}  inset-0  h-full w-full z-10`}></div>
     
             <header className="flex relative  justify-between md:px-10  px-4 py-2 bg-gray-50 items-center z-10">
-                
-            <Modal
-                open={isModal}
-                onClose={()=>setIsModal(false)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                className="flex justify-center items-center px-4"
-                >
-                    <div className="bg-[#ffffff] rounded-md p-4">
-                        <button className="flex w-fit justify-end float-left" onClick={()=> setIsModal(false)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                        <hr className="mt-8 border border-gray-200"/>
-                        <div className="mt-[-15px] font-sans w-full flex justify-center">
-                            <span className="bg-white px-3 text-gray-600 text-sm">ورود یا ثبت نام</span>
-                        </div>
-                        <section className="mt-4 px-10">
-                            <p className="font-sans text-sm font-bold  ">شماره موبایل</p>
-                            <input dir="ltr" className="w-full mt-3 font-sans  py-2 bg-gray-50 text-sm p-4  rounded-md border border-gray-300 outline-none"/>
-                            <div className="w-full flex justify-center items-center mt-6 ">
-                                <button className="w-10/12 py-1.5 text-gray-200 rounded-md font-sans bg-red-700 text-sm">دریافت کد تایید</button>
-                            </div>
-                            <p className="text-xs w-full font-sans mt-4">
-                                <span>ثبت نام در ترب به معنی موافقت</span>
-                                <span className="text-blue-700"> با شرایط استفاده از ترب</span>
-                                <span> است. </span> 
-                            </p>
-                            <p className="text-xs text-center pb-4 w-full font-sans mt-4 text-blue-700">قبلا در ترب حساب کاربری داشتم</p>
 
-                        </section>
-                    </div>
-            </Modal>   
+                {user.data && user.data.phone_number ? <></> : (
+                                <Modal
+                                open={isModal}
+                                onClose={()=>setIsModal(false)}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                                className="flex justify-center items-center px-4"
+                                >
+                                    <>
+                                        <Login setIsModal={setIsModal}/>
+                                    </>
+                            </Modal>   
+                )}
                 
                 <section className="hidden sm:flex  gap-x-6 font-sans text-sm">
                         {
                             data&&data.map((category,index) => {
                                 return(
                                     <nav className="flex gap-x-4 " key={index}>
+                                        
                                         <button  className="hover:text-red-500  cursor-pointer font-sans text-gray-500" onClick={()=> handleCategory(category.id) & setIsModal(false)}>{category.name}</button>
                                         <div className={`${category.status ? "" : "hidden"} z-40 absolute mx-10 right-0 left-0 rounded-md top-14`}>
                                         
@@ -137,7 +122,11 @@ const Header = () => {
                 </section>
 
                 <section className="w-full sm:w-fit flex justify-end">
-                    <button onClick={()=>closeCategory() & setIsModal(true)  } className="bg-white px-4 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500" >ورود / ثبت نام</button> 
+                    {user.data && user.data.phone_number ? (
+                        <button onClick={()=>closeCategory()} className="bg-white px-4 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500" >{user.data.phone_number}</button> 
+                    ) : (
+                        <button onClick={()=>closeCategory() & setIsModal(true)} className="bg-white px-4 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500" >ورود / ثبت نام</button> 
+                    )}
                 </section>
             </header>
 
