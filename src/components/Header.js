@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/Auth";
 import Login from "./Login";
-import VerifyUser from "./VerifyUser";
 const Header = () => {
     
     const [data , setData] = useState(null)
