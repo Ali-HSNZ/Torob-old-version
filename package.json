@@ -19,6 +19,7 @@
     "chart.js": "^3.9.1",
     "flowbite": "^1.5.2",
     "flowbite-react": "^0.1.10",
+    "formik": "^2.2.9",
     "iran-info": "^0.6.1",
     "next": "12.2.5",
     "nextjs-progressbar": "^0.0.14",
@@ -27,13 +28,16 @@
     "react": "18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.3.0",
     "react-icons": "^4.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-iran-provinces-cities-select": "^1.0.4",
     "react-loading": "^2.0.3",
     "react-multi-carousel-18": "^2.8.1",
     "styled-components": "^5.3.5",
-    "swiper": "^8.3.2"
+    "swiper": "^8.3.2",
+    "use-reducer-async": "^2.1.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
