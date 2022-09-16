@@ -15,7 +15,7 @@ const Store = ({product}) => {
     const {hashId} = query
 
     const [selectedCities,setSelectedCities] = useState([])
-    const [chooseCity_Modal , setChooseCity_Modal] = useState(true)
+    const [chooseCity_Modal , setChooseCity_Modal] = useState(false)
     const [showAllStors , setShowAllStore] = useState(false)
     const [cityStore,setCityStore] = useState(null)
 
