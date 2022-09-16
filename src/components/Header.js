@@ -46,7 +46,6 @@ const Header = () => {
     }
 
     const user = useAuth()
-    console.log("User : " ,user )
 
     return (  
         <>
@@ -123,7 +122,7 @@ const Header = () => {
 
                 <section className="w-full sm:w-fit flex justify-end">
                     {user.data && user.data.phone_number ? (
-                        <button onClick={()=>closeCategory()} className="bg-white px-4 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500" >{user.data.phone_number}</button> 
+                        <button onClick={()=>closeCategory()} className="bg-white px-4 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500" >{toPersianDigits(user.data.phone_number)}</button> 
                     ) : (
                         <button onClick={()=>closeCategory() & setIsModal(true)} className="bg-white px-4 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500" >ورود / ثبت نام</button> 
                     )}
