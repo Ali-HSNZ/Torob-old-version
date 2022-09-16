@@ -1,8 +1,12 @@
+import Login from "@/components/Login";
+import VerifyUser from "@/components/VerifyUser";
+import { toPersianDigits } from "@/utils/toPersianDigits";
 import { Modal } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useAuth } from "../contexts/Auth";
 
 const Header = () => {
     const [data,setData] = useState(null)
@@ -10,11 +14,13 @@ const Header = () => {
     const [isModal , setIsModal] = useState(false)
     const router = useRouter()
     const  {query} = useRouter()
+
+    const user = useAuth()
     
     const [inputValue , setInputValue] = useState(query.query)
     
     const  closeCategory = () => {
-        const allData = [...data]
+        const allData = data && data.length > 0 ? [...data] : []
         allData.forEach(category => {
             category.status = false;
         });
@@ -49,40 +55,19 @@ const Header = () => {
             <section className=" py-4 bg-gray-50">
                 <div onClick={()=>{closeCategory() } } className={`fixed ${isOpen? "" : "hidden"}  inset-0 mt-36  h-full w-full z-10`}></div>
 
-                <Modal
-                open={isModal}
-                onClose={()=>setIsModal(false)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                >
-                <section className="w-full absolute top-[50%] px-4 left-[50%] translate-y-[-50%]  translate-x-[-50%] sm:w-[500px] ">
-                    <div className="bg-[#ffffff] rounded-md p-4">
-                        <button className="flex w-fit justify-end float-left" onClick={()=> setIsModal(false)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                        <hr className="mt-8 border border-gray-200"/>
-                        <div className="mt-[-15px] font-sans w-full flex justify-center">
-                            <span className="bg-white px-3 text-gray-600 text-sm">ورود یا ثبت نام</span>
-                        </div>
-                        <section className="mt-4 px-10">
-                            <p className="font-sans text-sm font-bold  ">شماره موبایل</p>
-                            <input dir="ltr" className="w-full mt-3 font-sans  py-2 bg-gray-50 text-sm p-4  rounded-md border border-gray-300 outline-none"/>
-                            <div className="w-full flex justify-center items-center mt-6 ">
-                                <button className="w-10/12 py-1.5 text-gray-200 rounded-md font-sans bg-red-700 text-sm">دریافت کد تایید</button>
-                            </div>
-                            <p className="text-xs w-full font-sans mt-4">
-                                <span>ثبت نام در ترب به معنی موافقت</span>
-                                <span className="text-blue-700"> با شرایط استفاده از ترب</span>
-                                <span> است. </span> 
-                            </p>
-                            <p className="text-xs text-center pb-4 w-full font-sans mt-4 text-blue-700">قبلا در ترب حساب کاربری داشتم</p>
-
-                        </section>
-                    </div>
-                </section>
-                </Modal>   
+                {user.data && user.data.phone_number ? <></> : (
+                    <Modal
+                    open={isModal}
+                    onClose={()=>setIsModal(false)}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    className="flex justify-center items-center px-4"
+                    >
+                        <>
+                            <Login setIsModal={setIsModal}/>
+                        </>
+                    </Modal>   
+                )}
 
             {/* //? Header =>  */}
                 <div className="flex justify-between items-center px-4 md:px-8">
@@ -105,7 +90,7 @@ const Header = () => {
             {/* //? Input Search =>  */}
 
                     <form onSubmit={(e)=> {e.preventDefault() ; router.push({pathname : "/search" , query : {query : inputValue}})}} method='get' className="w-full hidden pr-6 md:flex md:justify-center lg:justify-start items-center">
-                            <input className="w-1/2 py-3 sm:w-9/12 font-sans border lg:w-[420px] border-gray-300 px-4" value={inputValue} onChange={input => setInputValue(input.target.value)} placeholder="نام کالا را وارد کنید"/>
+                            <input className="bg-white text-gray-700 w-1/2 py-3 sm:w-9/12 font-sans border lg:w-[420px] border-gray-300 px-4" value={inputValue} onChange={input => setInputValue(input.target.value)} placeholder="نام کالا را وارد کنید"/>
                             <button type={'submit'} className="bg-[#d73948] py-3 px-5 rounded-l-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -113,14 +98,17 @@ const Header = () => {
                             </button>
                     </form>
 
-
-                    <button onClick={()=> setIsModal(true)} className="whitespace-nowrap rounded-md border border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">ورود / ثبت نام</button>
+                    {user.data && user.data.phone_number ? (
+                        <button  className="whitespace-nowrap rounded-md border border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">{toPersianDigits(user.data.phone_number)}</button>
+                    ) : (
+                        <button onClick={()=> setIsModal(true)} className="whitespace-nowrap rounded-md border border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">ورود / ثبت نام</button>
+                    )}
                
                 </div>
 
             {/* //? Mobile Search Input For Mediom With =>  */}
                 <form onSubmit={(e)=> {e.preventDefault() ; router.push({pathname : "/search" , query : {query : inputValue}})}} method='get'  className="w-full flex md:hidden px-4 md:px-8 mt-4 md:justify-center items-center">
-                            <input className="w-full py-2  font-sans border  border-gray-300 px-4" value={inputValue} onChange={input => setInputValue(input.target.value)} placeholder="نام کالا را وارد کنید"/>
+                            <input className="bg-white text-gray-700 w-full py-2  font-sans border  border-gray-300 px-4" value={inputValue} onChange={input => setInputValue(input.target.value)} placeholder="نام کالا را وارد کنید"/>
                             <button className="bg-[#d73948] py-2 px-5 rounded-l-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
