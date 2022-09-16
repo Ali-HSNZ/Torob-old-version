@@ -59,7 +59,10 @@ const Login = ({setIsModal , verification_code}) => {
                 </div>
                 
                 <div className="w-full flex justify-center items-center mt-6 ">
-                    <button type={'submit'} disabled={!formik.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 text-sm">{loading ? "دریافت کد تایید..." : "دریافت کد تایید"}</button>
+                    <button type={'submit'} disabled={!formik.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 text-sm">
+                        {data && loading ? "ورود به حساب کاربری..." : !data && loading ? "دریافت کد تایید..."  : data ? "ورود به حساب کاربری" : "دریافت کد تایید"}
+                        
+                    </button>
                 </div>
                 <p className="text-xs w-full font-sans mt-4">
                     <span>ثبت نام در ترب به معنی موافقت</span>
