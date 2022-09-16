@@ -31,8 +31,7 @@ export default function ProductSlider({models}) {
         
                 {models.map((model,index) => {
                     return(
-                        <div key={index}>
-                            <SwiperSlide className={`border border-1 whitespace-nowrap rounded-md ${query.hashId === model.hash_id ? "border-black" : "border-gray-300"}  flex flex-col items-center`}>
+                            <SwiperSlide  key={index} className={`border border-1 whitespace-nowrap rounded-md ${query.hashId === model.hash_id ? "border-black" : "border-gray-300"}  flex flex-col items-center`}>
                                    <Link href={`/product/${model.hash_id}/${model.title}`}>
                                         <a className="py-2 ">
                                             <p className="font-sans font-bold text-xs px-2 w-full">{model.model_trait} </p>
@@ -40,8 +39,6 @@ export default function ProductSlider({models}) {
                                         </a>
                                    </Link>
                             </SwiperSlide>  
-
-                        </div>
                     )
                 })}
                 
