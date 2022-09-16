@@ -1,5 +1,4 @@
 import Login from "@/components/Login";
-import VerifyUser from "@/components/VerifyUser";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { Modal } from "@mui/material";
 import axios from "axios";
