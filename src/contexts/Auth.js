@@ -3,12 +3,10 @@ import { createContext , useContext, useEffect } from "react";
 import { useReducerAsync } from "use-reducer-async";
 import toast  from 'react-hot-toast';
 
-
 const AuthContext = createContext()
 const AuthContextDispacher = createContext()
 
 const initailState =  {user : null , error : null , loading : false};
-
 
 const reducer = (state , action) => {
     switch (action.type) {
@@ -18,7 +16,6 @@ const reducer = (state , action) => {
         default: return state
     }
 }
-
 
 const asyncActionHandlers = {
     SIGNUP : ({dispatch}) => (action) => {
@@ -42,19 +39,16 @@ const asyncActionHandlers = {
             toast.success(" با موفقیت وارد حساب کاربری خود شدید")
         }).catch(err => {
             dispatch({type : "SINGIN_REJECT" , payload : err.message})
-            toast.error(err.message)
+            toast.error(err.response.data.message)
         })
     },
     SIGNOUT : {},
-
     LOAD_USER : ({dispatch}) => (action) => {
         dispatch({type : "SINGIN_PENDING" })
             const token = localStorage.getItem('userToken')
             axios.get("https://project-torob-clone.iran.liara.run/api/user/info", {headers : {Authorization : `Bearer ${token}`}})
         .then(response => {
             dispatch({type : "SINGIN_SUCCESS" , payload : response.data.user})
-            // console.log("LOG => ",response.data)
-            // localStorage.setItem('userToken',response.data.API_TOKEN)
         }).catch(err => {
             dispatch({type : "SINGIN_REJECT" , payload : err.message})
         })
@@ -68,17 +62,15 @@ const Auth = ({children}) => {
     useEffect(()=> {
         dispatch({type : "LOAD_USER" })
     },[])
-    // const [user , dispatch] = useReducer(redu , initailState)
     return (  
-            <AuthContext.Provider value={user}>
-                <AuthContextDispacher.Provider value={dispatch}>
-                    {children}
-                </AuthContextDispacher.Provider>
-            </AuthContext.Provider>        
+        <AuthContext.Provider value={user}>
+            <AuthContextDispacher.Provider value={dispatch}>
+                {children}
+            </AuthContextDispacher.Provider>
+        </AuthContext.Provider>        
     );
 }
  
 export default Auth;
-
 export const useAuth = () => useContext(AuthContext)
 export const useAuthDispacher = () => useContext(AuthContextDispacher)
