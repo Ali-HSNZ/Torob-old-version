@@ -50,9 +50,9 @@ const ChooseCity = ({isModal , setIsModal , setSelectedCities , setCityStore}) =
             <Modal className="flex items-center justify-center " open={isModal} onClose={()=>setIsModal(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <div  className="font-sans rounded-md w-full sm:w-[420px] bg-white h-auto">
                     <div className="w-full  flex justify-between px-5 py-3">
-                        <h6>انتخاب شهر</h6>
+                        <h6 className=" text-gray-800 ">انتخاب شهر</h6>
                         <button onClick={()=>setIsModal(false)} className="p-1 hover:bg-gray-100 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6  text-gray-800 ">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
@@ -64,7 +64,7 @@ const ChooseCity = ({isModal , setIsModal , setSelectedCities , setCityStore}) =
                         {selectedCity.map((item,index) => {
                             return(
                                 <div key={index} onClick={()=>insertOrDeleteCity(item)} className="cursor-pointer flex px-3 py-2 rounded-full bg-gray-700 gap-x-3">
-                                    <p className="font-sans text-xs">{item}</p>
+                                    <p className="font-sans text-xs   ">{item}</p>
                                     <svg  className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
@@ -77,20 +77,20 @@ const ChooseCity = ({isModal , setIsModal , setSelectedCities , setCityStore}) =
                         <svg  className="w-6 h-6 text-gray-400 absolute top-2 right-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
-                        <input value={inputValue} onChange={input => setInputValue(input.target.value)} className="w-full pr-10 text-sm border border-gray-300 rounded-md" type='text' placeholder="جستجوی شهر"/>
+                        <input value={inputValue} onChange={input => setInputValue(input.target.value)} className="w-full pr-10 text-sm border  text-gray-800  border-gray-300 rounded-md" type='text' placeholder="جستجوی شهر"/>
                     </div>
                     <div className=" mt-4 px-3 ">
                         {!currentCity ? (
-                            <p className="font-sans font-bold text-sm ">استان‌های پربازدید</p>
+                            <p className="font-sans font-bold text-sm  text-gray-800 ">استان‌ها</p>
                         ) : (
                             <>
                                 <button onClick={()=> {setCurrentCity('') & setInputValue("")}} className="flex gap-x-1 py-2 pl-5 pr-1 cursor-pointer hover:bg-gray-100 w-fit rounded-l-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6  text-gray-800 ">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                                     </svg>
-                                    <p>بازگشت</p>
+                                    <p className=" text-gray-800 ">بازگشت</p>
                                 </button>
-                                <p className="font-bold px-4 my-4"> استان {currentCity}</p>
+                                <p className="font-bold px-4 my-4  text-gray-800 "> استان {currentCity}</p>
                             </>
                         )}
                     </div>
@@ -102,8 +102,8 @@ const ChooseCity = ({isModal , setIsModal , setSelectedCities , setCityStore}) =
                                     return(
                                         <div key={index}>
                                             <button onClick={() => setCurrentCity(item.state)} className="flex w-full justify-between items-center py-3 px-3 hover:bg-gray-100">
-                                                <span className="text-sm">{item.state}</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                                <span className="text-sm text-gray-800 ">{item.state}</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4  text-gray-800 ">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                                 </svg>
                                             </button>
@@ -118,11 +118,11 @@ const ChooseCity = ({isModal , setIsModal , setSelectedCities , setCityStore}) =
                                     return(
                                         <div key={index}>
                                             <input id={`name_${index}`} onChange={()=>insertOrDeleteCity(item.city)}  className=" hidden" type={'checkbox'}/>
-                                            <label htmlFor={`name_${index}`}   className={`${checkSelectedCity(item.city) ? "bg-gray-700 text-white " : "hover:bg-gray-100"} cursor-pointer peer-checked: flex justify-between items-center py-3 px-4 `}>
+                                            <label htmlFor={`name_${index}`}   className={`${checkSelectedCity(item.city) ? "bg-gray-700 text-white " : "hover:bg-gray-100  text-gray-800 "} cursor-pointer peer-checked: flex justify-between items-center py-3 px-4 `}>
                                                 <div className="w-full flex justify-start items-center">
-                                                    <span className="text-sm">{item.city}</span>
+                                                    <span className="text-sm   ">{item.city}</span>
                                                 </div>
-                                                <svg className="w-4 h-4  " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                                                <svg className="w-4 h-4    " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                                 </svg>
 
@@ -137,7 +137,7 @@ const ChooseCity = ({isModal , setIsModal , setSelectedCities , setCityStore}) =
                     {/* //? Submit */}
                     <section className="py-3 flex gap-x-4 px-4">
                         <button onClick={()=> {setSelectedCities(selectedCity) ; setIsModal(false)}} className={`py-2.5 w-3/4 ${selectedCity.length > 0 ? "bg-gray-700 text-white" : " border-gray-600 bg-gray-500 text-white"} border rounded-md text-sm `}>تایید</button>
-                        <button onClick={()=>{setSelectedCity([])  ; setIsModal(false)}} className={`py-2.5 w-1/4 bg-gray-100 border border-gray-300 rounded-md text-sm `}>لغو</button>
+                        <button onClick={()=>{setSelectedCity([])  ; setIsModal(false) ; setCurrentCity('')}} className={`py-2.5 w-1/4 text-gray-800  bg-gray-100 border border-gray-300 rounded-md text-sm `}>لغو</button>
                     </section>
                 </div>
             </Modal>

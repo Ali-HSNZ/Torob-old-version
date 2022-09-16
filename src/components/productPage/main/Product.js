@@ -6,11 +6,11 @@ const Product = ({product}) => {
     return (  
         <article className={`${Styles.product} overflow-hidden bg-white flex flex-col lg:flex-row lg:justify-between w-full lg:flex p-5`}>
             <div className=" flex justify-center items-center">
-                    <img className='w-auto h-auto ' src={product.product.image_url}/>
+                <img className='w-auto h-auto ' src={product.product.image_url}/>
             </div>
 
             <section className=' md:pr-5 w-full flex flex-col justify-between mt-6 lg:mt-0 '>
-                <p className='font-sans text-bold w-full text-right'>{product.product.title}</p>
+                <p className='font-sans text-bold w-full text-right text-gray-800'>{product.product.title}</p>
                 <p className='w-full text-right font-sans mt-6 text-red-600'>از {toPersianPrice(product.prices_range.min)} تومان تا {toPersianPrice(product.prices_range.max)} تومان</p>
                 <div className='mt-6 max-w-[600px] 1360:max-w-[600px]'>
                     <ProductSlider models={product.models}/>

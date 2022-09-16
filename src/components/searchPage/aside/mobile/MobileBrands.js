@@ -29,15 +29,16 @@ const MobileBrands = ({closeHandler , brands}) => {
     return ( 
         <div className="bg-white  w-full sm:w-2/5 fixed z-50 right-0 bottom-0 top-0">
            
+           <div className="px-4 mt-6 flex w-full">
+            <button onClick={()=> closeHandler(false)}>
+                <svg className="w-6 h-6 text-gray-800 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h6 className="text-sm  text-center w-full font-sans text-gray-800 ">انتخاب برند</h6>
+        </div>
 
-            <div className="px-4 mt-8 flex justify-between">
-                <h6 className="text-sm font-sans">برند ها</h6>
-                <button onClick={()=> closeHandler(false)}>
-                    <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+        <hr className="mt-5"/>
 
             <section className={`flex flex-col w-full mt-8 px-6`}>
 
@@ -66,12 +67,10 @@ const MobileBrands = ({closeHandler , brands}) => {
                 </div>
 
                 <div className={`bg-gray-100 ${router.query.brand ? "flex" : "hidden"}  right-0 gap-x-4 w-full h-auto absolute bottom-0 py-4 px-4 `}>
-                    <button onClick={()=> {delete query.brand & router.push({pathname : "/search" , query : {...query}}) & closeHandler("")}}  className="w-full border border-gray-700 rounded-md text-sm font-sans  py-3">
+                    <button onClick={()=> {delete query.brand & router.push({pathname : "/search" , query : {...query}}) & closeHandler("")}}  className=" text-gray-800 w-full border border-gray-700 rounded-md text-sm font-sans  py-3">
                             حذف فیلتر برند
                     </button>
                 </div>
-
-
             </section>
         </div>
      );

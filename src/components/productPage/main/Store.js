@@ -15,7 +15,7 @@ const Store = ({product}) => {
     const {hashId} = query
 
     const [selectedCities,setSelectedCities] = useState([])
-    const [chooseCity_Modal , setChooseCity_Modal] = useState(false)
+    const [chooseCity_Modal , setChooseCity_Modal] = useState(true)
     const [showAllStors , setShowAllStore] = useState(false)
     const [cityStore,setCityStore] = useState(null)
 
@@ -60,9 +60,9 @@ const Store = ({product}) => {
                     <div className='py-5 mb-5  flex flex-row  whitespace-nowrap justify-between px-4 md:px-8'>
                         <div className='w-full flex justify-start '>
                             <div className='flex flex-col  lg:flex-row'>
-                                <h4 className='font-sans text-lg font-bold'>فروشگاه‌های اینترنتی در شهر</h4>
+                                <h4 className='font-sans text-lg font-bold text-gray-800'>فروشگاه‌های اینترنتی در شهر</h4>
                                 <button onClick={()=> setChooseCity_Modal(true)}  className=' lg:mt-0 lg:mr-6 bg-gray-800 hover:bg-gray-700 rounded-full text-white font-sans px-2 mt-4  py-1.5 flex text-sm items-center justify-between'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                                     </svg>
@@ -83,7 +83,7 @@ const Store = ({product}) => {
                     <div className='w-full'>
                         {cityStore && cityStore.length > 0 ? cityStore.map((store,index) =>  <StoreCommon key={index} store={store} index={"cityStore_"+index}/>) : (
                             <div className='mb-4 w-full flex justify-center'>
-                                <p className='text-center font-sans  px-4 py-2 rounded-md text-sm bg-[#FFEEBF] text-[#85660E]'  >فروشگاهی با این شرایط پیدا نشد.</p>
+                                <p className='text-center font-sans  px-4 py-2 rounded-md  text-sm bg-[#FFEEBF] text-[#85660E]'  >فروشگاهی با این شرایط پیدا نشد.</p>
                             </div>
                         )}
                     </div>
@@ -93,9 +93,9 @@ const Store = ({product}) => {
             <div className='bg-white py-5'>
                 <section className='w-full flex peer  justify-between items-start md:items-center mb-8 px-8'>
                     <div className={`flex flex-col md:flex-row gap-x-8 items-center`}>
-                        <span className='font-sans font-bold'>{selectedCities && selectedCities.length > 0 ? "فروشگاه‌های اینترنتی در سایر شهرها" : "فروشگاه‌های اینترنتی"}</span>
+                        <span className='font-sans font-bold text-gray-800'>{selectedCities && selectedCities.length > 0 ? "فروشگاه‌های اینترنتی در سایر شهرها" : "فروشگاه‌های اینترنتی"}</span>
                         <button onClick={()=> setChooseCity_Modal(true)}  className={` ${selectedCities && selectedCities.length > 0 && "hidden"}  bg-gray-800 hover:bg-gray-700 rounded-full text-white font-sans px-2 mt-4 md:mt-0 py-1.5 flex text-sm items-center justify-center`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                             </svg>

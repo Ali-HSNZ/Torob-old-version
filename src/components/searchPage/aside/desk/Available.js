@@ -21,11 +21,11 @@ const Available = () => {
         <section className="flex flex-col w-full  px-6">
             <div onClick={()=>setisQuantityTaggle(!isQuantityTaggle) } className={`py-6 flex items-center cursor-pointer`}>
                 <div className={`${isQuantityTaggle ? "" : "rotate-90"}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-800">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
                 </div>
-                <span className="font-sans mr-2">موجودی  </span>
+                <span className="font-sans mr-2 text-gray-800">موجودی  </span>
             </div>
             <section className={`${isQuantityTaggle ? "" : "hidden"} pb-3  gap-x-4`}>
                     <div onClick={handler}>

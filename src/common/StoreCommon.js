@@ -39,9 +39,9 @@ const StoreCommon = ({store , index}) => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                             </svg>
                             {toPersianDigits(store.shop.rate)}
-                            <div className='mx-2'>(  {timeDifference(store.shop.activity_time)} در ترب)</div>
+                            <span className='mx-2 text-gray-800'>(  {timeDifference(store.shop.activity_time)} در ترب)</span>
                             <div className='peer-active:rotate-3'>
-                            <svg className="w-4 h-4 peer-active:bg-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                                <svg className="w-4 h-4 peer-active:bg-red-600 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
@@ -49,26 +49,26 @@ const StoreCommon = ({store , index}) => {
                         {/* //? Content  */}
                         <section className={`peer-checked:block hidden bg-[#DAF2D5] mt-3 py-2 px-3  rounded-2xl `}>
                             <div className='flex items-center'>
-                                <p className='ml-2 text-sm  font-sans'>امتیاز فروشگاه</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="#025c17" viewBox="0 0 24 24" strokeWidth={0} stroke="currentColor" className="w-3 h-3">
+                                <p className='ml-2 text-sm  font-sans text-gray-800'>امتیاز فروشگاه</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#025c17" viewBox="0 0 24 24" strokeWidth={0} stroke="currentColor" className="w-3 h-3 text-gray-800">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                                 </svg>
-                                <div className='font-sans mr-0.5 text-sm'>{toPersianDigits(store.shop.rate)}</div>
-                                <div className='mx-2 text-sm  font-sans'>( {timeDifference(store.shop.activity_time)}  در ترب)</div>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                <span className='font-sans mr-0.5 text-sm text-gray-800'>{toPersianDigits(store.shop.rate)}</span>
+                                <span className='mx-2 text-sm  font-sans text-gray-800'>( {timeDifference(store.shop.activity_time)}  در ترب)</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-gray-800">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
                             <div className='flex flex-col items-start mt-3 gap-y-2 pb-1'>
-                                <p className='font-sans text-xs'>حدود {toPersianDigits(store.shop.stats.orders.min)} تا {toPersianDigits(store.shop.stats.orders.max)} سفارش در {toPersianDigits(90)} روز اخیر فعالیت در ترب</p>
-                                <p className='font-sans text-xs'>{toPersianDigits(store.shop.stats.trackings)} کاربر از طریق ترب سفارش خود را پیگیری کرده اند.</p>
+                                <p className='font-sans text-xs text-gray-800'>حدود {toPersianDigits(store.shop.stats.orders.min)} تا {toPersianDigits(store.shop.stats.orders.max)} سفارش در {toPersianDigits(90)} روز اخیر فعالیت در ترب</p>
+                                <p className='font-sans text-xs text-gray-800'>{toPersianDigits(store.shop.stats.trackings)} کاربر از طریق ترب سفارش خود را پیگیری کرده اند.</p>
 
                             </div>
                         </section>
                     </section>
 
                     {/* //? Product Title */}
-                    <p className='font-sans text-sm mt-5 group-hover:text-blue-700'>{store.offer.title}</p>
+                    <p className='font-sans text-sm mt-5 group-hover:text-blue-700 text-gray-800'>{store.offer.title}</p>
 
                     
                     <div className='mt-2'>
@@ -113,14 +113,14 @@ const StoreCommon = ({store , index}) => {
                                         </section>
                                     )
                                 })}
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </label>
                             ) : (
-                                <label  htmlFor={`offer_id_${index}`} className=' border hover:border-blue-700 cursor-pointer group-hover:bg-white bg-gray-50 rounded-full mt-3 flex w-fit gap-x-2 font-sans text-xs py-1 px-3'>
+                                <label  htmlFor={`offer_id_${index}`} className='text-gray-800 border hover:border-blue-700 cursor-pointer group-hover:bg-white bg-gray-50 rounded-full mt-3 flex w-fit gap-x-2 font-sans text-xs py-1 px-3'>
                                     هزینه و نحوه‌ی ارسال برحسب سفارش متفاوت است.
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </label>
@@ -134,7 +134,9 @@ const StoreCommon = ({store , index}) => {
                                         {/* //? پرداخت در محل */}
                                         {advantage.type === "inplace_pay" && (
                                             <div className='flex items-center gap-x-1'>
-                                                <TbTruckDelivery size={21} className="text-gray-500"/>
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                                                </svg>
                                                 <p className='font-sans text-xs text-gray-700'>{toPersianDigits(advantage.title)}</p>
                                             </div>
                                         )}
@@ -150,16 +152,15 @@ const StoreCommon = ({store , index}) => {
                                         {/* //? تحویل فوری */}
                                         {advantage.type === "instant_delivery" && (
                                             <div className='flex items-center gap-x-1'>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                                                </svg>
+                                                <TbTruckDelivery size={21} className="text-gray-500"/>
+
                                                 <p className='font-sans text-xs text-gray-700'>{toPersianDigits(advantage.title)}</p>
                                             </div>
                                         )}
                                     </section>
                                 )
                             })}
-                            <p className='font-sans font-bold text-xs'>روش های ارسال</p>
+                            <p className='font-sans font-bold text-xs text-gray-800'>روش های ارسال</p>
                             <section className='flex'>
                                 {store.shop.delivery_methods.map((item,index) => {
                                     return(

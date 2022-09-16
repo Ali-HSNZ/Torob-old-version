@@ -27,7 +27,7 @@ const ProductPage = ({product , productSimilars}) => {
 
             <section className="mt-4 w-full px-2 md:px-8 flex justify-center">
                 <div className='w-full max-w-7xl'>
-                        <p className='font-sans font-bold text-lg w-full text-center'>محصولات مشابه</p>
+                        <p className='font-sans font-bold text-lg w-full text-center text-gray-800'>محصولات مشابه</p>
                         {productSimilars.length > 0 &&<SuggestedProducts data={productSimilars}/>}
                 </div>
             </section>

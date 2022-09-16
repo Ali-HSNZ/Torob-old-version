@@ -40,9 +40,8 @@ useEffect(()=>{
                 <div className="w-full flex justify-center my-8">
                     <ReactLoading  type="spinningBubbles" height={50} width={50} color='red'/>
                 </div>
-                // <p className="font-sm font-sans text-center font-black text-red-800 my-8">محصول بیشتری یافت نشد</p>
-    }
-            endMessage={<h4 className="w-full text-center font-sans my-8">محصولات بیشتری یافت نشد</h4>
+            }
+            endMessage={<h4 className="w-full text-center font-sans my-8 text-gray-800">محصولات بیشتری یافت نشد</h4>
         }>
         <article className={Styles.productsParent}>
             {products && products.map((product,index) => {
@@ -54,7 +53,7 @@ useEffect(()=>{
                                     <img src={product.image_url} className="w-full h-auto"/>
                                 </div>
                             
-                                <h3 className="font-sans text-sm text-right w-full mt-5">{product.title}</h3>
+                                <h3 className="font-sans text-sm text-right w-full mt-5 text-gray-800">{product.title}</h3>
                             
                                 <div className=" flex flex-col justify-end w-full mt-5 flex-1 gap-y-2">
                                     <h6 className={`font-sans text-sm  ${product.price_start===0 ? "text-red-600" : "text-gray-700"}`}>{product.price_start === 0 ? "ناموجود" :  toPersianPrice(product.price_start)+" تومان " }</h6>
