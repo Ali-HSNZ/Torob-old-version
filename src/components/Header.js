@@ -72,18 +72,18 @@ const Header = () => {
                 
                 {/* //? LapTop Menu */}
                 <section className="hidden sm:flex  gap-x-6 ">
-                    {data&&data.map((category,index) =>  <BigScreenMenu handleCategory={handleCategory} setIsModal={setIsModal}  category={category} index={index} customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-14"} />)}
+                    {data && data.length > 0 && data.map((category,index) =>  <BigScreenMenu handleCategory={handleCategory} setIsModal={setIsModal}  category={category} key={index} customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-14"} />)}
                 </section>
 
 
                 {/* //? Mobile Menu Button  */}
-                <section className="sm:hidden">
+                {data && data.length > 0 && <section className="sm:hidden">
                     <button className="flex items-center justify-center p-2 bg-white" onClick={()=>setIsOpen(!isOpen)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-700">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                     </button>
-                </section>
+                </section>}
 
                 <section className="w-full sm:w-fit flex justify-end">
                     {user.data && user.data.phone_number ? (
