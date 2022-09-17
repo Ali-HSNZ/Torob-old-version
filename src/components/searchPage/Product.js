@@ -38,7 +38,7 @@ useEffect(()=>{
         );
         const newProducts = await res.json();
 
-        newProducts.data.products.length === 0 && setIsProducts(false)
+        newProducts.data.products.length < 9 && setIsProducts(false)
         setProducts(product => [...product, ...newProducts.data.products]);
     };
 
