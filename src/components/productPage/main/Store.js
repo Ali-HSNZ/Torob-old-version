@@ -90,7 +90,7 @@ const Store = ({product}) => {
                 </div>
             )}
             
-            <div className='bg-white py-5'>
+            <div className='bg-white py-5 scroll-smooth '>
                 <section className='w-full flex peer  justify-between items-start md:items-center mb-8 px-8'>
                     <div className={`flex flex-col md:flex-row gap-x-8 items-center`}>
                         <span className='font-sans font-bold text-gray-800'>{selectedCities && selectedCities.length > 0 ? "فروشگاه‌های اینترنتی در سایر شهرها" : "فروشگاه‌های اینترنتی"}</span>
@@ -110,8 +110,7 @@ const Store = ({product}) => {
                 </section>
 
                 {/* //? Store */}
-                {storeList.map((store,index) => <StoreCommon key={index} store={store} index={index}/>)}
-
+                    {storeList.map((store,index) => <StoreCommon key={index} store={store} index={index}/>)}
                 <div className='w-full px-4'>
                     <button onClick={() => setShowAllStore(!showAllStors)} className='mt-4 rounded-md font-sans text-sm bg-[#d73948] w-full py-3 text-white'> 
                         {showAllStors ? "نمایش کمتر" :  `نمایش تمام ${toPersianDigits(product.sales.length)} فروشگاه `}
