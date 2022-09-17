@@ -23,7 +23,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
                     </svg>
                 </button>
             )}
-            { isMobileMenu === "brands" && <MobileBrands brands={brands} closeHandler={()=> setIsMobileMenu("")}/>}
+            { isMobileMenu === "brands" && <MobileBrands brands={brands} isMobileMenu={isMobileMenu} closeHandler={()=> setIsMobileMenu("")}/>}
 
             <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("category")}>
                 دسته‌بندی
@@ -31,7 +31,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
             </button>
-            { isMobileMenu === "category" && <MobileCategories categories={categories} similarCategories={similarCategories} closeHandler={()=> setIsMobileMenu("")}/>}
+            { isMobileMenu === "category" && <MobileCategories  isMobileMenu={isMobileMenu} categories={categories} similarCategories={similarCategories} closeHandler={()=> setIsMobileMenu("")}/>}
 
             <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("price")}>
                 قیمت    
@@ -39,7 +39,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
             </button>
-            { isMobileMenu === "price" && <MobilePrice  closeHandler={()=> setIsMobileMenu("")}/>}
+            { isMobileMenu === "price" && <MobilePrice  isMobileMenu={isMobileMenu} closeHandler={()=> setIsMobileMenu("")}/>}
 
             <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("availableProducts")}>
                 وضعیت کالا    
@@ -47,7 +47,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
             </button>
-            { isMobileMenu === "availableProducts" && <MobileAvailable closeHandler={()=> setIsMobileMenu("")}/>}
+            { isMobileMenu === "availableProducts" && <MobileAvailable  isMobileMenu={isMobileMenu}closeHandler={()=> setIsMobileMenu("")}/>}
 
             <div className="max-w-fit py-2  cursor-pointer flex  md:hidden flex-col justify-end  items-end">
                 <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("mobileSort")}>
@@ -56,7 +56,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
                 </button>
-                {isMobileMenu === "mobileSort" && <MobileSort closeHandler={()=>setIsMobileMenu("")}/>}
+                {isMobileMenu === "mobileSort" && <MobileSort isMobileMenu={isMobileMenu} closeHandler={()=>setIsMobileMenu("")}/>}
             </div>
         </aside>
     );
