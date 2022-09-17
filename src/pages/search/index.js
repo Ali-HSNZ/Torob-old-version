@@ -42,7 +42,7 @@ const SearchQuery = ({categories , similarCategories , brands , mainSearch}) => 
                             <BreadCrumpAndSort category={category} similarCategories={similarCategories}/>
                             <hr/>
                             <MainTags priceMin={priceMin} priceMax={priceMax}/>                               
-                            {!query.query && query.category && <p className="font-sans font-bold text-lg mt-4"> قیمت انواع {query.category} </p>}
+                            {!query.query && query.category && <p className="font-sans font-bold text-md lg:text-lg mt-4 text-gray-800"> قیمت انواع {query.category} </p>}
                             <article>
                                     {mainSearch.data.products.length > 0 &&  <Product data={mainSearch.data.products} query={query}/>}
                                     {mainSearch.data.products.length === 0 && <p className="mt-4 text-center font-sans text-sm text-gray-600">گشتم نبود نگرد نیست.</p>}
