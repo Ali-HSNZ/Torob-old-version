@@ -76,11 +76,11 @@ const Header = () => {
             {/* //? Logo =>  */}
 
                     <section className="flex items-center justify-end">
-                        <button className="flex items-center sm:hidden ml-4 justify-center p-2 bg-white" onClick={()=>setIsOpen(!isOpen)}>
+                       {data && data.length > 0 && <button className="flex items-center sm:hidden ml-4 justify-center p-2 bg-white" onClick={()=>setIsOpen(!isOpen)}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-700">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
-                        </button>
+                        </button>}
 
                         <Link href={'/'}>
                             <a className="flex items-center justify-center">
@@ -125,7 +125,7 @@ const Header = () => {
                 {/* //?  Menu For Big Screen  ==> */}
 
                 <section className="hidden sm:flex px-5 gap-x-6 font-sans text-sm mt-6">
-                    {data&&data.map((category,index) => <BigScreenMenu key={index} handleCategory={handleCategory} setIsModal={setIsModal}  category={category}  customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[150px]"} />)}
+                    {data && data.length > 0 && data.map((category,index) => <BigScreenMenu key={index} handleCategory={handleCategory} setIsModal={setIsModal}  category={category}  customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[150px]"} />)}
                 </section>
 
                 {/* //?  Menu For Responsive  ==> */}
