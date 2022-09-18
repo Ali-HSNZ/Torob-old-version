@@ -9,7 +9,6 @@
             "@/pages/*" : ["src/pages/*"],
             "@/images/*" : ["src/images/*"],
             "@/utils/*" : ["src/utils/*"],
-            "@/context/*" : ["src/contexts*"],
         }
     }
 }
