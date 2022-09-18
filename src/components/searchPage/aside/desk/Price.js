@@ -30,7 +30,7 @@ const Price = () => {
             </div>
 
             <Link  href={{pathname : "/search" , query : {...query , fromPrice :minPriceinput , toPrice  : maxPriceinput}}} >
-                <a className={`${isPriceTaggle ? "" : "hidden"}  text-gray-800 text-center hover:bg-gray-300 text-sm rounded-md font-sans py-3 my-5 bg-gray-200`}>
+                <a className={`${isPriceTaggle ? "" : "hidden"}  text-gray-800 text-center hover:bg-gray-100 text-sm rounded-md font-sans py-3 my-5 bg-gray-50`}>
                     اعمال فیلتر قیمت
                 </a>
             </Link>
