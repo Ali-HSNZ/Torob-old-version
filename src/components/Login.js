@@ -1,34 +1,36 @@
 
-import { useAuth, useAuthDispacher } from "../contexts/Auth";
+
 import * as Yup from 'yup'
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userSignin, userSignup } from "src/redux/user/userActions";
 
 const Login = ({setIsModal , verification_code}) => {
-    const dispatch = useAuthDispacher()
-    const {data , loading} = useAuth()
+
+    const {user , loading} = useSelector(state => state.userSignup)
+    const dispatch = useDispatch()
+    
     const onSubmit = (values) => {
-        const {phoneNumber , validationCode} = values
-        if(data){
-            return dispatch({type : "SIGNIN" , payload : {phoneNumber : phoneNumber , verification_code : validationCode}})
+        if(user){
+            return  dispatch(userSignin(values))
         }else{
-            return dispatch({type : "SIGNUP" , payload : phoneNumber})
+            dispatch(userSignup(values.phone_number))
         }
     }
 
     const phoneRegExp = /^(?:98|\+98|0098|0)?9[0-9]{9}$/
 
     const withUserVerifyCode_Validation = Yup.object({
-        phoneNumber : Yup.string().required("شماره موبایل نمی تواند خالی باشد").matches(phoneRegExp , "شماره موبایل معتبر نیست"),
+        phone_number : Yup.string().required("شماره موبایل نمی تواند خالی باشد").matches(phoneRegExp , "شماره موبایل معتبر نیست"),
     })
     const withOutUserVerifyCode_Validation = Yup.object({
-        phoneNumber : Yup.string().required("شماره موبایل نمی تواند خالی باشد").matches(phoneRegExp , "شماره موبایل معتبر نیست"),
-        validationCode : Yup.string().required("کد تایید نمی تواند خالی باشد").min(4 , "کد تایید نمیتواند کمتر از 4 کاراکتر باشد")
+        phone_number : Yup.string().required("شماره موبایل نمی تواند خالی باشد").matches(phoneRegExp , "شماره موبایل معتبر نیست"),
+        verification_code : Yup.string().required("کد تایید نمی تواند خالی باشد").min(4 , "کد تایید نمیتواند کمتر از 4 کاراکتر باشد")
     })
     const formik = useFormik({
-        initialValues : {phoneNumber : '' , validationCode : ""},
+        initialValues : {phone_number : '' , verification_code : ""},
         onSubmit,
-        validationSchema : data ? withOutUserVerifyCode_Validation : withUserVerifyCode_Validation,
+        validationSchema : user ? withOutUserVerifyCode_Validation : withUserVerifyCode_Validation,
         validateOnMount : true,
     })
 
@@ -46,19 +48,19 @@ const Login = ({setIsModal , verification_code}) => {
             <section className="mt-4 px-10">
                 <div>
                     <p className="font-sans text-sm font-bold text-gray-800 ">شماره موبایل</p>
-                    <input dir="ltr" name="phoneNumber" onBlur={formik.handleBlur}  value={formik.values['phoneNumber']} onChange={formik.handleChange}  className={` w-full mt-3 font-sans  py-2 bg-gray-50 text-sm p-4 text-gray-800 rounded-md border border-gray-300 outline-none`}/>
+                    <input dir="ltr" name="phone_number" onBlur={formik.handleBlur}  value={formik.values['phone_number']} onChange={formik.handleChange}  className={` w-full mt-3 font-sans  py-2 bg-gray-50 text-sm p-4 text-gray-800 rounded-md border border-gray-300 outline-none`}/>
                 </div>
-                    {formik.errors['phoneNumber'] && formik.touched['phoneNumber'] && (
-                        <span className={' pt-2 w-full font-sans text-sm text-red-500'}>{formik.errors["phoneNumber"]}</span>
+                    {formik.errors['phone_number'] && formik.touched['phone_number'] && (
+                        <span className={' pt-2 w-full font-sans text-sm text-red-500'}>{formik.errors["phone_number"]}</span>
                     )}  
-                <div className={`mt-4 ${data ? "" : "hidden"}`}>
+                <div className={`mt-4 ${user ? "" : "hidden"}`}>
                     <p className="font-sans text-sm font-bold  ">کد تایید</p>
-                    <input dir="ltr" name="validationCode" onBlur={formik.handleBlur}  value={formik.values['validationCode']} onChange={formik.handleChange}  className={` w-full mt-3 font-sans  py-2 bg-gray-50 text-sm p-4 text-gray-800 rounded-md border border-gray-300 outline-none`}/>
+                    <input dir="ltr" name="verification_code" onBlur={formik.handleBlur}  value={formik.values['verification_code']} onChange={formik.handleChange}  className={` w-full mt-3 font-sans  py-2 bg-gray-50 text-sm p-4 text-gray-800 rounded-md border border-gray-300 outline-none`}/>
                 </div>
                 
                 <div className="w-full flex justify-center items-center mt-6 ">
                     <button type={'submit'} disabled={!formik.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 text-sm">
-                        {data ? `ورود به حساب کاربری${loading ? "..." : ""}` : `دریافت کد تایید${loading ? "..." : ""}`}
+                        {user ? `ورود به حساب کاربری${loading ? "..." : ""}` : `دریافت کد تایید${loading ? "..." : ""}`}
                     </button>
                 </div>
                 <p className="text-xs w-full font-sans mt-4 text-gray-800">
