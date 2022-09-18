@@ -1,8 +1,8 @@
 import Link from "next/link";
-const BigScreenMenu = ({setIsModal , customClassname , category  , handleCategory}) => {
+const BigScreenMenu = ({setIsModal , customClassname , category  , handleCategory , setUserModal}) => {
     return (  
         <nav className="flex gap-x-4 ">
-            <button  className="hover:text-red-500  cursor-pointer text-sm font-sans text-gray-500" onClick={()=> handleCategory(category.id) & setIsModal(false)}>{category.name}</button>
+            <button  className="hover:text-red-500  cursor-pointer text-sm font-sans text-gray-500" onClick={()=> handleCategory(category.id) & setIsModal(false) & setUserModal ? setUserModal(false) : ""}>{category.name}</button>
 
             <div className={`${category.status ? "" : "hidden"} ${customClassname}`}>
                 <div className="bg-gray-50 pb-3">
