@@ -12,7 +12,7 @@ const BigScreenMenu = ({setIsModal , customClassname , category  , handleCategor
                         </Link>
                     </nav>
                     <hr/>
-                    <div className=" sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 mt-5 px-4">
+                    <div className=" sm:columns-2 md:columns-3 lg:columns-4 xl:columns-6 mt-5 px-4">
                         {category.sub_categories.length > 0 && category.sub_categories.map((sub,main_index) => {
                                 return(
                                     <div className=" mb-3 break-inside-avoid" key={main_index}>
