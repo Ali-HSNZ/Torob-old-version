@@ -7,7 +7,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAuth } from "../contexts/Auth";
+import { useSelector } from "react-redux";
 
 const Header = () => {
     const [data,setData] = useState(null)
@@ -16,8 +16,9 @@ const Header = () => {
     const router = useRouter()
     const  {query} = useRouter()
 
-    const user = useAuth()
+    const {user} = useSelector(state => state.userSignup)
     
+
     const [inputValue , setInputValue] = useState(query.query)
     
     const  closeCategory = () => {
@@ -56,7 +57,7 @@ const Header = () => {
             <section className=" py-4 bg-gray-50">
                 <div onClick={()=>{closeCategory() } } className={`fixed ${isOpen? "" : "hidden"}  inset-0 mt-36  h-full w-full z-10`}></div>
 
-                {user.data && user.data.phone_number ? <></> : (
+                {user && user.phone_number ? <></> : (
                     <Modal
                     open={isModal}
                     onClose={()=>setIsModal(false)}
@@ -103,8 +104,8 @@ const Header = () => {
                             </button>
                     </form>
 
-                    {user.data && user.data.phone_number ? (
-                        <button  className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">{toPersianDigits(user.data.phone_number)}</button>
+                    {user && user.phone_number ? (
+                        <button  className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">{toPersianDigits(user.phone_number)}</button>
                     ) : (
                         <button onClick={()=> setIsModal(true)} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">ورود / ثبت نام</button>
                     )}
