@@ -6,7 +6,6 @@ import { useState } from "react"
 const MobileCategories = ({similarCategories , categories, closeHandler , isMobileMenu}) => {
     const {query} = useRouter()
     const {category} = query
-    const [isSuggestedCategories, setIsSuggestedCategories] = useState(true)
 
     const router = useRouter()
     const returnSubcategory = (name) => {
@@ -91,7 +90,7 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
 
                 <section className="flex flex-col w-full  px-6  h-full overflow-y-auto"  >
                         <span className=" py-6  font-sans mr-2 text-gray-800 ">{returnSubcategory(category) ? returnSubcategory(category).text : "دسته بندی پیشنهادی"}</span>
-                    <nav className={`${isSuggestedCategories ? "" : "hidden"} flex flex-col gap-y-6 pr-4 pb-6`}>
+                    <nav className={`flex flex-col gap-y-6 pr-4 pb-6`}>
                         { !returnSubcategory(category) ?  categories.categories.map((category, index) => {
                             return (
                                 <Link key={index} href={{pathname: "/search",query: { ...query, category: category.name }}}>
@@ -141,7 +140,8 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
                                 })}
 
                                 <div className="bg-gray-100 flex right-0 gap-x-4 w-full h-auto absolute bottom-0 py-4 px-4">
-                                    <button onClick={()=> {delete query.category & router.push({pathname : "/search" , query : {...query}}) & closeHandler("")}}  className="w-full border border-gray-700  text-gray-800  rounded-md text-sm font-sans  py-3">
+                                    <button onClick={()=> {delete query.category & router.push({pathname : "/search" , query : {...query}}) ; closeHandler("")}}  className="w-full border border-gray-700  text-gray-800  rounded-md text-sm font-sans  py-3">
+                                                   
                                         حذف فیلتر دسته‌بندی
                                     </button>
                                 </div>
