@@ -9,7 +9,6 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
     const [isSuggestedCategories, setIsSuggestedCategories] = useState(true)
 
     const router = useRouter()
-
     const returnSubcategory = (name) => {
         if(category){
             if(similarCategories && similarCategories.name === name){
@@ -77,7 +76,7 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
         open={isMobileMenu}
         onClose={()=>closeHandler()}
         className="flex justify-center items-center px-4">
-            <div className="bg-white   w-full sm:w-2/5 fixed z-50 right-0 bottom-0 top-0">
+            <div className={`bg-white  ${category ? "pb-36" : "pb-16"} w-full sm:w-2/5 fixed z-50 right-0 bottom-0 top-0`}>
 
                 <div className="px-4 mt-6 flex w-full">
                     <button onClick={()=> closeHandler(false)}>
@@ -90,15 +89,8 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
 
                 <hr className="mt-5"/>
 
-                <section className="flex flex-col w-full  px-6">
-                    <div onClick={()=>setIsSuggestedCategories(!isSuggestedCategories) } className={`py-6 flex items-center cursor-pointer`}>
-                        <div className={`${isSuggestedCategories ? "" : "rotate-90"}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" text-gray-800 w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                            </svg>
-                        </div>
-                        <span className="font-sans mr-2 text-gray-800 ">{returnSubcategory(category) ? returnSubcategory(category).text : "دسته بندی پیشنهادی"}</span>
-                    </div>
+                <section className="flex flex-col w-full  px-6  h-full overflow-y-auto"  >
+                        <span className=" py-6  font-sans mr-2 text-gray-800 ">{returnSubcategory(category) ? returnSubcategory(category).text : "دسته بندی پیشنهادی"}</span>
                     <nav className={`${isSuggestedCategories ? "" : "hidden"} flex flex-col gap-y-6 pr-4 pb-6`}>
                         { !returnSubcategory(category) ?  categories.categories.map((category, index) => {
                             return (
