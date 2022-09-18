@@ -9,11 +9,6 @@ const SmallScreenMenu = ({isOpen , setIsOpen , closeCategory , data , handleCate
     const {query} = useRouter()
 
     return (  
-        <Modal
-        open={isOpen}
-        onClose={()=>setIsOpen(false)}
-        className={`${isOpen ? "" : "hidden"} sm:hidden`}
-        >
             <section className={`h-full  pb-[230px]  fixed  ${isOpen ? "" : "hidden"} sm:hidden inset-0  z-40 w-full bg-white`}>
 
                 <div className="px-4 mt-6 flex w-full">
@@ -72,7 +67,6 @@ const SmallScreenMenu = ({isOpen , setIsOpen , closeCategory , data , handleCate
                             </div>
                         )
                     })}
-
                 </div>
                 <div className="border-t bg-white flex fixed bottom-0 gap-x-4 w-full h-auto py-4 px-4">
                     <button onClick={()=>  router.push({pathname : "/search" , query : {...query , category:currentCategory }}) & closeCategory() & setIsOpen(false)} className={`bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md ${query.category ? "w-3/4" : "w-full"} text-center`}>
@@ -82,7 +76,6 @@ const SmallScreenMenu = ({isOpen , setIsOpen , closeCategory , data , handleCate
                 </div>
 
             </section>
-        </Modal>   
     );
 }
  
