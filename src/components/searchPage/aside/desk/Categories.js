@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useEffect } from "react"
 import { useState } from "react"
 
 const Categories = ({similarCategories , categories}) => {
@@ -67,6 +68,28 @@ const Categories = ({similarCategories , categories}) => {
         return false
     }
 
+    const [limitedCategories , setLimitedCategories] = useState(true)
+
+    function limied(){
+        if(!returnSubcategory(category)){
+            if(limitedCategories){
+                categories.categories.length <= 5 && setLimitedCategories(false)
+               return categories.categories.length > 5 ?  categories.categories.slice(0,5) : categories.categories
+            }
+            return categories.categories
+        }else{
+            if(limitedCategories){
+                returnSubcategory(category).data.length <= 5 && setLimitedCategories(false)
+                return returnSubcategory(category).data.length > 5 ?  returnSubcategory(category).data.slice(0,5) : returnSubcategory(category).data
+            }
+            return returnSubcategory(category).data
+        }
+    }
+
+    useEffect(()=>{
+        setLimitedCategories(true)
+    },[category])
+
     return ( 
         <section className="flex flex-col w-full  px-6">
             <div onClick={()=>setIsSuggestedCategories(!isSuggestedCategories) } className={`py-6 flex items-center cursor-pointer`}>
@@ -78,13 +101,17 @@ const Categories = ({similarCategories , categories}) => {
                 <span className="font-sans mr-2 text-gray-800">{returnSubcategory(category) ? returnSubcategory(category).text : "دسته بندی پیشنهادی"}</span>
             </div>
             <nav className={`${isSuggestedCategories ? "" : "hidden"} flex flex-col gap-y-6 pr-4 pb-6`}>
-                { !returnSubcategory(category) ?  categories.categories.map((category, index) => {
-                    return (
-                        <Link key={index} href={{pathname: "/search",query: { ...query, category: category.name }}}>
-                            <a className="hover:text-red-500  text-sm font-sans text-gray-800">{category.name}</a>
-                        </Link>
-                    );
-                }) : (
+                {!returnSubcategory(category) ?  (
+                    <>
+                        {limied().map((category, index) => {
+                            return (
+                                <Link key={index} href={{pathname: "/search",query: { ...query, category: category.name }}}>
+                                    <a className="hover:text-red-500  text-sm font-sans text-gray-800">{category.name}</a>
+                                </Link>
+                            )})}
+                        {limitedCategories && <button onClick={()=>setLimitedCategories(false)} className="w-full py-3 bg-gray-50 text-gray-700 hover:bg-gray-100  border-gray-300 rounded-md font-sans text-sm">نمایش تمام دسته‌بندی‌ها</button>}
+                    </>
+                ) : (
                     <div className="flex flex-col ">
                         {returnSubcategory(category).mainName && (
                             <Link href={{pathname : '/search' , query : {...query , category : returnSubcategory(category).mainName}}}>
@@ -117,14 +144,20 @@ const Categories = ({similarCategories , categories}) => {
                             </Link>
                         )}
                         {/* //? Maping On Data */}
-                        {returnSubcategory(category) !== null && returnSubcategory(category).data.map((category, index) => {
-                            {if(category.status === false) return <p key={index} className=" mr-12 py-3  text-sm font-sans text-gray-700">{category.name}</p>};
-                            return(
-                                    <Link key={index} href={{pathname: "/search",query: { ...query, category: category.name }}}>
-                                        <a className="hover:text-red-500 mr-12 py-3  text-sm font-sans text-gray-800">{category.name}</a>
-                                    </Link>
-                            )
-                        })}
+                        {returnSubcategory(category) !== null && (
+                            <>
+
+                                {limied().map((category, index) => {
+                                    {if(category.status === false) return <p key={index} className=" mr-12 py-3  text-sm font-sans text-gray-700">{category.name}</p>};
+                                    return(
+                                        <Link key={index} href={{pathname: "/search",query: { ...query, category: category.name }}}>
+                                                <a className="hover:text-red-500 mr-12 py-3  text-sm font-sans text-gray-800">{category.name}</a>
+                                            </Link>
+                                    )
+                                })}
+                                {limitedCategories && <button onClick={()=>setLimitedCategories(false)} className="mt-4 w-full py-3 bg-gray-50 text-gray-700 hover:bg-gray-100  border-gray-300 rounded-md font-sans text-sm">نمایش تمام دسته‌بندی‌ها</button>}
+                            </>                            
+                        )}
                     </div>
                 )}
             </nav>
