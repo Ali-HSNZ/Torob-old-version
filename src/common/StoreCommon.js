@@ -1,24 +1,10 @@
-import { toEnDigits, toPersianDigits } from "@/utils/toPersianDigits";
+import { toPersianDigits } from "@/utils/toPersianDigits";
 import { toPersianPrice } from "@/utils/toPersianPrice";
-import PersianDate from "@alireza-ab/persian-date";
 import { TbTruckDelivery } from "react-icons/tb";
 import Link from 'next/link';
+import { timeDifference } from "@/utils/timeDifference";
 
 const StoreCommon = ({store , index}) => {
-
-
-    function timeDifference(time){
-        const date = new Date(time*1000)
-        const toPersianDate = date.toLocaleDateString("fa-IR")
-        const year = toPersianDate.split('/')[0]
-        const month = toPersianDate.split('/')[1]
-        const day = toPersianDate.split('/')[2]
-        const splitDate = toEnDigits(`${year}/${month}/${day}`)
-        let dateNow = new PersianDate(null)
-        return toPersianDigits(dateNow.diffForHumans( splitDate , false))
-    }
-
-
     return (  
         <div  key={index}>
             <section className='  flex flex-col xl:flex-row justify-between mt-0 group py-4 px-3 md:px-8 hover:bg-gray-50'>
