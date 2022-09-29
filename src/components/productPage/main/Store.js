@@ -1,5 +1,5 @@
 import ChooseCity from '@/common/ChooseCity';
-import { toEnDigits, toPersianDigits } from '@/utils/toPersianDigits';
+import {toPersianDigits } from '@/utils/toPersianDigits';
 
 import { useEffect } from 'react';
 import { useState } from 'react';
