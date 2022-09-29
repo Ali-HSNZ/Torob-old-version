@@ -17,6 +17,7 @@
     "@persian-tools/persian-tools": "^3.4.0",
     "axios": "^0.27.2",
     "chart.js": "^3.9.1",
+    "cookie-cutter": "^0.2.0",
     "flowbite": "^1.5.2",
     "flowbite-react": "^0.1.10",
     "formik": "^2.2.9",
@@ -41,6 +42,7 @@
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
     "swiper": "^8.3.2",
+    "universal-cookie": "^4.0.4",
     "use-reducer-async": "^2.1.1",
     "yup": "^0.32.11"
   },
