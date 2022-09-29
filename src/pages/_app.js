@@ -7,11 +7,19 @@ import { wrapper } from 'src/redux/store';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadUserInfo } from 'src/redux/user/userActions';
+import { useRouter } from 'next/router';
+import Cookies from 'universal-cookie';
 
 function MyApp({ Component, pageProps }) {
 
+  const router = useRouter()
+  const token = new Cookies().get('userToken')
   const dispatch = useDispatch()
   useEffect(()=>{
+    if(router.pathname.includes('/user') && !token){
+      if(window) 
+      window.location.href = "/"
+    }
       dispatch(loadUserInfo())
   },[])
 
