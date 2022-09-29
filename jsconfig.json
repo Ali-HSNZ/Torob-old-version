@@ -2,6 +2,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
+            "@/redux/*" : ["src/redux/*"],
             "@/common/*" : ["src/common/*"],
             "@/components/*" : ["src/components/*"],
             "@/hooks/*" : ["src/hooks/*"],
@@ -9,7 +10,6 @@
             "@/pages/*" : ["src/pages/*"],
             "@/images/*" : ["src/images/*"],
             "@/utils/*" : ["src/utils/*"],
-            "@/redux/*" : ["src/redux/*"],
         }
     }
 }
