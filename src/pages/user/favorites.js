@@ -9,7 +9,7 @@ import empty_likes from '@/images/empty_likes.png'
 import { useEffect } from "react";
 import { fetchLikes } from "@/redux/like/likeActions";
 import ReactLoading from 'react-loading';
-import { fetchAnalytics } from "@/redux/analytics/AnalyticsActions";
+import { fetchAnalytics } from "@/redux/analytics/analyticsActions";
 
 const Favorites = () => {
     const {likes , loading , likesLoading} = useSelector(state => state.likes)

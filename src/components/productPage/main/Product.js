@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchLikes, likedAction } from '@/redux/like/likeActions';
 import { useEffect } from 'react';
 import { authPanel } from '@/redux/user/userActions';
-import { analyzeAction, fetchAnalytics } from '@/redux/analytics/AnalyticsActions';
+import { analyzeAction, fetchAnalytics } from '@/redux/analytics/analyticsActions';
 
 
 

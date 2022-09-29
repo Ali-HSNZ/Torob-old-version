@@ -7,7 +7,7 @@ import ProductCommon from "@/common/ProductCommon";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLikes } from "@/redux/like/likeActions";
 import axios from "axios";
-import { fetchAnalytics } from "@/redux/analytics/AnalyticsActions";
+import { fetchAnalytics } from "@/redux/analytics/analyticsActions";
 
 const Product = ({ data}) => {
     const [products, setProducts] = useState(data);

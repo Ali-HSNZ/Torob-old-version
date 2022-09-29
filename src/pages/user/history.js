@@ -10,7 +10,7 @@ import Styles from '@/components/searchPage/product.module.css'
 import empty_history from '@/images/empty_history1.png'
 import ReactLoading from 'react-loading';
 import { fetchLikes } from "@/redux/like/likeActions";
-import { fetchAnalytics } from "@/redux/analytics/AnalyticsActions";
+import { fetchAnalytics } from "@/redux/analytics/analyticsActions";
 
 const History = () => {
 

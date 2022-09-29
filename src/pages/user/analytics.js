@@ -4,7 +4,7 @@ import Layout from "@/layout/Layout";
 import AnalyticsComponent from "@/components/userPage/AnalyticsComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchAnalytics } from "@/redux/analytics/AnalyticsActions";
+import { fetchAnalytics } from "@/redux/analytics/analyticsActions";
 import { Modal, Pagination } from "@mui/material";
 import { useState } from "react";
 import ReactLoading from 'react-loading';
