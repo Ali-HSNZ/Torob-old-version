@@ -3,7 +3,7 @@ import { toPersianPrice } from "@/utils/toPersianPrice";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 
-import { analyzeAction } from "@/redux/analytics/AnalyticsActions";
+import { analyzeAction } from "@/redux/analytics/analyticsActions";
 import { likedAction } from "@/redux/like/likeActions";
 import { authPanel } from "@/redux/user/userActions";
 
