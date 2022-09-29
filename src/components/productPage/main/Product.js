@@ -2,7 +2,43 @@ import { toPersianPrice } from '@/utils/toPersianPrice';
 import Link from 'next/link';
 import ProductSlider from '../ProductSlider';
 import Styles from '/src/pages/product/[hashId]/grid.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLikes, likedAction } from 'src/redux/like/likeActions';
+import { useEffect } from 'react';
+import { authPanel } from 'src/redux/user/userActions';
+import { analyzeAction, fetchAnalytics } from 'src/redux/analytics/AnalyticsActions';
+
+
+
 const Product = ({product}) => {
+   
+    const dispatch = useDispatch()
+    const {likes , likesLoading} = useSelector(state => state.likes)
+    const {analyticsLoading , analytics} = useSelector(state => state.analytics)
+    const {user} = useSelector(state => state.auth)
+
+    const isLiked = () => {
+        const liked = likes &&  likes.find(item => item.hash_id === product.product.hash_id)
+        if(liked) return true
+    }
+    const isLikeLoading = () => {
+        const likeLoading = likesLoading && likesLoading.length > 0 && likesLoading.find(item => item.hash_id === product.product.hash_id)
+        if(likeLoading){return true} return false;
+    }
+    const isAnalyze = () => {
+        const analyze = analytics && analytics.find(item => item.hash_id === product.product.hash_id)
+        if(analyze){return true}  
+    };
+    const isAnalyzeLoading = () => {
+        const analyzeLoading_product = analyticsLoading && analyticsLoading.length > 0 && analyticsLoading.find(item => item.hash_id === product.product.hash_id)
+        if(analyzeLoading_product){return true}
+    };
+
+    useEffect(()=>{
+        dispatch(fetchLikes())
+        dispatch(fetchAnalytics())
+    },[])
+
     return (  
         <article className={`${Styles.product} overflow-hidden bg-white flex flex-col lg:flex-row lg:justify-between w-full lg:flex p-5`}>
             <div className=" flex justify-center items-center">
@@ -25,16 +61,16 @@ const Product = ({product}) => {
                         {/* //? Icons */}
                         <div className='flex pl-5 justify-end w-fit md:w-full'>
                         {/* //?Notification */}
-                            <button className='p-2 hover:bg-gray-100 rounded-full'>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-800">
+                            <button  onClick={()=>{ user ? dispatch(analyzeAction({hash_id : product.product.hash_id})) : dispatch(authPanel(true))}} className="p-2 hover:bg-gray-100 rounded-full cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill={ `${isAnalyzeLoading() ? "#fc6b62" : isAnalyze() ? "red" : "none"}`} viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6  ${isAnalyzeLoading() ? "text-[#fc6b62]" : isAnalyze() ? "text-red-700" : "none"} outline-none`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                                 </svg>
                             </button>
                             {/* //?Heart */}
-                            <button className='p-2 hover:bg-gray-100 rounded-full'>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-800">
+                            <button onClick={()=> user && user.phone_number ? dispatch(likedAction({hash_id : product.product.hash_id})) : dispatch(authPanel(true))} className='p-2 hover:bg-gray-100 rounded-full' >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill={ `${isLikeLoading() ? "#fc6b62" : isLiked() ? "red" : "none"}`} viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6  ${isLikeLoading() ? "text-[#fc6b62]" :  isLiked() ? "text-red-700" : "none"} outline-none`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
+                                </svg> 
                             </button>
                             {/* //?Share */}
                             <button className='p-2 hover:bg-gray-100 rounded-full'>
