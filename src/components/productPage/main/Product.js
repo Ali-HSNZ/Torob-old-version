@@ -3,10 +3,10 @@ import Link from 'next/link';
 import ProductSlider from '../ProductSlider';
 import Styles from '/src/pages/product/[hashId]/grid.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLikes, likedAction } from 'src/redux/like/likeActions';
+import { fetchLikes, likedAction } from '/src/redux/like/likeActions';
 import { useEffect } from 'react';
-import { authPanel } from 'src/redux/user/userActions';
-import { analyzeAction, fetchAnalytics } from 'src/redux/analytics/AnalyticsActions';
+import { authPanel } from '/src/redux/user/userActions';
+import { analyzeAction, fetchAnalytics } from '/src/redux/analytics/AnalyticsActions';
 
 
 

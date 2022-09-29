@@ -5,12 +5,12 @@ import { Modal } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteHistory, fetchHistory } from "src/redux/history/historyActions";
+import { deleteHistory, fetchHistory } from "/src/redux/history/historyActions";
 import Styles from '../../components/searchPage/product.module.css'
 import empty_history from '/src/images/empty_history1.png'
 import ReactLoading from 'react-loading';
-import { fetchLikes } from "src/redux/like/likeActions";
-import { fetchAnalytics } from "src/redux/analytics/AnalyticsActions";
+import { fetchLikes } from "/src/redux/like/likeActions";
+import { fetchAnalytics } from "/src/redux/analytics/AnalyticsActions";
 
 const History = () => {
 

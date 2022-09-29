@@ -7,9 +7,9 @@ import { Modal } from "@mui/material";
 import { useState } from "react";
 import empty_likes from '/src/images/empty_likes.png'
 import { useEffect } from "react";
-import { fetchLikes } from "src/redux/like/likeActions";
+import { fetchLikes } from "/src/redux/like/likeActions";
 import ReactLoading from 'react-loading';
-import { fetchAnalytics } from "src/redux/analytics/AnalyticsActions";
+import { fetchAnalytics } from "/src/redux/analytics/AnalyticsActions";
 
 const Favorites = () => {
     const {likes , loading , likesLoading} = useSelector(state => state.likes)
