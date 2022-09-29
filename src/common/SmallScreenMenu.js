@@ -2,14 +2,14 @@ import { Modal } from "@mui/material";
 import { useRouter } from "next/router";
 
 
-const SmallScreenMenu = ({isOpen , setIsOpen , closeCategory , data , handleCategory , setCurrentCategory , currentCategory}) => {
+const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory , categories , handleCategory , setCurrentCategory , currentCategory}) => {
     
     
     const router = useRouter()
     const {query} = useRouter()
 
     return (  
-            <section className={`h-full  pb-[230px]  fixed  ${isOpen ? "" : "hidden"} sm:hidden inset-0  z-40 w-full bg-white`}>
+            <section className={`h-full  pb-[230px]  fixed  ${isCategoryPanel ? "" : "hidden"} sm:hidden inset-0  z-40 w-full bg-white`}>
 
                 <div className="px-4 mt-6 flex w-full">
                     <button onClick={()=> closeCategory()}>
@@ -23,7 +23,7 @@ const SmallScreenMenu = ({isOpen , setIsOpen , closeCategory , data , handleCate
                 <hr className="mt-5"/>
 
                 <div className="flex py-4  gap-x-4 mt-4 z-20 w-full whitespace-nowrap overflow-x-auto px-4">                    
-                    {data&&data.map((category,index) => {
+                    {categories&&categories.map((category,index) => {
                         return(
                             <button key={index}  className="hover:text-red-500 text-xs border px-4 py-2 rounded-md border-gray-400 cursor-pointer flex font-sans text-gray-700" onClick={()=> handleCategory(category.id)}>{category.name}</button>
                         )
@@ -31,7 +31,7 @@ const SmallScreenMenu = ({isOpen , setIsOpen , closeCategory , data , handleCate
                 </div>
 
                 <div className=" h-full w-full pb-4 px-4 overflow-y-auto">
-                    {data&&data.map((category,index) =>{
+                    {categories&&categories.map((category,index) =>{
                         return(
                             <div className={`${category.status ? "" : "hidden"}`} key={index}>
                                 <section className="pb-4">
@@ -69,10 +69,10 @@ const SmallScreenMenu = ({isOpen , setIsOpen , closeCategory , data , handleCate
                     })}
                 </div>
                 <div className="border-t bg-white flex fixed bottom-0 gap-x-4 w-full h-auto py-4 px-4">
-                    <button onClick={()=>  router.push({pathname : "/search" , query : {...query , category:currentCategory }}) & closeCategory() & setIsOpen(false)} className={`bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md ${query.category ? "w-3/4" : "w-full"} text-center`}>
+                    <button onClick={()=>  router.push({pathname : "/search" , query : {...query , category:currentCategory }}) & closeCategory() & setIsCategoryPanel(false)} className={`bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md ${query.category ? "w-3/4" : "w-full"} text-center`}>
                             اعمال فیلتر 
                     </button>
-                    {query.category && <button onClick={()=> {delete query.category &  router.push({pathname : "/search" , query : {...query}}) & closeCategory() & setIsOpen(false)}}  className="w-1/4 border border-gray-700 bg-white text-gray-700 rounded-md text-sm font-sans  py-3">حذف</button>}
+                    {query.category && <button onClick={()=> {delete query.category &  router.push({pathname : "/search" , query : {...query}}) & closeCategory() & setIsCategoriesModal_background(false)}}  className="w-1/4 border border-gray-700 bg-white text-gray-700 rounded-md text-sm font-sans  py-3">حذف</button>}
                 </div>
 
             </section>
