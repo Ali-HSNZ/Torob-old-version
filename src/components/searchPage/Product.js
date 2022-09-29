@@ -5,9 +5,9 @@ import ReactLoading from 'react-loading';
 import { useRouter } from "next/router";
 import ProductCommon from "@/common/ProductCommon";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLikes } from "../../redux/like/likeActions";
+import { fetchLikes } from "@/redux/like/likeActions";
 import axios from "axios";
-import { fetchAnalytics } from "../../redux/analytics/AnalyticsActions";
+import { fetchAnalytics } from "@/redux/analytics/AnalyticsActions";
 
 const Product = ({ data}) => {
     const [products, setProducts] = useState(data);

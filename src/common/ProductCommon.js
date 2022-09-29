@@ -1,10 +1,10 @@
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { toPersianPrice } from "@/utils/toPersianPrice";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { analyzeAction } from "../redux/analytics/AnalyticsActions";
-import { likedAction } from "../redux/like/likeActions";
-import { authPanel } from "../redux/user/userActions";
+import { useDispatch } from "react-redux";
+import { analyzeAction } from "@/redux/analytics/AnalyticsActions";
+import { likedAction } from "@/redux/like/likeActions";
+import { authPanel } from "@/redux/user/userActions";
 
 const ProductCommon = ({product , isLiked , isLikeLoading , user , isAnalyze , isAnalyzeLoading}) => {
     const dispatch = useDispatch() 

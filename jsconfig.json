@@ -9,6 +9,7 @@
             "@/pages/*" : ["src/pages/*"],
             "@/images/*" : ["src/images/*"],
             "@/utils/*" : ["src/utils/*"],
+            "@/redux/*" : ["src/redux/*"],
         }
     }
 }

@@ -3,9 +3,9 @@ import { toPersianDigits } from "@/utils/toPersianDigits";
 import { toPersianPrice } from "@/utils/toPersianPrice";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { analyzeAction } from "../../redux/analytics/AnalyticsActions";
-import { likedAction } from "../../redux/like/likeActions";
-import { authPanel } from "../../redux/user/userActions";
+import { analyzeAction } from "@/redux/analytics/AnalyticsActions";
+import { likedAction } from "@/redux/like/likeActions";
+import { authPanel } from "@/redux/user/userActions";
 import ChartDetail from "../productPage/ChartDetail";
 
 const AnalyticsComponent = ({product , isLikeLoading , isLiked , isAnalyzeLoading , isAnalyze , user}) => {
