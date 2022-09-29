@@ -4,7 +4,7 @@ import Chart  from "chart.js/auto";
 
 Chart.defaults.font.family = "iranyekan"
 
-function ChartDetail({chart}) {
+function ChartDetail({chart , page}) {
 
     const data = {
         labels: chart.map(item => item.date),
@@ -13,26 +13,27 @@ function ChartDetail({chart}) {
                 label: 'کمترین قیمت',
                 fill: false,
                 borderWidth:2,
-                backgroundColor: '#34eb40',
-                borderColor: '#34eb40',
+                lineTension: 0.3,
+                backgroundColor: '#00c20d',
+                borderColor: '#00c20d',
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
                 borderJoinStyle: 'miter',
-                pointBorderColor: '#34eb40',
+                pointBorderColor: '#019101',
                 pointBackgroundColor: '#fff',
-                pointBorderWidth: 1,
-                pointHoverRadius: 1,
-                pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                pointHoverBorderColor: 'rgba(220,220,220,1)',
-                pointHoverBorderWidth: 1,
+                pointBorderWidth: 2,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: '#008a13',
+                pointHoverBorderColor: '#b3fcbd',
+                pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 data: chart.map(item => item.price),
             },
             {
                 label: 'میانگین قیمت',
                 fill: false,
-                lineTension: 0.2,
+                lineTension: 0.3,
                 backgroundColor: '#5c92ff',
                 borderWidth:2,
                 borderColor: '#5c92ff',
@@ -40,13 +41,13 @@ function ChartDetail({chart}) {
                 borderDash: [],
                 borderDashOffset: 0.0,
                 borderJoinStyle: 'miter',
-                pointBorderColor: '#2f73fa',
+                pointBorderColor: '#0707ed',
                 pointBackgroundColor: '#fff',
-                pointBorderWidth: 1,
-                pointHoverRadius: 1,
-                pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                pointHoverBorderColor: 'rgba(220,220,220,1)',
-                pointHoverBorderWidth: 1,
+                pointBorderWidth: 2,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: '#0707ed',
+                pointHoverBorderColor: '#ccccff',
+                pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 data: chart.map(item => item.average_price),
                
@@ -55,6 +56,7 @@ function ChartDetail({chart}) {
     };
 
     const options= {
+      maintainAspectRatio: page === "product" ? true : false,
         plugins: {
             datalabels: {
                 align: 'bottom',
@@ -89,21 +91,8 @@ function ChartDetail({chart}) {
         },
 
         scales: {
-           yAxes: [{
-                gridLines: {
-                  display: false
-                },
-                ticks: {
-                  fontFamily: "iranyekan",
-                }
-              }],
 
             x: {
-                // display : false,
-
-
-                    fontSize: 40
-                ,
               grid: {
                 color: 'white',
                 borderColor: 'white',
