@@ -2,13 +2,14 @@ import { toPersianDigits } from "@/utils/toPersianDigits";
 import { toPersianPrice } from "@/utils/toPersianPrice";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
+
 import { analyzeAction } from "@/redux/analytics/AnalyticsActions";
 import { likedAction } from "@/redux/like/likeActions";
 import { authPanel } from "@/redux/user/userActions";
 
 const ProductCommon = ({product , isLiked , isLikeLoading , user , isAnalyze , isAnalyzeLoading}) => {
     const dispatch = useDispatch() 
-
+    
     return (  
         <section  className="bg-white rounded-md w-full h-full min-w-[200px] px-4 flex flex-col items-center">
             <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
