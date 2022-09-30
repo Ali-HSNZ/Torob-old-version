@@ -26,7 +26,7 @@ const Login = () => {
     })
     const withOutUserVerifyCode_Validation = Yup.object({
         phone_number : Yup.string().required("شماره موبایل نمی تواند خالی باشد").matches(phoneRegExp , "شماره موبایل معتبر نیست"),
-        verification_code : Yup.string().required("کد تایید نمی تواند خالی باشد").min(4 , "کد تایید نمیتواند کمتر از 4 کاراکتر باشد")
+        verification_code : Yup.string().required("کد تایید نمی تواند خالی باشد").min(4 , "کد تایید نمیتواند کمتر  از 4 کاراکتر باشد").max(4 , "کد تایید نمیتواند بیشتر  از 4 کاراکتر باشد")
     })
     const formik = useFormik({
         initialValues : {phone_number : '' , verification_code : ""},
@@ -59,7 +59,9 @@ const Login = () => {
                         <p className="font-sans text-sm font-bold  ">کد تایید</p>
                         <input dir="ltr" name="verification_code" onBlur={formik.handleBlur}  value={formik.values['verification_code']} onChange={formik.handleChange}  className={` w-full mt-3 font-sans  py-2 bg-gray-50 text-sm p-4 text-gray-800 rounded-md border border-gray-300 outline-none`}/>
                     </div>
-                    
+                    {formik.errors['verification_code'] && formik.touched['verification_code'] && (
+                            <span className={' pt-2 w-full font-sans text-sm text-red-500'}>{formik.errors["verification_code"]}</span>
+                        )}  
                     <div className="w-full flex justify-center items-center mt-6 ">
                         <button type={'submit'} disabled={!formik.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 text-sm">
                             {user ? `ورود به حساب کاربری${loading ? "..." : ""}` : `دریافت کد تایید${loading ? "..." : ""}`}
