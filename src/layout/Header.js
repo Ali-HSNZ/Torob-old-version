@@ -43,7 +43,8 @@ const Header = () => {
     useEffect(()=> {
         const getData = async() => {
             const {data} = await axios.get('https://project-torob-clone.iran.liara.run/api/categories').then(res => res.data)
-            setCategories(data)
+            const setIdToMainCategories = data.map(category => {return {...category , id:Date.now()+Math.random()}})
+            setCategories(setIdToMainCategories)
         }
         getData()
     },[])
