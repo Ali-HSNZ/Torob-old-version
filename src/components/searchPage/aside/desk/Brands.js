@@ -44,7 +44,7 @@ const Brands = ({brands}) => {
                     findBrands(inputValue) && findBrands(inputValue).length > 0 ? findBrands(inputValue).map(brand => {
                         return(
                             <Link  href={{pathname : '/search' , query : {...query , brand : brand.name}}} key={brand.id} > 
-                                <a className={` ${query.brand === brand.name ? "bg-gray-200" : ""} flex justify-between py-3 hover:bg-gray-50 px-2 rounded-md`} key={brand.id}>
+                                <a className={` ${query.brand === brand.name ? "bg-gray-100" : ""} flex justify-between py-3 hover:bg-gray-50 px-2 rounded-md`} key={brand.id}>
                                     <span className="font-sans text-gray-600 text-sm">{brand.name}</span>
                                     <span className="font-sans text-gray-600 text-sm">{brand.name_english}</span>
                                 </a>
