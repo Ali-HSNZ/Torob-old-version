@@ -1,10 +1,12 @@
 import { Modal } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 
 const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory , categories , handleCategory , setCurrentCategory , currentCategory}) => {
     
-    
+    const [brand , setBrand] = useState(null)
     const router = useRouter()
     const {query} = useRouter()
 
@@ -25,7 +27,7 @@ const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory ,
                 <div className="flex py-4  gap-x-4 mt-4 z-20 w-full whitespace-nowrap overflow-x-auto px-4">                    
                     {categories&&categories.map((category,index) => {
                         return(
-                            <button key={index}  className="hover:text-red-500 text-xs border px-4 py-2 rounded-md border-gray-400 cursor-pointer flex font-sans text-gray-700" onClick={()=> handleCategory(category.id)}>{category.name}</button>
+                            <button key={index}  className="hover:text-red-500 text-xs border px-4 py-2 rounded-md border-gray-400 cursor-pointer flex font-sans text-gray-700" onClick={()=> handleCategory(category.id)}>{category.title}</button>
                         )
                     })}
                 </div>
@@ -35,16 +37,16 @@ const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory ,
                         return(
                             <div className={`${category.status ? "" : "hidden"}`} key={index}>
                                 <section className="pb-4">
-                                    <button onClick={()=>setCurrentCategory(category.name)} className={`hover:text-red-500 ${category.name === currentCategory ? "text-red-500" : "text-gray-700"} font-bold font-sans text-sm `}>{category.name}</button>
+                                    <button onClick={()=>setCurrentCategory(category.title)} className={`hover:text-red-500 ${category.title === currentCategory ? "text-red-500" : "text-gray-700"} font-bold font-sans text-sm `}>{category.title}</button>
                                 </section>
-                                <hr/>
-                                <div className="pbt-4">
+                                <hr/> 
+                                <div className="pb-4">
                                     {category.sub_categories && category.sub_categories.length > 0 && category.sub_categories.map((sub,main_index) => {
                                         return(
                                             <div className=" relative" key={main_index}>
                                                 <input type="checkbox" className="peer hidden" name={`${main_index}_checkbox_${index}`} id={`${main_index}_checkbox_${index}`} />
                                                 <section className="mt-4 mr-6 ">
-                                                    <label htmlFor={`${main_index}_checkbox_${index}`}  onClick={()=>setCurrentCategory(sub.name)} className={`hover:text-red-500 ${sub.name === currentCategory ? "text-red-500" : "text-gray-700"} font-sans font-bold text-sm cursor-pointer `}>{sub.name}</label>
+                                                    <label htmlFor={`${main_index}_checkbox_${index}`}  onClick={()=>setCurrentCategory(sub.title)} className={`hover:text-red-500 ${sub.title === currentCategory ? "text-red-500" : "text-gray-700"} font-sans font-bold text-sm cursor-pointer `}>{sub.title}</label>
                                                 </section>
                                                 {sub.sub_categories && (
                                                     <div className=" peer-checked:rotate-[-90deg] absolute right-0 top-1.5">
@@ -54,10 +56,17 @@ const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory ,
                                                     </div>
                                                 )}
                                                 {sub.sub_categories  && sub.sub_categories.map((sub_sub,sub_sub_index) => {
+                                                    const handlePath = sub_sub.type === 'brand' ? {category : sub_sub.category , brand : sub_sub.brand} : {category : sub_sub.title}
                                                     return(
-                                                        <section className="peer-checked:flex hidden mr-8 gap-x-4 mt-4 text-gray-600  whitespace-nowrap" key={sub_sub_index}>
-                                                            <button  onClick={()=>setCurrentCategory(sub_sub.name)} className={`hover:text-red-500 ${sub_sub.name === currentCategory  ? "text-red-500" : "text-gray-700"} text-xs font-sans cursor-pointer `} >{sub_sub.name}</button>
-                                                        </section>
+                                                        <Link  key={sub_sub_index} href={{pathname : '/search' , query : handlePath}}  >
+                                                            <a onClick={()=>{closeCategory()}} className="peer-checked:flex hidden mr-8 gap-x-4 mt-4 text-gray-600  whitespace-nowrap text-xs font-sans ">
+                                                                {sub_sub.title}
+                                                            </a>
+                                                        </Link>
+
+                                                        // <section className="" key={sub_sub_index}>
+                                                        //     <button  onClick={()=>{setCurrentCategory(getCategory ? getCategory : sub_sub.title) & setBrand(getBrand)} } className={`hover:text-red-500 ${getCategory === currentCategory || sub_sub.title === currentCategory  ? "text-red-500" : "text-gray-700"} text-xs font-sans cursor-pointer `} >{sub_sub.title}</button>
+                                                        // </section>
                                                     )
                                                 })}
                                             </div>
@@ -69,10 +78,10 @@ const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory ,
                     })}
                 </div>
                 <div className="border-t bg-white flex fixed bottom-0 gap-x-4 w-full h-auto py-4 px-4">
-                    <button onClick={()=>  router.push({pathname : "/search" , query : {...query , category:currentCategory }}) & closeCategory() & setIsCategoryPanel(false)} className={`bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md ${query.category ? "w-3/4" : "w-full"} text-center`}>
+                    <button onClick={()=>  router.push({pathname : "/search" , query : {...query , category:currentCategory , brand : brand  }}) & closeCategory() & setIsCategoryPanel(false)} className={`bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md ${query.category ? "w-3/4" : "w-full"} text-center`}>
                             اعمال فیلتر 
                     </button>
-                    {query.category && <button onClick={()=> {delete query.category &  router.push({pathname : "/search" , query : {...query}}) & closeCategory() & setIsCategoriesModal_background(false)}}  className="w-1/4 border border-gray-700 bg-white text-gray-700 rounded-md text-sm font-sans  py-3">حذف</button>}
+                    {query.category && <button onClick={()=> {delete query.category & delete query.brand &  router.push({pathname : "/search" , query : {...query}}) & closeCategory()}}  className="w-1/4 border border-gray-700 bg-white text-gray-700 rounded-md text-sm font-sans  py-3">حذف</button>}
                 </div>
 
             </section>
