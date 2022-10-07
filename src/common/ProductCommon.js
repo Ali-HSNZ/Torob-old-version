@@ -30,7 +30,7 @@ const ProductCommon = ({product , isLiked , isLikeLoading , user , isAnalyze , i
                 </a>
             </Link>
             <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
-                <a className="font-sans text-sm text-right w-full mt-5 text-gray-800">{product.title}</a>
+                <a className="font-sans text-sm text-right w-full mt-5 text-gray-800  leading-6">{product.title}</a>
             </Link>
             <div className=" flex  flex-col justify-end w-full mt-5 flex-1 gap-y-2">
                 <h6 className={`font-sans text-sm  ${product.price_start===0 ? "text-red-600" : "text-gray-800"}`}>{product.price_start === 0 ? "ناموجود" :  toPersianPrice(product.price_start)+" تومان " }</h6>

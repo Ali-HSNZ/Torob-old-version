@@ -49,7 +49,7 @@ const Product = ({product}) => {
                         blurDataURL={product.product.image_url} 
                         unoptimized 
                         loader={()=>product.product.image_url} 
-                        width={'200px'} 
+                        width={'180px'} 
                         height={'200px'} 
                         layout={'intrinsic'} 
                         src={product.product.image_url} 
@@ -58,7 +58,7 @@ const Product = ({product}) => {
             </div>
 
             <section className=' md:pr-5 w-full flex flex-col justify-between mt-6 lg:mt-0 '>
-                <p className='font-sans text-bold w-full text-right text-gray-800'>{product.product.title}</p>
+                <p className='font-sans text-bold w-full text-right text-gray-800 leading-8'>{product.product.title}</p>
                 <p className='w-full text-right font-sans mt-6 text-red-600'>از {toPersianPrice(product.prices_range.min)} تومان تا {toPersianPrice(product.prices_range.max)} تومان</p>
                 <div className='mt-6 max-w-[600px] 1360:max-w-[600px]'>
                     <ProductSlider models={product.models}/>
