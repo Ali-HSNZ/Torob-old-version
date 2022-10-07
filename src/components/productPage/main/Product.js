@@ -7,6 +7,7 @@ import { fetchLikes, likedAction } from '@/redux/like/likeActions';
 import { useEffect } from 'react';
 import { authPanel } from '@/redux/user/userActions';
 import { analyzeAction, fetchAnalytics } from '@/redux/analytics/analyticsActions';
+import Image from 'next/image';
 
 
 
@@ -42,7 +43,18 @@ const Product = ({product}) => {
     return (  
         <article className={`${Styles.product} overflow-hidden bg-white flex flex-col lg:flex-row lg:justify-between w-full lg:flex p-5`}>
             <div className=" flex justify-center items-center">
-                <img className='w-auto h-auto ' src={product.product.image_url}/>
+                {/* <img className='w-auto h-auto ' src={product.product.image_url}/> */}
+                <Image
+                        placeholder="blur" 
+                        blurDataURL={product.product.image_url} 
+                        unoptimized 
+                        loader={()=>product.product.image_url} 
+                        width={'200px'} 
+                        height={'200px'} 
+                        layout={'intrinsic'} 
+                        src={product.product.image_url} 
+                        alt={`عکس ${product.product.title.length > 33 ? product.product.title.substring(0,33)+"..." : product.title} `}
+                    />
             </div>
 
             <section className=' md:pr-5 w-full flex flex-col justify-between mt-6 lg:mt-0 '>

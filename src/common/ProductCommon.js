@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { analyzeAction } from "@/redux/analytics/analyticsActions";
 import { likedAction } from "@/redux/like/likeActions";
 import { authPanel } from "@/redux/user/userActions";
+import Image from "next/image";
 
 const ProductCommon = ({product , isLiked , isLikeLoading , user , isAnalyze , isAnalyzeLoading}) => {
     const dispatch = useDispatch() 
@@ -14,13 +15,24 @@ const ProductCommon = ({product , isLiked , isLikeLoading , user , isAnalyze , i
         <section  className="bg-white rounded-md w-full h-full min-w-[200px] px-4 flex flex-col items-center">
             <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
                 <a className="w-24   lg:w-32 flex justify-center pt-4 relative  ">
-                    <img src={product.image_url} className="w-full h-auto"/>
+                    {/* <img src={product.image_url} className="w-full h-auto"/> */}
+                    <Image 
+                        placeholder="blur" 
+                        blurDataURL={product.image_url} 
+                        unoptimized 
+                        loader={()=>product.image_url} 
+                        width={'150px'} 
+                        height={'150px'} 
+                        layout={'intrinsic'} 
+                        src={product.image_url} 
+                        alt={`عکس ${product.title.length > 33 ? product.title.substring(0,33)+"..." : product.title} `}
+                    />
                 </a>
             </Link>
             <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
                 <a className="font-sans text-sm text-right w-full mt-5 text-gray-800">{product.title}</a>
             </Link>
-            <div className=" flex flex-col justify-end w-full mt-5 flex-1 gap-y-2">
+            <div className=" flex  flex-col justify-end w-full mt-5 flex-1 gap-y-2">
                 <h6 className={`font-sans text-sm  ${product.price_start===0 ? "text-red-600" : "text-gray-800"}`}>{product.price_start === 0 ? "ناموجود" :  toPersianPrice(product.price_start)+" تومان " }</h6>
                 <h6 className="font-sans text-sm text-gray-500">در {toPersianDigits(product.shops_count)} فروشگاه</h6>
             </div>
