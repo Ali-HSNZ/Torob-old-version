@@ -31,13 +31,18 @@ const Store = ({product}) => {
         getData()
     },[selectedCities])
 
+    const productSalesCount_handler = () => {
+        const store = product.sales && product.sales.filter(item => item.offer.is_available === true)
+        return store.length
+    }
 
     let storeList;
     if(!showAllStors){
-        storeList =  product.sales.length > 6 ? product.sales.slice(0,6) : product.sales
+        storeList = productSalesCount_handler() > 6 ? product.sales.slice(0,6) : product.sales
     }else{
         storeList = product.sales
     }
+
 
     let CitiesToText = ""; 
     selectedCities && selectedCities.map(e =>CitiesToText+=e+"|")
@@ -62,14 +67,12 @@ const Store = ({product}) => {
                             <div className='flex flex-col  lg:flex-row'>
                                 <h4 className='font-sans text-lg font-bold text-gray-800'>فروشگاه‌های اینترنتی در شهر</h4>
                                 <button onClick={()=> setChooseCity_Modal(true)}  className=' lg:mt-0 lg:mr-6 bg-gray-800 hover:bg-gray-700 rounded-full text-white font-sans px-2 mt-4  py-1.5 flex text-sm items-center justify-between'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800 text-white">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                                     </svg>
-
                                     <p className='mx-2 '>{citiesNameHandler()}</p>
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-white">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                     </svg>
                                 </button>
@@ -81,7 +84,13 @@ const Store = ({product}) => {
 
                     {/* //? city Store */}
                     <div className='w-full'>
-                        {cityStore && cityStore.length > 0 ? cityStore.map((store,index) =>  <StoreCommon key={index} store={store} index={"cityStore_"+index}/>) : (
+                        {cityStore && cityStore.length > 0 ? cityStore.map((store,index) =>  {
+                            if(store.offer.is_available){
+                                return(
+                                    <StoreCommon key={index} store={store} index={"cityStore_"+index}/>
+                                )
+                            }
+                        }) : (
                             <div className='mb-4 w-full flex justify-center'>
                                 <p className='text-center font-sans  px-4 py-2 rounded-md  text-sm bg-[#FFEEBF] text-[#85660E]'  >فروشگاهی با این شرایط پیدا نشد.</p>
                             </div>
@@ -95,12 +104,12 @@ const Store = ({product}) => {
                     <div className={`flex flex-col md:flex-row gap-x-8 items-center`}>
                         <span className='font-sans font-bold text-gray-800'>{selectedCities && selectedCities.length > 0 ? "فروشگاه‌های اینترنتی در سایر شهرها" : "فروشگاه‌های اینترنتی"}</span>
                         <button onClick={()=> setChooseCity_Modal(true)}  className={` ${selectedCities && selectedCities.length > 0 && "hidden"}  bg-gray-800 hover:bg-gray-700 rounded-full text-white font-sans px-2 mt-4 md:mt-0 py-1.5 flex text-sm items-center justify-center`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-white">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                             </svg>
                             <p className='mx-2 '>انتخاب شهر</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-white">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                             </svg>
                         </button>
@@ -110,11 +119,17 @@ const Store = ({product}) => {
                 </section>
 
                 {/* //? Store */}
-                    {storeList.map((store,index) => <StoreCommon key={index} store={store} index={index}/>)}
+                {storeList.map((store,index) => {
+                    if(store.offer.is_available){
+                        return(
+                            <StoreCommon key={index} store={store} index={"cityStore_"+index}/>
+                        )
+                    }
+                })}
                 <div className='w-full px-4'>
-                    <button onClick={() => setShowAllStore(!showAllStors)} className='mt-4 rounded-md font-sans text-sm bg-[#d73948] w-full py-3 text-white'> 
-                        {showAllStors ? "نمایش کمتر" :  `نمایش تمام ${toPersianDigits(product.sales.length)} فروشگاه `}
-                    </button>
+                    {productSalesCount_handler() > 6 &&<button onClick={() => setShowAllStore(!showAllStors)} className='mt-4 rounded-md font-sans text-sm bg-[#d73948] w-full py-3 text-white'> 
+                        {showAllStors ? "نمایش کمتر" :  `نمایش تمام ${toPersianDigits(productSalesCount_handler())} فروشگاه `}
+                    </button>}
                 </div>
             </div>
 
