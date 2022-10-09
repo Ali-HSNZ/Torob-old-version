@@ -1,12 +1,14 @@
 import ChooseCity from '@/common/ChooseCity';
 import {toPersianDigits } from '@/utils/toPersianDigits';
-
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Styles from '/src/pages/product/[hashId]/grid.module.css'
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import StoreCommon from '@/common/StoreCommon';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchStore } from '@/redux/store/storeActions';
+import ReactLoading from 'react-loading';
 
 
 const Store = ({product}) => {
@@ -17,19 +19,8 @@ const Store = ({product}) => {
     const [selectedCities,setSelectedCities] = useState([])
     const [chooseCity_Modal , setChooseCity_Modal] = useState(false)
     const [showAllStors , setShowAllStore] = useState(false)
-    const [cityStore,setCityStore] = useState(null)
-
-    useEffect(()=>{
-        setSelectedCities([])
-    },[hashId])
-
-    useEffect( ()=>{
-        const getData = async () => {
-            const {data : resualt} = CitiesToText.length > 0 && await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId}/sales?cities=${CitiesToText}`)).then(res => res.data)
-            resualt&&  setCityStore(resualt.filtered)
-        }
-        getData()
-    },[selectedCities])
+    const {store , loading} = useSelector(state => state.store)
+    const dispatch = useDispatch()
 
     const productSalesCount_handler = () => {
         const store = product.sales && product.sales.filter(item => item.offer.is_available === true)
@@ -39,9 +30,7 @@ const Store = ({product}) => {
     let storeList;
     if(!showAllStors){
         storeList = productSalesCount_handler() > 6 ? product.sales.slice(0,6) : product.sales
-    }else{
-        storeList = product.sales
-    }
+    }else storeList = product.sales
 
 
     let CitiesToText = ""; 
@@ -56,10 +45,17 @@ const Store = ({product}) => {
         return "انتخاب شهر"
     }
 
+    useEffect(()=>setSelectedCities([]),[hashId])
+
+    useEffect(()=>{
+        dispatch(fetchStore(hashId , CitiesToText))
+    },[selectedCities])
+
     return (  
         <div className={`${Styles.store}  `}>
+
             {/* //? Header */}
-            
+
             {selectedCities && selectedCities.length > 0 && (
                 <div className='w-full bg-white flex mb-6 flex-col '>
                     <div className='py-5 mb-5  flex flex-row  whitespace-nowrap justify-between px-4 md:px-8'>
@@ -83,14 +79,16 @@ const Store = ({product}) => {
                     </div>
 
                     {/* //? city Store */}
-                    <div className='w-full'>
-                        {cityStore && cityStore.length > 0 ? cityStore.map((store,index) =>  {
-                            if(store.offer.is_available){
-                                return(
-                                    <StoreCommon key={index} store={store} index={"cityStore_"+index}/>
-                                )
-                            }
-                        }) : (
+                    <div className='w-full'>         
+                       {/* //?Loading */}
+                        {loading && (
+                            <div className="w-full flex justify-center mb-8">
+                                <ReactLoading  type="spinningBubbles" height={50} width={50} color='red'/>
+                            </div>
+                        )}
+                        {store && store.length > 0 ? store.map((store,index) =>  {
+                            if(store.offer.is_available) return <StoreCommon key={index} store={store} index={"store_"+index}/>
+                        }) : !loading && (
                             <div className='mb-4 w-full flex justify-center'>
                                 <p className='text-center font-sans  px-4 py-2 rounded-md  text-sm bg-[#FFEEBF] text-[#85660E]'  >فروشگاهی با این شرایط پیدا نشد.</p>
                             </div>
@@ -113,18 +111,14 @@ const Store = ({product}) => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                             </svg>
                         </button>
-                        <ChooseCity setIsModal={setChooseCity_Modal} setCityStore={setCityStore} isModal={chooseCity_Modal} setSelectedCities={setSelectedCities}/>
+                        <ChooseCity setIsModal={setChooseCity_Modal} isModal={chooseCity_Modal} setSelectedCities={setSelectedCities}/>
                     </div>
                     <p className={`font-sans ${selectedCities && selectedCities.length > 0 && "hidden"} text-sm text-red-600`}>راهنمای خرید امن</p>
                 </section>
 
                 {/* //? Store */}
                 {storeList.map((store,index) => {
-                    if(store.offer.is_available){
-                        return(
-                            <StoreCommon key={index} store={store} index={"cityStore_"+index}/>
-                        )
-                    }
+                    if(store.offer.is_available) return <StoreCommon key={index} store={store} index={"cityStore_"+index}/>
                 })}
                 <div className='w-full px-4'>
                     {productSalesCount_handler() > 6 &&<button onClick={() => setShowAllStore(!showAllStors)} className='mt-4 rounded-md font-sans text-sm bg-[#d73948] w-full py-3 text-white'> 
