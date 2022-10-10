@@ -171,7 +171,7 @@ const ChooseCity = ({isModal , setIsModal , setSelectedCities}) => {
 
                     {/* //! Submit */}
                     <section className="py-3 flex gap-x-4 px-4">
-                        <button onClick={()=> {setSelectedCities(selectedCity) ; setIsModal(false)}} className={`py-2.5 ${selectedCity.length > 0 ? "bg-gray-700 text-white  w-3/4" : " hidden border-gray-600 bg-gray-500 text-white"} border rounded-md text-sm `}>تایید</button>
+                        <button onClick={()=> {setSelectedCities(selectedCity) & setIsModal(false) &  setInputValue("")}} className={`py-2.5 ${selectedCity.length > 0 ? "bg-gray-700 text-white  w-3/4" : " hidden border-gray-600 bg-gray-500 text-white"} border rounded-md text-sm `}>تایید</button>
                         <button onClick={()=>{setSelectedCity([]) & dispatch(removeStoreData())  & setIsModal(false) & setInputValue("") & setSelectedCities([])}} className={`${selectedCity.length === 0 ? "w-full" : "w-1/4"} py-2.5  text-gray-800  bg-gray-100 border border-gray-300 rounded-md text-sm `}>لغو</button>
                     </section>
                 </div>
