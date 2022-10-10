@@ -24,7 +24,10 @@ export const fetchStore = (hashId, CitiesToText) => {
     if(CitiesToText){
         dispatch(fetchStoreReuqest());
         axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId}/sales?cities=${CitiesToText}`))
-          .then((res) => dispatch(fetchStoreSuccess(res.data.data.filtered)))
+          .then((res) => {
+            const availableStore_list = res.data.data.filtered.filter(store => store.offer.is_available === true)
+            dispatch(fetchStoreSuccess(availableStore_list))
+          })
           .catch((error) =>
             dispatch(fetchStoreFailure(error.response.data.message))
           );
