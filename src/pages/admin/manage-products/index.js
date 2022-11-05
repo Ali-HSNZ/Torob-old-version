@@ -296,11 +296,7 @@ const ManageProduct = () => {
                                                     <p className="font-sans text-sm flex items-center">{product.title.length > 22 ? product.title.substring(0,22)+'...' : product.title} </p>
                                                     <p className="font-sans text-sm flex items-center ">{product.brand.name.length === 0  ? "نامشخص" : product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
                                                     <div className="pl-1 ">
-                                                        {product.categories.map((category,index) => {
-                                                            return(
-                                                                <span className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>
-                                                            )
-                                                        })}
+                                                        {product.categories.map((category,index) => <span key={category.id} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}
                                                     </div>
                                                     <div className=" flex items-center">
                                                         {product.is_show ? (
@@ -323,7 +319,7 @@ const ManageProduct = () => {
                                                         <p className="font-sans text-sm"><b>عنوان : </b>{product.title.length ===0 ? "نامشخص" : product.title}</p>
                                                         <p className="font-sans text-sm">
                                                             <b>دسته‌بندی : </b>
-                                                            {product.categories.map((category,index) => <span className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}
+                                                            {product.categories.map((category,index) => <span key={category.id} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}
                                                         </p>
                                                         <p className="font-sans text-sm"><b>برند : </b>{product.brand.name.length ===0 ? "نامشخص" : product.brand.name}</p>
                                                         <p className="font-sans text-sm"><b>توضیحات : </b> {product.description.length === 0 ? "نامشخص" : product.description}</p>
