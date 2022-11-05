@@ -12,12 +12,11 @@ import { fetchBrands, fetchCategories, fetchSub1, fetchSub2, fetchSub3,  deleteP
 import { useRouter } from "next/router";
 import SelectBoxForCategories from "@/common/admin/manage-category/SelecBoxForCategories";
 
-const editProduct = () => {
-    const dispatch = useDispatch()
+const InsertProduct = () => {
     const productData = useSelector(state => state.admin_products)
     const {product} = productData.product
     const productLoading = productData.product.loading
-
+    
     const [isEditCategory , setIsEditCategory] = useState(false)
     const {brands} = useSelector(state => state.admin_products.brands)
     const {categories} = useSelector(state => state.admin_products.categories)
@@ -26,6 +25,7 @@ const editProduct = () => {
     const sub3 = useSelector(state => state.admin_products.sub3)
     const router = useRouter()
     const id = Number(1)
+    const dispatch = useDispatch();
 
     const [onChangeFile , setOnChangeFile] = useState({selectedFile: null})
 
@@ -227,4 +227,4 @@ const editProduct = () => {
     );
 }
  
-export default editProduct;
+export default InsertProduct;
