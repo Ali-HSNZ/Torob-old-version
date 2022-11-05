@@ -2,10 +2,13 @@ import axios from "axios"
 import { useRouter } from "next/router"
 import toast from "react-hot-toast"
 import Cookies from "universal-cookie"
+
+
+const token = new Cookies().get("userToken");
 const { ADMIN_FETCH_BRANDS_REQUEST, ADMIN_FETCH_BRANDS_SUCCESS, ADMIN_FETCH_BRANDS_FAILURE } = require("./admin_manageBrandTypes")
 
 const admin_fetchBrandsRequest = () => {
-    return {type : 'ADMIN_FETCH_BRANDS_REQUEST'}
+    return {type : ADMIN_FETCH_BRANDS_REQUEST}
 }
 const admin_fetchBrandsSuccess = (payload) => {
     return {type : ADMIN_FETCH_BRANDS_SUCCESS , payload}
@@ -14,9 +17,6 @@ const admin_fetchBrandsSuccess = (payload) => {
 const admin_fetchBrandsFailure = (payload) => {    
     return {type : ADMIN_FETCH_BRANDS_FAILURE , payload}
 }
- 
-const token = new Cookies().get("userToken");
-
 export const fetchBrands = (payload) => dispatch => {
     const {state , page , limit,paramsName,paramsCompany} =  payload
     dispatch(admin_fetchBrandsRequest())
@@ -44,14 +44,18 @@ export const updateBrand = ({brandImage , companyName , faName ,enName  ,state ,
         slug,
         brand_logo : brandImage ? brandImage : null
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
-    .then((data) => {
+    .then((data) =>{
         dispatch(fetchBrands(payload))
         const message = data.data.error
-        if(message){
-            toast.error(message)
-        }
+        if(message) toast.error(message);
+        else toast.success('تغییرات با موفقیت ثبت شد')
     })
-    .catch(error => dispatch(admin_fetchBrandsFailure(error?.response?.data?.message || "خطای سرور در بخش  گرفتن لیست دسته بندی")))
+    .catch(error => {
+        dispatch(fetchBrands(payload))
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        else dispatch(fetchProductsFailure( "خطا در ثبت تغییرات"))
+    })
 }
 
 export const insertBrand = (payload) => dispatch => {
@@ -59,12 +63,16 @@ export const insertBrand = (payload) => dispatch => {
     const {faName : brand_name, enName : brand_english_name, companyName : brand_company, brandImage, page, limit, } = payload;
     dispatch(admin_fetchBrandsRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/brands?page=${page}&limit=${limit}`, {brand_name, brand_english_name, brand_company, slug, brand_logo : brandImage ? brandImage : null } , {headers : {'content-type' : 'multipart/form-data' , authorization : `Bearer ${token}`}})
-    .then((data) => {
+    .then((data) =>{
         dispatch(fetchBrands(payload))
         const message = data.data.error
-        if(message){
-            toast.error(message)
-        }
+        if(message) toast.error(message);
+        else toast.success('برند با موفقیت ثبت شد')
     })
-    .catch(error => dispatch(admin_fetchBrandsFailure(error?.response?.data?.message || "خطای سرور در بخش  گرفتن لیست دسته بندی")))
+    .catch(error => {
+        dispatch(fetchBrands(payload))
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        else dispatch(fetchProductsFailure( "خطا در ثبت برند"))
+    })
 }
