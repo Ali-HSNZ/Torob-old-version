@@ -212,31 +212,31 @@ const EditProduct = () => {
 
                         <div className="flex flex-col mt-4 gap-x-4">
                             <input type="checkbox" className="peer hidden" id="category_section" />
-                                <section className="flex items-center">
-                                    <p className="font-sans text-sm "> دسته‌بندی :</p>
-                                    <label onClick={()=> {setSelectedCategory_main("") & setIsEditCategory(!isEditCategory)}} htmlFor="category_section" className="peer-checked:hidden cursor-pointer font-sans text-xs hover:underline underline-offset-4 mr-2 text-blue-600"> (ویرایش)</label>
-                                    {sub1.loading || sub2.loading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
-                                </section>
-                                <section className="flex peer-checked:hidden mt-2">
-                                    {product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
-                                </section>
-                                <section className="peer-checked:grid hidden mt-2  grid-cols-5 gap-x-2">
-                                    <SelectBoxForCategories placeholder={"دسته اصلی"} categoryQuery={categoryQuery_main} filteredCategories={filteredCategories} selectedCategory={selectedCategory_main} setCategoryQuery={setCategoryQuery_main} setSelectedCategory={setSelectedCategory_main}/>
-                                    {selectedCategory_main && sub1.categories && (
-                                        <SelectBoxForCategories placeholder={'زیردسته اول'} categoryQuery={categoryQuery_sub1} filteredCategories={filteredsub1} selectedCategory={selectedCategory_sub1} setCategoryQuery={setCategoryQuery_sub1} setSelectedCategory={setSelectedCategory_sub1}/>
-                                    )} 
-                                    {selectedCategory_sub1 && sub2.categories && (
-                                        <SelectBoxForCategories placeholder={'زیردسته دوم'} categoryQuery={categoryQuery_sub2} filteredCategories={filteredsub2} selectedCategory={selectedCategory_sub2} setCategoryQuery={setCategoryQuery_sub2} setSelectedCategory={setSelectedCategory_sub2}/>
-                                    )}
-                                    {selectedCategory_sub2 && sub3.categories && (
-                                        <SelectBoxForCategories placeholder={'زیردسته سوم'} categoryQuery={categoryQuery_sub3} filteredCategories={filteredsub3} selectedCategory={selectedCategory_sub3} setCategoryQuery={setCategoryQuery_sub3} setSelectedCategory={setSelectedCategory_sub3}/>
-                                    )}
-                                </section>
+                            <section className="flex items-center">
+                                <p className="font-sans text-sm "> دسته‌بندی :</p>
+                                <label onClick={()=> {setSelectedCategory_main("") & setIsEditCategory(!isEditCategory)}} htmlFor="category_section" className="peer-checked:hidden cursor-pointer font-sans text-xs hover:underline underline-offset-4 mr-2 text-blue-600"> (ویرایش)</label>
+                                {sub1.loading || sub2.loading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
+                            </section>
+                            <section className="flex peer-checked:hidden mt-2">
+                                {product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
+                            </section>
+                            <section className="peer-checked:grid hidden mt-2  grid-cols-5 gap-x-2">
+                                <SelectBoxForCategories placeholder={"دسته اصلی"} categoryQuery={categoryQuery_main} filteredCategories={filteredCategories} selectedCategory={selectedCategory_main} setCategoryQuery={setCategoryQuery_main} setSelectedCategory={setSelectedCategory_main}/>
+                                {selectedCategory_main && sub1.categories && (
+                                    <SelectBoxForCategories placeholder={'زیردسته اول'} categoryQuery={categoryQuery_sub1} filteredCategories={filteredsub1} selectedCategory={selectedCategory_sub1} setCategoryQuery={setCategoryQuery_sub1} setSelectedCategory={setSelectedCategory_sub1}/>
+                                )} 
+                                {selectedCategory_sub1 && sub2.categories && (
+                                    <SelectBoxForCategories placeholder={'زیردسته دوم'} categoryQuery={categoryQuery_sub2} filteredCategories={filteredsub2} selectedCategory={selectedCategory_sub2} setCategoryQuery={setCategoryQuery_sub2} setSelectedCategory={setSelectedCategory_sub2}/>
+                                )}
+                                {selectedCategory_sub2 && sub3.categories && (
+                                    <SelectBoxForCategories placeholder={'زیردسته سوم'} categoryQuery={categoryQuery_sub3} filteredCategories={filteredsub3} selectedCategory={selectedCategory_sub3} setCategoryQuery={setCategoryQuery_sub3} setSelectedCategory={setSelectedCategory_sub3}/>
+                                )}
+                            </section>
                         </div>
 
                         <div className="mt-6 w-full flex justify-end gap-x-2">
                             <button type={"button"} onClick={()=> dispatch(deleteProduct({id}))} className={`items-center ${product.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>
-                            <button  type={"submit"} className="bg-blue-600 hover:bg-blue-700 border border-blue-600 text-blue-50 rounded-md py-[6px] px-4 font-sans text-sm">تایید تغیرات</button>
+                            <button  type={"submit"} className="bg-blue-600 hover:bg-blue-700 border border-blue-600 text-blue-50 rounded-md py-[6px] px-4 font-sans text-sm">تایید تغییرات</button>
                         </div>
                     </>
                 )}
