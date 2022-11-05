@@ -247,3 +247,19 @@ const EditProduct = () => {
 }
  
 export default EditProduct;
+
+export const getServerSideProps = async(ctx) => {
+    // Check Permission
+    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
+    let ErrorCode = 0;
+    if(!token) return{notFound : true}
+    await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
+    .then(({data}) =>  {
+        if(data.user.account_type !== 'admin') ErrorCode = 403
+    })
+    .catch( () => ErrorCode = 403)
+    if(ErrorCode === 403){
+        return{notFound : true}
+    }
+    return { props : {}}
+}

@@ -133,12 +133,16 @@ export default AdminPage;
 
 export const getServerSideProps = async(ctx) => {
     // Check Permission
-    let errorCode=0;
     const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
+    let ErrorCode = 0;
     if(!token) return{notFound : true}
     await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
-    .then(response =>  {if(!response.data.user.account_type === 'admin') errorCode = Number(403)})
-    .catch( (error) => errorCode = Number(403))
-    if(errorCode === 403) return{notFound : true}
+    .then(({data}) =>  {
+        if(data.user.account_type !== 'admin') ErrorCode = 403
+    })
+    .catch( () => ErrorCode = 403)
+    if(ErrorCode === 403){
+        return{notFound : true}
+    }
     return { props : {}}
 }
