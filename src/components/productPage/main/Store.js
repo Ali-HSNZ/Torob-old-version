@@ -38,7 +38,6 @@ const Store = ({product}) => {
         }
         return "انتخاب شهر"
     }
-    console.log('Store : ',store)
 
     useEffect(()=>{
         setSelectedCities([])
