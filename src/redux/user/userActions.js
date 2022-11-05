@@ -29,13 +29,13 @@ const signinUserFailure = (error) => {return {type : SIGNIN_USER_FAILURE , paylo
 export const userSignup = (phone_number) => {
     return (dispatch) => {
         dispatch(signupUserRequest())
-        axios.post("https://project-torob-clone.iran.liara.run/api/login" , {phone_number})
+        axios.post("https://market-api.iran.liara.run/api/login" , {phone_number})
         .then(response => {
             dispatch(signupUserSuccess(response.data))
             toast.success("کد احراز هویت : "+response.data.verification_code)
         }).catch(err => {
-            dispatch(signupUserFailure(err.response.data.message))
-            toast.error(err.response.data.message)
+            dispatch(signupUserFailure(err.response?.data?.message ? err.response.data.message : "خطای سرور در بخش احراز هویت" ))
+            toast.error(err.response?.data?.message ? err.response.data.message : "خطای سرور در بخش احراز هویت" )
         })
     }
 }
@@ -43,11 +43,11 @@ export const userSignup = (phone_number) => {
 export const userSignin = (data) => {
     return (dispatch) => {
         dispatch(signinUserRequest())
-        axios.post("https://project-torob-clone.iran.liara.run/api/verify" ,data)
+        axios.post("https://market-api.iran.liara.run/api/verify" ,data)
         .then(response => {
             window.location.reload()
             dispatch(signinUserSuccess(response.data))
-            new Cookies().set('userToken' ,response.data.API_TOKEN )
+            new Cookies().set('userToken' ,response.data.API_TOKEN,{path:'/'} )
             toast.success(" با موفقیت وارد حساب کاربری خود شدید")
         })
         .catch(err => {
@@ -61,11 +61,11 @@ export const loadUserInfo = () => {
     return (dispatch) => {
         dispatch(signinUserRequest())
         const token = new Cookies().get("userToken");
-        axios.get("https://project-torob-clone.iran.liara.run/api/user/info", {headers : {Authorization : `Bearer ${token}`}})
+        axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
         .then(response => {
             dispatch(signinUserSuccess(response.data.user))
         }).catch(err => {
-            dispatch(signinUserFailure(err.response.data.message))
+            dispatch(signinUserFailure(err.response?.data?.message ? err.response.data.message : "خطای سرور در بخش احراز هویت" ))
         })
     }
 }
