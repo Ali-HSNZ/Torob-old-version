@@ -18,13 +18,14 @@ import Link from "next/link";
 import ReactLoading from 'react-loading';
 
 
-const manageBrands = () => {
+const ManageBrands = () => {
 
-    const dispatch = useDispatch()
     const {brands , pagination  , loading} = useSelector(state => state.admin_brands)
     const router = useRouter()
     const page = Number(useRouter().query.page || 1)
     const limit = 12
+    
+    const dispatch = useDispatch();
 
     const [status , setStatus] = useState( 'all')
     const [isAsideModal , setIsAsideModal] = useState(false)
@@ -222,7 +223,7 @@ const manageBrands = () => {
 
 
 }
-export default manageBrands;
+export default ManageBrands;
 
 export const getServerSideProps = async(ctx) => {
     // Check Premission
