@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBrands, fetchCategories, fetchSub1, fetchSub2, fetchSub3,  deleteProduct, insertProduct } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
 import { useRouter } from "next/router";
 import SelectBoxForCategories from "@/common/admin/manage-category/SelecBoxForCategories";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 const InsertProduct = () => {
     const productData = useSelector(state => state.admin_products)
