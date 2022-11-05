@@ -12,7 +12,7 @@ import { fetchBrands, fetchCategories, fetchProduct, fetchSub1, fetchSub2, fetch
 import { useRouter } from "next/router";
 import SelectBoxForCategories from "@/common/admin/manage-category/SelecBoxForCategories";
 
-const editProduct = () => {
+const EditProduct = () => {
     const dispatch = useDispatch()
     const productData = useSelector(state => state.admin_products)
     const {product} = productData.product
@@ -246,4 +246,4 @@ const editProduct = () => {
     );
 }
  
-export default editProduct;
+export default EditProduct;
