@@ -88,7 +88,6 @@ export const insertCategories = ({id,name , limit,page,paramsName,state}) => dis
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
         else dispatch(fetchProductsFailure( "خطا در ثبت دسته‌بندی"))
-
     })
 }
  
