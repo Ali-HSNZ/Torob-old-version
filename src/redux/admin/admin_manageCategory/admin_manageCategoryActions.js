@@ -46,13 +46,19 @@ export const updateCategory = ({id,name,limit,page,paramsName,state}) => dispatc
     const slug = name.replace(/\s+/g, '-')
     dispatch(admin_fetchCategoriesRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/categories/${id}/update` ,{category_name : name , category_slug : slug}, {headers : {authorization : `Bearer ${token}`}})
-    .then(({data}) =>{
+    .then((data) =>{
         dispatch(fetchCategories(payload))
-        if(data.error){
-            toast.error(data.error)
-        }
+        const message = data.data.error
+        if(message) toast.error(message);
+        else toast.success('تغییرات با موفقیت ثبت شد')
     })
-    .catch(error => dispatch(admin_fetchCategoriesFailure(error?.response?.data?.message ? error?.response?.data?.message : "خطای سرور در بخش ویرایش دسته بندی")))
+    .catch(error => {
+        dispatch(fetchCategories(payload))
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        else dispatch(fetchProductsFailure( "خطا در ثبت تغییرات"))
+
+    })
 }
 
 export const filterCategories = (payload) => dispatch => {
@@ -71,12 +77,18 @@ export const insertCategories = ({id,name , limit,page,paramsName,state}) => dis
     const slug = name.replace(/\s+/g, '-')
     dispatch(admin_fetchCategoriesRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/categories` , {category_parent_id : id , category_name : name , slug} , {headers : {authorization : `Bearer ${token}`}})
-    .then(({data}) => {
+    .then((data) =>{
         dispatch(fetchCategories(payload))
-        if(data.error){
-            toast.error(data.error)
-        }
+        const message = data.data.error
+        if(message) toast.error(message);
+        else toast.success('دسته‌بندی با موفقیت ثبت شد')
     })
-    .catch(error => dispatch(admin_fetchCategoriesFailure(error?.response?.data?.message || "خطای سرور در بخش افزودن دسته بندی")))
+    .catch(error => {
+        dispatch(fetchCategories(payload))
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        else dispatch(fetchProductsFailure( "خطا در ثبت دسته‌بندی"))
+
+    })
 }
  
