@@ -19,7 +19,7 @@ import Warning from "@/common/alert/Warning";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const manageCategory = () => {
+const ManageCategory = () => {
 
     const router = useRouter()
     const page = Number(useRouter().query.page || 1)
@@ -247,7 +247,7 @@ const manageCategory = () => {
         </Layout>
     );
 }
-export default manageCategory;
+export default ManageCategory;
 
 export const getServerSideProps = async(ctx) => {
     let errorCode=0;
