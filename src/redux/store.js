@@ -12,6 +12,7 @@ const bindMiddleware = (middleware) => {
     return applyMiddleware(...middleware)
 }
 
+
 const masterReducer = (state , action) => {
     if(action.type === HYDRATE) {
         const nextState = {
@@ -23,6 +24,7 @@ const masterReducer = (state , action) => {
         return rootReducer(state , action)
     }
 }
+
 const initStore = () => {
     return createStore(masterReducer , bindMiddleware([thunk]))
 }
