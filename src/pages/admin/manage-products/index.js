@@ -18,7 +18,7 @@ import { Combobox, Transition } from '@headlessui/react'
 import Cookies from "universal-cookie";
 import axios from "axios";
 
-const manageProduct = () => {
+const ManageProduct = () => {
     const router = useRouter()
     
     const [isAsideModal , setIsAsideModal] = useState(false)
@@ -356,7 +356,7 @@ const manageProduct = () => {
     );
 }
  
-export default manageProduct;
+export default ManageProduct;
 
 export const getServerSideProps = async(ctx) => {
     // Check Perimission
