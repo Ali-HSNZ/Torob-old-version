@@ -12,6 +12,10 @@ const {
     ADMIN_FETCH_ONE_PRODUCT_SUCCESS, 
     ADMIN_FETCH_ONE_PRODUCT_FAILURE, 
 
+    ADMIN_INSERT_ONE_PRODUCT_REQUEST,
+    ADMIN_INSERT_ONE_PRODUCT_SUCCESS,
+    ADMIN_INSERT_ONE_PRODUCT_FAILURE,
+
     ADMIN_FETCH_SUB_1_REQUEST, 
     ADMIN_FETCH_SUB_1_SUCCESS, 
     ADMIN_FETCH_SUB_1_FAILURE, 
@@ -39,9 +43,12 @@ const fetchProductsSuccess = (payload) => { return {type : ADMIN_FETCH_PRODUCTS_
 const fetchProductsFailure = (payload) => {return {type : ADMIN_FETCH_PRODUCTS_FAILURE , payload}}
 
 const fetchOneProductRequest = () => {return {type : ADMIN_FETCH_ONE_PRODUCT_REQUEST}}
-const fetchOneProductSuccess = (payload) => { return {type : ADMIN_FETCH_ONE_PRODUCT_SUCCESS , payload}}
+const fetchOneProductSuccess = (payload=null) => { return {type : ADMIN_FETCH_ONE_PRODUCT_SUCCESS , payload}}
 const fetchOneProductFailure = (payload) => {return {type : ADMIN_FETCH_ONE_PRODUCT_FAILURE , payload}}
 
+const insertProductRequest = () => {return {type : ADMIN_INSERT_ONE_PRODUCT_REQUEST}}
+const insertProductSuccess = () => { return {type : ADMIN_INSERT_ONE_PRODUCT_SUCCESS}}
+const insertProductFailure = (payload) => {return {type : ADMIN_INSERT_ONE_PRODUCT_FAILURE , payload}}
 
 const fetchBrandsRequest = () => {return {type : ADMIN_FETCH_BRANDS_REQUEST}}
 const fetchBrandsSuccess = (payload) => { return {type : ADMIN_FETCH_BRANDS_SUCCESS , payload}}
@@ -68,6 +75,7 @@ const token = new Cookies().get("userToken");
 
 
 export const insertProduct = ({categoryId , brandId , product_title , product_description , productImage}) => dispatch => {
+    dispatch(insertProductRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/products` ,{
         title : product_title,
         barcode : Date.now(),
@@ -77,17 +85,19 @@ export const insertProduct = ({categoryId , brandId , product_title , product_de
         File : productImage,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
-        toast.success('تغییرات کالا با موفقیت ثبت شد')
+        toast.success('کالا با موفقیت ثبت شد')
+        dispatch(insertProductSuccess())
     } )
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-        else dispatch(fetchProductsFailure( "خطا در ثبت کالا"))
+         dispatch(insertProductFailure( "خطا در ثبت کالا"))
     })
 }
 
 
 export const editProductAction = ({categoryId , brandId , product_title , product_description , productImage , id}) => dispatch => {
+    dispatch(fetchOneProductRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/products/${id}/update` ,{
         title : product_title,
         barcode : Date.now(),
@@ -98,10 +108,12 @@ export const editProductAction = ({categoryId , brandId , product_title , produc
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         toast.success('تغییرات کالا با موفقیت ثبت شد ')
+        dispatch(fetchProduct(id))
     } )
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list){ serverMessage_list.forEach(error => toast.error(error))}
+        dispatch(fetchProduct(id))
     })
 }
 
