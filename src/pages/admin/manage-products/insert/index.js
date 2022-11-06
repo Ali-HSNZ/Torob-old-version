@@ -16,16 +16,13 @@ import axios from "axios";
 
 const InsertProduct = () => {
     const productData = useSelector(state => state.admin_products)
-    const {product} = productData.product
     const productLoading = productData.product.loading
     
-    const [isEditCategory , setIsEditCategory] = useState(false)
     const {brands} = useSelector(state => state.admin_products.brands)
     const {categories} = useSelector(state => state.admin_products.categories)
     const sub1 = useSelector(state => state.admin_products.sub1)
     const sub2 = useSelector(state => state.admin_products.sub2)
     const sub3 = useSelector(state => state.admin_products.sub3)
-    const router = useRouter()
     const id = Number(1)
     const dispatch = useDispatch();
 
@@ -106,13 +103,22 @@ const InsertProduct = () => {
             <form onSubmit={formik.handleSubmit} className=" w-full lg:w-4/5 flex-0 h-max p-4">
                 <div className="flex justify-between w-full items-center">
                     <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
-                    <Link href={'/admin'}>
-                            <a className="gap-x-1 items-center bg-blue-50 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
+                    <div className="flex gap-x-2">
+                        <Link href={'/admin/manage-products'}>
+                            <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                </svg>
+                            </a>
+                        </Link>
+                        <Link href={'/admin'}>
+                            <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                 </svg>
                             </a>
                         </Link>
+                    </div>
                 </div>
                 {productLoading  && (
                     <div className="w-full flex justify-center my-8">
