@@ -1,7 +1,7 @@
 import AdminPageAside from "@/components/adminPage/Aside";
 import Layout from "@/layout/Layout";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Yup from 'yup'
 import { Fragment } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
@@ -14,6 +14,7 @@ import SelectBoxForCategories from "@/common/admin/manage-category/SelecBoxForCa
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { Modal } from "@mui/material";
+import toast from "react-hot-toast";
 
 const EditProduct = () => {
     const dispatch = useDispatch()
@@ -21,8 +22,7 @@ const EditProduct = () => {
     const {product} = productData.product
     const productLoading = productData.product.loading
 
-    const [isProductImage_Modal , setIsProductImage_Modal] = useState(false)
-
+    
     const [isEditCategory , setIsEditCategory] = useState(false)
     const {brands} = useSelector(state => state.admin_products.brands)
     const {categories} = useSelector(state => state.admin_products.categories)
@@ -31,13 +31,10 @@ const EditProduct = () => {
     const sub3 = useSelector(state => state.admin_products.sub3)
     const router = useRouter()
     const id = Number(router.query.productId)
-
-    const [onChangeFile , setOnChangeFile] = useState(null)
-
-    const changeFIleAction_input = (input) => {
-        setOnChangeFile({selectedFile : input.target.files[0] , imageUrl : URL.createObjectURL(input.target.files[0])})
-    }
-
+    
+    
+    const [isProductImage_Modal , setIsProductImage_Modal] = useState(false)
+    
     const [selectedCategory_main, setSelectedCategory_main] = useState("")
     const [categoryQuery_main, setCategoryQuery_main] = useState("")
 
@@ -65,21 +62,84 @@ const EditProduct = () => {
         product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از 20 نویسه باشد").max(500,"توضیحات کالا نمی تواند بیشتر از 500 نویسه باشد").required("توضیحات کالا نمی تواند خالی باشد").trim(),
     
     })
+    const [onChangeFile , setOnChangeFile] = useState(null)
+
     
+    const imageInput_ref = useRef()
+    
+    const checkImageFormat = (fileName) => {
+        const type =  fileName.split('.').pop();
+        const valid = ['png','jpg','jpeg','webp']
+        if(!valid.includes(type.toLocaleLowerCase())){
+            return false
+        }
+        return true
+    }
+
+    const changeFIleAction_input = (input) => {
+        const image = input.target.files[0]
+        if(input.target.files && image){
+            if(!checkImageFormat(image.name)){
+                toast.error('تصویر کالا معتبر نیست')
+                imageInput_ref.current.value = null
+                return false
+            }
+            if(Number(image.size) < 16000){
+                toast.error('تصویر کالا نمی تواند کمتر از ۱۶kb باشد')
+                imageInput_ref.current.value = null
+                return false
+            } 
+            if(Number(image.size) > 1024000){
+                toast.error("تصویر کالا نمی تواند بیشتر از ۱.۰۲۴mb باشد")
+                imageInput_ref.current.value = null
+                return false
+            }
+            setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
+        }
+    }
     const onSubmit = ({product_title , product_description}) => {
         const selectCategory = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const pageCategoryId =  product.categories[3] || product.categories[2] || product.categories[1] || product.categories[0] 
-        let categoryId = 0;
-        if(isEditCategory)  categoryId = Number(selectCategory) ; else categoryId = Number(pageCategoryId.id) 
-        const brandId = selectedBrand.id || null
         const productImage = onChangeFile && onChangeFile.selectedFile || ""
+        let categoryId = null;
+        const brandId = selectedBrand.id || null
+
+        if(isEditCategory)  categoryId = Number(selectCategory) ; else categoryId = Number(pageCategoryId.id)
+        
+        // Check Product Image
+        if(productImage){
+            if(!checkImageFormat(productImage.name)){
+                toast.error('تصویر کالا معتبر نیست')
+                return false
+            }
+            if(Number(productImage.size) < 16000){
+                toast.error('تصویر کالا نمی تواند کمتر از ۱۶kb باشد')
+                return false
+            } 
+            if(Number(productImage.size) > 1024000){
+                toast.error("تصویر کالا نمی تواند بیشتر از ۱۰۲۴kb باشد")
+                return false
+            }
+        }
+        // Check Brand
+
+        if(!brandId){
+            toast.error('مقدار برند نمی تواند خالی باشد')
+            return false
+        }
+        // Check Category
+        if(!categoryId){
+            toast.error('مقدار دسته‌بندی نمی تواند خالی باشد')
+            return false
+        }
         const payload = {categoryId,brandId,product_title,product_description,productImage,id}
         dispatch(editProductAction(payload))
+        
     }
 
     useEffect(()=>{
         setSelectedBrand(product && product.brand || "") 
-        setOnChangeFile(product && {...product.image_url , imageUrl : product.image_url} || "") 
+        setOnChangeFile(product && {imageUrl : product.image_url} || "") 
     },[product])
 
     useEffect(()=>{
@@ -207,8 +267,8 @@ const EditProduct = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm text-gray-800"> تصویر (لوگو) برند :</p>
-                                <input type={'file'} id="chooseImage" accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
+                                <p className="font-sans text-sm text-gray-800"> تصویر کالا :</p>
+                                <input type={'file'} id="chooseImage" ref={imageInput_ref} accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
                                 {onChangeFile? (
                                     <section className="flex justify-between items-center mt-2  ">
                                         <button type={"button"} onClick={()=>setIsProductImage_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
@@ -218,7 +278,7 @@ const EditProduct = () => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                         </button>
-                                        <button onClick={()=> setOnChangeFile(null)}  type={"button"}className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-400">
+                                        <button onClick={()=>{ setOnChangeFile(null) ; imageInput_ref.current.value = null }}  type={"button"}className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-400">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                             </svg>
