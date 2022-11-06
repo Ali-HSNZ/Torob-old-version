@@ -77,18 +77,21 @@ const AdminPage = () => {
                                 </div>
                             </div>
 
-                            <div className="cursor-pointer py-4 hover:bg-pink-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
-                                <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-pink-200 bg-pink-50">
-                                    <TbBrandAsana className="h-6 w-6 text-pink-700"/>
-                                </div>
-                                <div className="mr-4 w-full">
-                                    <h2 className="font-sans font-bold">{toPersianDigits(574)} برند</h2>
-                                    <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
-                                </div>
-                                <div className="h-full flex items-center ml-1">
-                                    <BsFillCaretLeftFill className="text-pink-400 "/>
-                                </div>
-                            </div>
+
+                            <Link href={'/admin/manage-brands'}>
+                                <a className="cursor-pointer py-4 hover:bg-pink-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
+                                    <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-pink-200 bg-pink-50">
+                                        <TbBrandAsana className="h-6 w-6 text-pink-700"/>
+                                    </div>
+                                    <div className="mr-4 w-full">
+                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} برند</h2>
+                                        <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
+                                    </div>
+                                    <div className="h-full flex items-center ml-1">
+                                        <BsFillCaretLeftFill className="text-pink-400 "/>
+                                    </div>
+                                </a>
+                            </Link>
 
                             <Link href={'/admin/manage-category'}>
                                 <a className="cursor-pointer py-4 hover:bg-purple-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
