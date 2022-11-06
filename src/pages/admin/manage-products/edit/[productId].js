@@ -13,12 +13,15 @@ import { useRouter } from "next/router";
 import SelectBoxForCategories from "@/common/admin/manage-category/SelecBoxForCategories";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import { Modal } from "@mui/material";
 
 const EditProduct = () => {
     const dispatch = useDispatch()
     const productData = useSelector(state => state.admin_products)
     const {product} = productData.product
     const productLoading = productData.product.loading
+
+    const [isProductImage_Modal , setIsProductImage_Modal] = useState(false)
 
     const [isEditCategory , setIsEditCategory] = useState(false)
     const {brands} = useSelector(state => state.admin_products.brands)
@@ -29,8 +32,11 @@ const EditProduct = () => {
     const router = useRouter()
     const id = Number(router.query.productId)
 
-    const [onChangeFile , setOnChangeFile] = useState({selectedFile: null})
+    const [onChangeFile , setOnChangeFile] = useState(null)
 
+    const changeFIleAction_input = (input) => {
+        setOnChangeFile({selectedFile : input.target.files[0] , imageUrl : URL.createObjectURL(input.target.files[0])})
+    }
 
     const [selectedCategory_main, setSelectedCategory_main] = useState("")
     const [categoryQuery_main, setCategoryQuery_main] = useState("")
@@ -59,6 +65,7 @@ const EditProduct = () => {
         product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از 20 نویسه باشد").max(500,"توضیحات کالا نمی تواند بیشتر از 500 نویسه باشد").required("توضیحات کالا نمی تواند خالی باشد").trim(),
     
     })
+    
     const onSubmit = ({product_title , product_description}) => {
         const selectCategory = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const pageCategoryId = product.categories[3] && product.categories[3].id || 
@@ -68,13 +75,14 @@ const EditProduct = () => {
         let categoryId = 0;
         if(isEditCategory)  categoryId = Number(selectCategory) ; else categoryId = Number(pageCategoryId) 
         const brandId = selectedBrand.id || null
-        const productImage = onChangeFile.selectedFile;
+        const productImage = onChangeFile && onChangeFile.selectedFile || null
         const payload = {categoryId,brandId,product_title,product_description,productImage,id}
         dispatch(editProductAction(payload))
     }
 
     useEffect(()=>{
         setSelectedBrand(product && product.brand || "") 
+        setOnChangeFile(product && {...product.image_url , imageUrl : product.image_url} || "") 
     },[product])
 
     useEffect(()=>{
@@ -107,7 +115,6 @@ const EditProduct = () => {
             product_description : product && product.description || "",
         }
     })
-
     return (  
         <Layout isFooter={true}>
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
@@ -204,14 +211,43 @@ const EditProduct = () => {
                             </div>
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm text-gray-800"> تصویر (لوگو) برند :</p>
-                                <input type={'file'} id="chooseImage" accept="image/*" className="hidden" name='brandImage' onChange={event => setOnChangeFile({ selectedFile: event.target.files[0] })} onBlur={formik.handleBlur}/>
-                                <label htmlFor="chooseImage" className="flex justify-between mt-2 cursor-pointer text-sm font-sans rounded-md p-2 bg-blue-50 hover:bg-blue-100 hover:border-blue-700 border border-blue-500 ">
-                                    <span className="text-blue-700">انتخاب تصویر</span>
-                                    <svg className="w-5 h-5 text-blue-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
-                                    </svg>
-                                </label>
+                                <input type={'file'} id="chooseImage" accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
+                                {onChangeFile? (
+                                    <section className="flex justify-between items-center mt-2  ">
+                                        <button type={"button"} onClick={()=>setIsProductImage_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
+                                            <span className="text-sm font-sans text-green-800 ">تصویر کالا انتخاب شده است.</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </button>
+                                        <button onClick={()=> setOnChangeFile(null)}  type={"button"}className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </section>
+                                ) : (
+                                    <>
+                                        <label htmlFor="chooseImage" className="flex justify-between mt-2 cursor-pointer text-sm font-sans rounded-md p-2 bg-blue-50 hover:bg-blue-100 hover:border-blue-700 border border-blue-500 ">
+                                            <span className="text-blue-700">انتخاب تصویر</span>
+                                            <svg className="w-5 h-5 text-blue-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                                            </svg>
+                                        </label>
+                                    </>
+                                )}
+                                <Modal open={isProductImage_Modal} onClose={() => setIsProductImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
+                                    <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                        <img className="max-h-full w-auto" src={onChangeFile && onChangeFile.imageUrl || ""}/>
+                                        <button onClick={() => setIsProductImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
+                                                <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </section>
+                                </Modal>
                             </div>
                         </section>
                         <div className="flex flex-col mt-4">
