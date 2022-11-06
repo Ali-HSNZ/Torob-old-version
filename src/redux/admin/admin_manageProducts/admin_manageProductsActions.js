@@ -74,8 +74,8 @@ export const insertProduct = ({categoryId , brandId , product_title , product_de
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        Files : productImage,
-    } ,{headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`}})
+        File : productImage,
+    } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         toast.success('تغییرات کالا با موفقیت ثبت شد')
     } )
@@ -94,17 +94,14 @@ export const editProductAction = ({categoryId , brandId , product_title , produc
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        Files : productImage,
-    } ,{headers : {authorization : `Bearer ${token}`,}})
-    .then((data) => {
-        const message = data.data.error
-        if(message && message.length > 0) {toast.error(message)}
-        else toast.success('تغییرات کالا با موفقیت ثبت شد')
+        File : productImage,
+    } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
+    .then(() => {
+        toast.success('تغییرات کالا با موفقیت ثبت شد ')
     } )
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list){ serverMessage_list.forEach(error => toast.error(error))}
-        else toast.success('تغییرات کالا با موفقیت ثبت شد')
     })
 }
 
