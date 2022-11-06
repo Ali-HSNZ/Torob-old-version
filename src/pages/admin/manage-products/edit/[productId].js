@@ -68,14 +68,11 @@ const EditProduct = () => {
     
     const onSubmit = ({product_title , product_description}) => {
         const selectCategory = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
-        const pageCategoryId = product.categories[3] && product.categories[3].id || 
-                                                  product.categories[2] && product.categories[2].id ||
-                                                  product.categories[1] && product.categories[1].id ||
-                                                  product.categories[0] && product.categories[0].id
+        const pageCategoryId =  product.categories[3] || product.categories[2] || product.categories[1] || product.categories[0] 
         let categoryId = 0;
-        if(isEditCategory)  categoryId = Number(selectCategory) ; else categoryId = Number(pageCategoryId) 
+        if(isEditCategory)  categoryId = Number(selectCategory) ; else categoryId = Number(pageCategoryId.id) 
         const brandId = selectedBrand.id || null
-        const productImage = onChangeFile && onChangeFile.selectedFile || null
+        const productImage = onChangeFile && onChangeFile.selectedFile || ""
         const payload = {categoryId,brandId,product_title,product_description,productImage,id}
         dispatch(editProductAction(payload))
     }
