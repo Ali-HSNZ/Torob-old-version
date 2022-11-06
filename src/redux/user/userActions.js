@@ -70,11 +70,9 @@ export const loadUserInfo = () => {
     }
 }
 
-export const userLogout = () => {
-    return () => {
-        new Cookies().remove("userToken")
-        window.location.reload()
-    }
+export const userLogout = () => dispatch =>  {
+    new Cookies().remove("userToken",{path : '/'})
+    window.location.reload()
 }
 
 export const authPanel = (payload) => (dispatch) => dispatch({type : AUTH_PANEL , payload })
