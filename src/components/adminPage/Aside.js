@@ -39,7 +39,7 @@ const AdminPageAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenClass
                     </a>
                 </Link>
                 <Link href={'/admin/manage-products'}>
-                    <a className={`flex items-center pr-8 py-3 hover:bg-gray-100`}>
+                <a className={` ${router.asPath.startsWith('/admin/manage-products') ? "bg-red-200 hover:bg-red-300" : "hover:bg-gray-100"} flex items-center pr-8 py-3 hover:bg-gray-100`}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-gray-900">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                         </svg>
