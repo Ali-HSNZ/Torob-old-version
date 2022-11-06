@@ -294,7 +294,7 @@ const ManageProduct = () => {
                                                         <img className="w-1/2 h-auto" src={product.image_url}/>
                                                     </div>
                                                     <p className="font-sans text-sm flex items-center">{product.title.length > 22 ? product.title.substring(0,22)+'...' : product.title} </p>
-                                                    <p className="font-sans text-sm flex items-center ">{product.brand.name.length === 0  ? "نامشخص" : product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
+                                                    <p className="font-sans text-sm flex items-center ">{product.brand.name && product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
                                                     <div className="pl-1 ">
                                                         {product.categories.map((category,index) => <span key={category.id} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}
                                                     </div>
@@ -321,7 +321,7 @@ const ManageProduct = () => {
                                                             <b>دسته‌بندی : </b>
                                                             {product.categories.map((category,index) => <span key={category.id} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}
                                                         </p>
-                                                        <p className="font-sans text-sm"><b>برند : </b>{product.brand.name.length ===0 ? "نامشخص" : product.brand.name}</p>
+                                                        <p className="font-sans text-sm"><b>برند : </b>{product.brand.name && product.brand.name.length ===0 ? "نامشخص" : product.brand.name}</p>
                                                         <p className="font-sans text-sm"><b>توضیحات : </b> {product.description.length === 0 ? "نامشخص" : product.description}</p>
                                                     </div>
 
