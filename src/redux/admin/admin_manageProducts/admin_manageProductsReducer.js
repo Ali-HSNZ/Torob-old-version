@@ -3,6 +3,10 @@ import {
     ADMIN_FETCH_PRODUCTS_REQUEST, 
     ADMIN_FETCH_PRODUCTS_SUCCESS ,
 
+    ADMIN_INSERT_ONE_PRODUCT_REQUEST,
+    ADMIN_INSERT_ONE_PRODUCT_SUCCESS,
+    ADMIN_INSERT_ONE_PRODUCT_FAILURE,
+
     ADMIN_FETCH_ONE_PRODUCT_FAILURE, 
     ADMIN_FETCH_ONE_PRODUCT_REQUEST, 
     ADMIN_FETCH_ONE_PRODUCT_SUCCESS ,
@@ -54,6 +58,10 @@ export const admin_productsReducer = (state = initailState , action) => {
             }
         }
         case ADMIN_FETCH_PRODUCTS_FAILURE:{ return { ...state, products : { products : null , loading : false , error : action.payload } }}
+
+        case ADMIN_INSERT_ONE_PRODUCT_REQUEST:{ return {  ...state, product : { product : null, loading : true, error : null }}}
+        case ADMIN_INSERT_ONE_PRODUCT_SUCCESS:{ return { ...state, product : { product : [], error : null , loading : false, }}}
+        case ADMIN_INSERT_ONE_PRODUCT_FAILURE:{ return { ...state, product : { product : null , loading : false , error : action.payload } }}
 
 
         case ADMIN_FETCH_ONE_PRODUCT_REQUEST:{ return {  ...state, product : { product : null, loading : true, error : null }}}
