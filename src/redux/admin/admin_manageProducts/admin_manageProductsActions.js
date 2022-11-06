@@ -75,11 +75,9 @@ export const insertProduct = ({categoryId , brandId , product_title , product_de
         brand_id : brandId,
         category_id : categoryId,
         Files : productImage,
-    } ,{headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
-    .then((data) => {
-        const message = data.data.error
-        if(message) toast.error(message);
-        else toast.success('تغییرات کالا با موفقیت ثبت شد')
+    } ,{headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`}})
+    .then(() => {
+        toast.success('تغییرات کالا با موفقیت ثبت شد')
     } )
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
@@ -100,17 +98,13 @@ export const editProductAction = ({categoryId , brandId , product_title , produc
     } ,{headers : {authorization : `Bearer ${token}`,}})
     .then((data) => {
         const message = data.data.error
-        if(message.length > 0) {toast.error(message)}
-        toast.success('تغییرات کالا با موفقیت ثبت شد')
+        if(message && message.length > 0) {toast.error(message)}
+        else toast.success('تغییرات کالا با موفقیت ثبت شد')
     } )
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
-
         if(serverMessage_list){ serverMessage_list.forEach(error => toast.error(error))}
-        else{ 
-            dispatch(fetchProductsFailure( "خطا در ثبت تغییرات"))
-            toast.error('خطا در ثبت تغییرات')
-        }
+        else toast.success('تغییرات کالا با موفقیت ثبت شد')
     })
 }
 
