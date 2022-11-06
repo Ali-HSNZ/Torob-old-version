@@ -118,7 +118,7 @@ const ManageProduct = () => {
                     {!loading &&(
                         <>
                             <div className="flex justify-between w-full items-center mt-4">
-                                <h1 className="font-sans font-bold text-lg">مدیریت کلاها</h1>
+                                <h1 className="font-sans font-bold text-lg">مدیریت کالاها</h1>
                                 <div className="flex gap-x-2 items-center">
                                     <Link href={{pathname:"/admin/manage-products"}}>
                                         <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
