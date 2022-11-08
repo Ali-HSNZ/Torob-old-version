@@ -110,130 +110,73 @@ const ManageProduct = () => {
                     <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
                         <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
-                    {loading && (
-                        <div className="w-full flex justify-center my-8">
-                            <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
+
+                    <div className="flex justify-between w-full items-center mt-4">
+                        <h1 className="font-sans font-bold text-lg">مدیریت کالاها</h1>
+                        <div className="flex gap-x-2 items-center">
+                            <Link href={{pathname:"/admin/manage-products"}}>
+                                <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                    </svg>
+                                </a>
+                            </Link>
+                            <Link href={'/admin/manage-products/insert'}>
+                                <a className="gap-x-1 items-center hover:bg-green-200 bg-green-100 flex border border-green-700  rounded-md py-2 px-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </a>
+                            </Link>
+                            <Link href={'/admin'}>
+                                <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                    </svg>
+                                </a>
+                            </Link>
                         </div>
-                    )}
-                    {!loading &&(
-                        <>
-                            <div className="flex justify-between w-full items-center mt-4">
-                                <h1 className="font-sans font-bold text-lg">مدیریت کالاها</h1>
-                                <div className="flex gap-x-2 items-center">
-                                    <Link href={{pathname:"/admin/manage-products"}}>
-                                        <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                                            </svg>
-                                        </a>
-                                    </Link>
-                                    <Link href={'/admin/manage-products/insert'}>
-                                        <a className="gap-x-1 items-center hover:bg-green-200 bg-green-100 flex border border-green-700  rounded-md py-2 px-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-                                            </svg>
-                                        </a>
-                                    </Link>
-                                    <Link href={'/admin'}>
-                                        <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                            </svg>
-                                        </a>
-                                    </Link>
+                    </div>
+                    <form className="w-full " onSubmit={formik.handleSubmit}>
+                        <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
+                            <section className="mt-3 grid grid-cols-3 gap-4">
+                                <div className="flex flex-col relative">
+                                    <p className="font-sans text-sm">نام کالا :</p>
+                                    <input type="text" name="product_title" value={formik.values.product_title} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                                    {formik.errors.product_title && formik.touched.product_title && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.product_title}</p>}
+                                
                                 </div>
-                            </div>
-                            <form className="w-full " onSubmit={formik.handleSubmit}>
-                                <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
-                                    <section className="mt-3 grid grid-cols-3 gap-4">
-                                        <div className="flex flex-col relative">
-                                            <p className="font-sans text-sm">نام کالا :</p>
-                                            <input type="text" name="product_title" value={formik.values.product_title} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                            {formik.errors.product_title && formik.touched.product_title && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.product_title}</p>}
-                                        
-                                        </div>
-                                        <div className="flex flex-col relative">
-                                                <p className="font-sans text-sm"> برند :</p>
-                                            <div className="w-full">
-                                                <Combobox value={selectedBrand} onChange={setSelectedBrand}>
-                                                    <div className="relative mt-1">
-                                                        <div className="relative w-full cursor-default  rounded-lg   text-left   focus:outline-none ">
-                                                            <Combobox.Input placeholder={!selectedBrand===" " ? returnBrandName() : "نمایش همه"} onChange={(event) => setBrandQuery(event.target.value) } className=" w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md" displayValue={(brand) => brand?.name || brand }/>
-                                                            
-                                                            <Combobox.Button className="absolute inset-y-0 top-[7px] pl-1 left-0 flex items-center group">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 group-hover:text-gray-700 text-gray-400">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                                                </svg>
-                                                            </Combobox.Button>
+                                <div className="flex flex-col relative">
+                                        <p className="font-sans text-sm"> برند :</p>
+                                    <div className="w-full">
+                                        <Combobox value={selectedBrand} onChange={setSelectedBrand}>
+                                            <div className="relative mt-1">
+                                                <div className="relative w-full cursor-default  rounded-lg   text-left   focus:outline-none ">
+                                                    <Combobox.Input placeholder={!selectedBrand===" " ? returnBrandName() : "نمایش همه"} onChange={(event) => setBrandQuery(event.target.value) } className=" w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md" displayValue={(brand) => brand?.name || brand }/>
+                                                    
+                                                    <Combobox.Button className="absolute inset-y-0 top-[7px] pl-1 left-0 flex items-center group">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 group-hover:text-gray-700 text-gray-400">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                                        </svg>
+                                                    </Combobox.Button>
 
-                                                            <button type={"button"} onClick={()=>setSelectedBrand('')} className="absolute group inset-y-0 top-[7px] left-7 flex  items-center ">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`group-hover:text-gray-700 text-gray-400 w-5 h-5`}>
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                        <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setBrandQuery('')}>
-                                                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                            {filteredBrands && filteredBrands.length === 0 && brandQuery !== '' ? (
-                                                                <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-sans">برندی یافت نشد.</div>
-                                                            ) : (
-                                                                <>
-                                                                    {filteredBrands && filteredBrands.map((brand) => (
-                                                                        <Combobox.Option  value={brand} key={brand.id} className={({ active }) => `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-700 text-white' : 'text-gray-900'}`}>
-                                                                            {({ selected, active }) => (
-                                                                                <>
-                                                                                    <span className={`  font-sans text-sm block truncate ${ selected && 'font-bold' }`}> {brand.name} </span>
-                                                                                    {selected ? (
-                                                                                        <span className={`absolute  cursor-pointer inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-gray-700'}`}>
-                                                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                                                                            </svg>
-                                                                                        </span>
-                                                                                    ) : null}
-                                                                                </>
-                                                                            )}
-                                                                        </Combobox.Option>
-                                                                    ))}
-                                                                </>
-                                                            )}
-                                                            </Combobox.Options>
-                                                        </Transition>
-                                                    </div>
-                                                </Combobox>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex flex-col relative">
-                                            <p className="font-sans text-sm"> دسته‌بندی :</p>
-
-                                            <div className="w-full">
-                                                <Combobox value={selectedCategory} onChange={setSelectedCategory}>
-                                                    <div className="relative mt-1">
-                                                        <div className="relative w-full cursor-default  rounded-lg   text-left   focus:outline-none ">
-                                                            <Combobox.Input  placeholder={!selectedCategory===" " ? returnCategoryName() : "نمایش همه"}  onChange={(event) => setCategoryQuery(event.target.value)}  className=" w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md" displayValue={(brand) => brand.name}/>
-                                                            <Combobox.Button className="absolute inset-y-0 top-[7px] pl-1 left-0 flex items-center group">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 group-hover:text-gray-700 text-gray-400">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                                                </svg>
-                                                            </Combobox.Button>
-
-                                                            <button type={"button"} onClick={()=>setSelectedCategory("") } className="absolute group inset-y-0 top-[7px] left-7 flex  items-center ">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`group-hover:text-gray-700 text-gray-400 w-5 h-5`}>
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                                                </svg>
-                                                            </button>
-
-                                                        </div>
-                                                        <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setCategoryQuery('')}>
-                                                            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                            {filteredCategories && filteredCategories.length === 0 && categoryQuery !== '' ? (
-                                                                <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-sans">دسته موردنظر یافت نشد.</div>
-                                                            ) : (
-                                                                filteredCategories && filteredCategories.map((category) => (
-                                                                <Combobox.Option  value={category} key={category.id} className={({ active }) => `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-700 text-white' : 'text-gray-900'}`}>
+                                                    <button type={"button"} onClick={()=>setSelectedBrand('')} className="absolute group inset-y-0 top-[7px] left-7 flex  items-center ">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`group-hover:text-gray-700 text-gray-400 w-5 h-5`}>
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setBrandQuery('')}>
+                                                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                    {filteredBrands && filteredBrands.length === 0 && brandQuery !== '' ? (
+                                                        <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-sans">برندی یافت نشد.</div>
+                                                    ) : (
+                                                        <>
+                                                            {filteredBrands && filteredBrands.map((brand) => (
+                                                                <Combobox.Option  value={brand} key={brand.id} className={({ active }) => `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-700 text-white' : 'text-gray-900'}`}>
                                                                     {({ selected, active }) => (
                                                                         <>
-                                                                            <span className={`  font-sans text-sm block truncate ${ selected && 'font-bold' }`}> {category.name} </span>
+                                                                            <span className={`  font-sans text-sm block truncate ${ selected && 'font-bold' }`}> {brand.name} </span>
                                                                             {selected ? (
                                                                                 <span className={`absolute  cursor-pointer inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-gray-700'}`}>
                                                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -244,35 +187,89 @@ const ManageProduct = () => {
                                                                         </>
                                                                     )}
                                                                 </Combobox.Option>
-                                                                ))
-                                                            )}
-                                                            </Combobox.Options>
-                                                        </Transition>
-                                                    </div>
-                                                </Combobox>
+                                                            ))}
+                                                        </>
+                                                    )}
+                                                    </Combobox.Options>
+                                                </Transition>
                                             </div>
-    
-                                        </div>
-                                        
-                                        <div className="flex flex-col relative">
-                                            <p className="font-sans text-sm">وضعیت :</p>
-                                            <select defaultValue={ router.query.state || 'all'} onChange={event => setStatus(event.target.value)} className=" cursor-pointer border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md">
-                                                <option className="py-2 text-sm font-sans" value={'active'}>تایید شده‌ها</option>
-                                                <option className="py-2 text-sm font-sans" value={'trashed'}>رد شده‌ها</option>
-                                                <option className="py-2 text-sm font-sans" value={'all'} >نمایش همه وضعیت ها</option>
-                                            </select>
-                                        </div>
-
-                                    </section>
-                                    <div className="w-full flex items-center justify-end mt-3">
-                                        <button type={"submit"} className={`${formik.isValid ? "hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>جستجو</button>
+                                        </Combobox>
                                     </div>
-                                </section>
-                            </form>
-                        </>
-                     )}
+                                </div>
+
+                                <div className="flex flex-col relative">
+                                    <p className="font-sans text-sm"> دسته‌بندی :</p>
+
+                                    <div className="w-full">
+                                        <Combobox value={selectedCategory} onChange={setSelectedCategory}>
+                                            <div className="relative mt-1">
+                                                <div className="relative w-full cursor-default  rounded-lg   text-left   focus:outline-none ">
+                                                    <Combobox.Input  placeholder={!selectedCategory===" " ? returnCategoryName() : "نمایش همه"}  onChange={(event) => setCategoryQuery(event.target.value)}  className=" w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md" displayValue={(brand) => brand.name}/>
+                                                    <Combobox.Button className="absolute inset-y-0 top-[7px] pl-1 left-0 flex items-center group">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 group-hover:text-gray-700 text-gray-400">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                                        </svg>
+                                                    </Combobox.Button>
+
+                                                    <button type={"button"} onClick={()=>setSelectedCategory("") } className="absolute group inset-y-0 top-[7px] left-7 flex  items-center ">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`group-hover:text-gray-700 text-gray-400 w-5 h-5`}>
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+
+                                                </div>
+                                                <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setCategoryQuery('')}>
+                                                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                    {filteredCategories && filteredCategories.length === 0 && categoryQuery !== '' ? (
+                                                        <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-sans">دسته موردنظر یافت نشد.</div>
+                                                    ) : (
+                                                        filteredCategories && filteredCategories.map((category) => (
+                                                        <Combobox.Option  value={category} key={category.id} className={({ active }) => `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-700 text-white' : 'text-gray-900'}`}>
+                                                            {({ selected, active }) => (
+                                                                <>
+                                                                    <span className={`  font-sans text-sm block truncate ${ selected && 'font-bold' }`}> {category.name} </span>
+                                                                    {selected ? (
+                                                                        <span className={`absolute  cursor-pointer inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-gray-700'}`}>
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    ) : null}
+                                                                </>
+                                                            )}
+                                                        </Combobox.Option>
+                                                        ))
+                                                    )}
+                                                    </Combobox.Options>
+                                                </Transition>
+                                            </div>
+                                        </Combobox>
+                                    </div>
+
+                                </div>
+                                
+                                <div className="flex flex-col relative">
+                                    <p className="font-sans text-sm">وضعیت :</p>
+                                    <select defaultValue={ router.query.state || 'all'} onChange={event => setStatus(event.target.value)} className=" cursor-pointer border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md">
+                                        <option className="py-2 text-sm font-sans" value={'active'}>تایید شده‌ها</option>
+                                        <option className="py-2 text-sm font-sans" value={'trashed'}>رد شده‌ها</option>
+                                        <option className="py-2 text-sm font-sans" value={'all'} >نمایش همه وضعیت ها</option>
+                                    </select>
+                                </div>
+
+                            </section>
+                            <div className="w-full flex items-center justify-end mt-3">
+                                <button type={"submit"} className={`${formik.isValid ? "hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>جستجو</button>
+                            </div>
+                        </section>
+                    </form>
+
+                    {loading && (
+                        <div className="w-full flex justify-center my-8">
+                            <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
+                        </div>
+                    )}
                     {!products && !loading && <Warning text={'کالا یافت نشد! میتوانید کالای جدیدی ثبت کنید.'}/>}
-                    {/* //! Product */}
                     {products && (
                         <>
                             <section className="w-full mt-3 rounded-lg shadow-md flex flex-col ">
