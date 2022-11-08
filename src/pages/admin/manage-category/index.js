@@ -65,7 +65,7 @@ const ManageCategory = () => {
     }
 
     const validationSchema = Yup.object({
-        name : Yup.string().min(2 , 'عنوان برند نمی تواند کمتر از ۲ نویسه باشد').max(50 , 'عنوان برند نمی تواند بیشتر از ۵۰ نویسه باشد').trim()
+        name : Yup.string().min(2 , 'عنوان دسته‌بندی نمی تواند کمتر از ۲ نویسه باشد').max(50 , 'عنوان دسته‌بندی نمی تواند بیشتر از ۵۰ نویسه باشد').trim()
     })
 
     const formik = useFormik({
