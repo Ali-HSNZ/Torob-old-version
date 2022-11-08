@@ -70,8 +70,8 @@ const ManageBrands = () => {
         router.push(`/admin/manage-brands?state=${status || "all"}&name=${name || ""}&page=1&company=${company || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
-        name : Yup.string().min(2 , 'عنوان برند نمی تواند کمتر از 2 نویسه باشد').max(50 , 'عنوان برند نمی تواند بیشتر از 50 نویسه باشد').trim(),
-        company : Yup.string().min(2 , 'نام شرکت نمی تواند کمتر از 2 نویسه باشد').max(50 , 'نام شرکت نمی تواند بیشتر از 50 نویسه باشد').trim()
+        name : Yup.string().min(2 , 'عنوان برند نمی تواند کمتر از ۲ نویسه باشد').max(50 , 'عنوان برند نمی تواند بیشتر از ۵۰ نویسه باشد').trim(),
+        company : Yup.string().min(2 , 'نام شرکت نمی تواند کمتر از ۲ نویسه باشد').max(50 , 'نام شرکت نمی تواند بیشتر از ۵۰ نویسه باشد').trim()
     })
 
     const formik = useFormik({ 
