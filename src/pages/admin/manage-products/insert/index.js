@@ -52,9 +52,9 @@ const InsertProduct = () => {
     const filteredBrands = brandQuery === '' ? brands : brands.filter((brand) => brand.name.toLowerCase().replace(/\s+/g, '').includes(brandQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
     const validationSchema = Yup.object({
-        product_title : Yup.string().min(10, "نام کالا نمی‌تواند کم تر از 10 نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از 250 نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
-        product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از 20 نویسه باشد").max(500,"توضیحات کالا نمی تواند بیشتر از 500 نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
-    
+        product_title : Yup.string().min(10, "نام کالا نمی‌تواند کم تر از ۱۰ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
+        product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از ۲۰ نویسه باشد").max(500,"توضیحات کالا نمی تواند بیشتر از ۵۰۰ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
+        barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
     const [onChangeFile , setOnChangeFile] = useState(null)
     const imageInput_ref = useRef()
@@ -90,7 +90,7 @@ const InsertProduct = () => {
         }
     }
 
-    const onSubmit = ({product_title , product_description}) => {
+    const onSubmit = ({product_title ,barcode, product_description}) => {
         const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const brandId = selectedBrand.id || null
         const productImage = onChangeFile && onChangeFile.selectedFile || null;
@@ -119,7 +119,7 @@ const InsertProduct = () => {
             toast.error('مقدار دسته‌بندی نمی تواند خالی باشد')
             return false
         }
-            const payload = {categoryId,brandId,product_title,product_description,productImage,id}
+            const payload = {categoryId,brandId,product_title,barcode,product_description,productImage,id}
             dispatch(insertProduct(payload))
         
     }
@@ -151,6 +151,7 @@ const InsertProduct = () => {
         initialValues : {
             product_title :  "",
             product_description :  "",
+            barcode : "",
         }
     })
 
@@ -187,13 +188,8 @@ const InsertProduct = () => {
                     {!productLoading && <form onSubmit={formik.handleSubmit}>
                         <section className="grid grid-cols-3 gap-4 mt-6">
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm">عنوان کالا :</p>
+                                <p className="font-sans text-sm">عنوان :</p>
                                 <input type="text" name="product_title"  value={formik.values.product_title} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="عنوان کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                <button className="px-1 py-2 absolute top-[29px] left-0">
-                                    <svg className=" text-gray-600 w-5 h-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
                                 {formik.errors.product_title && formik.touched.product_title && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_title}</p>}
                             </div>
                             <div className="flex flex-col relative">
@@ -202,6 +198,8 @@ const InsertProduct = () => {
                                     <SelectBox notFoundTitle="برند مورد نظر یافت نشد." placeholder={'انتخاب عنوان برند'} query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                 </div>
                             </div>
+
+
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm text-gray-800"> تصویر (لوگو) برند :</p>
                                 <input type={'file'} id="chooseImage" ref={imageInput_ref} accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
@@ -242,6 +240,13 @@ const InsertProduct = () => {
                                     </section>
                                 </Modal>
                             </div>
+
+                            <div className="flex flex-col relative ">
+                                <p className="font-sans text-sm">بارکد :</p>
+                                <input type="text" name="barcode"  value={formik.values.barcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بارکد کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                                {formik.errors.barcode && formik.touched.barcode && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.barcode}</p>}
+                            </div>
+
                         </section>
                         <div className="flex flex-col mt-4">
                             <p className="font-sans text-sm">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
