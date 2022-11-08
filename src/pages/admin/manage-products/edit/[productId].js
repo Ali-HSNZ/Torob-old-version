@@ -59,8 +59,8 @@ const EditProduct = () => {
     const filteredBrands = brandQuery === '' ? brands : brands.filter((brand) => brand.name.toLowerCase().replace(/\s+/g, '').includes(brandQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
     const validationSchema = Yup.object({
-        product_title : Yup.string().min(10, "نام کالا نمی‌تواند کم تر از 10 نویسه باشد").max(30 , 'نام کالا نمی تواند بیشتر از 30 نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
-        product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از 20 نویسه باشد").max(500,"توضیحات کالا نمی تواند بیشتر از 500 نویسه باشد").required("توضیحات کالا نمی تواند خالی باشد").trim(),
+        product_title : Yup.string().min(10, "نام کالا نمی‌تواند کم تر از ۱۰ نویسه باشد").max(30 , 'نام کالا نمی تواند بیشتر از ۳۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
+        product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از ۲۰ نویسه باشد").max(500,"توضیحات کالا نمی تواند بیشتر از ۵۰۰ نویسه باشد").required("توضیحات کالا نمی تواند خالی باشد").trim(),
         barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
     const [onChangeFile , setOnChangeFile] = useState(null)
