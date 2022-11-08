@@ -3,14 +3,11 @@ import Layout from "@/layout/Layout";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import * as Yup from 'yup'
-import { Fragment } from 'react'
-import { Combobox, Transition } from '@headlessui/react'
 import ReactLoading from 'react-loading';
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBrands, fetchCategories, fetchSub1, fetchSub2, fetchSub3,  deleteProduct, insertProduct } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
-import { useRouter } from "next/router";
-import SelectBoxForCategories from "@/common/admin/manage-category/SelecBoxForCategories";
+import { fetchBrands, fetchCategories, fetchSub1, fetchSub2, fetchSub3, insertProduct } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
+import SelectBox from "@/common/admin/SelectBox";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -20,6 +17,7 @@ import { useRef } from "react";
 const InsertProduct = () => {
     const productData = useSelector(state => state.admin_products)
     const productLoading = productData.product.loading
+    const {subCategoryLoading} = productData
     const {brands} = useSelector(state => state.admin_products.brands)
     const {categories} = useSelector(state => state.admin_products.categories)
     const sub1 = useSelector(state => state.admin_products.sub1)
@@ -95,7 +93,7 @@ const InsertProduct = () => {
     const onSubmit = ({product_title , product_description}) => {
         const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const brandId = selectedBrand.id || null
-        const productImage = onChangeFile.selectedFile;
+        const productImage = onChangeFile && onChangeFile.selectedFile || null;
         // Check Product Image
         if(productImage){
             if(!checkImageFormat(productImage.name)){
@@ -149,7 +147,7 @@ const InsertProduct = () => {
     const formik = useFormik({
         onSubmit,
         validationSchema,
-        enableReinitialize : true,
+        validateOnMount : true,
         initialValues : {
             product_title :  "",
             product_description :  "",
@@ -200,52 +198,8 @@ const InsertProduct = () => {
                             </div>
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm"> برند :</p>
-                                <div className="w-full">
-                                    <Combobox value={selectedBrand} onChange={setSelectedBrand }>
-                                        <div className="relative">
-                                            <div className="relative w-full cursor-default  rounded-lg   text-left   focus:outline-none ">
-                                                <Combobox.Input placeholder={!selectedBrand===" " ? returnBrandName() : "نمایش همه"} onChange={(event) => setBrandQuery(event.target.value) } className=" w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md" displayValue={(brand) => brand?.name || brand }/>
-                                                
-                                                <Combobox.Button className="absolute inset-y-0 top-[7px] pl-1 left-0 flex items-center group">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 group-hover:text-gray-700 text-gray-400">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                                    </svg>
-                                                </Combobox.Button>
-
-                                                <button type={"button"} onClick={()=>setSelectedBrand('')} className="absolute group inset-y-0 top-[7px] left-7 flex  items-center ">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`group-hover:text-gray-700 text-gray-400 w-5 h-5`}>
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setBrandQuery('')}>
-                                                <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                {filteredBrands && filteredBrands.length === 0 && brandQuery !== '' ? (
-                                                    <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-sans">برندی یافت نشد.</div>
-                                                ) : (
-                                                    <>
-                                                        {filteredBrands && filteredBrands.map((brand) => (
-                                                            <Combobox.Option  value={brand} key={brand.id} className={({ active }) => `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-700 text-white' : 'text-gray-900'}`}>
-                                                                {({ selected, active }) => (
-                                                                    <>
-                                                                        <span className={`  font-sans text-sm block truncate ${ selected && 'font-bold' }`}> {brand.name} </span>
-                                                                        {selected ? (
-                                                                            <span className={`absolute  cursor-pointer inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-gray-700'}`}>
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                                                                </svg>
-                                                                            </span>
-                                                                        ) : null}
-                                                                    </>
-                                                                )}
-                                                            </Combobox.Option>
-                                                        ))}
-                                                    </>
-                                                )}
-                                                </Combobox.Options>
-                                            </Transition>
-                                        </div>
-                                    </Combobox>
+                                <div className="w-full mt-2">
+                                    <SelectBox notFoundTitle="برند مورد نظر یافت نشد." placeholder={'انتخاب عنوان برند'} query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                 </div>
                             </div>
                             <div className="flex flex-col relative ">
@@ -293,31 +247,24 @@ const InsertProduct = () => {
                             <p className="font-sans text-sm">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
                             <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} placeholder="توضیحات..." className="leading-8 max-h-[250px] min-h-[50px] w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                             {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
-
                         </div>
 
                         <div className="flex flex-col mt-4 gap-x-4">
                             <input type="checkbox" className="peer hidden" id="category_section" />
-                                <section className="flex items-center">
-                                    <p className="font-sans text-sm "> دسته‌بندی :</p>
-                                    {sub1.loading || sub2.loading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
-                                </section>
-                                <section className="grid mt-2  grid-cols-5 gap-x-2">
-                                    <SelectBoxForCategories placeholder={"دسته اصلی"} categoryQuery={categoryQuery_main} filteredCategories={filteredCategories} selectedCategory={selectedCategory_main} setCategoryQuery={setCategoryQuery_main} setSelectedCategory={setSelectedCategory_main}/>
-                                    {selectedCategory_main && sub1.categories && (
-                                        <SelectBoxForCategories placeholder={'زیردسته اول'} categoryQuery={categoryQuery_sub1} filteredCategories={filteredsub1} selectedCategory={selectedCategory_sub1} setCategoryQuery={setCategoryQuery_sub1} setSelectedCategory={setSelectedCategory_sub1}/>
-                                    )} 
-                                    {selectedCategory_sub1 && sub2.categories && (
-                                        <SelectBoxForCategories placeholder={'زیردسته دوم'} categoryQuery={categoryQuery_sub2} filteredCategories={filteredsub2} selectedCategory={selectedCategory_sub2} setCategoryQuery={setCategoryQuery_sub2} setSelectedCategory={setSelectedCategory_sub2}/>
-                                    )}
-                                    {selectedCategory_sub2 && sub3.categories && (
-                                        <SelectBoxForCategories placeholder={'زیردسته سوم'} categoryQuery={categoryQuery_sub3} filteredCategories={filteredsub3} selectedCategory={selectedCategory_sub3} setCategoryQuery={setCategoryQuery_sub3} setSelectedCategory={setSelectedCategory_sub3}/>
-                                    )}
-                                </section>
+                            <section className="flex items-center">
+                                <p className="font-sans text-sm "> دسته‌بندی :</p>
+                                {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" delay={0} height={20} width={20} color="red" />}
+                            </section>
+                            <section className="grid mt-2  grid-cols-5 gap-x-2">
+                                <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
+                                {selectedCategory_main && sub1.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته اول'} query={categoryQuery_sub1} setQuery={setCategoryQuery_sub1} filteredData={filteredsub1} selected={selectedCategory_sub1} setSelected={setSelectedCategory_sub1}/>}
+                                {selectedCategory_sub1 && sub2.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته دوم'} query={categoryQuery_sub2} setQuery={setCategoryQuery_sub2} filteredData={filteredsub2} selected={selectedCategory_sub2} setSelected={setSelectedCategory_sub2}/>}
+                                {selectedCategory_sub2 && sub3.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته سوم'} query={categoryQuery_sub3} setQuery={setCategoryQuery_sub3} filteredData={filteredsub3} selected={selectedCategory_sub3} setSelected={setSelectedCategory_sub3}/>}
+                            </section>
                         </div>
 
                         <div className="mt-6 w-full flex justify-end gap-x-2">
-                            <button  type={"submit"} className="bg-blue-600 hover:bg-blue-700 border border-blue-600 text-blue-50 rounded-md py-[6px] px-4 font-sans text-sm">ثبت کالا</button>
+                            <button  type={"submit"} className={`${formik.isValid ? "bg-blue-600 hover:bg-blue-700 border border-blue-600 text-blue-50" : "cursor-not-allowed bg-gray-700 hover:bg-gray-800 border border-black text-gray-200"} rounded-md py-[6px] px-4 font-sans text-sm`}>ثبت کالا</button>
                         </div>
                     </form>}
                 </section>
