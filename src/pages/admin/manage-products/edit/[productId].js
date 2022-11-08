@@ -61,7 +61,7 @@ const EditProduct = () => {
     const validationSchema = Yup.object({
         product_title : Yup.string().min(10, "نام کالا نمی‌تواند کم تر از 10 نویسه باشد").max(30 , 'نام کالا نمی تواند بیشتر از 30 نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
         product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از 20 نویسه باشد").max(500,"توضیحات کالا نمی تواند بیشتر از 500 نویسه باشد").required("توضیحات کالا نمی تواند خالی باشد").trim(),
-    
+        barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
     const [onChangeFile , setOnChangeFile] = useState(null)
 
@@ -98,7 +98,7 @@ const EditProduct = () => {
             setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
         }
     }
-    const onSubmit = ({product_title , product_description}) => {
+    const onSubmit = ({product_title ,barcode, product_description}) => {
         const selectCategory = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const pageCategoryId =  product.categories[3] || product.categories[2] || product.categories[1] || product.categories[0] 
         const productImage = onChangeFile && onChangeFile.selectedFile || ""
@@ -133,7 +133,7 @@ const EditProduct = () => {
             toast.error('مقدار دسته‌بندی نمی تواند خالی باشد')
             return false
         }
-        const payload = {categoryId,brandId,product_title,product_description,productImage,id}
+        const payload = {categoryId,barcode,brandId,product_title,product_description,productImage,id}
         dispatch(editProductAction(payload))
         
     }
@@ -169,8 +169,9 @@ const EditProduct = () => {
         validationSchema,
         enableReinitialize : true,
         initialValues : {
-            product_title : product && product.title || "",
-            product_description : product && product.description || "",
+            product_title : product && product.title,
+            product_description : product && product.description,
+            barcode : product && product.barcode,
         }
     })
     return (  
@@ -209,13 +210,7 @@ const EditProduct = () => {
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm">عنوان کالا :</p>
                                 <input type="text" value={formik.values.product_title} onChange={formik.handleChange} onBlur={formik.handleBlur} name="product_title" placeholder="عنوان کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                <button className="px-1 py-2 absolute top-[29px] left-0">
-                                    <svg className=" text-gray-600 w-5 h-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
                                 {formik.errors.product_title && formik.touched.product_title && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_title}</p>}
-
                             </div>
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm"> برند :</p>
@@ -223,9 +218,10 @@ const EditProduct = () => {
                                     <SelectBox notFoundTitle="برند مورد نظر یافت نشد." placeholder={'انتخاب عنوان برند'} query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                 </div>
                             </div>
+
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm text-gray-800"> تصویر کالا :</p>
-                                <input type={'file'} id="chooseImage" ref={imageInput_ref} accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
+                                <input type={'file'} id="chooseImage" ref={imageInput_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
                                 {onChangeFile? (
                                     <section className="flex justify-between items-center mt-2  ">
                                         <button type={"button"} onClick={()=>setIsProductImage_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
@@ -263,6 +259,12 @@ const EditProduct = () => {
                                     </section>
                                 </Modal>
                             </div>
+
+                            <div className="flex flex-col relative ">
+                                <p className="font-sans text-sm">بارکد :</p>
+                                <input type="text" name="barcode"  value={formik.values.barcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بارکد کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                                {formik.errors.barcode && formik.touched.barcode && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.barcode}</p>}
+                            </div>
                         </section>
                         <div className="flex flex-col mt-4">
                             <p className="font-sans text-sm">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
@@ -277,7 +279,7 @@ const EditProduct = () => {
                                 {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
                             </section>
                             <section className="flex peer-checked:hidden mt-2">
-                                {product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
+                                {product.categories && product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
                             </section>
                             <section className="peer-checked:grid hidden mt-2  grid-cols-5 gap-x-2">
                               <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
@@ -289,7 +291,7 @@ const EditProduct = () => {
 
                         <div className="mt-6 w-full flex justify-end gap-x-2">
                             <button type={"button"} onClick={()=> dispatch(deleteProduct({id}))} className={`items-center ${product.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>
-                            <button  type={"submit"} className="bg-blue-600 hover:bg-blue-700 border border-blue-600 text-blue-50 rounded-md py-[6px] px-4 font-sans text-sm">تایید تغییرات</button>
+                            <button  type={"submit"} className={`${formik.isValid ? "bg-blue-600 hover:bg-blue-700 border border-blue-600 text-blue-50" : "cursor-not-allowed bg-gray-700 hover:bg-gray-800 border border-black text-gray-200"} rounded-md py-[6px] px-4 font-sans text-sm`}>تایید تغییرات</button>
                         </div>
                     </>
                 )}
