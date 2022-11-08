@@ -1,5 +1,4 @@
 import axios from "axios"
-import { useRouter } from "next/router"
 import toast from "react-hot-toast"
 import Cookies from "universal-cookie"
 
@@ -74,11 +73,11 @@ const fetchCategoriesFailure = (payload) => {return {type : ADMIN_FETCH_CATEGORI
 const token = new Cookies().get("userToken");
 
 
-export const insertProduct = ({categoryId , brandId , product_title , product_description , productImage}) => dispatch => {
+export const insertProduct = ({categoryId ,barcode, brandId , product_title , product_description , productImage}) => dispatch => {
     dispatch(insertProductRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/products` ,{
         title : product_title,
-        barcode : Date.now(),
+        barcode,
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
@@ -96,11 +95,11 @@ export const insertProduct = ({categoryId , brandId , product_title , product_de
 }
 
 
-export const editProductAction = ({categoryId , brandId , product_title , product_description , productImage , id}) => dispatch => {
+export const editProductAction = ({categoryId ,barcode, brandId , product_title , product_description , productImage , id}) => dispatch => {
     dispatch(fetchOneProductRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/products/${id}/update` ,{
         title : product_title,
-        barcode : Date.now(),
+        barcode,
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
@@ -152,9 +151,9 @@ export const fetchSub3 = (id) => dispatch => {
     })
 } 
 
-export const fetchProducts = ({state, page, limit, paramsBrand, paramsCategory, name}) => dispatch => {
+export const fetchProducts = ({state, page, limit, paramsBrand,barcode, paramsCategory, name}) => dispatch => {
     dispatch(fetchProductsRequest())
-    axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/products?state=${state || "all"}&title=${name || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : `Bearer ${token}`}})
+    axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/products?state=${state || "all"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchProductsSuccess(data)))
     .catch(error => {
         const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست محصولات";
