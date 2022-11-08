@@ -46,7 +46,7 @@ const ManageBrands = () => {
             return <DialogAlert_deleteBrand page={page} limit={limit} isModal={isModal_deleteBrand} setIsModal={setIsModal_deleteBrand} id={modalDetail_deleteBrand.id} title={modalDetail_deleteBrand.title} description={modalDetail_deleteBrand.description} />
         }
         if(isModal_updateBrand === true){
-            return <DialogAlert_updateBrand  isModal={isModal_updateBrand} setIsModal={setIsModal_updateBrand} id={modalDetail_updateBrand.id} title={modalDetail_updateBrand.title} faName={modalDetail_updateBrand.faName} enName={modalDetail_updateBrand.enName} company={modalDetail_updateBrand.company} />
+            return <DialogAlert_updateBrand imageUrl={modalDetail_updateBrand.imageUrl}  isModal={isModal_updateBrand} setIsModal={setIsModal_updateBrand} id={modalDetail_updateBrand.id} title={modalDetail_updateBrand.title} faName={modalDetail_updateBrand.faName} enName={modalDetail_updateBrand.enName} company={modalDetail_updateBrand.company} />
         }
         if(isModal_insertBrand === true){
             return <DialogAlert_insertBrand isModal={isModal_insertBrand} setIsModal={setIsModal_insertBrand} title={modalDetail_insertBrand.title} page={page} limit ={limit} />
@@ -178,8 +178,7 @@ const ManageBrands = () => {
                                             <div className="flex  w-full justify-between mb-4 mt-4 px-4">
                                                 <div className={`shadow-xl w-2 h-2 ${!brand.is_show &&  "bg-red-600"} rounded-full`}></div>
                                                 <div className="flex gap-x-2 items-center">
-                                                    <button 
-                                                        onClick={()=>  {
+                                                    <button onClick={()=>  {
                                                             setIsModal_deleteBrand(true) & 
                                                             setModalDetail_deleteBrand({
                                                                     id : brand.id,
@@ -188,15 +187,15 @@ const ManageBrands = () => {
                                                                 })
                                                             }} 
                                                         className=" font-sans text-xs hover:underline underline-offset-4 text-orange-700 ">تغییر وضعیت</button>
-                                                    <button
-                                                        onClick={()=>  {
+                                                    <button onClick={()=>  {
                                                             setIsModal_updateBrand(true) & 
                                                             setModalDetail_updateBrand({
                                                                     id : brand.id,
                                                                     title:`ویرایش مشخصات`,
                                                                     faName : brand.name,
                                                                     enName : brand.english_name,
-                                                                    company : brand.company
+                                                                    company : brand.company,
+                                                                    imageUrl : brand.logo_url
                                                                 })
                                                             }} 
                                                         className=" font-sans text-xs hover:underline underline-offset-4 text-blue-700 ">ویرایش</button>
