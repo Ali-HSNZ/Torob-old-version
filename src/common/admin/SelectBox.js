@@ -20,7 +20,7 @@ const SelectBox = ({placeholder ,notFoundTitle, selected , query , setSelected ,
                         </button>
                     </div>
                     <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setQuery('')}>
-                        <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        <Combobox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                             {filteredData && filteredData.length === 0 && query !== '' ? (
                                 <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-sans">{notFoundTitle}</div>
                             ) : (
