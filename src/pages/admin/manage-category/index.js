@@ -11,7 +11,6 @@ import DialogAlert_deleteCategory from "@/common/admin/manage-category/DialogAle
 import DialogAlert_updateCategory from "@/common/admin/manage-category/DialogAlert_updateCategory";
 import DialogAlert_insertMainCategory from "@/common/admin/manage-category/DialogAlert_insertMainCategory";
 import Cookies from "universal-cookie";
-import { wrapper } from "@/redux/store";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
@@ -66,7 +65,7 @@ const ManageCategory = () => {
     }
 
     const validationSchema = Yup.object({
-        name : Yup.string().min(2 , 'عنوان برند نمی تواند کمتر از 2 نویسه باشد').max(50 , 'عنوان برند نمی تواند بیشتر از 50 نویسه باشد').trim()
+        name : Yup.string().min(2 , 'عنوان برند نمی تواند کمتر از ۲ نویسه باشد').max(50 , 'عنوان برند نمی تواند بیشتر از ۵۰ نویسه باشد').trim()
     })
 
     const formik = useFormik({
