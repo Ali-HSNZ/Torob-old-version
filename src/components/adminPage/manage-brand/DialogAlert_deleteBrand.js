@@ -24,7 +24,7 @@ export default function DialogAlert_deleteBrand({ id, isModal , setIsModal , tit
             <DialogActions>
                 <div className='w-full flex gap-x-4 justify-end pb-2 px-2'>
                     <button className='font-sans font-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
-                    <button className='font-sans font-bold text-sm text-orange-700' onClick={deleteCategoryHandler} >بله</button>
+                    <button className='font-sans font-bold text-sm text-orange-700' onClick={deleteCategoryHandler} >بله - تغییر وضعیت</button>
                 </div>
             </DialogActions>
         </Dialog>
