@@ -55,7 +55,7 @@ const ManageProduct = () => {
         router.push(`/admin/manage-products?page=1&state=${status || "all"}&barcode=${barcode || ""}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${product_title || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
-        product_title : Yup.string().min(2 , 'عنوان برند نمی تواند کمتر از 2 نویسه باشد').max(50 , 'عنوان برند نمی تواند بیشتر از 250 نویسه باشد').trim(),
+        product_title : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از 2 نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از 250 نویسه باشد').trim(),
         barcode : Yup.string().max(12,"بارکد نمی‌تواند بیشتر از ۱۲ رقم باشد").matches(/^[0-9]\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
 
@@ -131,7 +131,7 @@ const ManageProduct = () => {
 
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm">بارکد :</p>
-                                    <input type="text" name="barcode" value={formik.values.barcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                                    <input type="text" name="barcode" value={formik.values.barcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس بارکد محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                     {formik.errors.barcode && formik.touched.barcode && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.barcode}</p>}
                                 </div>
                                 
