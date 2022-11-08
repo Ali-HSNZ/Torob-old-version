@@ -20,6 +20,7 @@ const EditProduct = () => {
     const dispatch = useDispatch()
     const productData = useSelector(state => state.admin_products)
     const {product} = productData.product
+    const {subCategoryLoading} = productData
     const productLoading = productData.product.loading
 
     
@@ -273,7 +274,7 @@ const EditProduct = () => {
                             <section className="flex items-center">
                                 <p className="font-sans text-sm "> دسته‌بندی :</p>
                                 <label onClick={()=> {setSelectedCategory_main("") & setIsEditCategory(!isEditCategory)}} htmlFor="category_section" className="peer-checked:hidden cursor-pointer font-sans text-xs hover:underline underline-offset-4 mr-2 text-blue-600"> (ویرایش)</label>
-                                {sub1.loading || sub2.loading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
+                                {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
                             </section>
                             <section className="flex peer-checked:hidden mt-2">
                                 {product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
