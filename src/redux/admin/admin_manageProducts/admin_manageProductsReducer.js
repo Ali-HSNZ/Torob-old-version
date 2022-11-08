@@ -36,9 +36,10 @@ import {
 const initailState = {
     products:{ products : null,loading : false,error : null},
     categories:{categories : null,loading : false,error : null},
-    sub1:{categories : null,loading : false,error : null},
-    sub2:{categories : null,loading : false,error : null},
-    sub3:{categories : null,loading : false,error : null},
+    subCategoryLoading : false,
+    sub1:{categories : null,error : null},
+    sub2:{categories : null,error : null},
+    sub3:{categories : null,error : null},
     product:{product : null,loading : false,error : null},
     brands:{brands : null,loading : false,error : null},
 }
@@ -108,18 +109,18 @@ export const admin_productsReducer = (state = initailState , action) => {
         case ADMIN_FETCH_CATEGORIES_SUCCESS : { return { ...state, categories : { categories : action.payload.categories, loading : false, error : null}}}
         case ADMIN_FETCH_CATEGORIES_FAILURE : {return { ...state, categories : { categories : null, loading : false, error : action.payload}}}
 
-        case ADMIN_FETCH_SUB_1_REQUEST : { return { ...state, sub1:{ categories : null , loading : true, error : null,}}}
-        case ADMIN_FETCH_SUB_1_SUCCESS : { return { ...state, sub1 : { categories : action.payload.length > 0 ? action.payload : null, loading : false, error : null}}}
-        case ADMIN_FETCH_SUB_1_FAILURE : {return { ...state, sub1 : { categories : null, loading : false, error : action.payload}}}
+        case ADMIN_FETCH_SUB_1_REQUEST : { return { ...state, subCategoryLoading : true ,sub1:{ categories : null , error : null,}}}
+        case ADMIN_FETCH_SUB_1_SUCCESS : { return { ...state, subCategoryLoading : false ,sub1 : { categories : action.payload.length > 0 ? action.payload : null, error : null}}}
+        case ADMIN_FETCH_SUB_1_FAILURE : {return { ...state, subCategoryLoading : false ,sub1 : { categories : null, error : action.payload}}}
 
 
-        case ADMIN_FETCH_SUB_2_REQUEST : { return { ...state, sub2:{ categories : null , loading : true, error : null,}}}
-        case ADMIN_FETCH_SUB_2_SUCCESS : { return { ...state, sub2 : { categories : action.payload.length > 0 ? action.payload : null, loading : false, error : null}}}
-        case ADMIN_FETCH_SUB_2_FAILURE : {return { ...state, sub2 : { categories : null, loading : false, error : action.payload}}}
+        case ADMIN_FETCH_SUB_2_REQUEST : { return { ...state, subCategoryLoading : true ,sub2:{ categories : null , error : null,}}}
+        case ADMIN_FETCH_SUB_2_SUCCESS : { return { ...state, subCategoryLoading : false ,sub2 : { categories : action.payload.length > 0 ? action.payload : null, error : null}}}
+        case ADMIN_FETCH_SUB_2_FAILURE : {return { ...state, subCategoryLoading : false ,sub2 : { categories : null, error : action.payload}}}
  
-        case ADMIN_FETCH_SUB_3_REQUEST : { return { ...state, sub3:{ categories : null , loading : true, error : null,}}}
-        case ADMIN_FETCH_SUB_3_SUCCESS : { return { ...state, sub3 : { categories : action.payload.length > 0 ? action.payload : null, loading : false, error : null}}}
-        case ADMIN_FETCH_SUB_3_FAILURE : {return { ...state, sub3 : { categories : null, loading : false, error : action.payload}}}
+        case ADMIN_FETCH_SUB_3_REQUEST : { return { ...state, subCategoryLoading : true ,sub3:{ categories : null , error : null,}}}
+        case ADMIN_FETCH_SUB_3_SUCCESS : { return { ...state, subCategoryLoading : false ,sub3 : { categories : action.payload.length > 0 ? action.payload : null, error : null}}}
+        case ADMIN_FETCH_SUB_3_FAILURE : {return { ...state, subCategoryLoading : false ,sub3 : { categories : null, error : action.payload}}}
 
         default: return  state
     }
