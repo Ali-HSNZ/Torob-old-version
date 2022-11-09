@@ -55,13 +55,13 @@ const ManageCategory = () => {
 
     useEffect(()=>{
         window.scroll({top : 0,behavior:'smooth'})
-        const {state , page , limit} = router.query;
-        const payload = {state ,page,limit,paramsName : router.query.name || ""}
+        const {state , page , limit,order} = router.query;
+        const payload = {state ,page,limit,order,paramsName : router.query.name || ""}
         dispatch(fetchCategories(payload))
     },[router.query])
 
-    const onSubmit = ({name}) => {
-        router.push(`/admin/manage-category?state=${status ? status : "all"}&name=${name ? name : ""}&limit=${limit}&page=1`)
+    const onSubmit = ({name,order}) => {
+        router.push(`/admin/manage-category?state=${status ? status : "all"}&order=${order || 'desc'}&name=${name ? name : ""}&limit=${limit}&page=1`)
     }
 
     const validationSchema = Yup.object({
@@ -75,6 +75,7 @@ const ManageCategory = () => {
         enableReinitialize : true,
         initialValues : {
             name : router.query.name || "",
+            order : router.query.order || "desc",
         }
     })
 
@@ -122,6 +123,19 @@ const ManageCategory = () => {
                                 <p className="font-sans text-sm"> عنوان دسته‌بندی :</p>
                                 <input type="text" value={formik.values.name} name="name" onBlur={formik.handleBlur} onChange={formik.handleChange}  placeholder="عنوان دسته‌بندی را وارد کنید" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                 {formik.errors.name && formik.touched.name && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.name}</p>}
+                            </div>
+                            <div className="flex flex-col relative">
+                                <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
+                                <section className="flex justify-between mt-2 gap-x-2">
+                                    <div className="flex w-1/2">
+                                        <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
+                                        <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                    </div>
+                                    <div className="flex w-1/2">
+                                        <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
+                                        <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                    </div>
+                                </section>
                             </div>
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm">وضعیت :</p>
@@ -249,7 +263,7 @@ const ManageCategory = () => {
 
                             {categories && <section dir="ltr" className=" w-full flex justify-center py-4">
                                 <Pagination size="large" color="primary" page={page} count={pagination && pagination.last || 1} onChange={(event , page)=> {
-                                    router.push(`/admin/manage-category?page=${page}&state=${router.query.state || ''}&name=${router.query.name || ""}&limit=${limit || 12}`)
+                                    router.push(`/admin/manage-category?page=${page}&state=${router.query.state || ''}&order=${router.query.order || 'desc'}&name=${router.query.name || ""}&limit=${limit || 12}`)
                                 }}/>
                             </section>}
                         </>
