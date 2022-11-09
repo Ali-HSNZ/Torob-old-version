@@ -33,16 +33,16 @@ export const fetchCategories = (payload) => dispatch => {
     })
 }
 
-export const deleteCategory = ({id ,limit,page,paramsName,state}) => dispatch => {
-    const payload = { limit,page,paramsName,state}
+export const deleteCategory = ({id ,limit,page,paramsName,state,order}) => dispatch => {
+    const payload = { limit,page,paramsName,state,order}
     dispatch(admin_fetchCategoriesRequest())
     axios.put(`https://market-api.iran.liara.run/api/admin/categories/${id}/state` , {}, {headers : {authorization : `Bearer ${token}`}})
     .then(() => dispatch(fetchCategories(payload)))
     .catch(error => dispatch(admin_fetchCategoriesFailure(error?.response?.data?.message ? error?.response?.data?.message : "خطای سرور در بخش حذف دسته بندی")))
 }
 
-export const updateCategory = ({id,name,limit,page,paramsName,state}) => dispatch => {
-    const payload = { limit,page,paramsName,state}
+export const updateCategory = ({id,name,limit,page,order,paramsName,state}) => dispatch => {
+    const payload = { limit,page,paramsName,state,order}
     const slug = name.replace(/\s+/g, '-')
     dispatch(admin_fetchCategoriesRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/categories/${id}/update` ,{category_name : name , category_slug : slug}, {headers : {authorization : `Bearer ${token}`}})
@@ -56,7 +56,10 @@ export const updateCategory = ({id,name,limit,page,paramsName,state}) => dispatc
         dispatch(fetchCategories(payload))
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-        else dispatch(fetchProductsFailure( "خطا در ثبت تغییرات"))
+        else {
+            toast.error('خطا در ثبت تغییرات')
+            dispatch(fetchProductsFailure( "خطا در ثبت تغییرات"))
+        }
 
     })
 }
@@ -72,8 +75,8 @@ export const filterCategories = (payload) => dispatch => {
     .catch(error => dispatch(admin_fetchCategoriesFailure(error?.response?.data?.message || "خطای سرور در بخش  گرفتن لیست دسته بندی")))
 } 
 
-export const insertCategories = ({id,name , limit,page,paramsName,state}) => dispatch => {
-    const payload = { limit,page,paramsName,state}
+export const insertCategories = ({id,name , limit,page,paramsName,state,order}) => dispatch => {
+    const payload = { limit,page,paramsName,state,order}
     const slug = name.replace(/\s+/g, '-')
     dispatch(admin_fetchCategoriesRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/categories` , {category_parent_id : id , category_name : name , slug} , {headers : {authorization : `Bearer ${token}`}})
@@ -87,7 +90,10 @@ export const insertCategories = ({id,name , limit,page,paramsName,state}) => dis
         dispatch(fetchCategories(payload))
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-        else dispatch(fetchProductsFailure( "خطا در ثبت دسته‌بندی"))
+        else {
+            toast.error('خطا در ثبت دسته‌بندی')
+            dispatch(fetchProductsFailure( "خطا در ثبت دسته‌بندی"))
+        }
     })
 }
  
