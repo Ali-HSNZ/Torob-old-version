@@ -18,7 +18,7 @@ export default function DialogAlert_updateCategory({categoryName , id, isModal ,
     }
     
     const validationSchema = Yup.object({
-        updateCategoryName: Yup.string().required("عنوان دسته‌بندی نمی تواند خالی باشد.").min(2 , "عنوان دسته‌بندی نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "عنوان دسته بندی نمی تواند بیشتر از ۵۰ نویسه باشد.").trim(),
+        updateCategoryName: Yup.string().required("عنوان دسته‌بندی نمی تواند خالی باشد.").min(3 , "عنوان دسته‌بندی نمی تواند کم تر از ۳ نویسه باشد.").max(50 , "عنوان دسته بندی نمی تواند بیشتر از ۵۰ نویسه باشد.").trim(),
     })
 
     const formik = useFormik({
