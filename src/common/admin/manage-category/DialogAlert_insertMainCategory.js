@@ -10,10 +10,10 @@ import { useRouter } from 'next/router';
 export default function DialogAlert_insertMainCategory({isModal , setIsModal , title}) {
     const dispatch =  useDispatch()
     const {query} = useRouter()
-    const {limit,page,name : paramsName,state} = query
+    const {limit,page,name : paramsName,state,order} = query
     const onSubmit = ({mainCategoryName}) => {      
         setIsModal(false)
-        dispatch(insertCategories({id : 0 , name:mainCategoryName,limit,page,paramsName,state}))
+        dispatch(insertCategories({order,id : 0 , name:mainCategoryName,limit,page,paramsName,state}))
     }
     const validationSchema = Yup.object({
         mainCategoryName: Yup.string().required("عنوان دسته ‌بندی نمی تواند خالی باشد.").min(2 , "عنوان دسته بندی نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "عنوان دسته بندی نمی تواند بیشتر از ۵۰ نویسه باشد.").trim()})
