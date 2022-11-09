@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 export default function DialogAlert_updateBrand({imageUrl,faName, enName, company, id, isModal , setIsModal, title, submitBtnTitle}) {
 
     const {query} = useRouter()
-    const {limit,page,name : paramsName,company:paramsCompany,state} = query
+    const {limit,order,page,name : paramsName,company:paramsCompany,state} = query
     const [isProductImage_Modal,setIsProductImage_Modal] = useState(false)
     const imageInput_ref = useRef()
     const dispatch =  useDispatch()
@@ -39,17 +39,17 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
         const image = input.target.files[0]
         if(input.target.files && image){
             if(!checkImageFormat(image.name)){
-                toast.error('تصویر کالا معتبر نیست')
+                toast.error('لوگو برند معتبر نیست')
                 imageInput_ref.current.value = null
                 return false
             }
             if(Number(image.size) < 16000){
-                toast.error('تصویر کالا نمی تواند کمتر از ۱۶kb باشد')
+                toast.error('لوگو برند نمی تواند کمتر از ۱۶kb باشد')
                 imageInput_ref.current.value = null
                 return false
             } 
-            if(Number(image.size) > 1024000){
-                toast.error("تصویر کالا نمی تواند بیشتر از ۱.۰۲۴mb باشد")
+            if(Number(image.size) > 512000){
+                toast.error("لوگو برند نمی تواند بیشتر از ۵۱۲kb باشد")
                 imageInput_ref.current.value = null
                 return false
             }
@@ -59,13 +59,13 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
 
     const onSubmit = ({faName , enName , companyName}) => {
         setIsModal(false)
-        dispatch(updateBrand({page,limit,id,faName,enName,paramsName,state,paramsCompany,companyName,brandImage : onChangeFile.selectedFile}))
+        dispatch(updateBrand({order,page,limit,id,faName,enName,paramsName,state,paramsCompany,companyName,brandImage : onChangeFile && onChangeFile.selectedFile || ""}))
     }
 
     const validationSchema = Yup.object({
-        faName: Yup.string().required("نام فارسی برند نمی تواند خالی باشد.").min(2 , "نام فارسی برند نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "نام فارسی برند نمی تواند بیشتر از ۵۰ نویسه باشد.").trim(),
-        enName: Yup.string().required("نام انگلیسی برند نمی تواند خالی باشد.").min(2 , "نام انگلیسی برند نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "نام انگلیسی برند نمی تواند بیشتر از ۵۰ نویسه باشد.").trim(),
-        companyName:Yup.string().required("نام شرکت نمی تواند خالی باشد.").min(2 , "نام شرکت نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "نام شرکت نمی تواند بیشتر از ۵۰ نویسه باشد.").trim(),
+        faName: Yup.string().required("نام فارسی برند نمی تواند خالی باشد.").min(3 , "نام فارسی برند نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام فارسی برند نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
+        enName: Yup.string().required("نام انگلیسی برند نمی تواند خالی باشد.").min(3 , "نام انگلیسی برند نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام انگلیسی برند نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
+        companyName:Yup.string().required("نام شرکت نمی تواند خالی باشد.").min(2 , "نام شرکت نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام شرکت نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
     })
     const formik = useFormik({
         onSubmit,
