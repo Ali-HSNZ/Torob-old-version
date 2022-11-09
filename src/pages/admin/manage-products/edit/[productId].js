@@ -3,12 +3,10 @@ import Layout from "@/layout/Layout";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import * as Yup from 'yup'
-import { Fragment } from 'react'
-import { Combobox, Transition } from '@headlessui/react'
 import ReactLoading from 'react-loading';
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBrands, fetchCategories, fetchProduct, fetchSub1, fetchSub2, fetchSub3, editProductAction, deleteProduct } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
+import { fetchBrands, fetchMainCategories, fetchProduct, fetchSub1, fetchSub2, fetchSub3, editProductAction, deleteProduct } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
 import { useRouter } from "next/router";
 import SelectBox from "@/common/admin/SelectBox";
 import Cookies from "universal-cookie";
@@ -59,7 +57,7 @@ const EditProduct = () => {
     const filteredBrands = brandQuery === '' ? brands : brands.filter((brand) => brand.name.toLowerCase().replace(/\s+/g, '').includes(brandQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
     const validationSchema = Yup.object({
-        product_title : Yup.string().min(10, "نام کالا نمی‌تواند کم تر از ۱۰ نویسه باشد").max(30 , 'نام کالا نمی تواند بیشتر از ۳۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
+        product_title : Yup.string().min(10, "نام کالا نمی‌تواند کم تر از ۱۰ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
         product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از ۲۰ نویسه باشد").max(500,"توضیحات کالا نمی تواند بیشتر از ۵۰۰ نویسه باشد").required("توضیحات کالا نمی تواند خالی باشد").trim(),
         barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
@@ -161,7 +159,7 @@ const EditProduct = () => {
     useEffect(()=>{
         if(id) dispatch(fetchProduct(id));
         dispatch(fetchBrands())
-        dispatch(fetchCategories())
+        dispatch(fetchMainCategories())
     },[router.query])
 
     const formik = useFormik({
