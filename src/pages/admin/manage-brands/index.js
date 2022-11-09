@@ -55,8 +55,8 @@ const ManageBrands = () => {
 
     useEffect(()=>{
         window.scroll({top : 0,behavior:'smooth'})
-        const {state , page , limit} = router.query;
-        const payload = { state, page, limit, paramsName : router.query.name  || "", paramsCompany : router.query.company  || ""}
+        const {state , page , limit,order} = router.query;
+        const payload = { state, page,order, limit, paramsName : router.query.name  || "", paramsCompany : router.query.company  || ""}
         dispatch(fetchBrands(payload))
     },[router.query])
 
@@ -66,8 +66,8 @@ const ManageBrands = () => {
     }
     
     const onSubmit = (values) => {
-        const  { name , company } = values;
-        router.push(`/admin/manage-brands?state=${status || "all"}&name=${name || ""}&page=1&company=${company || ""}&limit=${limit}`)
+        const  { name , company ,order} = values;
+        router.push(`/admin/manage-brands?state=${status || "all"}&order=${order || 'desc'}&name=${name || ""}&page=1&company=${company || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
         name : Yup.string().min(2 , 'عنوان برند نمی تواند کمتر از ۲ نویسه باشد').max(50 , 'عنوان برند نمی تواند بیشتر از ۵۰ نویسه باشد').trim(),
@@ -82,6 +82,7 @@ const ManageBrands = () => {
         initialValues : {
             name : router.query.name || "",
             company : router.query.company  || "",
+            order : router.query.order || 'desc'
         },
     })
 
@@ -143,6 +144,19 @@ const ManageBrands = () => {
                                 <p className="font-sans text-sm">نام شرکت :</p>
                                 <input type={"text"} name="company" value={formik.values.company} onBlur={formik.handleBlur} onChange={formik.handleChange} placeholder="نام شرکت را وارد کنید" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                 {formik.errors.company && formik.touched.company && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.company}</p>}
+                            </div>
+                            <div className="flex flex-col relative">
+                                <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
+                                <section className="flex justify-between mt-2 gap-x-2">
+                                    <div className="flex w-1/2">
+                                        <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
+                                        <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                    </div>
+                                    <div className="flex w-1/2">
+                                        <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
+                                        <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                    </div>
+                                </section>
                             </div>
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm">وضعیت :</p>
