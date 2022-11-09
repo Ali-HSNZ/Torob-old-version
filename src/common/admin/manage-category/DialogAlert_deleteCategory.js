@@ -10,10 +10,10 @@ export default function DialogAlert_deleteCategory({id, isModal , setIsModal , t
 
     const dispatch = useDispatch()
     const {query} = useRouter()
-    const {limit,page,name : paramsName,state} = query
+    const {limit,page,name : paramsName,state,order} = query
     const deleteCategoryHandler = () => {
         setIsModal(false)
-        dispatch(deleteCategory({id,limit,page,paramsName,state}))
+        dispatch(deleteCategory({id,limit,page,paramsName,state,order}))
     }
     return (
         <Dialog open={isModal || false} onClose={()=>setIsModal(false)}>
