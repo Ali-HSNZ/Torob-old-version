@@ -9,7 +9,7 @@ const InsertCategoryForm = ({category , sub_sub , id , sub}) => {
     const {limit,page,name : paramsName,state} = query
     const dispatch = useDispatch()
     const onSubmit = ({categoryName}) => {
-        dispatch(insertCategories({id , name:categoryName,limit,page,paramsName,state}))
+        dispatch(insertCategories({order :query.order || "desc" ,id , name:categoryName,limit,page,paramsName,state}))
     }
     const validationSchema = Yup.object({
         categoryName: Yup.string()
