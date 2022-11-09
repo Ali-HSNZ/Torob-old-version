@@ -1,5 +1,4 @@
 import axios from "axios"
-import { useRouter } from "next/router"
 import toast from "react-hot-toast"
 import Cookies from "universal-cookie"
 
@@ -12,30 +11,29 @@ const admin_fetchBrandsRequest = () => {
 }
 const admin_fetchBrandsSuccess = (payload) => {
     return {type : ADMIN_FETCH_BRANDS_SUCCESS , payload}
-
 }
 const admin_fetchBrandsFailure = (payload) => {    
     return {type : ADMIN_FETCH_BRANDS_FAILURE , payload}
 }
 export const fetchBrands = (payload) => dispatch => {
-    const {state , page , limit,paramsName,paramsCompany} =  payload
+    const {state , page ,order, limit,paramsName,paramsCompany} =  payload
     dispatch(admin_fetchBrandsRequest())
-    axios.get(`https://market-api.iran.liara.run/api/admin/brands?state=${state || 'all'}&name=${paramsName || ""}&company=${paramsCompany || ""}&page=${page || 1}&limit=${limit || 12}` , {headers : {authorization : `Bearer ${token}`}})
+    axios.get(`https://market-api.iran.liara.run/api/admin/brands?state=${state || 'all'}&order=${order || 'desc'}&name=${paramsName || ""}&company=${paramsCompany || ""}&page=${page || 1}&limit=${limit || 12}` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(admin_fetchBrandsSuccess(data)))
     .catch(error => dispatch(admin_fetchBrandsFailure(error.response.data.message || "خطای سرور در بخش  گرفتن لیست دسته بندی")))
 }
 
-export const deleteBrand = ({state , page , limit,paramsName,paramsCompany,id}) => dispatch => {
-    const payload = {state , page , limit,paramsName,paramsCompany}
+export const deleteBrand = ({state ,order, page , limit,paramsName,paramsCompany,id}) => dispatch => {
+    const payload = {state ,order, page , limit,paramsName,paramsCompany}
     dispatch(admin_fetchBrandsRequest())
     axios.put(`https://market-api.iran.liara.run/api/admin/brands/${id}/state` ,{}, {headers : {authorization : `Bearer ${token}`}})
     .then(() => dispatch(fetchBrands(payload)))
     .catch(error => dispatch(admin_fetchBrandsFailure(error.response.data.message || "خطای سرور در بخش  گرفتن لیست دسته بندی")))
 }
 
-export const updateBrand = ({brandImage , companyName , faName ,enName  ,state , page , limit,paramsName,paramsCompany,id}) => dispatch => {
+export const updateBrand = ({brandImage , order, companyName , faName ,enName  ,state , page , limit,paramsName,paramsCompany,id}) => dispatch => {
     const slug = enName.replace(/\s+/g, '-')
-    const payload = {state , page , limit,paramsName,paramsCompany}
+    const payload = {state , page ,order, limit,paramsName,paramsCompany}
     dispatch(admin_fetchBrandsRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/brands/${id}/update`, {
         brand_name : faName,
@@ -60,9 +58,9 @@ export const updateBrand = ({brandImage , companyName , faName ,enName  ,state ,
 
 export const insertBrand = (payload) => dispatch => {
     const slug = payload.enName.replace(/\s+/g, '-')
-    const {faName : brand_name, enName : brand_english_name, companyName : brand_company, brandImage, page, limit, } = payload;
+    const {faName : brand_name, enName : brand_english_name, companyName : brand_company, brandImage, page, limit,order } = payload;
     dispatch(admin_fetchBrandsRequest())
-    axios.post(`https://market-api.iran.liara.run/api/admin/brands?page=${page}&limit=${limit}`, {brand_name, brand_english_name, brand_company, slug, brand_logo : brandImage ? brandImage : null } , {headers : {'content-type' : 'multipart/form-data' , authorization : `Bearer ${token}`}})
+    axios.post(`https://market-api.iran.liara.run/api/admin/brands?page=${page}&limit=${limit}`, {brand_name, brand_english_name, brand_company, slug, brand_logo : brandImage || null } , {headers : {'content-type' : 'multipart/form-data' , authorization : `Bearer ${token}`}})
     .then((data) =>{
         dispatch(fetchBrands(payload))
         const message = data.data.error
