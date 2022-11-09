@@ -16,7 +16,8 @@ export default function DialogAlert_insertMainCategory({isModal , setIsModal , t
         dispatch(insertCategories({order,id : 0 , name:mainCategoryName,limit,page,paramsName,state}))
     }
     const validationSchema = Yup.object({
-        mainCategoryName: Yup.string().required("عنوان دسته ‌بندی نمی تواند خالی باشد.").min(2 , "عنوان دسته بندی نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "عنوان دسته بندی نمی تواند بیشتر از ۵۰ نویسه باشد.").trim()})
+        mainCategoryName: Yup.string().required("عنوان دسته ‌بندی نمی تواند خالی باشد.").min(3 , "عنوان دسته بندی نمی تواند کم تر از ۳ نویسه باشد.").max(50 , "عنوان دسته بندی نمی تواند بیشتر از ۵۰ نویسه باشد.").trim()
+    })
     const formik = useFormik({
         onSubmit,
         initialValues : { mainCategoryName: ""},
