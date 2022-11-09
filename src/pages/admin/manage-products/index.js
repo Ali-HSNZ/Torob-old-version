@@ -43,16 +43,16 @@ const ManageProduct = () => {
     
     useEffect(()=> {
         window.scroll({top : 0 , behavior : 'smooth'})
-        const {state , page , brand,category,name,barcode} = router.query;
-        const payload = {state : state || "all" ,page,limit,paramsBrand :  brand || "" ,barcode: barcode || "", paramsCategory :  category || "",name: name || ""}
+        const {state , page , brand,category,name,barcode,order} = router.query;
+        const payload = {state,page,limit,order,paramsBrand :  brand,barcode, paramsCategory :  category ,name}
 
         dispatch(fetchProducts(payload))
         dispatch(fetchBrands())
         dispatch(fetchCategories()) 
     },[router.query])
 
-    const onSubmit = ({ product_title ,barcode}) => {
-        router.push(`/admin/manage-products?page=1&state=${status || "all"}&barcode=${barcode || ""}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${product_title || ""}&limit=${limit}`)
+    const onSubmit = ({ product_title ,barcode,order}) => {
+        router.push(`/admin/manage-products?page=1&state=${status || "all"}&barcode=${barcode || ""}&order=${order || 'asc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${product_title || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
         product_title : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از 2 نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از 250 نویسه باشد').trim(),
@@ -66,7 +66,8 @@ const ManageProduct = () => {
         enableReinitialize : true,
         initialValues : {
             product_title : router.query.name || "",
-            barcode : router.query.barcode ||  ""
+            barcode : router.query.barcode ||  "",
+            order : router.query.order || "desc"
         }
     })
 
@@ -133,6 +134,20 @@ const ManageProduct = () => {
                                     <p className="font-sans text-sm">بارکد :</p>
                                     <input type="text" name="barcode" value={formik.values.barcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس بارکد محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                     {formik.errors.barcode && formik.touched.barcode && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.barcode}</p>}
+                                </div>
+
+                                <div className="flex flex-col relative">
+                                    <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
+                                    <section className="flex justify-between mt-2 gap-x-2">
+                                        <div className="flex w-1/2">
+                                            <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
+                                            <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                        </div>
+                                        <div className="flex w-1/2">
+                                            <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
+                                            <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                        </div>
+                                    </section>
                                 </div>
                                 
                                 <div className="flex flex-col relative">
@@ -225,7 +240,7 @@ const ManageProduct = () => {
 
                             <section dir="ltr" className=" w-full flex justify-center py-4">
                                 <Pagination size="large" color="primary" page={page} count={pagination.last} onChange={(event , page)=> {
-                                    router.push(`/admin/manage-products?page=${page}&state=${router.query.state || ''}&name=${router.query.name || ""}&limit=${limit || 12}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
+                                    router.push(`/admin/manage-products?page=${page}&state=${router.query.state || ''}&name=${router.query.name || ""}&limit=${limit || 12}&order=${router.query.order || 'asc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
                                 }}/>
                             </section>
                         </>
