@@ -116,8 +116,6 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
     })
 }
 
-
-
 export const fetchSub1 = (id) => dispatch => {
     dispatch(fetchSub1Request())
     axios.get(`https://market-api.iran.liara.run/api/admin/categories/list/${id}` , {headers : {authorization : `Bearer ${token}`}})
@@ -151,9 +149,9 @@ export const fetchSub3 = (id) => dispatch => {
     })
 } 
 
-export const fetchProducts = ({state, page, limit, paramsBrand,barcode, paramsCategory, name}) => dispatch => {
+export const fetchProducts = ({state, page, limit,order, paramsBrand,barcode, paramsCategory, name}) => dispatch => {
     dispatch(fetchProductsRequest())
-    axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/products?state=${state || "all"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : `Bearer ${token}`}})
+    axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/products?state=${state || "all"}&order=${order || "desc"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchProductsSuccess(data)))
     .catch(error => {
         const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست محصولات";
@@ -179,6 +177,16 @@ export const deleteProduct = ({id}) => dispatch => {
     .catch(error => dispatch(fetchOneProductFailure(error?.response?.data?.message || "خطای سرور در بخش  حذف محصول")))
 }
 export const fetchCategories = () => dispatch => {
+    dispatch(fetchCategoriesRequest())
+    axios.get(`https://market-api.iran.liara.run/api/admin/categories?list=1` , {headers : {authorization : `Bearer ${token}`}})
+    .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+    .catch(error => {
+        const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست دسته بندی ها";
+        dispatch(fetchCategoriesFailure(message))
+        toast.error(message)
+    })
+}
+export const fetchMainCategories = () => dispatch => {
     dispatch(fetchCategoriesRequest())
     axios.get(`https://market-api.iran.liara.run/api/admin/categories/list` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
