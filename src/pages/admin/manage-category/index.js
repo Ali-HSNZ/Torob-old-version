@@ -61,11 +61,11 @@ const ManageCategory = () => {
     },[router.query])
 
     const onSubmit = ({name,order}) => {
-        router.push(`/admin/manage-category?state=${status ? status : "all"}&order=${order || 'desc'}&name=${name ? name : ""}&limit=${limit}&page=1`)
+        router.push(`/admin/manage-category?state=${status || "all"}&order=${order || 'desc'}&name=${name || ""}&limit=${limit}&page=1`)
     }
 
     const validationSchema = Yup.object({
-        name : Yup.string().min(2 , 'عنوان دسته‌بندی نمی تواند کمتر از ۲ نویسه باشد').max(50 , 'عنوان دسته‌بندی نمی تواند بیشتر از ۵۰ نویسه باشد').trim()
+        name : Yup.string().min(3 , 'عنوان دسته‌بندی نمی تواند کمتر از ۳ نویسه باشد').max(50 , 'عنوان دسته‌بندی نمی تواند بیشتر از ۵۰ نویسه باشد').trim()
     })
 
     const formik = useFormik({
