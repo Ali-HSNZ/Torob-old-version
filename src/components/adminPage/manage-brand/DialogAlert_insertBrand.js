@@ -9,22 +9,25 @@ import { useState } from 'react';
 import { Modal } from '@mui/material';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
-export default function DialogAlert_insertBrand({isModal,setIsModal,title , page , limit,refresh}) {
-    
+export default function DialogAlert_insertBrand({isModal,setIsModal,title , page , limit}) {
+    const {query} = useRouter()
     const dispatch =  useDispatch();
     const imageInput_ref = useRef();
     const [isProductImage_Modal , setIsProductImage_Modal] = useState(false)
     const [onChangeFile , setOnChangeFile] = useState(null)
+
+
     const onSubmit = ({faName , enName , companyName}) => {
-        dispatch(insertBrand({ page , limit, faName,enName,companyName , brandImage:onChangeFile.selectedFile}))
+        dispatch(insertBrand({ order : query.order || 'desc' ,page , limit, faName,enName,companyName , brandImage:onChangeFile && onChangeFile.selectedFile ||null}))
         setIsModal(false)
     }
   
     const validationSchema = Yup.object({
-        faName: Yup.string().required("نام فارسی برند نمی تواند خالی باشد.").min(2 , "نام فارسی برند نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "نام فارسی برند نمی تواند بیشتر از ۵۰ نویسه باشد.").trim(),
-        enName: Yup.string().required("نام انگلیسی برند نمی تواند خالی باشد.").min(2 , "نام انگلیسی برند نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "نام انگلیسی برند نمی تواند بیشتر از ۵۰ نویسه باشد.").trim(),
-        companyName:Yup.string().required("نام شرکت نمی تواند خالی باشد.").min(2 , "نام شرکت نمی تواند کم تر از ۲ نویسه باشد.").max(50 , "نام شرکت نمی تواند بیشتر از ۵۰ نویسه باشد.").trim(),
+        faName: Yup.string().required("نام فارسی برند نمی تواند خالی باشد.").min(3 , "نام فارسی برند نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام فارسی برند نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
+        enName: Yup.string().required("نام انگلیسی برند نمی تواند خالی باشد.").min(3 , "نام انگلیسی برند نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام انگلیسی برند نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
+        companyName:Yup.string().required("نام شرکت نمی تواند خالی باشد.").min(2 , "نام شرکت نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام شرکت نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
     })
     const formik = useFormik({
         onSubmit,
@@ -47,17 +50,17 @@ export default function DialogAlert_insertBrand({isModal,setIsModal,title , page
         const image = input.target.files[0]
         if(input.target.files && image){
             if(!checkImageFormat(image.name)){
-                toast.error('تصویر برند معتبر نیست')
+                toast.error('لوگو برند معتبر نیست')
                 imageInput_ref.current.value = null
                 return false
             }
             if(Number(image.size) < 16000){
-                toast.error('تصویر برند نمی تواند کمتر از ۱۶kb باشد')
+                toast.error('لوگو برند نمی تواند کمتر از ۱۶kb باشد')
                 imageInput_ref.current.value = null
                 return false
             } 
-            if(Number(image.size) > 1024000){
-                toast.error("تصویر برند نمی تواند بیشتر از ۱.۰۲۴mb باشد")
+            if(Number(image.size) > 512000){
+                toast.error("لوگو برند نمی تواند بیشتر از ۵۱۲kb باشد")
                 imageInput_ref.current.value = null
                 return false
             }
