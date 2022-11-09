@@ -23,9 +23,9 @@ const token = new Cookies().get("userToken");
 
 
 export const fetchCategories = (payload) => dispatch => {
-    const {state , page , limit,paramsName} =  payload
+    const {state , page , limit,paramsName,order} =  payload
     dispatch(admin_fetchCategoriesRequest())
-    axios.get(`https://market-api.iran.liara.run/api/admin/categories?state=${state || 'all'}&name=${paramsName || ""}&page=${page || 1}&limit=${limit || 12}` , {headers : {authorization : `Bearer ${token}`}})
+    axios.get(`https://market-api.iran.liara.run/api/admin/categories?state=${state || 'all'}&order=${order || 'desc'}&name=${paramsName || ""}&page=${page || 1}&limit=${limit || 12}` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(admin_fetchCategoriesSuccess(data)))
     .catch(error => {
         const message =  error?.response?.data?.message ? error?.response?.data?.message : "خطای سرور در بخش  گرفتن لیست دسته بندی";
