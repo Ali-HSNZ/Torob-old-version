@@ -11,10 +11,10 @@ export default function DialogAlert_updateCategory({categoryName , id, isModal ,
     
     const dispatch =  useDispatch()
     const {query} = useRouter()
-    const {limit,page,name : paramsName,state} = query
+    const {limit,page,name : paramsName,state,order} = query
     const onSubmit = ({updateCategoryName}) => {
         setIsModal(false)
-        dispatch(updateCategory({id , name:updateCategoryName,limit,page,paramsName,state}))
+        dispatch(updateCategory({id ,order, name:updateCategoryName,limit,page,paramsName,state}))
     }
     
     const validationSchema = Yup.object({
