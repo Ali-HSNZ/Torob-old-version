@@ -1,13 +1,13 @@
 import { Fragment } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 
-const SelectBox = ({placeholder ,notFoundTitle, selected , query , setSelected , filteredData , setQuery}) => {
+const SelectBox = ({isDisabled,placeholder ,notFoundTitle, selected , query , setSelected , filteredData , setQuery}) => {
     return ( 
         <div className="flex">
-            <Combobox value={selected} onChange={setSelected}>
+            <Combobox disabled={isDisabled || false} value={selected} onChange={setSelected}>
                 <div className="relative w-full">
                     <div className="relative  focus:outline-none ">
-                        <Combobox.Input   placeholder={placeholder || ""}  onChange={(event) => setQuery(event.target.value)}  className="z-0 relative w-full border-gray-300 hover:border-gray-600 pl-12 focus:border-gray-600 focus:ring-0 text-sm font-sans bg-white text-gray-800 rounded-md" displayValue={(brand) => brand.name}/>
+                        <Combobox.Input  placeholder={isDisabled ? "غیر فعال" :  placeholder ? placeholder : ""}  onChange={(event) => setQuery(event.target.value)}  className="z-0 relative w-full border-gray-300 hover:border-gray-600 pl-12 focus:border-gray-600 focus:ring-0 text-sm font-sans bg-white text-gray-800 rounded-md" displayValue={(brand) => brand.name}/>
                         <Combobox.Button className="absolute inset-y-0 top-[0px] pl-1 left-0 flex items-center group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 group-hover:text-gray-700 text-gray-400">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
