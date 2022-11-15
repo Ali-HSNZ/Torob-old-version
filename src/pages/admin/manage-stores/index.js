@@ -48,7 +48,6 @@ const ManageStores = () => {
         city :  Yup.string().min(2 , "نام شهر نمی تواند کم تر از 2 نویسه باشد").max("50","نام شهر نمی تواند بیشتر از 50 نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام شهر را به فارسی وارد کنید").trim(),
     })
 
-    console.log("Image : ",stores);
 
     const formik = useFormik({ 
         onSubmit, 
