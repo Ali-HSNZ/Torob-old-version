@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import ReactLoading from 'react-loading';
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBrands, fetchCategories, fetchSub1, fetchSub2, fetchSub3, insertProduct } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
+import { fetchBrands, fetchMainCategories, fetchSub1, fetchSub2, fetchSub3, insertProduct } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
 import SelectBox from "@/common/admin/SelectBox";
 import Cookies from "universal-cookie";
 import axios from "axios";
@@ -23,7 +23,6 @@ const InsertProduct = () => {
     const sub1 = useSelector(state => state.admin_products.sub1)
     const sub2 = useSelector(state => state.admin_products.sub2)
     const sub3 = useSelector(state => state.admin_products.sub3)
-    const id = Number(1)
     const dispatch = useDispatch();
 
     
@@ -119,10 +118,14 @@ const InsertProduct = () => {
             toast.error('مقدار دسته‌بندی نمی تواند خالی باشد')
             return false
         }
-            const payload = {categoryId,brandId,product_title,barcode,product_description,productImage,id}
+            const payload = {categoryId,brandId,product_title,barcode,product_description,productImage}
             dispatch(insertProduct(payload))
-        
     }
+
+    useEffect(()=>{
+        dispatch(fetchBrands())
+        dispatch(fetchMainCategories())
+    },[])
 
     useEffect(()=>{
         if(selectedCategory_main && selectedCategory_main.id) dispatch(fetchSub1(selectedCategory_main.id))
@@ -139,10 +142,7 @@ const InsertProduct = () => {
         setSelectedCategory_sub3("")
     },[selectedCategory_sub2])
 
-    useEffect(()=>{
-        dispatch(fetchBrands())
-        dispatch(fetchCategories())
-    },[])
+
 
     const formik = useFormik({
         onSubmit,
@@ -180,12 +180,7 @@ const InsertProduct = () => {
                         </Link>
                     </div>
                     </div>
-                    {productLoading  && (
-                        <div className="w-full flex justify-center my-8">
-                            <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
-                        </div>
-                    )}
-                    {!productLoading && <form onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
                         <section className="grid grid-cols-3 gap-4 mt-6">
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm">عنوان :</p>
@@ -201,16 +196,12 @@ const InsertProduct = () => {
 
 
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm text-gray-800"> تصویر (لوگو) برند :</p>
+                                <p className="font-sans text-sm text-gray-800"> تصویر کالا :</p>
                                 <input type={'file'} id="chooseImage" ref={imageInput_ref} accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
                                 {onChangeFile? (
                                     <section className="flex justify-between items-center mt-2  ">
                                         <button type={"button"} onClick={()=>setIsProductImage_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
                                             <span className="text-sm font-sans text-green-800 ">تصویر کالا انتخاب شده است.</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
                                         </button>
                                         <button onClick={()=> {setOnChangeFile(null) ; imageInput_ref.current.value = null}}  type={"button"}className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-500 hover:border-red-700">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
@@ -268,10 +259,13 @@ const InsertProduct = () => {
                             </section>
                         </div>
 
-                        <div className="mt-6 w-full flex justify-end gap-x-2">
-                            <button  type={"submit"} className={`${formik.isValid ? "bg-blue-600 hover:bg-blue-700 border border-blue-600 text-blue-50" : "cursor-not-allowed bg-gray-700 hover:bg-gray-800 border border-black text-gray-200"} rounded-md py-[6px] px-4 font-sans text-sm`}>ثبت کالا</button>
-                        </div>
-                    </form>}
+                        <section className="w-full flex justify-end mt-3 items-center ">
+                            <button disabled={productLoading || !formik.isValid} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
+                                {productLoading && <ReactLoading type="spinningBubbles" className="ml-2" height={20} width={20} color="red" />}
+                                ثبت کالا
+                            </button>
+                        </section>
+                    </form>
                 </section>
             </div>
         </Layout>
