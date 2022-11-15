@@ -176,34 +176,27 @@ const EditProduct = () => {
         <Layout isFooter={true}>
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
                 <AdminPageAside/>
-            
-            <form onSubmit={formik.handleSubmit} className=" w-full lg:w-4/5 flex-0 h-max p-4">
-                <div className="flex justify-between w-full items-center">
-                    <h1 className="font-sans font-bold text-lg">ویرایش کالا</h1>
-                    <div className="flex gap-x-2">
-                        <Link href={'/admin/manage-products'}>
-                            <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                                </svg>
-                            </a>
-                        </Link>
-                        <Link href={'/admin'}>
-                            <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                </svg>
-                            </a>
-                        </Link>
+                <section  className=" w-full lg:w-4/5 flex-0 h-max p-4">
+                    <div className="flex justify-between w-full items-center">
+                        <h1 className="font-sans font-bold text-lg">ویرایش کالا</h1>
+                        <div className="flex gap-x-2">
+                            <Link href={'/admin/manage-products'}>
+                                <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                    </svg>
+                                </a>
+                            </Link>
+                            <Link href={'/admin'}>
+                                <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                    </svg>
+                                </a>
+                            </Link>
+                        </div>
                     </div>
-                </div>
-                {productLoading  && (
-                    <div className="w-full flex justify-center my-8">
-                        <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
-                    </div>
-                )}
-                {product && (
-                    <>
+                    <form onSubmit={formik.handleSubmit}>
                         <section className="grid grid-cols-3 gap-4 mt-6">
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm">عنوان کالا :</p>
@@ -224,10 +217,6 @@ const EditProduct = () => {
                                     <section className="flex justify-between items-center mt-2  ">
                                         <button type={"button"} onClick={()=>setIsProductImage_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
                                             <span className="text-sm font-sans text-green-800 ">تصویر کالا انتخاب شده است.</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
                                         </button>
                                         <button onClick={()=>{ setOnChangeFile(null) ; imageInput_ref.current.value = null }}  type={"button"}className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-400">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
@@ -277,10 +266,10 @@ const EditProduct = () => {
                                 {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
                             </section>
                             <section className="flex peer-checked:hidden mt-2">
-                                {product.categories && product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
+                                {product && product.categories && product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
                             </section>
                             <section className="peer-checked:grid hidden mt-2  grid-cols-5 gap-x-2">
-                              <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
+                            <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
                                 {selectedCategory_main && sub1.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته اول'} query={categoryQuery_sub1} setQuery={setCategoryQuery_sub1} filteredData={filteredsub1} selected={selectedCategory_sub1} setSelected={setSelectedCategory_sub1}/>}
                                 {selectedCategory_sub1 && sub2.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته دوم'} query={categoryQuery_sub2} setQuery={setCategoryQuery_sub2} filteredData={filteredsub2} selected={selectedCategory_sub2} setSelected={setSelectedCategory_sub2}/>}
                                 {selectedCategory_sub2 && sub3.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته سوم'} query={categoryQuery_sub3} setQuery={setCategoryQuery_sub3} filteredData={filteredsub3} selected={selectedCategory_sub3} setSelected={setSelectedCategory_sub3}/>}
@@ -288,14 +277,16 @@ const EditProduct = () => {
                         </div>
 
                         <div className="mt-6 w-full flex justify-end gap-x-2">
-                            <button type={"button"} onClick={()=> dispatch(deleteProduct({id}))} className={`items-center ${product.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>
-                            <button  type={"submit"} className={`${formik.isValid ? "bg-blue-600 hover:bg-blue-700 border border-blue-600 text-blue-50" : "cursor-not-allowed bg-gray-700 hover:bg-gray-800 border border-black text-gray-200"} rounded-md py-[6px] px-4 font-sans text-sm`}>تایید تغییرات</button>
+                            {!productLoading && <button type={"button"} onClick={()=> dispatch(deleteProduct({id}))} className={`items-center ${product && product.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>}
+                            <section className=" flex justify-end  items-center ">
+                                <button disabled={productLoading || !formik.isValid} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
+                                    {productLoading && <ReactLoading type="spinningBubbles" className="ml-2" height={20} width={20} color="red" />}
+                                    ثبت کالا
+                                </button>
+                            </section>
                         </div>
-                    </>
-                )}
-                {/* deleteProduct */}
-
-            </form>
+                    </form>
+                </section>
             </div>
         </Layout>
     );
