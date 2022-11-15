@@ -72,7 +72,6 @@ export const fetchOneStore = (id) => dispatch => {
 }
 export const insertStore = ({values,logo,license,storeBanner,city,province,bankCardNumber}) => dispatch => {
     
-    dispatch(insertStoreRequest())
     const {
         name,
         economic_code,
