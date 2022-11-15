@@ -14,8 +14,8 @@ const InsertCategoryForm = ({category , sub_sub , id , sub}) => {
     const validationSchema = Yup.object({
         categoryName: Yup.string()
             .required("عنوان دسته ‌بندی نمی تواند خالی باشد.")
-            .min(2 , "عنوان دسته بندی نمی تواند کم تر از 2 نویسه باشد.")
-            .max(50 , "عنوان دسته بندی نمی تواند بیشتر از 50 نویسه باشد.")
+            .min(3 , "عنوان دسته بندی نمی تواند کم تر از ۳ نویسه باشد.")
+            .max(50 , "عنوان دسته بندی نمی تواند بیشتر از ۵۰ نویسه باشد.")
             .trim(),
     })
     const formik = useFormik({
