@@ -89,7 +89,7 @@ const InsertStore = () => {
     }    
 
     useEffect(()=>{
-        setSelectedCity('')
+        // setSelectedCity('')
         const id = selectedProvience && selectedProvience.id || null;
         if(id){
             const cities = allCities.filter(city => city.province_id === selectedProvience.id)
