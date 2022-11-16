@@ -147,7 +147,6 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
         bank_code,
         bank_sheba_number,
     } = values
-    console.log(owner_national_code);
     dispatch(insertStoreRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/stores/${id}/update` ,{
         name ,
