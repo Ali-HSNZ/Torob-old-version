@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import * as Yup from 'yup'
 import InputMask from "react-input-mask";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneStore, insertStore, updateStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
+import { deleteStore, fetchOneStore, insertStore, updateStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
 import { provinces } from "@/common/admin/provinces";
 import SelectBox from "@/common/admin/SelectBox";
 import { useEffect } from "react";
@@ -90,9 +90,9 @@ const InsertStore = () => {
 
     useEffect(()=>{
         if(store){
-            const currentProvince = provinces.find(province => province.name == store.province)  || ""
-            const currentCity = allCities.find(city => city.name == store.city);
+            const currentProvince = provinces.find(province => province.name == store.province);
             setSelectedProvience(currentProvince)
+            const currentCity = allCities.find(city => city.name == store.city);
             setSelectedCity(currentCity)
         }
         setOnChangeFile_logo(store && store.is_logo_image && {imageUrl : store.logo_image} || "") 
@@ -486,11 +486,10 @@ const InsertStore = () => {
                             </div>
                         </section>
 
-                        <section className="w-full flex justify-end mt-3 items-center ">
-                            <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
-                                {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={20} width={20} color="red" />}
-                                تایید تغییرات
-                            </button>
+                        <section className="w-full flex justify-end gap-x-2 mt-3 items-center ">
+                            {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
+                            {!loading && <button type={"button"} onClick={()=> dispatch(deleteStore(pageId))} className={`items-center ${store && store.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>}
+                            <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}> تایید تغییرات</button>
                         </section>
                     </form>
 
