@@ -89,9 +89,9 @@ const InsertStore = () => {
     }    
 
     useEffect(()=>{
-        if(store){
-            const currentProvince = provinces.find(province => province.name == store.province);
-            setSelectedProvience(currentProvince)
+        const currentProvince = store && provinces.find(province => province.name == store.province) || '';
+        setSelectedProvience(currentProvince)
+        if(selectedProvience){
             const currentCity = allCities.find(city => city.name == store.city);
             setSelectedCity(currentCity)
         }
@@ -99,7 +99,7 @@ const InsertStore = () => {
         setOnChangeFile_license(store && store.is_license_image && {imageUrl : store.license_image} || "") 
         setOnChangeFile_storeBanner(store && store.is_store_banner_image && {imageUrl : store.banner_image} || "") 
 
-    },[store , loading])
+    },[store])
 
     useEffect(()=>{
         setSelectedCity('')
