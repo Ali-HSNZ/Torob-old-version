@@ -18,6 +18,8 @@ const ManageStores = () => {
     const router = useRouter()
     
     const [isLogoImage_Modal , setIsLogoImage_Modal] = useState(false)
+
+
     const [modal_imageSrc , setModal_imageSrc] = useState("")
 
     const [isStoreBannerImage_Modal , setIsStoreBannerImage_Modal] = useState(false)
@@ -30,7 +32,7 @@ const ManageStores = () => {
     const limit = 5
     
     useEffect(()=> {
-        // window.scroll({top : 0 , behavior : 'smooth'})
+        window.scroll({top : 0 , behavior : 'smooth'})
         const {state , page , economic_code,name,number,city,province,order} = router.query;
         const payload = {state,page,limit,order,economic_code,number,name,province,city}
 
@@ -189,7 +191,7 @@ const ManageStores = () => {
                                                 <input type={"checkbox"} id={`detail_${store.id}`} className="peer hidden"/>
                                                 <section className="grid grid-cols-6 w-full">
                                                     <div className=" h-full">
-                                                        <img className="w-1/2 h-auto" src={store.logo_image}/>
+                                                        <img className="w-1/2 h-auto"  onClick={()=> {store.is_logo_image &&  setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}}  src={store.logo_image}/>
                                                     </div>
                                                     <p className="font-sans text-sm flex items-center">{store.name.length > 22 ? store.name.substring(0,22)+'...' : store.name} </p>
 
