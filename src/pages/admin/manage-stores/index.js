@@ -216,11 +216,12 @@ const ManageStores = () => {
                                                     <div className="flex flex-col gap-y-2">
                                                         <p className="font-sans text-sm"><b>نام فروشگاه : </b>{store.name}</p>
                                                         <p className="font-sans text-sm"><b>نام صاحب فروشگاه : </b>{store.owner_full_name}</p>
+                                                        <p className="font-sans text-sm"><b>کد ملی صاحب فروشگاه : </b>{store.owner_national_code}</p>
+                                                        <p className="font-sans text-sm"><b>شماره همراه صاحب فروشگاه : </b>{store.owner_phone_number}</p>
+                                                        <p className="font-sans text-sm"><b>شماره همراه دوم صاحب فروشگاه : </b>{store.second_phone_number.length <= 0 ? "نامشخص" : store.second_phone_number}</p>
                                                         <p className="font-sans text-sm"><b>استان : </b>{store.province}</p>
                                                         <p className="font-sans text-sm"><b>شهر : </b>{store.city}</p>
                                                         <p className="font-sans text-sm"><b>کد اقتصادی : </b>{store.economic_code}</p>
-                                                        <p className="font-sans text-sm"><b>شماره همراه صاحب فروشگاه : </b>{store.owner_phone_number}</p>
-                                                        <p className="font-sans text-sm"><b>شماره همراه دوم صاحب فروشگاه : </b>{store.second_phone_number.length <= 0 ? "نامشخص" : store.second_phone_number}</p>
                                                         <p className="font-sans text-sm"><b>آدرس دفتر مرکزی : </b>{store.office_address}</p>
                                                         <p className="font-sans text-sm"><b>تلفن دفتر مرکزی : </b>{store.office_number}</p>
                                                         <p className="font-sans text-sm"><b>آدرس انبار مرکزی : </b>{store.warehouse_address}</p>
