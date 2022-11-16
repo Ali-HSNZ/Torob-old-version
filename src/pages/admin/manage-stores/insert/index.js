@@ -464,9 +464,9 @@ const InsertStore = () => {
                             </div>
                         </section>
 
-                        <section className="w-full flex justify-end mt-3 items-center ">
+                        <section className="w-full flex justify-end mt-3 gap-x-2 items-center ">
+                            {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
                             <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
-                                {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={20} width={20} color="red" />}
                                 تایید تغییرات
                             </button>
                         </section>
