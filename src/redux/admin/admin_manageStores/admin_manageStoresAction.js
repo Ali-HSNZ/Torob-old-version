@@ -102,7 +102,6 @@ export const insertStore = ({values,logo,license,storeBanner,city,province,bankC
         bank_card_number : bankCardNumber,
         bank_sheba_number,
         province,
-        national_code : 4990211162,
         city,
         license_image : license,
         banner_image : storeBanner,
@@ -153,10 +152,9 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
         bank_sheba_number,
         province :province,
         city,
-        national_code : 4990211162,
-        license_image : license,
-        banner_image : storeBanner,
-        logo_image : logo
+        license_image : license || 0,
+        banner_image : storeBanner || 0,
+        logo_image : logo || 0
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         toast.success('تغییرات با موفقیت ثبت شد')
