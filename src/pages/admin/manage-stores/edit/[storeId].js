@@ -99,7 +99,7 @@ const InsertStore = () => {
         setOnChangeFile_license(store && store.is_license_image && {imageUrl : store.license_image} || "") 
         setOnChangeFile_storeBanner(store && store.is_store_banner_image && {imageUrl : store.banner_image} || "") 
 
-    },[store , selectedProvience])
+    },[store , loading])
 
     useEffect(()=>{
         setSelectedCity('')
