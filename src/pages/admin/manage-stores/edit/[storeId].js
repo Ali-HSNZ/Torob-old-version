@@ -89,11 +89,11 @@ const InsertStore = () => {
     }    
 
     useEffect(()=>{
-        const currentProvince = store && provinces.find(province => province.name == store.province) || '';
-        setSelectedProvience(currentProvince)
-        if(selectedProvience){
+        if(store){
+            const currentProvince = provinces.find(province => province.name == store.province);
             const currentCity = allCities.find(city => city.name == store.city);
             setSelectedCity(currentCity)
+            setSelectedProvience(currentProvince)
         }
         setOnChangeFile_logo(store && store.is_logo_image && {imageUrl : store.logo_image} || "") 
         setOnChangeFile_license(store && store.is_license_image && {imageUrl : store.license_image} || "") 
