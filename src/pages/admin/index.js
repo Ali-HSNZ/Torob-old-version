@@ -15,7 +15,7 @@ const AdminPage = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
 
     return (  
-        <Layout isFooter={true}>
+        <Layout isFooter={true} pageTitle="پنل مدیریت ترب">
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
                 <AdminPageAside/>
 
