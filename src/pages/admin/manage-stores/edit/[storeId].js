@@ -86,20 +86,19 @@ const InsertStore = () => {
             
             setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
         }
-    }
+    }    
 
     useEffect(()=>{
-        const storeProvince = store && store.province || '';
-        const currentProvince = provinces.find(province => province.name == storeProvince)  || ""
-        
-        const storeCity = store && store.city || '';
-        const currentCity = allCities.find(city => city.name == storeCity)  || ""
-        
+        if(store){
+            const currentProvince = provinces.find(province => province.name == store.province)  || ""
+            const currentCity = allCities.find(city => city.name == store.city)  || "scsc"
+            setSelectedProvience(currentProvince)
+            setSelectedCity(currentCity)
+        }
         setOnChangeFile_logo(store && store.is_logo_image && {imageUrl : store.logo_image} || "") 
         setOnChangeFile_license(store && store.is_license_image && {imageUrl : store.license_image} || "") 
         setOnChangeFile_storeBanner(store && store.is_store_banner_image && {imageUrl : store.banner_image} || "") 
-        setSelectedProvience(currentProvince)
-        setSelectedCity(currentCity)
+
     },[store])
 
     useEffect(()=>{
@@ -308,7 +307,7 @@ const InsertStore = () => {
                                 <input type={"text"} name="economic_code"  value={formik.values.economic_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد اقتصادی" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                 {formik.errors.economic_code && formik.touched.economic_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.economic_code}</p>}
                             </div>
-
+ 
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (استان) :</p>
                                 <div className="mt-2">
@@ -328,7 +327,7 @@ const InsertStore = () => {
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (شهر) :</p>
                                 <div className="mt-2">
                                     <SelectBox 
-                                        isDisabled={selectedProvience ? false : true}
+                                        // isDisabled={selectedProvience ? false : true}
                                         notFoundTitle="برند مورد نظر یافت نشد." 
                                         placeholder={'انتخاب شهر'} 
                                         query={cityQuery} 
