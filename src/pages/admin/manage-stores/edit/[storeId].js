@@ -92,9 +92,6 @@ const InsertStore = () => {
         if(store){
             const currentProvince = provinces.find(province => province.name == store.province)  || ""
             const currentCity = allCities.find(city => city.name == store.city);
-            console.log("currentCity : ",currentCity);
-            console.log("currentProvince : ",currentProvince);
-
             setSelectedProvience(currentProvince)
             setSelectedCity(currentCity)
         }
@@ -131,10 +128,6 @@ const InsertStore = () => {
             toast.error('شماره کارت باید از نوع عدد باشد');
             return false
         }
-        if(!logo){
-            toast.error('عکس لوگو نمی تواند خالی باشد');
-            return false
-        } 
         if(!province){
             toast.error('حوضه فعالیت شرکت (استان) را وارد کنید');
             return false
