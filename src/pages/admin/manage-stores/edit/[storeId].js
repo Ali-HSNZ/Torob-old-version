@@ -64,7 +64,7 @@ const InsertStore = () => {
         }
         return true
     }
-
+ 
     const changeFIleAction_input = (input,min,max,setOnChangeFile,title,minTitle,maxTitle,ref) => {
         const image = input.target.files[0]
         if(input.target.files && image){
@@ -91,7 +91,10 @@ const InsertStore = () => {
     useEffect(()=>{
         if(store){
             const currentProvince = provinces.find(province => province.name == store.province)  || ""
-            const currentCity = allCities.find(city => city.name == store.city)  || "scsc"
+            const currentCity = allCities.find(city => city.name == store.city);
+            console.log("currentCity : ",currentCity);
+            console.log("currentProvince : ",currentProvince);
+
             setSelectedProvience(currentProvince)
             setSelectedCity(currentCity)
         }
