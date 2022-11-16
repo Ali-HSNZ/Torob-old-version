@@ -147,48 +147,47 @@ const InsertStore = () => {
     const ONLY_DIGIT_REGIX = /^\d+$/;
     const validationSchema = Yup.object({
         name : Yup.string()
-            .required('نام فروشگاه نمی تواند خالی باشد')
-            .min(3, "نام فروشگاه نمی تواند کم تر از 3 نویسه باشد")
-            .max(50,"نام فروشگاه نمی تواند بیشتر از 50 نویسه باشد")
+            .required('نام فروشگاه الزامی است')
+            .min(3, "نام فروشگاه نمی تواند کم تر از ۳ نویسه باشد")
+            .max(50,"نام فروشگاه نمی تواند بیشتر از ۵۰ نویسه باشد")
             .trim(),
         economic_code : Yup.string()
             .length(12,"کد اقتصادی باید ۱۲ رقم باشد")
-            .required("کد اقتصادی نمی تواند خالی باشد")
-            .matches(/^[0-9]{12}\d*$/,"کد اقتصادی باید عدد باشد")
+            .required("کد اقتصادی الزامی است")
+            .matches(ONLY_DIGIT_REGIX,"کد اقتصادی باید از نوع عدد باشد")
             .trim(),
         owner_full_name : Yup.string()
-            .required('نام فروشگاه نمی تواند خالی باشد')
-            .min(3,"نام و نام خانوادگی نمی تواند کم تر از 3 نویسه باشد")
-            .max(50,"نام و نام خانوادگی نمی تواند بیشتر از 50 نویسه باشد")
+            .required('نام فروشگاه الزامی است')
+            .min(3,"نام و نام خانوادگی نمی تواند کم تر از ۳ نویسه باشد")
+            .max(50,"نام و نام خانوادگی نمی تواند بیشتر از ۵۰ نویسه باشد")
             .trim(),
         owner_phone_number : Yup.string()
-            .required('شماره همراه مالک فروشگاه نمی تواند خالی باشد')
+            .required('شماره همراه مالک فروشگاه الزامی است')
             .matches(PHONE_NUMBER_REGIX,"شماره همراه مالک فروشگاه معتبر نیست")
             .trim(),
         secend_phone_number : Yup.string()
             .matches(PHONE_NUMBER_REGIX,"شماره همراه دوم مالک فروشگاه معتبر نیست")
             .trim(),
         office_address : Yup.string()
-            .required('آدرس دفتر مرکزی نمی تواند خالی باشد')
+            .required('آدرس دفتر مرکزی الزامی است')
             .trim(),
         warehouse_address : Yup.string().trim(),
 
         bank_name: Yup.string()
-            .required("نام بانک نمی تواند خالی باشد")
-            .min(3,"نام بانک نمی تواند کم تر از 3 نویسه باشد")
-            .max(50 , "نام بانک نمی تواند بیتر از 50 نویسه باشد")
+            .required("نام بانک الزامی است")
+            .min(3,"نام بانک نمی تواند کم تر از ۳ نویسه باشد")
+            .max(50 , "نام بانک نمی تواند بیتر از ۵۰ نویسه باشد")
             .trim(),
         bank_code : Yup.string()
-            .required("کد شعبه نمی تواند خالی باشد")
-            .length(4,'کد شعبه بانک باید 4 رقمی باشد')
+            .required("کد شعبه الزامی است")
+            .length(4,'کد شعبه بانک باید ۴ رقمی باشد')
             .matches(ONLY_DIGIT_REGIX,"کد شعبه باید از نوع  عدد باشد")
             .trim(),
         bank_sheba_number : Yup.string()
-            .required("شماره شبا نمی تواند خالی باشد")
-            .length(24,"شماره شبا باید 24 رقم باشد")
+            .required("شماره شبا الزامی است")
+            .length(24,"شماره شبا باید ۲۴ رقم باشد")
             .matches(ONLY_DIGIT_REGIX,"شماره شبا باید عدد باشد")
             .trim(),
-
         owner_national_code : Yup.string()
             .required("کد ملی مالک فروشگاه الزامی است")
             .length(10 , "کد ملی نامعتبر است")
