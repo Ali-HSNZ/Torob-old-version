@@ -70,7 +70,7 @@ export const fetchOneStore = (id) => dispatch => {
         toast.error(message)
     })
 }
-export const insertStore = ({values,logo,license,storeBanner,city,province,bankCardNumber}) => dispatch => {
+export const insertStore = ({values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}) => dispatch => {
     
     const {
         name,
@@ -79,12 +79,11 @@ export const insertStore = ({values,logo,license,storeBanner,city,province,bankC
         owner_phone_number,
         secend_phone_number,
         office_address,
-        office_number,
         warehouse_address,
-        warehouse_number,
         bank_name,
         bank_code,
         bank_sheba_number,
+        owner_national_code,
     } = values
     dispatch(insertStoreRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/stores` ,{
@@ -94,18 +93,19 @@ export const insertStore = ({values,logo,license,storeBanner,city,province,bankC
         owner_phone_number ,
         secend_phone_number ,
         office_address ,
-        office_number ,
+        office_number : staticOfficeNumber,
         warehouse_address ,
-        warehouse_number,
+        warehouse_number : staticWarehouseNumber,
         bank_name ,
         bank_code ,
         bank_card_number : bankCardNumber,
         bank_sheba_number,
         province,
+        owner_national_code,
         city,
         license_image : license,
         banner_image : storeBanner,
-        logo_image : logo
+        logo_image : logo,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         toast.success('فروشگاه با موفقیت ثبت شد')
@@ -119,7 +119,7 @@ export const insertStore = ({values,logo,license,storeBanner,city,province,bankC
     })
 }
 
-export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,province,bankCardNumber}) => dispatch => {
+export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}) => dispatch => {
     dispatch(insertStoreRequest())
     const {
         name,
@@ -128,13 +128,13 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
         owner_phone_number,
         secend_phone_number,
         office_address,
-        office_number,
+        owner_national_code,
         warehouse_address,
-        warehouse_number,
         bank_name,
         bank_code,
         bank_sheba_number,
     } = values
+    console.log(owner_national_code);
     dispatch(insertStoreRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/stores/${id}/update` ,{
         name ,
@@ -142,10 +142,11 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
         owner_full_name ,
         owner_phone_number ,
         secend_phone_number ,
+        owner_national_code,
         office_address ,
-        office_number ,
+        office_number : staticOfficeNumber,
         warehouse_address ,
-        warehouse_number,
+        warehouse_number : staticWarehouseNumber,
         bank_name ,
         bank_code ,
         bank_card_number : bankCardNumber,
