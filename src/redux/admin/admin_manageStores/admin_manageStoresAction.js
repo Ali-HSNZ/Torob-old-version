@@ -59,7 +59,6 @@ export const fetchStores = ({state,page,limit,order,economic_code,number,name,pr
         toast.error(message)
     })
 }
-
 export const fetchOneStore = (id) => dispatch => {
     dispatch(fetchOneStoreRequest())
     axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/stores?id=${id}`) , {headers : {authorization : `Bearer ${token}`}})
@@ -70,6 +69,20 @@ export const fetchOneStore = (id) => dispatch => {
         toast.error(message)
     })
 }
+
+export const deleteStore = (pageId) => dispatch => {
+    dispatch(fetchOneStoreRequest())
+    axios.put(`https://market-api.iran.liara.run/api/admin/stores/${pageId}/state` ,{}, {headers : {authorization : `Bearer ${token}`}})
+    .then(() =>  dispatch(fetchOneStore(pageId)))
+    .catch(error => {
+        const errorMessage = error?.response?.data?.message || "خطای سرور در بخش  تغییر وضعیت فروشگاه";
+        toast.error(errorMessage)
+        dispatch(fetchOneProductFailure(errorMessage))
+    })
+}
+
+
+
 export const insertStore = ({values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}) => dispatch => {
     
     const {
