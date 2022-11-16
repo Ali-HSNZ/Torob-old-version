@@ -322,12 +322,12 @@ const InsertStore = () => {
                                     />
                                 </div>
                             </div>
-
+ 
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (شهر) :</p>
                                 <div className="mt-2">
                                     <SelectBox 
-                                        // isDisabled={selectedProvience ? false : true}
+                                        isDisabled={selectedProvience ? false : true}
                                         notFoundTitle="برند مورد نظر یافت نشد." 
                                         placeholder={'انتخاب شهر'} 
                                         query={cityQuery} 
