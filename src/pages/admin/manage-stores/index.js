@@ -65,7 +65,7 @@ const ManageStores = () => {
     })
 
     return (  
-        <Layout isFooter={true}>
+        <Layout isFooter={true} pageTitle={" پنل مدیریت | مدیریت فروشگاه‌ها"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between">
                 <AdminPageAside/>
                 <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 

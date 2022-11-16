@@ -81,7 +81,7 @@ const ManageCategory = () => {
 
     
     return (  
-        <Layout isFooter={true}>
+        <Layout isFooter={true} pageTitle={"پنل مدیریت | مدیریت دسته‌بندی"}>
             {showDialogAlert_reduxActions()}
             <div className="w-full flex flex-col lg:flex-row  justify-between">
                 <AdminPageAside/>

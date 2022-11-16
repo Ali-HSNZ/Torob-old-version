@@ -156,7 +156,7 @@ const InsertProduct = () => {
     })
 
     return (  
-        <Layout isFooter={true}>
+        <Layout isFooter={true} pageTitle={"پنل مدیریت | افزودن کالا"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
                 <AdminPageAside/>
             

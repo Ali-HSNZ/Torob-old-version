@@ -200,7 +200,7 @@ const InsertStore = () => {
 
 
     return (  
-        <Layout isFooter={true}>
+        <Layout isFooter={true} pageTitle={"پنل مدیریت | افزودن فروشگاه"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between">
                 <AdminPageAside/>
                 <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 

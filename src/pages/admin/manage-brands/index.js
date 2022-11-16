@@ -87,7 +87,7 @@ const ManageBrands = () => {
     })
 
     return (  
-        <Layout isFooter={true}>
+        <Layout isFooter={true} pageTitle={"پنل مدیریت | مدیریت برند"}>
             <Modal open={isImage} onClose={() => setIsImage(false)} className="h-full w-full flex justify-center items-center">
                 <section className=" bg-white w-1/2 h-1/2 flex justify-center items-center p-4 relative">
                     <img className="max-h-full w-auto"  src={isImage_photoSrc}/>

@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
@@ -18,6 +19,9 @@ export default function Home() {
 
   return (
       <>
+            <Head>
+                <title>ترب | بهترین قیمت بازار</title>
+            </Head>
             <Header/>
               <section className='absolute top-0 bottom-0  w-full flex justify-center flex-col items-center '>
                   <article className='flex items-center  justify-center px-4'>

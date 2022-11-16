@@ -1,9 +1,10 @@
 import Layout from "@/layout/Layout";
 import Link from "next/link";
+import Head from 'next/head'
 
 const notFoundPage = () => {
     return ( 
-        <Layout isFooter={true}>
+        <Layout isFooter={true} pageTitle={"صفحه  یافت نشد | خطای ۴۰۴"}>
             <div className=" flex justify-center items-center mb-8">
                 <div className="px-4">
                     <title>Page Not Found</title>

@@ -73,7 +73,7 @@ const ManageProduct = () => {
 
     
     return (  
-        <Layout isFooter={true}>
+        <Layout isFooter={true} pageTitle={"پنل مدیریت | مدیریت کالاها"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
                 <AdminPageAside/>
 
