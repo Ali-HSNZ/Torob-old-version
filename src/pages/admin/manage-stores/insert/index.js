@@ -97,84 +97,81 @@ const InsertStore = () => {
         const storeBanner = onChangeFile_storeBanner && onChangeFile_storeBanner.selectedFile || null;
         const city = selectedCity && selectedCity.name || null
         const province = selectedProvience && selectedProvience.name || null
-        const bankCardNumber = formik.values.bank_card_number.replace(/\s/g, '').replace(/-/g, '')
+        const bankCardNumber = formik.values.bank_card_number.replace(/\s/g, '').replace(/-/g, '');
+        const staticWarehouseNumber = formik.values.warehouse_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+        const staticOfficeNumber = formik.values.office_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+
         if(bankCardNumber.length < 16){
-            toast.error('شماره کارت باید 16 رقم باشد') ;
-            return false
+            toast.error('شماره کارت معتبر نیست'); return false
         } 
-        if(!typeof bankCardNumber == 'number'){
-            toast.error('شماره کارت باید از نوع عدد باشد');
-            return false
+        if(staticWarehouseNumber.length < 11){
+            toast.error('شماره تلفن ثابت انبار مرکزی شرکت معتبر نیست'); return false
+        }
+        if(staticOfficeNumber.length < 11){
+            toast.error('شماره تلفن ثابت دفتر مرکزی معتبر نیست'); return false
         }
         if(!logo){
-            toast.error('عکس لوگو نمی تواند خالی باشد');
-            return false
+            toast.error('عکس لوگو نمی تواند خالی باشد'); return false
         } 
         if(!province){
-            toast.error('حوضه فعالیت شرکت (استان) را وارد کنید');
-            return false
+            toast.error('حوضه فعالیت شرکت (استان) را وارد کنید'); return false
         } 
         if(!city){
-            toast.error('حوضه فعالیت شرکت (شهر) را وارد کنید');
-            return false
+            toast.error('حوضه فعالیت شرکت (شهر) را وارد کنید'); return false
         }
-        dispatch(insertStore({values,logo,license,storeBanner,city,province,bankCardNumber}))
+        dispatch(insertStore({values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}))
     }
     
     const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
-    const STATIC_PHONE_NUMBER_REGIX = /^0[0-9]{2,}[0-9]{7,}$/;
     const ONLY_DIGIT_REGIX = /^\d+$/;
     const validationSchema = Yup.object({
         name : Yup.string()
-                            .required('نام فروشگاه نمی تواند خالی باشد')
-                            .min(3, "نام فروشگاه نمی تواند کم تر از 3 نویسه باشد")
-                            .max(50,"نام فروشگاه نمی تواند بیشتر از 50 نویسه باشد")
-                            .trim(),
+            .required('نام فروشگاه الزامی است')
+            .min(3, "نام فروشگاه نمی تواند کم تر از 3 نویسه باشد")
+            .max(50,"نام فروشگاه نمی تواند بیشتر از 50 نویسه باشد")
+            .trim(),
         economic_code : Yup.string()
-                                .length(12,"کد اقتصادی باید ۱۲ رقم باشد")
-                                .required("کد اقتصادی نمی تواند خالی باشد")
-                                .matches(/^[0-9]{12}\d*$/,"کد اقتصادی باید عدد باشد")
-                                .trim(),
+            .length(12,"کد اقتصادی باید ۱۲ رقم باشد")
+            .required("کد اقتصادی الزامی است")
+            .matches(/^[0-9]{12}\d*$/,"کد اقتصادی باید عدد باشد")
+            .trim(),
         owner_full_name : Yup.string()
-                                        .required('نام فروشگاه نمی تواند خالی باشد')
-                                        .min(3,"نام و نام خانوادگی نمی تواند کم تر از 3 نویسه باشد")
-                                        .max(50,"نام و نام خانوادگی نمی تواند بیشتر از 50 نویسه باشد")
-                                        .trim(),
+            .required('نام فروشگاه الزامی است')
+            .min(3,"نام و نام خانوادگی نمی تواند کم تر از 3 نویسه باشد")
+            .max(50,"نام و نام خانوادگی نمی تواند بیشتر از 50 نویسه باشد")
+            .trim(),
         owner_phone_number : Yup.string()
-                                                .required('شماره همراه مالک فروشگاه نمی تواند خالی باشد')
-                                                .matches(PHONE_NUMBER_REGIX,"شماره همراه مالک فروشگاه معتبر نیست")
-                                                .trim(),
+            .required('شماره همراه مالک فروشگاه الزامی است')
+            .matches(PHONE_NUMBER_REGIX,"شماره همراه مالک فروشگاه معتبر نیست")
+            .trim(),
         secend_phone_number : Yup.string()
-                                                    .matches(PHONE_NUMBER_REGIX,"شماره همراه دوم مالک فروشگاه معتبر نیست")
-                                                    .trim(),
+            .matches(PHONE_NUMBER_REGIX,"شماره همراه دوم مالک فروشگاه معتبر نیست")
+            .trim(),
         office_address : Yup.string()
-                                            .required('آدرس دفتر مرکزی نمی تواند خالی باشد')
-                                            .trim(),
-        office_number : Yup.string()
-                                    .required('تلفن ثابت دفتر مرکزی نمی تواند خالی باشد')                                            
-                                    .matches(PHONE_NUMBER_REGIX,"تلفن ثابت دفتر مرکزی معتبر نیست"),
-        warehouse_address : Yup.string()
-                                            .trim(),
-        warehouse_number : Yup.string()
-                                            .required("شماره انبار مرکزی شرکت نمی تواند خالی باشد")
-                                            .matches(PHONE_NUMBER_REGIX,"شماره انبار مرکزی شرکت معتبر نیست")
-                                            .trim(),
-        bank_name: Yup.string()
-                                    .required("نام بانک نمی تواند خالی باشد")
-                                    .min(3,"نام بانک نمی تواند کم تر از 3 نویسه باشد")
-                                    .max(50 , "نام بانک نمی تواند بیتر از 50 نویسه باشد")
-                                    .trim(),
+            .required('آدرس دفتر مرکزی الزامی است')
+            .trim(),
+        warehouse_address : Yup.string().trim(),
 
+        bank_name: Yup.string()
+            .required("نام بانک الزامی است")
+            .min(3,"نام بانک نمی تواند کم تر از 3 نویسه باشد")
+            .max(50 , "نام بانک نمی تواند بیتر از 50 نویسه باشد")
+            .trim(),
         bank_code : Yup.string()
-                                    .required("کد شعبه نمی تواند خالی باشد")
-                                    .length(4,'کد شعبه بانک باید 4 رقمی باشد')
-                                    .matches(ONLY_DIGIT_REGIX,"کد شعبه باید از نوع  عدد باشد")
-                                    .trim(),
+            .required("کد شعبه الزامی است")
+            .length(4,'کد شعبه بانک باید 4 رقمی باشد')
+            .matches(ONLY_DIGIT_REGIX,"کد شعبه باید از نوع  عدد باشد")
+            .trim(),
         bank_sheba_number : Yup.string()
-                                                .required("شماره شبا نمی تواند خالی باشد")
-                                                .length(24,"شماره شبا باید 24 رقم باشد")
-                                                .matches(ONLY_DIGIT_REGIX,"شماره شبا باید عدد باشد")
-                                                .trim(),
+            .required("شماره شبا الزامی است")
+            .length(24,"شماره شبا باید 24 رقم باشد")
+            .matches(ONLY_DIGIT_REGIX,"شماره شبا باید عدد باشد")
+            .trim(),
+        owner_national_code : Yup.string()
+            .required("کد ملی مالک فروشگاه الزامی است")
+            .length(10 , "کد ملی نامعتبر است")
+            .matches(ONLY_DIGIT_REGIX , "کد ملی نامعتبر است")
+            .trim()
     })
     
     const formik = useFormik({
@@ -195,6 +192,7 @@ const InsertStore = () => {
             bank_code : "",
             bank_card_number : "",
             bank_sheba_number : "",
+            owner_national_code : "",
         }
     })
 
@@ -244,6 +242,12 @@ const InsertStore = () => {
                             </div>
 
                             <div className="flex flex-col relative ">
+                                <p className="font-sans text-sm  before:content-['*'] before:text-red-600">کد ملی مالک فروشگاه:</p>
+                                <input type={"text"} name="owner_national_code"  value={formik.values.owner_national_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد ملی مالک فروشگاه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                                {formik.errors.owner_national_code && formik.touched.owner_national_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.owner_national_code}</p>}
+                            </div>
+
+                            <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm">شماره همراه دوم مالک فروشگاه:</p>
                                 <input type={"text"} name="secend_phone_number"  value={formik.values.secend_phone_number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره همراه دوم مالک فروشگاه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                 {formik.errors.secend_phone_number && formik.touched.secend_phone_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.secend_phone_number}</p>}
@@ -260,6 +264,11 @@ const InsertStore = () => {
                                 <input type={"text"} name="office_address"  value={formik.values.office_address} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="آدرس دفتر مرکزی شرکت" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                 {formik.errors.office_address && formik.touched.office_address && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.office_address}</p>}
                             </div>
+                            <div className="flex flex-col relative ">
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">شماره تلفن ثابت دفتر مرکزی :</p>
+                                <InputMask dir="ltr"  type={"text"} value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="office_number"   placeholder="Enter Static Phone Number" maskPlaceholder="-" className="border border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600 py-2 text-sm mt-2 rounded-md  focus:ring-0" maskchar={null}/>
+                                {formik.errors.office_number && formik.touched.office_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.office_number}</p>}
+                            </div>
 
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm">آدرس انبار مرکزی شرکت:</p>
@@ -267,21 +276,57 @@ const InsertStore = () => {
                                 {formik.errors.warehouse_address && formik.touched.warehouse_address && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.warehouse_address}</p>}
                             </div>                    
 
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">شماره تماس دفتر مرکزی فروشگاه:</p>
-                                <input type={"text"} name="office_number"  value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="آدرس دفتر مرکزی شرکت" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.office_number && formik.touched.office_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.office_number}</p>}
-                            </div>
 
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">شماره انبار مرکزی شرکت:</p>
-                                <input type={"text"} name="warehouse_number"  value={formik.values.warehouse_number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره انبار مرکزی شرکت" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">شماره تلفن ثابت انبار مرکزی شرکت:</p>
+                                <InputMask dir="ltr"  type={"text"} value={formik.values.warehouse_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="warehouse_number"   placeholder="Enter Static Phone Number" maskPlaceholder="-" className="border border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600 py-2 text-sm mt-2 rounded-md  focus:ring-0" maskchar={null}/>
                                 {formik.errors.warehouse_number && formik.touched.warehouse_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.warehouse_number}</p>}
                             </div>
 
+
+                            <div className="flex flex-col relative ">
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">کد اقتصادی :</p>
+                                <input type={"text"} name="economic_code"  value={formik.values.economic_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد اقتصادی" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                                {formik.errors.economic_code && formik.touched.economic_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.economic_code}</p>}
+                            </div>
+ 
+                            <div className="flex flex-col relative ">
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (استان) :</p>
+                                <div className="mt-2">
+                                    <SelectBox 
+                                        notFoundTitle="برند مورد نظر یافت نشد." 
+                                        placeholder={'انتخاب استان'} 
+                                        query={provienceQuery} 
+                                        setQuery={setProvienceQuery} 
+                                        filteredData={filteredProvinces} 
+                                        selected={selectedProvience} 
+                                        setSelected={setSelectedProvience}
+                                    />
+                                </div>
+                            </div>
+ 
+                            <div className="flex flex-col relative ">
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (شهر) :</p>
+                                <div className="mt-2">
+                                    <SelectBox 
+                                        isDisabled={selectedProvience ? false : true}
+                                        notFoundTitle="برند مورد نظر یافت نشد." 
+                                        placeholder={'انتخاب شهر'} 
+                                        query={cityQuery} 
+                                        setQuery={setCityQuery} 
+                                        filteredData={filteredCities} 
+                                        selected={selectedCity} 
+                                        setSelected={setSelectedCity}
+                                    />
+                                </div>
+                            </div>
+
+
+
+                            {/* License Image */}
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm text-gray-800"> تصویر مجوز :</p>
-                                <input type={'file'} id="chooseImage_license" ref={image_license_Input_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" onChange={event => changeFIleAction_input(event,64,2048,setOnChangeFile_license,"مجوز","64 کیلوبایت","2 مگابایت",image_license_Input_ref)}/>
+                                <input type={'file'} id="chooseImage_license" name="license" ref={image_license_Input_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" onChange={event => changeFIleAction_input(event,64,2048,setOnChangeFile_license,"مجوز","64 کیلوبایت","2 مگابایت",image_license_Input_ref)}/>
                                 {onChangeFile_license? (
                                     <section className="flex justify-between items-center mt-2  ">
                                         <button type={"button"} onClick={()=>setIsImage_license_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
@@ -316,43 +361,7 @@ const InsertStore = () => {
                                 </Modal>
                             </div>
 
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">کد اقتصادی :</p>
-                                <input type={"text"} name="economic_code"  value={formik.values.economic_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد اقتصادی" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.economic_code && formik.touched.economic_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.economic_code}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (استان) :</p>
-                                <div className="mt-2">
-                                    <SelectBox 
-                                        notFoundTitle="برند مورد نظر یافت نشد." 
-                                        placeholder={'انتخاب استان'} 
-                                        query={provienceQuery} 
-                                        setQuery={setProvienceQuery} 
-                                        filteredData={filteredProvinces} 
-                                        selected={selectedProvience} 
-                                        setSelected={setSelectedProvience}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (شهر) :</p>
-                                <div className="mt-2">
-                                    <SelectBox 
-                                        isDisabled={selectedProvience ? false : true}
-                                        notFoundTitle="برند مورد نظر یافت نشد." 
-                                        placeholder={'انتخاب شهر'} 
-                                        query={cityQuery} 
-                                        setQuery={setCityQuery} 
-                                        filteredData={filteredCities} 
-                                        selected={selectedCity} 
-                                        setSelected={setSelectedCity}
-                                    />
-                                </div>
-                            </div>
-
+                            {/* Logo Image */}
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600">تصویر لوگو :</p>
                                 <input type={'file'} id="chooseImage_logo" ref={image_logo_Input_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" onChange={event => changeFIleAction_input(event,16,1024,setOnChangeFile_logo,"لوگو","16 کیلوبایت","1 مگابایت",image_logo_Input_ref)}/>
@@ -390,9 +399,10 @@ const InsertStore = () => {
                                 </Modal>
                             </div>
 
+                            {/* Store Banner Image */}
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm text-gray-800"> تصویر سر در فروشگاه :</p>
-                                <input type={'file'} id="chooseImage_storeBanner" ref={image_storeBanner_Input_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" onChange={event => changeFIleAction_input(event,64,2048,setOnChangeFile_storeBanner,"سر در فروشگاه","64 کیلوبایت","2 مگابایت",image_storeBanner_Input_ref)}/>
+                                <input type={'file'} id="chooseImage_storeBanner"  ref={image_storeBanner_Input_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" onChange={event => changeFIleAction_input(event,32,2048,setOnChangeFile_storeBanner,"سر در فروشگاه","32 کیلوبایت","2 مگابایت",image_storeBanner_Input_ref)}/>
                                 {onChangeFile_storeBanner? (
                                     <section className="flex justify-between items-center mt-2  ">
                                         <button type={"button"} onClick={()=>setIsImage_storeBanner_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
@@ -427,16 +437,18 @@ const InsertStore = () => {
                                 </Modal>
                             </div>
 
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm  before:content-['*'] before:text-red-600">شماره شبا :</p>
-                                <input type={"text"} name="bank_sheba_number"  value={formik.values.bank_sheba_number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره شبا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.bank_sheba_number && formik.touched.bank_sheba_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_sheba_number}</p>}
-                            </div>
+
 
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">شماره کارت :</p>
                                 <InputMask dir="ltr"  type={"text"} value={formik.values.bank_card_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="9999 9999 9999 9999" name="bank_card_number"   placeholder="Enter Cart Number" maskPlaceholder="-" className="border border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600 py-2 text-sm mt-2 rounded-md  focus:ring-0" maskchar={null}/>
                                 {formik.errors.bank_card_number && formik.touched.bank_card_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_card_number}</p>}
+                            </div>
+
+                            <div className="flex flex-col relative ">
+                                <p className="font-sans text-sm  before:content-['*'] before:text-red-600">شماره شبا :</p>
+                                <input type={"text"} name="bank_sheba_number"  value={formik.values.bank_sheba_number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره شبا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                                {formik.errors.bank_sheba_number && formik.touched.bank_sheba_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_sheba_number}</p>}
                             </div>
 
                             <div className="flex flex-col relative ">
@@ -453,9 +465,9 @@ const InsertStore = () => {
                         </section>
 
                         <section className="w-full flex justify-end mt-3 items-center ">
-                            <button disabled={loading || !formik.isValid} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
+                            <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
                                 {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={20} width={20} color="red" />}
-                                ثبت فروشگاه
+                                تایید تغییرات
                             </button>
                         </section>
                     </form>
