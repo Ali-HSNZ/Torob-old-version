@@ -77,7 +77,7 @@ export const deleteStore = (pageId) => dispatch => {
     .catch(error => {
         const errorMessage = error?.response?.data?.message || "خطای سرور در بخش  تغییر وضعیت فروشگاه";
         toast.error(errorMessage)
-        dispatch(fetchOneProductFailure(errorMessage))
+        dispatch(fetchOneStoreFailure(errorMessage))
     })
 }
 
@@ -133,7 +133,7 @@ export const insertStore = ({values,logo,license,storeBanner,city,province,bankC
 }
 
 export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}) => dispatch => {
-    dispatch(insertStoreRequest())
+    dispatch(fetchOneStoreRequest())
     const {
         name,
         economic_code,
@@ -171,12 +171,12 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         toast.success('تغییرات با موفقیت ثبت شد')
-        dispatch(insertStoreSuccess())
+        dispatch(fetchOneStore(id))
     } )
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
         if(!serverMessage_list) toast.error("خطا در ثبت تغییرات")
-        dispatch(insertStoreFailure("خطا در ثبت تغییرات"))
+        dispatch(fetchOneStoreFailure("خطا در ثبت تغییرات"))
     })
 }
