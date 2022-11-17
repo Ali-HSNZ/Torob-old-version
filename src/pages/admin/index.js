@@ -29,20 +29,22 @@ const AdminPage = () => {
 
                         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 
-                            <div className="cursor-pointer py-4 hover:bg-orange-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
-                                <div className="flex h-12 mr-4 w-[67px] items-center justify-center rounded-full border border-orange-200 bg-orange-50">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
-                                </div>
-                                <div className="mr-4 w-full ">
-                                    <h2 className="font-sans font-bold">{toPersianDigits(574)} کاربر</h2>
-                                    <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
-                                </div>
-                                <div className="h-full flex items-center ml-1">
-                                    <BsFillCaretLeftFill className="text-orange-400 "/>
-                                </div>
-                            </div>
+                            <Link  href={'/admin/manage-users'}>
+                                <a className="cursor-pointer py-4 hover:bg-orange-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
+                                    <div className="flex h-12 mr-4 w-[67px] items-center justify-center rounded-full border border-orange-200 bg-orange-50">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                    </div>
+                                    <div className="mr-4 w-full ">
+                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} کاربر</h2>
+                                        <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
+                                    </div>
+                                    <div className="h-full flex items-center ml-1">
+                                        <BsFillCaretLeftFill className="text-orange-400 "/>
+                                    </div>
+                                </a>
+                            </Link>
 
                             <Link href={'/admin/manage-products'}>
                                 <a className="cursor-pointer py-4 hover:bg-blue-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
