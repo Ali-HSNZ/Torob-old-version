@@ -294,7 +294,7 @@ const InsertStore = () => {
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (استان) :</p>
                                 <div className="mt-2">
                                     <SelectBox 
-                                        notFoundTitle="برند مورد نظر یافت نشد." 
+                                        notFoundTitle="استان مورد نظر یافت نشد." 
                                         placeholder={'انتخاب استان'} 
                                         query={provienceQuery} 
                                         setQuery={setProvienceQuery} 
@@ -310,7 +310,7 @@ const InsertStore = () => {
                                 <div className="mt-2">
                                     <SelectBox 
                                         isDisabled={selectedProvience ? false : true}
-                                        notFoundTitle="برند مورد نظر یافت نشد." 
+                                        notFoundTitle="شهر مورد نظر یافت نشد." 
                                         placeholder={'انتخاب شهر'} 
                                         query={cityQuery} 
                                         setQuery={setCityQuery} 
