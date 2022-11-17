@@ -194,7 +194,6 @@ const InsertStore = () => {
             .matches(ONLY_DIGIT_REGIX , "کد ملی نامعتبر است")
             .trim()
     })
-    
     const formik = useFormik({
         onSubmit,
         validateOnMount : true,
@@ -485,10 +484,12 @@ const InsertStore = () => {
                                 {formik.errors.bank_code && formik.touched.bank_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_code}</p>}
                             </div>
                         </section>
-
                         <section className="w-full flex justify-end gap-x-2 mt-3 items-center ">
-                            {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
-                            {!loading && <button type={"button"} onClick={()=> dispatch(deleteStore(pageId))} className={`items-center ${store && store.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>}
+                            {loading === true ? (
+                                <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />
+                            ) : (
+                                <button type={"button"} onClick={()=> dispatch(deleteStore(pageId))} className={`items-center ${store && store.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>
+                            )}
                             <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}> تایید تغییرات</button>
                         </section>
                     </form>
