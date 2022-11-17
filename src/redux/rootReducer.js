@@ -9,6 +9,7 @@ import {admin_categoriesReducer} from './admin/admin_manageCategory/admin_manage
 import { admin_brandsReducer } from './admin/admin_manageBrand/admin_manageBrandReducer'
 import { admin_productsReducer } from './admin/admin_manageProducts/admin_manageProductsReducer'
 import { admin_storesReducer } from './admin/admin_manageStores/admin_manageStoresReducer'
+import { admin_manageUsersReducer } from './admin/admin_manageUsers/admin_manageUsersReducer'
 
 const rootReducer = combineReducers({
     auth : userSignupReduser,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     admin_brands : admin_brandsReducer,
     admin_categories : admin_categoriesReducer,
     admin_products : admin_productsReducer,
-    admin_stores : admin_storesReducer
+    admin_stores : admin_storesReducer,
+    admin_users : admin_manageUsersReducer
 })
 export default rootReducer
