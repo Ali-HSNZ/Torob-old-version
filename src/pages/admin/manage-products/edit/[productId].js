@@ -167,9 +167,9 @@ const EditProduct = () => {
         validationSchema,
         enableReinitialize : true,
         initialValues : {
-            product_title : product && product.title,
-            product_description : product && product.description,
-            barcode : product && product.barcode,
+            product_title : product && product.title || "",
+            product_description : product && product.description || "",
+            barcode : product && product.barcode || "",
         }
     })
     return (  
