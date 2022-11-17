@@ -182,7 +182,7 @@ const ManageProduct = () => {
                                     <p className="font-sans text-sm">عنوان </p>
                                     <p className="font-sans text-sm ">برند </p>
                                     <p className="font-sans text-sm ">دسته‌بندی</p>
-                                    <p className="font-sans text-sm ">وضعیت نمایش</p>
+                                    <p className="font-sans text-sm ">وضعیت کالا</p>
                                     <p className="font-sans text-sm ">بیشتر</p>
                                 </section>
                                 {products && products.map(product => {
