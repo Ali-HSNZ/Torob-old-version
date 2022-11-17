@@ -30,8 +30,8 @@ const AdminPageAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenClass
            )}
 
             <div className="py-3">
-                <Link href={'#'}>
-                    <a  className={`flex items-center pr-8 py-3 hover:bg-gray-100`}>
+                <Link href={'/admin/manage-users'}>
+                    <a  className={` ${router.asPath.startsWith('/admin/manage-users') ? "bg-red-200 hover:bg-red-300" : "hover:bg-gray-100"} flex items-center pr-8 py-3 hover:bg-gray-100`}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
