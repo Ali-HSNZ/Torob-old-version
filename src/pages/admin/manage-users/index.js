@@ -170,7 +170,7 @@ const ManageStores = () => {
                                     <p className="font-sans text-sm">نام و نام خانوادگی </p>
                                     <p className="font-sans text-sm ">کد ملی </p>
                                     <p className="font-sans text-sm ">کد پستی</p>
-                                    <p className="font-sans text-sm ">وضعیت فروشگاه</p>
+                                    <p className="font-sans text-sm ">وضعیت کاربر</p>
                                     <p className="font-sans text-sm ">بیشتر</p>
                                 </section>
                                 {users && users.map(user => {
