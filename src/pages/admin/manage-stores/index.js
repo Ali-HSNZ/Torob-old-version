@@ -11,6 +11,8 @@ import { useFormik } from "formik";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
 import { fetchStores } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 const ManageStores = () => {
     const dispatch = useDispatch()
@@ -320,3 +322,19 @@ const ManageStores = () => {
 }
  
 export default ManageStores;
+
+export const getServerSideProps = async(ctx) => {
+    // Check Permission
+    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
+    let ErrorCode = 0;
+    if(!token) return{notFound : true}
+    await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
+    .then(({data}) =>  {
+        if(data.user.account_type !== 'admin') ErrorCode = 403
+    })
+    .catch( () => ErrorCode = 403)
+    if(ErrorCode === 403){
+        return{notFound : true}
+    }
+    return { props : {}}
+}
