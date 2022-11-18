@@ -121,9 +121,10 @@ export const insertStore = ({values,logo,license,storeBanner,city,province,bankC
         logo_image : logo,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
-        toast.success('فروشگاه با موفقیت ثبت شد')
-        dispatch(insertStoreSuccess())
-    } )
+        if(window){
+            window.location.href="/admin/manage-stores"
+        }
+    })
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
@@ -169,9 +170,10 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
         banner_image : storeBanner || 0,
         logo_image : logo || 0
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
-    .then(({data}) => {
-        toast.success('تغییرات با موفقیت ثبت شد')
-        dispatch(fetchOneStoreSuccess(data.store))
+    .then(() => {
+        if(window){
+            window.location.href="/admin/manage-stores"
+        }
     } )
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors

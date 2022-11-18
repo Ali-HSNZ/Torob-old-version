@@ -65,7 +65,7 @@ export const admin_productsReducer = (state = initailState , action) => {
         case ADMIN_INSERT_ONE_PRODUCT_FAILURE:{ return { ...state, product : { product : null , loading : false , error : action.payload } }}
 
 
-        case ADMIN_FETCH_ONE_PRODUCT_REQUEST:{ return {  ...state, product : { product : null, loading : true, error : null }}}
+        case ADMIN_FETCH_ONE_PRODUCT_REQUEST:{ return {  ...state, product : { product : state.product.product, loading : true, error : null }}}
         case ADMIN_FETCH_ONE_PRODUCT_SUCCESS:{ return { ...state, product : { product : action.payload, error : null , loading : false, }}}
         case ADMIN_FETCH_ONE_PRODUCT_FAILURE:{ return { ...state, product : { product : null , loading : false , error : action.payload } }}
 
