@@ -64,7 +64,6 @@ const ManageStores = () => {
             order : router.query.order || "desc"
         }
     })
-    console.log("national_code national_code : ",formik.values.national_code);
 
     return (  
         <Layout isFooter={true} pageTitle={" پنل مدیریت | مدیریت کاربران"}>
