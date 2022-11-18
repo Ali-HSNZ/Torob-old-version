@@ -30,13 +30,14 @@ export const admin_manageUsersReducer = (state = initialValues , action) => {
 
 
         case ADMIN_FETCH_ONE_USER_REQUEST:{
-            return {...state , oneUser : { user : null , loading : true , error : null}}
+            return {...state ,loading : true, oneUser : { user : state.oneUser.user , error : null}}
         }
         case ADMIN_FETCH_ONE_USER_SUCCESS:{
-            return {...state , oneUser : { user : action.payload , loading : false , error : null}}
+            
+            return {...state ,loading : false, oneUser : { user : action.payload , error : null}}
         }
         case ADMIN_FETCH_ONE_USER_FAILURE:{
-            return  {...state , oneUser : { user : null , loading : false , error : action.payload}}
+            return  {...state ,loading : false, oneUser : { user : null , error : action.payload}}
         }
 
 
