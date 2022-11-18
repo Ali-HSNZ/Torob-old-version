@@ -62,7 +62,7 @@ export const fetchStores = ({state,page,limit,order,economic_code,number,name,pr
 export const fetchOneStore = (id) => dispatch => {
     dispatch(fetchOneStoreRequest())
     axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/stores?id=${id}`) , {headers : {authorization : `Bearer ${token}`}})
-    .then(({data}) => {dispatch(fetchOneStoreSuccess(data.store))})
+    .then(({data}) => dispatch(fetchOneStoreSuccess(data.store)))
     .catch(error => {
         const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن اطلاعات یک فروشگاه";
         dispatch(fetchOneStoreFailure(message))
@@ -169,9 +169,9 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
         banner_image : storeBanner || 0,
         logo_image : logo || 0
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
-    .then(() => {
+    .then(({data}) => {
         toast.success('تغییرات با موفقیت ثبت شد')
-        dispatch(fetchOneStore(id))
+        dispatch(fetchOneStoreSuccess(data.store))
     } )
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
