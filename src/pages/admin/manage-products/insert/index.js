@@ -92,34 +92,24 @@ const InsertProduct = () => {
     const onSubmit = ({product_title ,barcode, product_description}) => {
         const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const brandId = selectedBrand.id || null
-        const productImage = onChangeFile && onChangeFile.selectedFile || null;
-        // Check Product Image
-        if(productImage){
-            if(!checkImageFormat(productImage.name)){
-                toast.error('تصویر کالا معتبر نیست')
-                return false
-            }
-            if(Number(productImage.size) < 16000){
-                toast.error('تصویر کالا نمی تواند کمتر از ۱۶kb باشد')
-                return false
-            } 
-            if(Number(productImage.size) > 1024000){
-                toast.error("تصویر کالا نمی تواند بیشتر از ۱۰۲۴kb باشد")
-                return false
-            }
+        const productImage = onChangeFile && onChangeFile.selectedFile || null
+        
+        if(productImage === null){
+            toast.error('تصویر کالا الزامی می باشد')
+            return false
         }
         // Check Brand
         if(!brandId){
-            toast.error('مقدار برند نمی تواند خالی باشد')
+            toast.error('مقدار برند الزامی می باشد')
             return false
         }
         // Check Category
         if(!categoryId){
-            toast.error('مقدار دسته‌بندی نمی تواند خالی باشد')
+            toast.error('مقدار دسته‌بندی الزامی می باشد')
             return false
         }
-            const payload = {categoryId,brandId,product_title,barcode,product_description,productImage}
-            dispatch(insertProduct(payload))
+        const payload = {categoryId,brandId,product_title,barcode,product_description,productImage}
+        dispatch(insertProduct(payload))
     }
 
     useEffect(()=>{
@@ -183,12 +173,12 @@ const InsertProduct = () => {
                     <form onSubmit={formik.handleSubmit}>
                         <section className="grid grid-cols-3 gap-4 mt-6">
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm">عنوان :</p>
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">عنوان :</p>
                                 <input type="text" name="product_title"  value={formik.values.product_title} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="عنوان کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                 {formik.errors.product_title && formik.touched.product_title && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_title}</p>}
                             </div>
                             <div className="flex flex-col relative">
-                                <p className="font-sans text-sm"> برند :</p>
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">برند :</p>
                                 <div className="w-full mt-2">
                                     <SelectBox notFoundTitle="برند مورد نظر یافت نشد." placeholder={'انتخاب عنوان برند'} query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                 </div>
@@ -196,7 +186,7 @@ const InsertProduct = () => {
 
 
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm text-gray-800"> تصویر کالا :</p>
+                                <p className="font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600">تصویر کالا :</p>
                                 <input type={'file'} id="chooseImage" ref={imageInput_ref} accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
                                 {onChangeFile? (
                                     <section className="flex justify-between items-center mt-2  ">
@@ -233,14 +223,14 @@ const InsertProduct = () => {
                             </div>
 
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm">بارکد :</p>
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">بارکد :</p>
                                 <input type="text" name="barcode"  value={formik.values.barcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بارکد کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                                 {formik.errors.barcode && formik.touched.barcode && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.barcode}</p>}
                             </div>
 
                         </section>
                         <div className="flex flex-col mt-4">
-                            <p className="font-sans text-sm">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
+                            <p className="font-sans text-sm before:content-['*'] before:text-red-600">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
                             <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} placeholder="توضیحات..." className="leading-8 max-h-[250px] min-h-[50px] w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                             {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
                         </div>
@@ -248,7 +238,7 @@ const InsertProduct = () => {
                         <div className="flex flex-col mt-4 gap-x-4">
                             <input type="checkbox" className="peer hidden" id="category_section" />
                             <section className="flex items-center">
-                                <p className="font-sans text-sm "> دسته‌بندی :</p>
+                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">دسته‌بندی :</p>
                                 {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" delay={0} height={20} width={20} color="red" />}
                             </section>
                             <section className="grid mt-2  grid-cols-5 gap-x-2">
