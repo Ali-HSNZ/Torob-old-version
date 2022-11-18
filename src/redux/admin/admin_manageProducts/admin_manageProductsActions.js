@@ -84,13 +84,15 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
         File : productImage,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
-        toast.success('کالا با موفقیت ثبت شد')
-        dispatch(insertProductSuccess())
-    } )
+        if(window){
+            window.location.href="/admin/manage-products"
+        }
+    })
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-         dispatch(insertProductFailure( "خطا در ثبت کالا"))
+        if(!serverMessage_list) toast.error("خطای سرور در بخش ثبت کالا")
+        dispatch(insertProductFailure("خطای سرور در بخش ثبت کالا"))
     })
 }
 
@@ -103,16 +105,18 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        File : productImage,
+        product_image : productImage,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
-        toast.success('تغییرات کالا با موفقیت ثبت شد ')
-        dispatch(fetchProduct(id))
-    } )
+        if(window){
+            window.location.href="/admin/manage-products"
+        }
+    })
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
-        if(serverMessage_list){ serverMessage_list.forEach(error => toast.error(error))}
-        dispatch(fetchProduct(id))
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش ویرایش اطلاعات کالا")
+        dispatch(fetchOneProductFailure("خطای سرور در بخش ویرایش اطلاعات کالا"))
     })
 }
 
@@ -121,9 +125,10 @@ export const fetchSub1 = (id) => dispatch => {
     axios.get(`https://market-api.iran.liara.run/api/admin/categories/list/${id}` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchSub1Success(data.categories)))
     .catch(error => {
-        const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست زیر دسته‌بندی اول";
-        dispatch(fetchSub1Failure(message))
-        toast.error(message)
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن لیست زیردسته اول")
+        dispatch(fetchSub1Failure("خطای سرور در بخش گرفتن لیست زیردسته اول"))
     })
 } 
 
@@ -132,9 +137,10 @@ export const fetchSub2 = (id) => dispatch => {
     axios.get(`https://market-api.iran.liara.run/api/admin/categories/list/${id}` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchSub2Success(data.categories)))
     .catch(error => {
-        const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست زیر دسته‌بندی اول";
-        dispatch(fetchSub2Failure(message))
-        toast.error(message)
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن لیست زیردسته دوم")
+        dispatch(fetchSub2Failure("خطای سرور در بخش گرفتن لیست زیردسته دوم"))
     })
 } 
 
@@ -143,9 +149,10 @@ export const fetchSub3 = (id) => dispatch => {
     axios.get(`https://market-api.iran.liara.run/api/admin/categories/list/${id}` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchSub3Success(data.categories)))
     .catch(error => {
-        const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست زیر دسته‌بندی اول";
-        dispatch(fetchSub3Failure(message))
-        toast.error(message)
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن لیست زیردسته سوم")
+        dispatch(fetchSub3Failure("خطای سرور در بخش گرفتن لیست زیردسته سوم"))
     })
 } 
 
@@ -154,36 +161,43 @@ export const fetchProducts = ({state, page, limit,order, paramsBrand,barcode, pa
     axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/products?state=${state || "all"}&order=${order || "desc"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchProductsSuccess(data)))
     .catch(error => {
-        const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست محصولات";
-        dispatch(fetchProductsFailure(message))
-        toast.error(message)
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن لیست کالاها")
+        dispatch(fetchProductsFailure("خطای سرور در بخش گرفتن لیست کالاها"))
     })
 }
 export const fetchProduct = (id) => dispatch => {
-        dispatch(fetchOneProductRequest())
-        axios.get(`https://market-api.iran.liara.run/api/admin/products?id=${id}` , {headers : {authorization : `Bearer ${token}`}})
-        .then(({data}) => dispatch(fetchOneProductSuccess(data.product)))
-        .catch(error => {
-            const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن اطلاعات یک محصول";
-            dispatch(fetchOneProductFailure(message))
-            toast.error(message)
-        })
-
+    dispatch(fetchOneProductRequest())
+    axios.get(`https://market-api.iran.liara.run/api/admin/products?id=${id}` , {headers : {authorization : `Bearer ${token}`}})
+    .then(({data}) => dispatch(fetchOneProductSuccess(data.product)))
+    .catch(error => {
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن اطلاعات کالا")
+        dispatch(fetchOneProductFailure("خطای سرور در بخش گرفتن اطلاعات کالا"))
+    })
 } 
 export const deleteProduct = ({id}) => dispatch => {
     dispatch(fetchOneProductRequest())
     axios.put(`https://market-api.iran.liara.run/api/admin/products/${id}/state` ,{}, {headers : {authorization : `Bearer ${token}`}})
     .then(() =>  dispatch(fetchProduct(id)))
-    .catch(error => dispatch(fetchOneProductFailure(error?.response?.data?.message || "خطای سرور در بخش  حذف محصول")))
+    .catch(error => {
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش حذف کالا")
+        dispatch(fetchOneProductFailure("خطای سرور در بخش حذف کالا"))
+    })
 }
 export const fetchCategories = () => dispatch => {
     dispatch(fetchCategoriesRequest())
     axios.get(`https://market-api.iran.liara.run/api/admin/categories?list=1` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
     .catch(error => {
-        const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست دسته بندی ها";
-        dispatch(fetchCategoriesFailure(message))
-        toast.error(message)
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن لیست دسته‌بندی ها")
+        dispatch(fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته‌بندی ها"))
     })
 }
 export const fetchMainCategories = () => dispatch => {
@@ -191,9 +205,10 @@ export const fetchMainCategories = () => dispatch => {
     axios.get(`https://market-api.iran.liara.run/api/admin/categories/list` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
     .catch(error => {
-        const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست دسته بندی ها";
-        dispatch(fetchCategoriesFailure(message))
-        toast.error(message)
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن لیست دسته‌بندی های اصلی")
+        dispatch(fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته‌بندی های اصلی"))
     })
 }
 export const fetchBrands = () => dispatch => {
@@ -201,8 +216,10 @@ export const fetchBrands = () => dispatch => {
     axios.get(`https://market-api.iran.liara.run/api/admin/brands?list=1` , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchBrandsSuccess(data)))
     .catch(error => {
-        const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن لیست برند ها";
-        dispatch(fetchBrandsFailure(message))
-        toast.error(message)
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن لیست برندها")
+        dispatch(fetchBrandsFailure("خطای سرور در بخش گرفتن لیست برندها"))
     })
 }
+
