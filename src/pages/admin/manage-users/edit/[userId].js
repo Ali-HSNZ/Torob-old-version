@@ -17,13 +17,14 @@ import { allCities } from "@/common/admin/cities";
 import ReactLoading from 'react-loading';
 import Cookies from "universal-cookie";
 import axios from "axios";
-import { fetchOneUser, insertUser } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
+import { deleteUser, fetchOneUser, insertUser, updateUser } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
 import { useRouter } from "next/router";
-import Warning from "@/common/alert/Warning";
 
 
 const InsertStore = () => {
-    const { loading,user} = useSelector(state => state.admin_users.oneUser)
+    const { user} = useSelector(state => state.admin_users.oneUser)
+    const { loading} = useSelector(state => state.admin_users)
+
     const dispatch = useDispatch()
     const router = useRouter()
     const pageId = router.query.userId
@@ -74,9 +75,9 @@ const InsertStore = () => {
         }
     }
 
-    // useEffect(()=>{
-    //     dispatch(fetchOneUser(pageId))
-    // },[])
+    useEffect(()=>{
+        dispatch(fetchOneUser(pageId))
+    },[pageId])
 
     useEffect(()=>{
         setSelectedCity('')
@@ -89,20 +90,29 @@ const InsertStore = () => {
         }
     },[selectedProvience])
     
-    
+    useEffect(()=>{
+        if(user){
+            const currentProvince = provinces.find(province => province.name == user.address.province) || "";
+            const currentCity = allCities.find(city => city.name == user.address.city) || "";
+            setSelectedCity(currentCity)
+            setSelectedProvience(currentProvince)
+        }
+        setOnChangeFile(user && user.is_profile_image && {imageUrl : user.profile_image} || "") 
+    },[user])
+
     const onSubmit = (values) => {
         
-        // const profileImage = onChangeFile && onChangeFile.selectedFile || null;
-        // const city = selectedCity && selectedCity.name || null
-        // const province = selectedProvience && selectedProvience.name || null
-        // const house_number = formik.values.house_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
-        // if(house_number.length > 0){
-        //     if(house_number.length < 11){
-        //         toast.error("شماره تلفن ثابت معتبر نیست")
-        //         return false;
-        //     }
-        // }
-        // dispatch(insertUser({values,profileImage,city,province,house_number}))
+        const profileImage = onChangeFile && onChangeFile.selectedFile || null;
+        const city = selectedCity && selectedCity.name || null
+        const province = selectedProvience && selectedProvience.name || null
+        const house_number = formik.values.house_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+        if(house_number.length > 0){
+            if(house_number.length < 11){
+                toast.error("شماره تلفن ثابت معتبر نیست")
+                return false;
+            }
+        }
+        dispatch(updateUser({values,profileImage,city,province,house_number,pageId}))
     }
     
     const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
@@ -145,12 +155,12 @@ const InsertStore = () => {
         enableReinitialize : true,
         initialValues : {
             full_name : user && user.full_name || "",
-            national_code : "",
-            phone_number_primary : "",
-            phone_number_secondary : "",
-            house_number : "",
-            address_detail : "",
-            address_postcode : "",
+            national_code : user && user.national_code || "",
+            phone_number_primary : user && user.phone_number_primary || "",
+            phone_number_secondary : user && user.phone_number_secondary || "",
+            house_number : user && user.house_number || "",
+            address_detail : user && user.address.detail || "",
+            address_postcode : user && user.address.post_code || "",
         }
     })
 
@@ -183,7 +193,6 @@ const InsertStore = () => {
                             </Link>
                         </div>
                     </div>
-                    <Warning text={"این بخش  در حال توسعه است و هیچ درخواستی به سرور ارسال نمی شود"}/>
                     <form onSubmit={formik.handleSubmit}>
                         <section  className="grid grid-cols-3 gap-4 mt-6">
 
@@ -302,7 +311,11 @@ const InsertStore = () => {
                         </section>
 
                         <section className="w-full flex justify-end mt-3 gap-x-2 items-center ">
-                            {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
+                            {loading === true ? (
+                                <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />
+                            ) : (
+                                <button type={"button"} onClick={()=> dispatch(deleteUser(pageId))} className={`items-center ${user && user.is_active ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>
+                            )}
                             <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
                                     تایید تغییرات
                             </button>
