@@ -180,7 +180,7 @@ const ManageStores = () => {
                                                 <input type={"checkbox"} id={`detail_${user.id}`} className="peer hidden"/>
                                                 <section className="grid grid-cols-6 w-full">
                                                     <div className=" h-full">
-                                                        <img className="w-1/2 h-auto"  onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}}  src={user.profile_image}/>
+                                                        <img className="w-1/2 h-auto"  onClick={()=> {user.is_profile_image && setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}}  src={user.profile_image}/>
                                                     </div>
                                                     <p className="font-sans text-sm flex items-center">{user.full_name.length > 22 ? user.full_name.substring(0,22)+'...' : user.full_name} </p>
 
