@@ -25,7 +25,9 @@ const InsertStore = () => {
 
 
     const dispatch = useDispatch()
-    const {loading,store} = useSelector(state => state.admin_stores.oneStore)
+    const {store} = useSelector(state => state.admin_stores.oneStore)
+    const {loading} = useSelector(state => state.admin_stores)
+
     const router = useRouter()
     const pageId = router.query.storeId
     const [isAsideModal,setIsAsideModal] = useState(false)
