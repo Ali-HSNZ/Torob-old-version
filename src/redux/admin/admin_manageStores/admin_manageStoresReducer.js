@@ -12,7 +12,7 @@ import {
     ADMIN_FETCH_ONE_STORE_FAILURE, 
 } from './admin_manageStoresTypes' 
 
-const initialValues = {stores : null , loading : false , error : null, oneStore : { store : null , loading : true , error : null}}
+const initialValues = {stores : null , loading : false , error : null, oneStore : { store : null , error : null}}
 export const admin_storesReducer = (state=initialValues,action) => {
     switch (action.type) {
         case ADMIN_INSERT_STORE_REQUEST:{
@@ -42,13 +42,13 @@ export const admin_storesReducer = (state=initialValues,action) => {
         }
 
         case ADMIN_FETCH_ONE_STORE_REQUEST:{
-            return {...state , oneStore : { store : null , loading : true , error : null}}
+            return {...state , loading : true, oneStore : { store : state.oneStore.store , error : null}}
         }
         case ADMIN_FETCH_ONE_STORE_SUCCESS:{
-            return {...state , oneStore : { store : action.payload , loading : false , error : null}}
+            return {...state , loading : false, oneStore : { store : action.payload , error : null}}
         }
         case ADMIN_FETCH_ONE_STORE_FAILURE:{
-            return  {...state , oneStore : { store : null , loading : false , error : action.payload}}
+            return  {...state , loading : false, oneStore : { store : null , error : action.payload}}
         }
     
         default: return state
