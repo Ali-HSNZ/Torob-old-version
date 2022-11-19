@@ -11,6 +11,7 @@ import { useRef } from 'react';
 import { Modal } from '@mui/material';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import FormikInput from '@/common/admin/FormikInput';
 
 export default function DialogAlert_updateBrand({imageUrl,faName, enName, company, id, isModal , setIsModal, title, submitBtnTitle}) {
 
@@ -81,55 +82,21 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
     })
     
     return (
-        <Dialog open={isModal || false} onClose={()=>setIsModal(false)}>
-            <p className='px-4 pt-4 font-sans font-bold'>{title}</p>
+        <Dialog open={isModal || false} fullWidth={true} maxWidth='xs' onClose={()=>setIsModal(false)}>
+            <div className='flex px-4 pt-4 justify-between items-center'>
+                <p className=' font-sans font-bold '>{title}</p>
+                <button onClick={()=>setIsModal(false)} className='p-1 hover:bg-gray-100 rounded-full'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
             <form onSubmit={formik.handleSubmit}>
                 <section className='px-4'>
+                    <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"faName"} title="نام فارسی برند" placeholder={"نام فارسی برند"} />
+                    <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"enName"} title="نام انگلیسی برند" placeholder={"نام انگلیسی برند"} />
+                    <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"companyName"} title="نام شرکت" placeholder={"نام شرکت"} />
 
-                    <div className='mt-4'>
-                        <section className=" flex flex-col items-right gap-x-1 pb-0">
-                            <p className='font-sans text-sm text-gray-800'>نام فارسی برند :</p>
-                            <input
-                                type="text" 
-                                name='faName'
-                                placeholder='نام فارسی برند'
-                                onChange={formik.handleChange}
-                                value={formik.values.faName}
-                                onBlur={formik.handleBlur} 
-                                className="mt-2 w-[300px] border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "/>
-                        </section>
-                        {formik.errors.faName && formik.touched.faName && <p className={'text-red-600 font-sans text-xs pt-2'}>{formik.errors.faName}</p>}
-                    </div>
-
-                    <div className='mt-4'>
-                        <section className=" flex flex-col items-right gap-x-1 pb-0">
-                            <p className='font-sans text-sm text-gray-800'>نام  انگلیسی برند :</p>
-                            <input
-                                type="text" 
-                                name='enName'
-                                placeholder='نام انگلیسی برند'
-                                onChange={formik.handleChange}
-                                value={formik.values.enName}
-                                onBlur={formik.handleBlur} 
-                                className="mt-2 w-[300px] border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "/>
-                        </section>
-                        {formik.errors.enName && formik.touched.enName && <p className={'text-red-600 font-sans text-xs pt-2'}>{formik.errors.enName}</p>}
-                    </div>
-
-                    <div className='mt-4'>
-                        <section className=" flex flex-col items-right gap-x-1 pb-0">
-                            <p className='font-sans text-sm text-gray-800'>نام شرکت :</p>
-                            <input
-                                type="text" 
-                                name='companyName'
-                                placeholder='نام شرکت'
-                                onChange={formik.handleChange}
-                                value={formik.values.companyName}
-                                onBlur={formik.handleBlur} 
-                                className="mt-2 w-[300px] border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "/>
-                        </section>
-                        {formik.errors.companyName && formik.touched.companyName && <p className={'text-red-600 font-sans text-xs pt-2'}>{formik.errors.companyName}</p>}
-                    </div>
 
                     <div className="flex flex-col relative mt-4">
                         <p className="font-sans text-sm text-gray-800"> تصویر (لوگو) برند :</p>
@@ -138,12 +105,8 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
                             <section className="flex justify-between items-center mt-2  ">
                                 <button type={"button"} onClick={()=>setIsProductImage_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
                                     <span className="text-sm font-sans text-green-800 ">تصویر کالا انتخاب شده است.</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
                                 </button>
-                                <button onClick={()=> {setOnChangeFile(null) ; imageInput_ref.current.value = null}}  type={"button"}className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-500 hover:border-red-700">
+                                <button onClick={()=> {setOnChangeFile(null) ; imageInput_ref.current.value = null}}  type={"button"} className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-500 hover:border-red-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
@@ -160,8 +123,8 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
                                 </label>
                             </>
                         )}
-                        <Modal open={isProductImage_Modal} onClose={() => setIsProductImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                            <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                        <Modal open={isProductImage_Modal}  onClose={() => setIsProductImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                            <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                 <img className="max-h-full w-auto" src={onChangeFile && onChangeFile.imageUrl || ""}/>
                                 <button onClick={() => setIsProductImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
