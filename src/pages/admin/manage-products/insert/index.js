@@ -152,26 +152,26 @@ const InsertProduct = () => {
             
                 <section  className=" w-full lg:w-4/5 flex-0 h-max p-4">
                     <div className="flex justify-between w-full items-center">
-                    <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
-                    <div className="flex gap-x-2">
-                        <Link href={'/admin/manage-products'}>
-                            <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                                </svg>
-                            </a>
-                        </Link>
-                        <Link href={'/admin'}>
-                            <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                </svg>
-                            </a>
-                        </Link>
-                    </div>
+                        <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
+                        <div className="flex gap-x-2">
+                            <Link href={'/admin/manage-products'}>
+                                <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                    </svg>
+                                </a>
+                            </Link>
+                            <Link href={'/admin'}>
+                                <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                    </svg>
+                                </a>
+                            </Link>
+                        </div>
                     </div>
                     <form onSubmit={formik.handleSubmit}>
-                        <section className="grid grid-cols-3 gap-4 mt-6">
+                        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">عنوان :</p>
                                 <input type="text" name="product_title"  value={formik.values.product_title} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="عنوان کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
@@ -210,8 +210,8 @@ const InsertProduct = () => {
                                         </label>
                                     </>
                                 )}
-                                <Modal open={isProductImage_Modal} onClose={() => setIsProductImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                    <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                <Modal open={isProductImage_Modal} onClose={() => setIsProductImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                    <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                         <img className="max-h-full w-auto" src={onChangeFile && onChangeFile.imageUrl || ""}/>
                                         <button onClick={() => setIsProductImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
@@ -241,20 +241,22 @@ const InsertProduct = () => {
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">دسته‌بندی :</p>
                                 {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" delay={0} height={20} width={20} color="red" />}
                             </section>
-                            <section className="grid mt-2  grid-cols-5 gap-x-2">
-                                <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
-                                {selectedCategory_main && sub1.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته اول'} query={categoryQuery_sub1} setQuery={setCategoryQuery_sub1} filteredData={filteredsub1} selected={selectedCategory_sub1} setSelected={setSelectedCategory_sub1}/>}
-                                {selectedCategory_sub1 && sub2.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته دوم'} query={categoryQuery_sub2} setQuery={setCategoryQuery_sub2} filteredData={filteredsub2} selected={selectedCategory_sub2} setSelected={setSelectedCategory_sub2}/>}
-                                {selectedCategory_sub2 && sub3.categories && <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته سوم'} query={categoryQuery_sub3} setQuery={setCategoryQuery_sub3} filteredData={filteredsub3} selected={selectedCategory_sub3} setSelected={setSelectedCategory_sub3}/>}
+                            <section className="flex flex-wrap gap-3 mt-4">
+                                <SelectBox  isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
+                                {selectedCategory_main && sub1.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته اول'} query={categoryQuery_sub1} setQuery={setCategoryQuery_sub1} filteredData={filteredsub1} selected={selectedCategory_sub1} setSelected={setSelectedCategory_sub1}/>}
+                                {selectedCategory_sub1 && sub2.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته دوم'} query={categoryQuery_sub2} setQuery={setCategoryQuery_sub2} filteredData={filteredsub2} selected={selectedCategory_sub2} setSelected={setSelectedCategory_sub2}/>}
+                                {selectedCategory_sub2 && sub3.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته سوم'} query={categoryQuery_sub3} setQuery={setCategoryQuery_sub3} filteredData={filteredsub3} selected={selectedCategory_sub3} setSelected={setSelectedCategory_sub3}/>}
                             </section>
                         </div>
 
-                        <section className="w-full flex justify-end mt-3 items-center ">
-                            <button disabled={productLoading || !formik.isValid} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
-                                {productLoading && <ReactLoading type="spinningBubbles" className="ml-2" height={20} width={20} color="red" />}
-                                ثبت کالا
-                            </button>
-                        </section>
+                        <div className="mt-6 w-full flex justify-end gap-x-2">
+                            {productLoading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
+                            <section className=" flex justify-end  items-center ">
+                                <button disabled={productLoading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
+                                    ثبت کالا
+                                </button>
+                            </section>
+                        </div>
                     </form>
                 </section>
             </div>
