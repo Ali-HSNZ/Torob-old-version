@@ -47,12 +47,6 @@ const AdminPageAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenClass
                     </a>
                 </Link>
                 
-                <Link href={'#'}>
-                    <a className={`flex items-center pr-8 py-3 hover:bg-gray-100`}>
-                        <HiOutlineDocumentText className="h-6 w-6 text-gray-900"/>
-                        <span className="font-sans mr-2 font-bold text-sm text-gray-900">فاکتورها</span>
-                    </a>
-                </Link>
 
                 <Link href={'/admin/manage-category'}>
                     <a className={` ${router.asPath.startsWith('/admin/manage-category') ? "bg-red-200 hover:bg-red-300" : "hover:bg-gray-100"} flex items-center pr-8 py-3 hover:bg-gray-100`}>
@@ -77,17 +71,6 @@ const AdminPageAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenClass
                         </svg>
                         <span className="font-sans mr-2 font-bold text-sm text-gray-900">مدیریت فروشگاه‌ها</span>
                     </a>
-                </Link>
-            </div>
-
-            <hr/>
-
-            <div className="flex py-3 flex-col">
-                <Link href={"#"}>
-                    <a className="text-gray-700 font-sans pr-8 text-sm py-3 hover:bg-gray-50">لیست فروشگاه‌های ترب</a>
-                </Link>
-                <Link href={"#"}>
-                    <a className="text-gray-700 font-sans pr-8 text-sm py-3 hover:bg-gray-50">ثبت نام فروشگاه</a>
                 </Link>
             </div>
 
