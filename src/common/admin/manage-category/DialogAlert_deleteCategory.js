@@ -19,8 +19,8 @@ export default function DialogAlert_deleteCategory({id, isModal , setIsModal , t
         <Dialog open={isModal || false} onClose={()=>setIsModal(false)}>
             <p className='px-4 pt-4 font-sans font-bold'>{title ? title : "عنوان"}</p>
             <DialogContent>
-                <p className='font-sans text-sm'><b>نکته : </b>برای دسته‌بندی هایی که <b>غیر فعال</b> باشند نمی توان زیردسته اضافه کرد.</p>
-                <p className='font-sans text-sm  mt-4'>{description ? description : "توضیحات"}</p>
+                <p className='font-sans text-sm leading-6'><b>نکته : </b>برای دسته‌بندی هایی که <b>غیر فعال</b> باشند نمی توان زیردسته اضافه کرد.</p>
+                <p className='font-sans text-sm leading-6 mt-4'>{description ? description : "توضیحات"}</p>
             </DialogContent>
             <DialogActions>
                 <div className='w-full flex gap-x-4 justify-end pb-2 px-2'>
