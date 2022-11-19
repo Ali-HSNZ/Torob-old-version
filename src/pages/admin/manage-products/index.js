@@ -15,6 +15,7 @@ import Warning from "@/common/alert/Warning";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import SelectBox from "@/common/admin/SelectBox";
+import FormikInput from "@/common/admin/FormikInput";
 
 const ManageProduct = () => {
     const router = useRouter()
@@ -57,8 +58,8 @@ const ManageProduct = () => {
         router.push(`/admin/manage-products?page=1&state=${status || "all"}&barcode=${barcode || ""}&order=${order || 'asc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${product_title || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
-        product_title : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از 2 نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از 250 نویسه باشد').trim(),
-        barcode : Yup.string().max(12,"بارکد نمی‌تواند بیشتر از ۱۲ رقم باشد").matches(/^[0-9]\d*$/,"مقدار بارکد باید عدد باشد").trim()
+        product_title : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
+        barcode : Yup.string().min(2 , 'بارکد کالا نمی تواند کمتر از ۲ نویسه باشد').max(12,"بارکد نمی‌تواند بیشتر از ۱۲ رقم باشد").matches(/^[0-9]\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
 
     const formik = useFormik({ 
@@ -79,7 +80,7 @@ const ManageProduct = () => {
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
                 <AdminPageAside/>
 
-                <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 
+                <section className="w-full lg:w-4/5 flex-0 h-max px-3 sm:px-4 "> 
                     <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
                         <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
@@ -112,12 +113,9 @@ const ManageProduct = () => {
                     </div>
                     <form className="w-full " onSubmit={formik.handleSubmit}>
                         <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
-                            <section className="mt-2 grid grid-cols-3 gap-4">
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">نام کالا :</p>
-                                    <input type="text" name="product_title" value={formik.values.product_title} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.product_title && formik.touched.product_title && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.product_title}</p>}
-                                </div>
+                            <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                                <FormikInput formik={formik} placeholder={"بر اساس نام محصول"} title={"نام کالا"} name={"product_title"} parentClassName={"flex flex-col relative"}/>
+
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm"> برند :</p>
                                     <div className="w-full mt-2">
@@ -132,11 +130,7 @@ const ManageProduct = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">بارکد :</p>
-                                    <input type="text" name="barcode" value={formik.values.barcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس بارکد محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.barcode && formik.touched.barcode && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.barcode}</p>}
-                                </div>
+                                <FormikInput formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
 
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
@@ -176,63 +170,66 @@ const ManageProduct = () => {
                     {!products && !loading && <Warning text={'کالا یافت نشد! میتوانید کالای جدیدی ثبت کنید.'}/>}
                     {products && (
                         <>
-                            <section className="w-full mt-3 rounded-lg shadow-md flex flex-col ">
-                                <section className="grid grid-cols-6 rounded-t-md shadow-md items-center bg-gray-600 text-white px-4 py-2 font-sans text-sm">
-                                    <p className="w-10 h-full ">تصویر</p>
-                                    <p className="font-sans text-sm">عنوان </p>
-                                    <p className="font-sans text-sm ">برند </p>
-                                    <p className="font-sans text-sm ">دسته‌بندی</p>
-                                    <p className="font-sans text-sm ">وضعیت کالا</p>
-                                    <p className="font-sans text-sm ">بیشتر</p>
-                                </section>
+                            <section className="rounded-md overflow-hidden w-full mt-3  shadow-md flex flex-col">
                                 {products && products.map(product => {
                                     return(
                                         <section key={product.id}>
-                                            <div className="p-2 bg-white w-full">
-                                                <input type={"checkbox"} id={`detail_${product.id}`} className="peer hidden"/>
-                                                <section className="grid grid-cols-6 w-full">
-                                                    <div className=" h-full ">
-                                                        <img onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-1/2 h-auto" src={product.image_url}/>
+                                            <div className="p-4 bg-white w-full">
+                                                <input  type={"checkbox"} id={`detail_${product.id}`} className="peer hidden"/>
+                                                {/* Lower XL Screen */}
+                                                <section className=" flex flex-col sm:flex-row items-center  justify-between">
+                                                    <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
+                                                        <img onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
                                                     </div>
-                                                    <p className="font-sans text-sm flex items-center">{product.title.length > 22 ? product.title.substring(0,22)+'...' : product.title} </p>
-                                                    <p className="font-sans text-sm flex items-center ">{product.brand.name && product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
-                                                    <div className="pl-1 ">
-                                                        {product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}
+                                                    <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
+                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex">
+                                                            <b className="whitespace-nowrap pl-2">عنوان کالا : </b>
+                                                             {product.title.length > 35 ? product.title.substring(0,35)+'...' : product.title} </p>
+                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex ">
+                                                            <b className="whitespace-nowrap pl-2">برند : </b> 
+                                                            {product.brand.name && product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
+                                                        <div className="font-sans leading-6 text-sm flex flex-col w-full sm:flex-row pl-3">
+                                                            <b className="whitespace-nowrap pl-2">دسته‌بندی : </b>
+                                                            <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                        </div>
                                                     </div>
-                                                    <div className=" flex items-center">
-                                                        {product.is_show ? (
-                                                            <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
-                                                        ) : (
-                                                            <p className="font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
-                                                        )}
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <label htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                            </svg>
-                                                        </label>
+                                                    <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
+                                                        <div className=" flex items-center">
+                                                            {product.is_show ? (
+                                                                <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
+                                                            ) : (
+                                                                <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
+                                                            )}
+                                                        </div>
+                                                        <div className="flex items-center ">
+                                                            <label htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                </svg>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </section>
                                                 {/* Description */}
-                                                <section className="w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                    <div className="flex flex-col gap-y-2">
-                                                        <p className="font-sans text-sm"><b>عنوان : </b>{product.title.length ===0 ? "نامشخص" : product.title}</p>
-                                                        <p className="font-sans text-sm">
-                                                            <b>دسته‌بندی : </b>
-                                                            {product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}
+                                                <section className="w-full bg-gray-50 rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
+                                                    <div className="flex flex-col gap-y-4">
+                                                        <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.title}</p>
+                                                        
+                                                        <p className="font-sans text-sm   flex flex-col sm:flex-row">
+                                                            <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
+                                                            <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
                                                         </p>
-                                                        <p className="font-sans text-sm"><b>برند : </b>{product.brand.name && product.brand.name.length ===0 ? "نامشخص" : product.brand.name}</p>
-                                                        <p className="font-sans text-sm"><b>بارکد : </b>{product.barcode}</p>
-                                                        <p className="font-sans text-sm"><b>توضیحات : </b> {product.description.length === 0 ? "نامشخص" : product.description}</p>
+                                                        <p className="font-sans text-sm  flex flex-col sm:flex-row "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.brand.name && product.brand.name.length ===0 ? "نامشخص" : product.brand.name}</p>
+                                                        <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.barcode}</p>
+                                                        <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description.length === 0 ? "نامشخص" : product.description}</p>
                                                         {/* Logo */}
                                                         <div className="flex">
-                                                            <b className="font-sans text-sm">تصویر کالا : </b>
+                                                            <b className="font-sans text-sm pl-1">تصویر کالا : </b>
                                                             {product.is_image_url ? (
                                                                 <>
                                                                     <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                    <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                                                        <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                                                    <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                                                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                                                             <img className="max-h-full w-auto" src={modal_imageSrc}/>
                                                                             <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
@@ -258,7 +255,6 @@ const ManageProduct = () => {
                                     )
                                 })}
                             </section>
-
                             <section dir="ltr" className=" w-full flex justify-center py-4">
                                 <Pagination size="large" color="primary" page={page} count={pagination.last} onChange={(event , page)=> {
                                     router.push(`/admin/manage-products?page=${page}&state=${router.query.state || ''}&name=${router.query.name || ""}&limit=${limit || 12}&order=${router.query.order || 'asc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
