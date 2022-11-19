@@ -1,9 +1,10 @@
 import { Fragment } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 
-const SelectBox = ({isDisabled,placeholder ,notFoundTitle, selected , query , setSelected , filteredData , setQuery}) => {
+const SelectBox = ({isDisabled,placeholder ,notFoundTitle, selected , query , setSelected , filteredData , setQuery,isTitle}) => {
     return ( 
-        <div className="flex">
+        <div className="flex items-center">
+            {isTitle === true && <span className='font-sans text-sm whitespace-nowrap ml-1  md:hidden'>{placeholder} : </span>}
             <Combobox disabled={isDisabled || false} value={selected} onChange={setSelected}>
                 <div className="relative w-full">
                     <div className="relative  focus:outline-none ">

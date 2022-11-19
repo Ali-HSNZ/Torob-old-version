@@ -1,8 +1,8 @@
-const FormikInput = ({formik,name,placeholder,title,parentClassName}) => {
+const FormikInput = ({formik,name,placeholder,title,parentClassName,isRequired}) => {
     return (  
         <div className={parentClassName}>
             <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                <p className='font-sans text-sm text-gray-800'>{title} :</p>
+                <p className={`font-sans text-sm text-gray-800 ${isRequired ? "before:content-['*'] before:text-red-600" : ""}`}>{title} :</p>
                 <input 
                     type="text" 
                     name={`${name}`} 
