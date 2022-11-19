@@ -16,6 +16,7 @@ import * as Yup from 'yup'
 import { useFormik } from "formik";
 import Link from "next/link";
 import ReactLoading from 'react-loading';
+import FormikInput from "@/common/admin/FormikInput";
 
 
 const ManageBrands = () => {
@@ -88,8 +89,8 @@ const ManageBrands = () => {
 
     return (  
         <Layout isFooter={true} pageTitle={"پنل مدیریت | مدیریت برند"}>
-            <Modal open={isImage} onClose={() => setIsImage(false)} className="h-full w-full flex justify-center items-center">
-                <section className=" bg-white w-1/2 h-1/2 flex justify-center items-center p-4 relative">
+            <Modal open={isImage} onClose={() => setIsImage(false)} className="p-4 h-full w-full flex justify-center items-center">
+                <section className=" bg-white rounded-md sm:w-1/2 h-1/2 flex justify-center items-center p-4 relative">
                     <img className="max-h-full w-auto"  src={isImage_photoSrc}/>
                     <button onClick={() => setIsImage(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
@@ -98,17 +99,24 @@ const ManageBrands = () => {
                     </button>
                 </section>
             </Modal>
-            {showDialogAlert_reduxActions()}
+                {showDialogAlert_reduxActions()}
             <div className="w-full flex flex-col lg:flex-row  justify-between">
                 <AdminPageAside/>
-                <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 
+                <section className="w-full lg:w-4/5 flex-0 h-max px-3 sm:px-4 "> 
                     <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
-                        <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/2 w-full'}/></>
+                        <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
 
 
                     <div className="flex justify-between w-full items-center mt-4">
-                        <h1 className="font-sans font-bold text-lg">مدیریت برند</h1>
+                        <div className="flex items-center">
+                            <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                            </button>
+                            <h1 className="font-sans font-bold text-lg">مدیریت برند</h1>
+                        </div>
                         <div className="flex gap-x-2 items-center">
                             <Link href={{pathname:"/admin/manage-brands"}}>
                                 <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
@@ -117,12 +125,10 @@ const ManageBrands = () => {
                                     </svg>
                                 </a>
                             </Link>
-                            <button
-                                    onClick={()=>  {setIsModal_insertBrand(true) & setModalDetail_insertBrand({title:`افرودن برند جدید `})}}
-                                className=" items-center hover:bg-green-200 bg-green-100 flex border border-green-700  rounded-md py-2 px-3"> 
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
+                            <button onClick={()=>  {setIsModal_insertBrand(true) & setModalDetail_insertBrand({title:`افرودن برند جدید `})}} className=" items-center hover:bg-green-200 bg-green-100 flex border border-green-700  rounded-md py-2 px-3"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                                </svg>
                             </button>
                             <Link href={'/admin'}>
                                 <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
@@ -133,18 +139,11 @@ const ManageBrands = () => {
                             </Link>
                         </div>
                     </div>
-                    <form onSubmit={formik.handleSubmit} className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
-                        <section className="mt-3 grid grid-cols-3 gap-4">
-                            <div className="flex flex-col relative">
-                                <p className="font-sans text-sm"> عنوان برند :</p>
-                                <input type={"text"} value={formik.values.name} name="name" onBlur={formik.handleBlur} onChange={formik.handleChange}  placeholder="عنوان برند را وارد کنید" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.name && formik.touched.name && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.name}</p>}
-                            </div>
-                            <div className="flex flex-col relative">
-                                <p className="font-sans text-sm">نام شرکت :</p>
-                                <input type={"text"} name="company" value={formik.values.company} onBlur={formik.handleBlur} onChange={formik.handleChange} placeholder="نام شرکت را وارد کنید" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.company && formik.touched.company && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.company}</p>}
-                            </div>
+                    <form onSubmit={formik.handleSubmit} className="w-full  p-4 bg-white mt-3 rounded-lg shadow-md">
+                        <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                            <FormikInput formik={formik} name={'name'} placeholder="عنوان برند را وارد کنید" title={"عنوان برند"} parentClassName={"flex flex-col relative"} />
+                            <FormikInput formik={formik} name={'company'} placeholder="نام شرکت را وارد کنید" title={"نام شرکت"}  parentClassName={"flex flex-col relative"}/>
+                            
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
                                 <section className="flex justify-between mt-2 gap-x-2">
@@ -183,36 +182,38 @@ const ManageBrands = () => {
                     )}
                     {brands && (
                         <>
-                            <section className={` w-full grid grid-cols-3 mt-4 gap-4`}>
-
+                            <section className={` w-full grid sm:grid-cols-2 lg:grid-cols-3 mt-4 gap-4`}>
                                 {brands.map(brand => {
                                     return(
                                         <div key={brand.id} className="flex flex-col bg-white pb-4  relative rounded-md shadow-md h-min overflow-hidden">
-
                                             <div className="flex  w-full justify-between mb-4 mt-4 px-4">
                                                 <div className={`shadow-xl w-2 h-2 ${!brand.is_show &&  "bg-red-600"} rounded-full`}></div>
                                                 <div className="flex gap-x-2 items-center">
+                                                    <button onClick={()=> {
+                                                        setIsModal_deleteBrand(true) & 
+                                                        setModalDetail_deleteBrand({
+                                                                id : brand.id,
+                                                                title:`${brand.name}`,
+                                                                description :  `از تغییر وضعیت برند ( ${brand.name} ) مطمئن هستید؟.`,
+                                                            })
+                                                        }} 
+                                                        className=" font-sans text-xs hover:underline underline-offset-4 text-orange-700 ">
+                                                        تغییر وضعیت
+                                                    </button>
                                                     <button onClick={()=>  {
-                                                            setIsModal_deleteBrand(true) & 
-                                                            setModalDetail_deleteBrand({
-                                                                    id : brand.id,
-                                                                    title:`${brand.name}`,
-                                                                    description :  `از تغییر وضعیت برند ( ${brand.name} ) مطمئن هستید؟.`,
-                                                                })
-                                                            }} 
-                                                        className=" font-sans text-xs hover:underline underline-offset-4 text-orange-700 ">تغییر وضعیت</button>
-                                                    <button onClick={()=>  {
-                                                            setIsModal_updateBrand(true) & 
-                                                            setModalDetail_updateBrand({
-                                                                    id : brand.id,
-                                                                    title:`ویرایش مشخصات`,
-                                                                    faName : brand.name,
-                                                                    enName : brand.english_name,
-                                                                    company : brand.company,
-                                                                    imageUrl : brand.logo_url
-                                                                })
-                                                            }} 
-                                                        className=" font-sans text-xs hover:underline underline-offset-4 text-blue-700 ">ویرایش</button>
+                                                        setIsModal_updateBrand(true) & 
+                                                        setModalDetail_updateBrand({
+                                                                id : brand.id,
+                                                                title:`ویرایش مشخصات`,
+                                                                faName : brand.name,
+                                                                enName : brand.english_name,
+                                                                company : brand.company,
+                                                                imageUrl : brand.logo_url
+                                                            })
+                                                        }} 
+                                                        className=" font-sans text-xs hover:underline underline-offset-4 text-blue-700 ">
+                                                            ویرایش
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div className="flex flex-row items-center justify-between px-4">
@@ -246,14 +247,10 @@ const ManageBrands = () => {
                             </section>}
                         </>
                     )}
-
                 </section>
             </div>
         </Layout>
     );
-
-
-
 }
 export default ManageBrands;
 
