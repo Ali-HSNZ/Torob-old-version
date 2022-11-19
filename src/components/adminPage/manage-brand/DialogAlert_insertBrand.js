@@ -10,6 +10,7 @@ import { Modal } from '@mui/material';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import FormikInput from '@/common/admin/FormikInput';
 
 export default function DialogAlert_insertBrand({isModal,setIsModal,title , page , limit}) {
     const {query} = useRouter()
@@ -70,34 +71,20 @@ export default function DialogAlert_insertBrand({isModal,setIsModal,title , page
 
 
     return (
-        <Dialog open={isModal || false} onClose={()=>setIsModal(false)}>
-            <p className='px-4 pt-4 font-sans font-bold'>{title}</p>
-            <form onSubmit={formik.handleSubmit}>
-                <section className='px-4'>
-
-                    <div className='mt-4'>
-                        <section className=" flex flex-col items-right gap-x-1 pb-0">
-                            <p className='font-sans text-sm text-gray-800'>نام فارسی برند :</p>
-                            <input type="text" name='faName' placeholder='نام فارسی برند' onChange={formik.handleChange} value={formik.values.faName} onBlur={formik.handleBlur} className="mt-2 w-[300px] border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "/>
-                        </section>
-                        {formik.errors.faName && formik.touched.faName && <p className={'text-red-600 font-sans text-xs pt-2'}>{formik.errors.faName}</p>}
-                    </div>
-
-                    <div className='mt-4'>
-                        <section className=" flex flex-col items-right gap-x-1 pb-0">
-                            <p className='font-sans text-sm text-gray-800'>نام  انگلیسی برند :</p>
-                            <input type="text" name='enName' placeholder='نام انگلیسی برند' onChange={formik.handleChange} value={formik.values.enName} onBlur={formik.handleBlur} className="mt-2 w-[300px] border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "/>
-                        </section>
-                        {formik.errors.enName && formik.touched.enName && <p className={'text-red-600 font-sans text-xs pt-2'}>{formik.errors.enName}</p>}
-                    </div>
-
-                    <div className='mt-4'>
-                        <section className=" flex flex-col items-right gap-x-1 pb-0">
-                            <p className='font-sans text-sm text-gray-800'>نام شرکت :</p>
-                            <input type="text" name='companyName' placeholder='نام شرکت' onChange={formik.handleChange} value={formik.values.companyName} onBlur={formik.handleBlur} className="mt-2 w-[300px] border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "/>
-                        </section>
-                        {formik.errors.companyName && formik.touched.companyName && <p className={'text-red-600 font-sans text-xs pt-2'}>{formik.errors.companyName}</p>}
-                    </div>
+        <Dialog open={isModal || false} fullWidth={true} maxWidth='xs' onClose={()=>setIsModal(false)} className={""}>
+            <div className='flex px-4 pt-4 justify-between items-center'>
+                <p className=' font-sans font-bold '>{title}</p>
+                <button onClick={()=>setIsModal(false)} className='p-1 hover:bg-gray-100 rounded-full'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <form onSubmit={formik.handleSubmit} className="w-full ">
+                <section className='px-4 '>
+                    <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"faName"} title="نام فارسی برند" placeholder={"نام فارسی برند"} />
+                    <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"enName"} title="نام انگلیسی برند" placeholder={"نام انگلیسی برند"} />
+                    <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"companyName"} title="نام شرکت" placeholder={"نام شرکت"} />
 
                     <div className="flex flex-col relative mt-4">
                         <p className="font-sans text-sm text-gray-800"> تصویر (لوگو) برند :</p>
@@ -126,8 +113,8 @@ export default function DialogAlert_insertBrand({isModal,setIsModal,title , page
                                 </svg>
                             </label>
                         )}
-                        <Modal open={isProductImage_Modal} onClose={() => setIsProductImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                            <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                        <Modal open={isProductImage_Modal} onClose={() => setIsProductImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                            <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                 <img className="max-h-full w-auto" src={onChangeFile && onChangeFile.imageUrl || ""}/>
                                 <button onClick={() => setIsProductImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
