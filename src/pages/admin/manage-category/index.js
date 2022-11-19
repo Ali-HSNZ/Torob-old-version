@@ -17,6 +17,7 @@ import * as Yup from 'yup'
 import Warning from "@/common/alert/Warning";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import FormikInput from "@/common/admin/FormikInput";
 
 const ManageCategory = () => {
 
@@ -79,13 +80,12 @@ const ManageCategory = () => {
         }
     })
 
-    
     return (  
         <Layout isFooter={true} pageTitle={"پنل مدیریت | مدیریت دسته‌بندی"}>
             {showDialogAlert_reduxActions()}
             <div className="w-full flex flex-col lg:flex-row  justify-between">
                 <AdminPageAside/>
-                <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 
+                <section className="w-full lg:w-4/5 flex-0 h-max px-3 sm:px-4 "> 
                     <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
                         <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/2 w-full'}/></>
                     </Modal>
@@ -118,12 +118,9 @@ const ManageCategory = () => {
                     </div>
 
                     <form onSubmit={formik.handleSubmit} className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
-                        <section className="mt-3 grid grid-cols-3 gap-4">
-                            <div className="flex flex-col relative">
-                                <p className="font-sans text-sm"> عنوان دسته‌بندی :</p>
-                                <input type="text" value={formik.values.name} name="name" onBlur={formik.handleBlur} onChange={formik.handleChange}  placeholder="عنوان دسته‌بندی را وارد کنید" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.name && formik.touched.name && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.name}</p>}
-                            </div>
+                        <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                            <FormikInput formik={formik} name={'name'} placeholder="عنوان دسته‌بندی را وارد کنید" title={"عنوان دسته‌بندی"} parentClassName={"flex flex-col relative"} />
+                            
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
                                 <section className="flex justify-between mt-2 gap-x-2">
@@ -157,7 +154,7 @@ const ManageCategory = () => {
                             <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
                         </div>
                     )}
-                    {!categories && !loading && <Warning text={'دسته بندی یافت نشد! میتوانید دسته‌بندی جدیدی ثبت کنید.'}/>}
+                    {!categories && !loading && <Warning text={'دسته‌بندی مورد نظر یافت نشد!'}/>}
                     {categories && (
                         <>
                             <section className={` w-full grid grid-cols-1  md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4 auto-rows-min`}>
@@ -174,8 +171,8 @@ const ManageCategory = () => {
                                                         ) : (
                                                             <p className="cursor-not-allowed whitespace-nowrap font-sans text-xs text-blue-700 line-through"> زیردسته</p>
                                                         )}
-                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:` تغییر وضعیت دسته بندی  :  ${category.name}`,description :  "آیا مایل به تغییر وضعیت این دسته‌بندی هستید؟.",categoryName: category.name, category_id : category.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
-                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته بندی  :  ${category.name}`,categoryName: category.name, category_id : category.id })}} className="  font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
+                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:` تغییر وضعیت دسته‌بندی   ${category.name}`,description :  "آیا مایل به تغییر وضعیت این دسته‌بندی هستید؟.",categoryName: category.name, category_id : category.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی  ${category.name}`,categoryName: category.name, category_id : category.id })}} className="  font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                     </div>
                                                 </div>
                                                 <section className="peer-checked:flex hidden items-center gap-x-1 mt-3">
