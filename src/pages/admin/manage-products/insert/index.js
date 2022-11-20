@@ -13,6 +13,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Modal } from "@mui/material";
 import { useRef } from "react";
+import FormikInput from "@/common/admin/FormikInput";
 
 const InsertProduct = () => {
     const productData = useSelector(state => state.admin_products)
@@ -25,6 +26,7 @@ const InsertProduct = () => {
     const sub3 = useSelector(state => state.admin_products.sub3)
     const dispatch = useDispatch();
 
+    const [isAsideModal,setIsAsideModal] = useState(false)
     
     const [isProductImage_Modal , setIsProductImage_Modal] = useState(false)
 
@@ -151,8 +153,18 @@ const InsertProduct = () => {
                 <AdminPageAside/>
             
                 <section  className=" w-full lg:w-4/5 flex-0 h-max p-4">
+                    <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
+                        <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
+                    </Modal>
                     <div className="flex justify-between w-full items-center">
-                        <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
+                        <div className="flex items-center">
+                            <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                            </button>
+                            <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
+                        </div>
                         <div className="flex gap-x-2">
                             <Link href={'/admin/manage-products'}>
                                 <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
@@ -172,11 +184,8 @@ const InsertProduct = () => {
                     </div>
                     <form onSubmit={formik.handleSubmit}>
                         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">عنوان :</p>
-                                <input type="text" name="product_title"  value={formik.values.product_title} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="عنوان کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.product_title && formik.touched.product_title && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_title}</p>}
-                            </div>
+                        <FormikInput title={"عنوان کالا"} formik={formik} placeholder={"عنوان کالا"} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
+
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">برند :</p>
                                 <div className="w-full mt-2">
@@ -222,11 +231,8 @@ const InsertProduct = () => {
                                 </Modal>
                             </div>
 
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">بارکد :</p>
-                                <input type="text" name="barcode"  value={formik.values.barcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بارکد کالا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.barcode && formik.touched.barcode && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.barcode}</p>}
-                            </div>
+                            <FormikInput title={"بارکد"} formik={formik} placeholder={"بارکد کالا"} isRequired={true} name={"barcode"} parentClassName={"flex flex-col relative"}/>
+
 
                         </section>
                         <div className="flex flex-col mt-4">
