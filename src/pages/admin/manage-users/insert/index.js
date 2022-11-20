@@ -18,6 +18,7 @@ import ReactLoading from 'react-loading';
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { insertUser } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
+import FormikInput from "@/common/admin/FormikInput";
 
 
 const InsertStore = () => {
@@ -96,10 +97,10 @@ const InsertStore = () => {
         dispatch(insertUser({values,profileImage,city,province,house_number}))
     }
     
+    
     const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
     const ONLY_DIGIT_REGIX = /^\d+$/;
     const POSTAL_CODE_REGIX = /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/;
-
 
     const validationSchema = Yup.object({
         full_name : Yup.string()
@@ -155,15 +156,22 @@ const InsertStore = () => {
                     </Modal>
 
                     <div className="flex justify-between w-full items-center mt-4">
-                        <h1 className="font-sans font-bold text-lg">ثبت کاربر (خریدار)</h1>
-                        <div className="flex gap-x-2 items-center">
-                        <Link href={'/admin/manage-users'}>
-                            <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        <div className="flex items-center">
+                            <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
-                            </a>
-                        </Link>
+                            </button>
+                            <h1 className="font-sans font-bold text-lg">ثبت کاربر (خریدار)</h1>
+                        </div>
+                        <div className="flex gap-x-2 items-center">
+                            <Link href={'/admin/manage-users'}>
+                                <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                    </svg>
+                                </a>
+                            </Link>
                             <Link href={'/admin'}>
                                 <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -175,31 +183,12 @@ const InsertStore = () => {
                     </div>
 
                     <form onSubmit={formik.handleSubmit}>
-                        <section  className="grid grid-cols-3 gap-4 mt-6">
+                        <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
 
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">نام و نام خانوادگی :</p>
-                                <input type={"text"} name="full_name"  value={formik.values.full_name} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="نام و نام خانوادگی " className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.full_name && formik.touched.full_name && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.full_name}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">کد ملی :</p>
-                                <input type={"text"} name="national_code"  value={formik.values.national_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد ملی" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.national_code && formik.touched.national_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.national_code}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">شماره همراه :</p>
-                                <input type={"text"} name="phone_number_primary"  value={formik.values.phone_number_primary} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره همراه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.phone_number_primary && formik.touched.phone_number_primary && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.phone_number_primary}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm ">شماره همراه دوم :</p>
-                                <input type={"text"} name="phone_number_secondary"  value={formik.values.phone_number_secondary} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره همراه دوم" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.phone_number_secondary && formik.touched.phone_number_secondary && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.phone_number_secondary}</p>}
-                            </div>
+                            <FormikInput name={"full_name"} title={"نام و نام خانوادگی"} isRequired={true} formik={formik} placeholder={"نام و نام خانوادگی"} parentClassName="flex flex-col relative"/>
+                            <FormikInput name={"national_code"} title={"کد ملی"} isRequired={true} formik={formik} placeholder={"کد ملی"} parentClassName="flex flex-col relative"/>
+                            <FormikInput name={"phone_number_primary"} title={"شماره همراه"} isRequired={true} formik={formik} placeholder={"شماره همراه"} parentClassName="flex flex-col relative"/>
+                            <FormikInput name={"phone_number_secondary"} title={"شماره همراه دوم"}  formik={formik} placeholder={"شماره همراه دوم"} parentClassName="flex flex-col relative"/>
 
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm ">تلفن ثابت :</p>
@@ -237,19 +226,6 @@ const InsertStore = () => {
                                     />
                                 </div>
                             </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">آدرس دقیق :</p>
-                                <input type={"text"} name="address_detail"  value={formik.values.address_detail} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="آدرس دقیق" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.address_detail && formik.touched.address_detail && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.address_detail}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm">کد پستی :</p>
-                                <input type={"text"} name="address_postcode"  value={formik.values.address_postcode} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد پستی" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.address_postcode && formik.touched.address_postcode && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.address_postcode}</p>}
-                            </div>
-
 
                             {/* Profile Image */}
                             <div className="flex flex-col relative ">
@@ -289,9 +265,13 @@ const InsertStore = () => {
                                 </Modal>
                             </div>
 
+                            <FormikInput name={"address_detail"} title={"آدرس دقیق"} isRequired={true} formik={formik} placeholder={"آدرس دقیق"} parentClassName="flex flex-col relative"/>
+                            <FormikInput name={"address_postcode"} title={"کد پستی"}  formik={formik} placeholder={"کد پستی"} parentClassName="flex flex-col relative"/>
+
+
                         </section>
 
-                        <section className="w-full flex justify-end mt-3 gap-x-2 items-center ">
+                        <section className="w-full flex justify-end my-4 gap-x-2 items-center ">
                             {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
                             <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>
                                 ثبت کاربر (خریدار)
