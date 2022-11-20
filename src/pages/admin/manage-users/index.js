@@ -13,6 +13,7 @@ import Warning from "@/common/alert/Warning";
 import { fetchUsers } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import FormikInput from "@/common/admin/FormikInput";
 
 const ManageStores = () => {
     const dispatch = useDispatch()
@@ -44,13 +45,26 @@ const ManageStores = () => {
     const onSubmit = ({ full_name ,national_code,number,order}) => {
         router.push(`/admin/manage-users?page=1&state=${status || "all"}&full_name=${full_name || ""}&national_code=${national_code || ""}&number=${number || ""}&order=${order || 'desc'}&limit=${limit}`)
     }
+
+    const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
+    const ONLY_DIGIT_REGIX = /^\d+$/;
+    const POSTAL_CODE_REGIX = /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/;
+
     const validationSchema = Yup.object({
-        name : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از 2 نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از 250 نویسه باشد').trim(),
-        economic_code : Yup.string().min(2,"کد اقتصادی نمی تواند کم تر  ۲ رقم باشد").max(12,"کد اقتصادی نمی تواند بیشتر از 12 رقم باشد").matches(/^[0-9]{2,}\d*$/,"کد اقتصادی باید عدد باشد").trim(),
-        number : Yup.string().min(3,"شماره تلفن نمی تواند کم تر از 3 رقم باشد").max(11 , "شماره تلفن نمی تواند بیشر از 11 رقم باشد").matches(/^[0-9]{3,}\d*$/,"شماره تلفن باید عدد باشد").trim(),
-        province : Yup.string().min(2 , "نام استان نمی تواند کم تر از 2 نویسه باشد").max("50","نام استان نمی تواند بیشتر از 50 نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام استان را به فارسی وارد کنید").trim(),
-        city :  Yup.string().min(2 , "نام شهر نمی تواند کم تر از 2 نویسه باشد").max("50","نام شهر نمی تواند بیشتر از 50 نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام شهر را به فارسی وارد کنید").trim(),
-    })
+        full_name : Yup.string()
+            .min(2, "نام و نام خانوادگی نمی تواند کمتر از ۲ نویسه باشد")
+            .max(50,"نام و نام خانوادگی نمی تواند بیشتر از ۵۰ نویسه باشد")
+            .trim(),
+        national_code : Yup.string()
+            .max(10 , "کد ملی نامعتبر است")
+            .min(2 , "کد ملی نمی تواند کمتر از ۲ نویسه باشد")
+            .matches(ONLY_DIGIT_REGIX , "کد ملی نامعتبر است")
+            .trim(),
+        number : Yup.string()
+            .max(11 , "شماره نامعتبر است")
+            .min(2 , "شماره نمی تواند کمتر از ۲ نویسه باشد")
+            .trim(),
+        })
 
     const formik = useFormik({ 
         onSubmit, 
@@ -76,7 +90,14 @@ const ManageStores = () => {
 
 
                     <div className="flex justify-between w-full items-center mt-4">
-                        <h1 className="font-sans font-bold text-lg">مدیریت کاربران</h1>
+                    <div className="flex items-center">
+                            <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                            </button>
+                            <h1 className="font-sans font-bold text-lg">مدیریت کاربران</h1>
+                        </div>
                         <div className="flex gap-x-2 items-center">
                             <Link href={{pathname:"/admin/manage-users"}}>
                                 <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
@@ -104,26 +125,10 @@ const ManageStores = () => {
 
                     <form className="w-full " onSubmit={formik.handleSubmit}>
                         <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
-                            <section className="mt-2 grid grid-cols-3 gap-4">
-
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">نام و نام خانوادگی :</p>
-                                    <input type="text" name="full_name" value={formik.values.full_name} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.full_name && formik.touched.full_name && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.full_name}</p>}
-                                </div>
-
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">کد ملی :</p>
-                                    <input type="text" name="national_code" value={formik.values.national_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.national_code && formik.touched.national_code && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.national_code}</p>}
-                                </div>
-
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">شماره همراه یا ثابت:</p>
-                                    <input type="text" name="number" value={formik.values.number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.number && formik.touched.number && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.number}</p>}
-                                </div>
-
+                            <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                                <FormikInput name={"full_name"} title={"نام و نام خانوادگی"} formik={formik} placeholder={"بر اساس نام و نام خانوادگی"} parentClassName="flex flex-col relative"/>
+                                <FormikInput name={"national_code"} title={"کد ملی"} formik={formik} placeholder={"بر اساس کد ملی"} parentClassName="flex flex-col relative"/>
+                                <FormikInput name={"number"} title={"شماره همراه یا ثابت"} formik={formik} placeholder={"بر اساس شماره همراه یا ثابت"} parentClassName="flex flex-col relative"/>
 
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
@@ -163,46 +168,48 @@ const ManageStores = () => {
                     {!users && !loading && <Warning text={'کاربری با این مشخصات یافت نشد!'}/>}
                     {users && !loading && (
                         <>
-                            <section className="w-full mt-3 rounded-lg shadow-md flex flex-col ">
-                                <section className="grid grid-cols-6 rounded-t-md shadow-md items-center bg-gray-600 text-white px-4 py-2 font-sans text-sm">
-                                    <p className="w-10 h-full whitespace-nowrap">عکس کاربر</p>
-                                    <p className="font-sans text-sm">نام و نام خانوادگی </p>
-                                    <p className="font-sans text-sm ">کد ملی </p>
-                                    <p className="font-sans text-sm ">کد پستی</p>
-                                    <p className="font-sans text-sm ">وضعیت کاربر</p>
-                                    <p className="font-sans text-sm ">بیشتر</p>
-                                </section>
+                            <section className="w-full mt-3 rounded-md overflow-hidden shadow-md flex flex-col ">
+
                                 {users && users.map(user => {
                                     return(
                                         <section key={user.id}>
                                             <div className="p-2 bg-white w-full">
                                                 <input type={"checkbox"} id={`detail_${user.id}`} className="peer hidden"/>
-                                                <section className="grid grid-cols-6 w-full">
-                                                    <div className=" h-full">
-                                                        <img className="w-1/2 h-auto"  onClick={()=> {user.is_profile_image && setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}}  src={user.profile_image}/>
+                                                <section className=" flex flex-col sm:flex-row items-center  justify-between">
+                                                    <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
+                                                        <img onClick={()=> {user.is_profile_image && setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="w-full h-auto" src={user.profile_image}/>
                                                     </div>
-                                                    <p className="font-sans text-sm flex items-center">{user.full_name.length > 22 ? user.full_name.substring(0,22)+'...' : user.full_name} </p>
-
-                                                    <p className="font-sans text-sm flex items-center">{user.national_code} </p>
-                                                    <p className="font-sans text-sm flex items-center ">{user.address.post_code && user.address.post_code.length > 0 ? user.address.post_code : "نامشخص"}</p>
- 
-                                                    <div className=" flex items-center">
-                                                        {user.is_active ? (
-                                                            <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
-                                                        ) : (
-                                                            <p className="font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
-                                                        )}
+                                                    <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
+                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex">
+                                                            <b className="whitespace-nowrap pl-2">نام و نام خانوادگی : </b>
+                                                                {user.full_name.length >0 ?  user.full_name : "نامشخص"} </p>
+                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex ">
+                                                            <b className="whitespace-nowrap pl-2">کد ملی : </b> 
+                                                            {user.national_code.length > 0 ? user.national_code : "نامشخص"}</p>
+                                                        <div className="font-sans leading-6 text-sm flex flex-col w-full sm:flex-row pl-3">
+                                                            <b className="whitespace-nowrap pl-2">کد پستی : </b>
+                                                            {user.address.post_code&& user.address.post_code.length > 0 ? user.address.post_code : "نامشخص"}
+                                                        </div>
                                                     </div>
-                                                    <div className="flex items-center">
-                                                        <label htmlFor={`detail_${user.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                            </svg>
-                                                        </label>
+                                                    <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
+                                                        <div className=" flex items-center">
+                                                            {user.is_active ? (
+                                                                <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
+                                                            ) : (
+                                                                <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
+                                                            )}
+                                                        </div>
+                                                        <div className="flex items-center ">
+                                                            <label htmlFor={`detail_${user.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                </svg>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </section>
                                                 {/* Description */}
-                                                <section className="w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
+                                                <section className="mt-4 rounded-md bg-gray-50 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
                                                     <div className="flex flex-col gap-y-2">
                                                         <p className="font-sans text-sm"><b>نام و نام خانوادگی : </b>{user.full_name}</p>
                                                         <p className="font-sans text-sm"><b>کد ملی : </b>{user.national_code}</p>
@@ -219,8 +226,8 @@ const ManageStores = () => {
                                                             {user.profile_image ? (
                                                                 <>
                                                                     <button onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                    <Modal open={Image_Modal} onClose={() => setImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                                                        <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                                                    <Modal open={Image_Modal} onClose={() => setImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                                                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                                                             <img className="max-h-full w-auto" src={modal_imageSrc}/>
                                                                             <button onClick={() => setImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
