@@ -18,6 +18,7 @@ import { allCities } from "@/common/admin/cities";
 import ReactLoading from 'react-loading';
 import Cookies from "universal-cookie";
 import axios from "axios";
+import FormikInput from "@/common/admin/FormikInput";
 
 
 const InsertStore = () => {
@@ -207,7 +208,14 @@ const InsertStore = () => {
                     </Modal>
 
                     <div className="flex justify-between w-full items-center mt-4">
-                        <h1 className="font-sans font-bold text-lg">ثبت فروشگاه</h1>
+                    <div className="flex items-center">
+                            <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                            </button>
+                            <h1 className="font-sans font-bold text-lg">ثبت فروشگاه</h1>
+                        </div>
                         <div className="flex gap-x-2 items-center">
                         <Link href={'/admin/manage-stores'}>
                             <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
@@ -227,55 +235,16 @@ const InsertStore = () => {
                     </div>
 
                     <form onSubmit={formik.handleSubmit}>
-                        <section  className="grid grid-cols-3 gap-4 mt-6">
+                        <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
 
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">نام و نام خانوادگی مالک فروشگاه :</p>
-                                <input type={"text"} name="owner_full_name"  value={formik.values.owner_full_name} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="نام و نام خانوادگی مالک فروشگاه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.owner_full_name && formik.touched.owner_full_name && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.owner_full_name}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm  before:content-['*'] before:text-red-600">شماره همراه مالک فروشگاه:</p>
-                                <input type={"text"} name="owner_phone_number"  value={formik.values.owner_phone_number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره همراه مالک فروشگاه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.owner_phone_number && formik.touched.owner_phone_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.owner_phone_number}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm  before:content-['*'] before:text-red-600">کد ملی مالک فروشگاه:</p>
-                                <input type={"text"} name="owner_national_code"  value={formik.values.owner_national_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد ملی مالک فروشگاه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.owner_national_code && formik.touched.owner_national_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.owner_national_code}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm">شماره همراه دوم مالک فروشگاه:</p>
-                                <input type={"text"} name="secend_phone_number"  value={formik.values.secend_phone_number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره همراه دوم مالک فروشگاه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.secend_phone_number && formik.touched.secend_phone_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.secend_phone_number}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm  before:content-['*'] before:text-red-600">نام فروشگاه :</p>
-                                <input type={'text'} name="name"  value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="نام فروشگاه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.name && formik.touched.name && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.name}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">آدرس دفتر مرکزی شرکت:</p>
-                                <input type={"text"} name="office_address"  value={formik.values.office_address} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="آدرس دفتر مرکزی شرکت" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.office_address && formik.touched.office_address && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.office_address}</p>}
-                            </div>
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">شماره تلفن ثابت دفتر مرکزی :</p>
-                                <InputMask dir="ltr"  type={"text"} value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="office_number"   placeholder="Enter Static Phone Number" maskPlaceholder="-" className="border border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600 py-2 text-sm mt-2 rounded-md  focus:ring-0" maskchar={null}/>
-                                {formik.errors.office_number && formik.touched.office_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.office_number}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm">آدرس انبار مرکزی شرکت:</p>
-                                <input type={"text"} name="warehouse_address"  value={formik.values.warehouse_address} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="آدرس انبار مرکزی شرکت" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.warehouse_address && formik.touched.warehouse_address && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.warehouse_address}</p>}
-                            </div>                    
-
+                            <FormikInput isRequired={true} name={"owner_full_name"} title={"نام و نام خانوادگی مالک فروشگاه"} formik={formik} placeholder={"نام و نام خانوادگی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={true} name={"owner_phone_number"} title={"شماره همراه مالک فروشگاه"} formik={formik} placeholder={"شماره همراه مالک فروشگاه"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={true} name={"owner_national_code"} title={"کد ملی مالک فروشگاه"} formik={formik} placeholder={"کد ملی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={false} name={"secend_phone_number"} title={"شماره همراه دوم مالک فروشگاه"} formik={formik} placeholder={"شماره همراه دوم مالک فروشگاه"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={true} name={"name"} title={"نام فروشگاه"} formik={formik} placeholder={"نام فروشگاه"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={true} name={"office_address"} title={"آدرس دفتر مرکزی شرکت"} formik={formik} placeholder={"آدرس دفتر مرکزی شرکت"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={false} name={"office_number"} title={"شماره تلفن ثابت دفتر مرکزی"} formik={formik} placeholder={"شماره تلفن ثابت دفتر مرکزی"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={false} name={"warehouse_address"} title={"آدرس انبار مرکزی شرکت"} formik={formik} placeholder={"آدرس انبار مرکزی شرکت"} parentClassName="flex flex-col relative"/>
 
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">شماره تلفن ثابت انبار مرکزی شرکت:</p>
@@ -283,12 +252,7 @@ const InsertStore = () => {
                                 {formik.errors.warehouse_number && formik.touched.warehouse_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.warehouse_number}</p>}
                             </div>
 
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">کد اقتصادی :</p>
-                                <input type={"text"} name="economic_code"  value={formik.values.economic_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد اقتصادی" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.economic_code && formik.touched.economic_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.economic_code}</p>}
-                            </div>
+                            <FormikInput isRequired={true} name={"economic_code"} title={"کد اقتصادی"} formik={formik} placeholder={"کد اقتصادی"} parentClassName="flex flex-col relative"/>
  
                             <div className="flex flex-col relative ">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">حوضه فعالیت شرکت (استان) :</p>
@@ -349,8 +313,8 @@ const InsertStore = () => {
                                         </label>
                                     </>
                                 )}
-                                <Modal open={isImage_license_Modal} onClose={() => setIsImage_license_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                    <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                <Modal open={isImage_license_Modal} onClose={() => setIsImage_license_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                    <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                         <img className="max-h-full w-auto" src={onChangeFile_license && onChangeFile_license.imageUrl || ""}/>
                                         <button onClick={() => setIsImage_license_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
@@ -387,8 +351,8 @@ const InsertStore = () => {
                                         </label>
                                     </>
                                 )}
-                                <Modal open={isImage_logo_Modal} onClose={() => setIsImage_logo_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                    <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                <Modal open={isImage_logo_Modal} onClose={() => setIsImage_logo_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                    <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                         <img className="max-h-full w-auto" src={onChangeFile_logo && onChangeFile_logo.imageUrl || ""}/>
                                         <button onClick={() => setIsImage_logo_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
@@ -425,8 +389,8 @@ const InsertStore = () => {
                                         </label>
                                     </>
                                 )}
-                                <Modal open={isImage_storeBanner_Modal} onClose={() => setIsImage_storeBanner_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                    <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                <Modal open={isImage_storeBanner_Modal} onClose={() => setIsImage_storeBanner_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                    <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                         <img className="max-h-full w-auto" src={onChangeFile_storeBanner && onChangeFile_storeBanner.imageUrl || ""}/>
                                         <button onClick={() => setIsImage_storeBanner_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
@@ -445,23 +409,10 @@ const InsertStore = () => {
                                 {formik.errors.bank_card_number && formik.touched.bank_card_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_card_number}</p>}
                             </div>
 
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm  before:content-['*'] before:text-red-600">شماره شبا :</p>
-                                <input type={"text"} name="bank_sheba_number"  value={formik.values.bank_sheba_number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="شماره شبا" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.bank_sheba_number && formik.touched.bank_sheba_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_sheba_number}</p>}
-                            </div>
+                            <FormikInput isRequired={true} name={"bank_sheba_number"} title={"شماره شبا"} formik={formik} placeholder={"شماره شبا"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={true} name={"bank_name"} title={"نام بانک"} formik={formik} placeholder={"نام بانک"} parentClassName="flex flex-col relative"/>
+                            <FormikInput isRequired={true} name={"bank_code"} title={"کد شعبه"} formik={formik} placeholder={"کد شعبه"} parentClassName="flex flex-col relative"/>
 
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">نام بانک :</p>
-                                <input type={"text"} name="bank_name"  value={formik.values.bank_name} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="نام بانک" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.bank_name && formik.touched.bank_name && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_name}</p>}
-                            </div>
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">کد شعبه :</p>
-                                <input type={"text"} name="bank_code"  value={formik.values.bank_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="کد شعبه" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                {formik.errors.bank_code && formik.touched.bank_code && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_code}</p>}
-                            </div>
                         </section>
 
                         <section className="w-full flex justify-end mt-3 gap-x-2 items-center ">
