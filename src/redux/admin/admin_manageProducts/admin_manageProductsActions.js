@@ -81,7 +81,7 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        File : productImage,
+        product_image : productImage,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
