@@ -13,6 +13,7 @@ import Warning from "@/common/alert/Warning";
 import { fetchStores } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import FormikInput from "@/common/admin/FormikInput";
 
 const ManageStores = () => {
     const dispatch = useDispatch()
@@ -45,11 +46,11 @@ const ManageStores = () => {
         router.push(`/admin/manage-stores?page=1&state=${status || "all"}&economic_code=${economic_code || ""}&province=${province}&city=${city || ""}&number=${number || ""}&order=${order || 'asc'}&name=${name || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
-        name : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از 2 نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از 250 نویسه باشد').trim(),
-        economic_code : Yup.string().min(2,"کد اقتصادی نمی تواند کم تر  ۲ رقم باشد").max(12,"کد اقتصادی نمی تواند بیشتر از 12 رقم باشد").matches(/^[0-9]{2,}\d*$/,"کد اقتصادی باید عدد باشد").trim(),
-        number : Yup.string().min(3,"شماره تلفن نمی تواند کم تر از 3 رقم باشد").max(11 , "شماره تلفن نمی تواند بیشر از 11 رقم باشد").matches(/^[0-9]{3,}\d*$/,"شماره تلفن باید عدد باشد").trim(),
-        province : Yup.string().min(2 , "نام استان نمی تواند کم تر از 2 نویسه باشد").max("50","نام استان نمی تواند بیشتر از 50 نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام استان را به فارسی وارد کنید").trim(),
-        city :  Yup.string().min(2 , "نام شهر نمی تواند کم تر از 2 نویسه باشد").max("50","نام شهر نمی تواند بیشتر از 50 نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام شهر را به فارسی وارد کنید").trim(),
+        name : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
+        economic_code : Yup.string().min(2,"کد اقتصادی نمی تواند کم تر  ۲ رقم باشد").max(12,"کد اقتصادی نمی تواند بیشتر از ۱۲ رقم باشد").matches(/^[0-9]{2,}\d*$/,"کد اقتصادی باید عدد باشد").trim(),
+        number : Yup.string().min(3,"شماره تلفن نمی تواند کم تر از ۳ رقم باشد").max(11 , "شماره تلفن نمی تواند بیشر از ۱۱ رقم باشد").matches(/^[0-9]{3,}\d*$/,"شماره تلفن باید عدد باشد").trim(),
+        province : Yup.string().min(2 , "نام استان نمی تواند کم تر از ۲ نویسه باشد").max(50,"نام استان نمی تواند بیشتر از ۵۰ نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام استان را به فارسی وارد کنید").trim(),
+        city :  Yup.string().min(2 , "نام شهر نمی تواند کم تر از ۲ نویسه باشد").max(50,"نام شهر نمی تواند بیشتر از ۵۰ نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام شهر را به فارسی وارد کنید").trim(),
     })
 
 
@@ -79,7 +80,14 @@ const ManageStores = () => {
 
 
                     <div className="flex justify-between w-full items-center mt-4">
-                        <h1 className="font-sans font-bold text-lg">مدیریت فروشگاه‌ها</h1>
+                    <div className="flex items-center">
+                            <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                            </button>
+                            <h1 className="font-sans font-bold text-lg">مدیریت فروشگاه‌ها</h1>
+                        </div>
                         <div className="flex gap-x-2 items-center">
                             <Link href={{pathname:"/admin/manage-stores"}}>
                                 <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
@@ -107,37 +115,13 @@ const ManageStores = () => {
 
                     <form className="w-full " onSubmit={formik.handleSubmit}>
                         <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
-                            <section className="mt-2 grid grid-cols-3 gap-4">
+                            <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
 
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">نام فروشگاه :</p>
-                                    <input type="text" name="name" value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.name && formik.touched.name && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.name}</p>}
-                                </div>
-
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">کد اقتصادی :</p>
-                                    <input type="text" name="economic_code" value={formik.values.economic_code} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.economic_code && formik.touched.economic_code && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.economic_code}</p>}
-                                </div>
-
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">شماره تلفن :</p>
-                                    <input type="text" name="number" value={formik.values.number} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.number && formik.touched.number && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.number}</p>}
-                                </div>
-
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">استان :</p>
-                                    <input type="text" name="province" value={formik.values.province} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.province && formik.touched.province && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.province}</p>}
-                                </div>
-
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">شهر :</p>
-                                    <input type="text" name="city" value={formik.values.city} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder="بر اساس نام محصول" className="border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
-                                    {formik.errors.city && formik.touched.city && <p className={'text-red-600 font-sans text-xs pt-2 pb-1'}>{formik.errors.city}</p>}
-                                </div>
+                                <FormikInput name={"name"} title={"نام فروشگاه"} formik={formik} placeholder={"بر اساس نام فروشگاه"} parentClassName="flex flex-col relative"/>
+                                <FormikInput name={"economic_code"} title={"کد اقتصادی"} formik={formik} placeholder={"بر اساس کد اقتصادی"} parentClassName="flex flex-col relative"/>
+                                <FormikInput name={"number"} title={"شماره تلفن"} formik={formik} placeholder={"بر اساس شماره تلفن"} parentClassName="flex flex-col relative"/>
+                                <FormikInput name={"province"} title={"استان"} formik={formik} placeholder={"بر اساس استان"} parentClassName="flex flex-col relative"/>
+                                <FormikInput name={"city"} title={"شهر"} formik={formik} placeholder={"بر اساس شهر"} parentClassName="flex flex-col relative"/>
 
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
@@ -178,45 +162,47 @@ const ManageStores = () => {
                     {stores && (
                         <>
                             <section className="w-full mt-3 rounded-lg shadow-md flex flex-col ">
-                                <section className="grid grid-cols-6 rounded-t-md shadow-md items-center bg-gray-600 text-white px-4 py-2 font-sans text-sm">
-                                    <p className="w-10 h-full whitespace-nowrap">تصویر لوگو</p>
-                                    <p className="font-sans text-sm">نام فروشگاه </p>
-                                    <p className="font-sans text-sm ">نام صاحب فروشگاه </p>
-                                    <p className="font-sans text-sm ">استان</p>
-                                    <p className="font-sans text-sm ">وضعیت فروشگاه</p>
-                                    <p className="font-sans text-sm ">بیشتر</p>
-                                </section>
                                 {stores && stores.map(store => {
                                     return(
                                         <section key={store.id}>
                                             <div className="p-2 bg-white w-full">
                                                 <input type={"checkbox"} id={`detail_${store.id}`} className="peer hidden"/>
-                                                <section className="grid grid-cols-6 w-full">
-                                                    <div className=" h-full">
-                                                        <img className="w-1/2 h-auto"  onClick={()=> {store.is_logo_image &&  setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}}  src={store.logo_image}/>
-                                                    </div>
-                                                    <p className="font-sans text-sm flex items-center">{store.name.length > 22 ? store.name.substring(0,22)+'...' : store.name} </p>
 
-                                                    <p className="font-sans text-sm flex items-center">{store.owner_full_name.length > 22 ? store.owner_full_name.substring(0,22)+'...' : store.owner_full_name} </p>
-                                                    <p className="font-sans text-sm flex items-center ">{store.province && store.province.length > 22 ? store.province.substring(0,22)+'...' : store.province}</p>
- 
-                                                    <div className=" flex items-center">
-                                                        {store.is_show ? (
-                                                            <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
-                                                        ) : (
-                                                            <p className="font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
-                                                        )}
+                                                <section className=" flex flex-col sm:flex-row items-center  justify-between">
+                                                    <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
+                                                        <img onClick={()=> {store.is_logo_image && setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}} className="w-full h-auto" src={store.logo_image}/>
                                                     </div>
-                                                    <div className="flex items-center">
-                                                        <label htmlFor={`detail_${store.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                            </svg>
-                                                        </label>
+                                                    <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
+                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex">
+                                                            <b className="whitespace-nowrap pl-2">نام فروشگاه : </b>
+                                                                {store.name.length >0 ?  store.name : "نامشخص"} </p>
+                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex ">
+                                                            <b className="whitespace-nowrap pl-2">نام صاحب فروشگاه : </b> 
+                                                            {store.owner_full_name.length > 0 ? store.owner_full_name : "نامشخص"}</p>
+                                                        <div className="font-sans leading-6 text-sm flex flex-col w-full sm:flex-row pl-3">
+                                                            <b className="whitespace-nowrap pl-2">استان : </b>
+                                                            {store.province&& store.province.length > 0 ? store.province : "نامشخص"}
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
+                                                        <div className=" flex items-center">
+                                                            {store.is_show ? (
+                                                                <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
+                                                            ) : (
+                                                                <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
+                                                            )}
+                                                        </div>
+                                                        <div className="flex items-center ">
+                                                            <label htmlFor={`detail_${store.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                </svg>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </section>
                                                 {/* Description */}
-                                                <section className="w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
+                                                <section className="bg-gray-50 rounded-md mt-4 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
                                                     <div className="flex flex-col gap-y-2">
                                                         <p className="font-sans text-sm"><b>نام فروشگاه : </b>{store.name}</p>
                                                         <p className="font-sans text-sm"><b>نام صاحب فروشگاه : </b>{store.owner_full_name}</p>
@@ -240,8 +226,8 @@ const ManageStores = () => {
                                                             {store.is_logo_image ? (
                                                                 <>
                                                                     <button onClick={()=> {setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                    <Modal open={isLogoImage_Modal} onClose={() => setIsLogoImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                                                        <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                                                    <Modal open={isLogoImage_Modal} onClose={() => setIsLogoImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                                                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                                                             <img className="max-h-full w-auto" src={modal_imageSrc}/>
                                                                             <button onClick={() => setIsLogoImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
@@ -259,8 +245,8 @@ const ManageStores = () => {
                                                             {store.is_store_banner_image ? (
                                                                 <>
                                                                     <button onClick={()=>{setIsStoreBannerImage_Modal(true)  ; setModal_imageSrc(store.banner_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                    <Modal open={isStoreBannerImage_Modal} onClose={() => setIsStoreBannerImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                                                        <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                                                    <Modal open={isStoreBannerImage_Modal} onClose={() => setIsStoreBannerImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                                                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                                                             <img className="max-h-full w-auto" src={modal_imageSrc}/>
                                                                             <button onClick={() => setIsStoreBannerImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
@@ -278,8 +264,8 @@ const ManageStores = () => {
                                                            {store.is_license_image ? (
                                                                 <>
                                                                     <button onClick={()=>{setIsLicenseImage_Modal(true) ; setModal_imageSrc(store.license_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                    <Modal open={isLicenseImage_Modal} onClose={() => setIsLicenseImage_Modal(false)} className=" h-full w-full flex justify-center items-center">
-                                                                        <section className=" bg-white w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                                                    <Modal open={isLicenseImage_Modal} onClose={() => setIsLicenseImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                                                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
                                                                             <img className="max-h-full w-auto" src={modal_imageSrc}/>
                                                                             <button onClick={() => setIsLicenseImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
