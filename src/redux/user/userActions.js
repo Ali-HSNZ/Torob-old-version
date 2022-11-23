@@ -5,7 +5,8 @@ import {
     AUTH_FAILURE, 
     AUTH_REQUEST, 
     AUTH_SUCCESS,
-    AUTH_PANEL
+    AUTH_PANEL,
+    CHANGE_PANEL_TYPE
 } from "./userTypes"
 
 // Auth Actions
@@ -34,10 +35,10 @@ export const userSignin = (data) => {
         dispatch(authRequest())
         axios.post("https://market-api.iran.liara.run/api/verify" ,data)
         .then(response => {
-            window.location.reload()
             dispatch(authSuccess(response.data))
             new Cookies().set('userToken' ,response.data.API_TOKEN,{path:'/'} )
             toast.success(" با موفقیت وارد حساب کاربری خود شدید")
+            setTimeout(() => window.location.reload(), 1000);
         })
         .catch(err => {
             const message = err.response?.data?.message || "خطای سرور در بخش احراز هویت";
@@ -46,6 +47,23 @@ export const userSignin = (data) => {
         })
     }
 }
+
+export const userSignin_withUserPass = (data) => dispatch => {
+    dispatch(authRequest())
+    axios.post("https://market-api.iran.liara.run/api/login/credentials" ,data)
+    .then(response => {
+        dispatch(authSuccess(response.data))
+        new Cookies().set('userToken' ,response.data.API_TOKEN,{path:'/'} )
+        toast.success(" با موفقیت وارد حساب کاربری خود شدید")
+        setTimeout(() => window.location.reload(), 1000);
+    })
+    .catch(err => {
+        const message = err.response?.data?.message || "خطای سرور در بخش احراز هویت";
+        toast.error(message)
+        dispatch(authFailure(message))
+    })
+}
+
 // Load User Data When Site Refreshed
 export const loadUserInfo = () => {
     return (dispatch) => {
@@ -68,3 +86,4 @@ export const userLogout = () => dispatch =>  {
 }
 
 export const authPanel = (payload) => dispatch => dispatch({type : AUTH_PANEL , payload })
+export const changePanelType = (payload) => dispatch => dispatch({type : CHANGE_PANEL_TYPE , payload })
