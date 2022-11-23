@@ -92,35 +92,38 @@ const Header = () => {
         </form>
 
         <section className="w-full sm:w-fit flex justify-end relative z-20">
-          {user && user.phone_number_primary ? (
+          {user && user.account_type === 'normal' ? (
             <>
               <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">
                 {toPersianDigits(user.phone_number_primary)}
               </button>
-
-              {/* <div className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[39px] left-[1px]  whitespace-nowrap py-2`}>
-                                <Link href={'/user/analytics'} >
-                                    <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">تغیرات قیمت</a>
-                                </Link>
-                                <Link href={'/user/favorites'} >
-                                    <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">محبوب‌ها</a>
-                                </Link>
-                                <Link href={'/user/history'} >
-                                    <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">مشاهدات اخیر</a>
-                                </Link>
-                                <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false)) ;  dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-1.5 text-center font-sans ">
-                                   خروج
-                                </button>
-                            </div> */}
               <div className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[39px] left-[1px]  whitespace-nowrap py-2`}>
-                <Link href={"/admin"}>
-                  <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">
-                    مدیریت سایت
-                  </a>
-                </Link>
-                <button onClick={() => { dispatch(userLogout());dispatch(authPanel(false));}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-1.5 text-center font-sans ">
-                  خروج
-                </button>
+                  <Link href={'/user/analytics'} >
+                      <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">تغیرات قیمت</a>
+                  </Link>
+                  <Link href={'/user/favorites'} >
+                      <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">محبوب‌ها</a>
+                  </Link>
+                  <Link href={'/user/history'} >
+                      <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">مشاهدات اخیر</a>
+                  </Link>
+                  <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false)) ;  dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-1.5 text-center font-sans ">
+                      خروج
+                  </button>
+              </div>
+            </>
+          ) : user && user.phone_number_primary && user.account_type !== 'normal' ? (
+            <>
+              <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">
+                {toPersianDigits(user.phone_number_primary)}
+              </button>
+              <div className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[39px] left-[1px]  whitespace-nowrap py-2`}>
+                  <Link href={`/${user.account_type}`} >
+                      <a className="text-xs cursor-pointer hover:bg-gray-200 px-[29.5px] font-bold text-gray-700 py-1.5 text-center font-sans block">پنل مدیریت</a>
+                  </Link>
+                  <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false)) ;  dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-1.5 text-center font-sans ">
+                      خروج
+                  </button>
               </div>
             </>
           ) : (
