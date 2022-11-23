@@ -1,4 +1,3 @@
-import Layout from '../layout/Layout'
 import '../../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 import NextNProgress from "nextjs-progressbar";
@@ -8,11 +7,16 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadUserInfo } from 'src/redux/user/userActions';
 import '@etchteam/next-pagination/dist/index.css'
+import Cookies from 'universal-cookie';
 
 function MyApp({ Component, pageProps }) {
+  const token = new Cookies().get("userToken");
+
   const dispatch = useDispatch()
   useEffect(()=>{
-    dispatch(loadUserInfo())
+    if(token){
+      dispatch(loadUserInfo())
+    }
   },[])
 
   return  (
