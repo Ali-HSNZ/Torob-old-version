@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 
 import { historyReducer } from './history/historyReducer'
-import { userSignupReduser } from './user/userReducer'
+import { authReduser } from './user/userReducer'
 import {likesReducer} from './like/likeReducer'
 import { analyticsReducer } from './analytics/analyticsReducer'
 import {storeReducer} from './store/storeReducer'
@@ -12,7 +12,7 @@ import { admin_storesReducer } from './admin/admin_manageStores/admin_manageStor
 import { admin_manageUsersReducer } from './admin/admin_manageUsers/admin_manageUsersReducer'
 
 const rootReducer = combineReducers({
-    auth : userSignupReduser,
+    auth : authReduser,
     history : historyReducer,
     likes : likesReducer,
     analytics : analyticsReducer,
