@@ -78,9 +78,9 @@ const Header = () => {
 
         {/* //? User Modal */}
         <section className="w-full sm:w-fit flex justify-end relative ">
-          {user && user.phone_number_primary ? (
+          {user && user.account_type === 'normal' ? (
             <>
-              <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="bg-white px-6 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500" >
+              <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="bg-white px-6 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500 min-w-[123px] max-w-[123px]" >
                 {toPersianDigits(user.phone_number_primary)}
               </button>
               <div className={`bg-gray-50 rounded-b-md ${ userPanel ? "" : "hidden" } absolute  top-[37px] left-0  whitespace-nowrap py-2`} >
@@ -97,6 +97,22 @@ const Header = () => {
                 <Link href={"/user/history"}>
                   <a className="text-xs cursor-pointer hover:bg-gray-200 px-6 font-bold text-gray-700 py-1.5 text-center font-sans block">
                     مشاهدات اخیر
+                  </a>
+                </Link>
+                <button onClick={() => { dispatch(userLogout()); setUserPanel(false)}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-1.5 text-center font-sans ">
+                  خروج
+                </button>
+              </div>
+            </>
+          ) : user && user.phone_number_primary && user.account_type !== 'normal' ? (
+            <>
+              <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="bg-white px-6 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500 min-w-[123px] max-w-[123px]" >
+                {toPersianDigits(user.phone_number_primary)}
+              </button>
+              <div className={`bg-gray-50 rounded-b-md ${ userPanel ? "" : "hidden" } absolute  top-[37px] left-0  whitespace-nowrap py-2`} >
+                <Link href={`/${user.account_type}`}>
+                  <a className="text-xs cursor-pointer hover:bg-gray-200 px-8 font-bold text-gray-700 py-2 text-center font-sans block">
+                    پنل مدیریت
                   </a>
                 </Link>
                 <button onClick={() => { dispatch(userLogout()); setUserPanel(false)}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-1.5 text-center font-sans ">
