@@ -71,7 +71,7 @@ const Login = () => {
               <button type={"submit"} disabled={loading || !formik.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 text-sm">
                   {user ? `ورود به حساب کاربری` : `دریافت کد تایید`} 
               </button>
-              {loading && <ReactLoading  className="absolute top-0 left-[-10px]" type="spinningBubbles" height={30} width={30} color="red" />}
+              {!loading && <ReactLoading  className="absolute top-1 left-[-10px]" type="spinningBubbles" height={25} width={25} color="red" />}
           </div>
           <p className="text-xs w-full font-sans mt-4 text-gray-800">
             <span>ثبت نام در ترب به معنی موافقت</span>
