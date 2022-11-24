@@ -1,4 +1,4 @@
-import { setComma } from "@/utils/setCamaInEnPrice";
+import { setComma } from "@/utils/setComma";
 
 const FormikInput = ({isComma , formik,name,placeholder,title,parentClassName,isRequired}) => {
     return (  
