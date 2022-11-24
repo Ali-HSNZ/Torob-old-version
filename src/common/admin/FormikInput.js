@@ -1,4 +1,6 @@
-const FormikInput = ({formik,name,placeholder,title,parentClassName,isRequired}) => {
+import { setComma } from "@/utils/setCamaInEnPrice";
+
+const FormikInput = ({isComma , formik,name,placeholder,title,parentClassName,isRequired}) => {
     return (  
         <div className={parentClassName}>
             <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
@@ -8,7 +10,7 @@ const FormikInput = ({formik,name,placeholder,title,parentClassName,isRequired})
                     name={`${name}`} 
                     placeholder={placeholder}
                     onChange={formik.handleChange} 
-                    value={formik.values[name]} 
+                    value={isComma ? setComma(formik.values[name]) : formik.values[name]} 
                     onBlur={formik.handleBlur} 
                     className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                 />
@@ -17,5 +19,4 @@ const FormikInput = ({formik,name,placeholder,title,parentClassName,isRequired})
         </div>
     )
 }
- 
 export default FormikInput;
