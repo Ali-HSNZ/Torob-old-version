@@ -93,7 +93,7 @@ const Login = () => {
             </div>
             }
             <div className="w-full flex justify-center relative items-center mt-6 ">
-                <button type={"submit"} disabled={loading || !formik.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 text-sm">
+                <button type={"submit"} disabled={loading || !formik.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:hover:bg-gray-800 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 hover:bg-[#ac1d1d]  shadow-md text-sm">
                     {user ? `ورود به حساب کاربری` : `دریافت کد تایید`} 
                 </button>
                 {loading && <ReactLoading  className="absolute top-1 left-[-13px]" type="spinningBubbles" height={25} width={25} color="red" />}
@@ -131,7 +131,7 @@ const Login = () => {
               {formik_userPass.errors.password && formik_userPass.touched.password && <p className={" mt-2 w-full font-sans text-sm text-red-500"}> {formik_userPass.errors.password} </p>}
             </div>
             <div className="w-full flex justify-center relative items-center mt-6 ">
-                <button type={"submit"} disabled={loading || !formik_userPass.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 text-sm">
+                <button type={"submit"} disabled={loading || !formik_userPass.isValid} className="w-10/12 py-1.5 disabled:bg-gray-700 disabled:hover:bg-gray-800 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-700 hover:bg-[#ac1d1d] text-sm">
                    ورود به حساب کاربری
                 </button>
                 {loading && <ReactLoading  className="absolute top-1 left-[-13px]" type="spinningBubbles" height={25} width={25} color="red" />}
