@@ -14,22 +14,20 @@ const ManageStore = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
 
     return (  
-        <Layout isFooter={true} pageTitle="پنل فروشگه ترب">
+        <Layout isFooter={true} pageTitle="پنل فروشگاه ترب">
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
                 <ManageStoreAside/>
 
                 <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 
                     <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
-                        <>
-                            <ManageStoreAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/>
-                        </>
+                        <><ManageStoreAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
                     <section className="w-full ">
 
                         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 
 
-                            <Link href={'/admin/manage-products'}>
+                            <Link href={'/store/manage-products'}>
                                 <a className="cursor-pointer py-4 hover:bg-blue-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
                                     <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-blue-200 bg-blue-50">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-blue-700">
@@ -46,7 +44,7 @@ const ManageStore = () => {
                                 </a>
                             </Link>
 
-                            <Link href={'/admin/manage-products'}>
+                            <Link href={'/store/manage-products'}>
                                 <a className="cursor-pointer py-4 hover:bg-green-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
                                     <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-green-200 bg-green-50">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-green-700">
@@ -63,7 +61,7 @@ const ManageStore = () => {
                                 </a>
                             </Link>
 
-                            <Link href={'/admin/manage-products'}>
+                            <Link href={'/store/manage-products'}>
                                 <a className="cursor-pointer py-4 hover:bg-pink-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
                                     <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-pink-200 bg-pink-50">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-pink-700">
