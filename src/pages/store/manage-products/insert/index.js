@@ -13,7 +13,7 @@ import Warning from "@/common/alert/Warning";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import FormikInput from "@/common/admin/FormikInput";
-import { fetchBaseProducts, fetchBrands, fetchCategories } from "@/redux/manage-store/manageStore_actions";
+import { fetchBaseProducts, fetchBrands, fetchCategories } from "@/redux/manage-store/insertProduct/manageStore_actions";
 import SelectBox from "@/common/admin/SelectBox";
 
 const ManageStores = () => {
@@ -176,14 +176,20 @@ const ManageStores = () => {
                                                     </div>
                                                 </div>
                                                 <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
-                                                    <Link href={`/store/manage-products/insert/${product.id}`}>
-                                                        <a className="whitespace-nowrap font-sans text-sm gap-x-1 items-center hover:bg-green-100 bg-green-50 flex border border-green-600  rounded-md py-1.5 px-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-                                                            </svg>
-                                                            ثبت کالا
-                                                        </a>                                                    
-                                                    </Link>
+                                                   {product.is_created ? (
+                                                        <p className="whitespace-nowrap font-sans text-sm gap-x-1 items-center  bg-green-100 flex text-green-800  rounded-md  px-3">
+                                                            ثبت شده
+                                                        </p>          
+                                                   ) : (
+                                                        <Link href={`/store/manage-products/insert/${product.id}`}>
+                                                            <a className="whitespace-nowrap font-sans text-sm gap-x-1 items-center hover:bg-green-100 bg-green-50 flex border border-green-600  rounded-md py-1.5 px-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                                                                </svg>
+                                                                ثبت کالا
+                                                            </a>                                                    
+                                                        </Link>
+                                                   )}
                                                     <div className="flex items-center ">
                                                         <label htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
@@ -234,7 +240,7 @@ const ManageStores = () => {
                         </section>
                         <section dir="ltr" className=" w-full flex justify-center py-4">
                             <Pagination size="large" color="primary" page={page} count={pagination && pagination.last || 1} onChange={(event , page)=> {
-                                router.push(`/admin/manage-products?page=${page}&state=${router.query.state || ''}&name=${router.query.name || ""}&limit=${limit || 12}&order=${router.query.order || 'asc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
+                                router.push(`/store/manage-products/insert?page=${page}&state=${router.query.state || ''}&name=${router.query.name || ""}&limit=${limit || 12}&order=${router.query.order || 'asc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
                             }}/>
                         </section>
                     </>
