@@ -38,10 +38,10 @@ const ManageStore = () => {
                             </Link>
                         </div>
                     </div>
-                    <section className="w-full ">
+                    <section className="w-full pb-4">
                         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-                            <Link href={'/store/manage-products'}>
-                                <a className="cursor-pointer py-4 hover:bg-blue-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
+                            <Link href={'/store/manage-products/store-products'}>
+                                <a className="cursor-pointer py-4 hover:bg-blue-50 flex items-center justify-between rounded-xl bg-white shadow-md overflow-hidden">
                                     <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-blue-200 bg-blue-50">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-blue-700">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
@@ -49,7 +49,7 @@ const ManageStore = () => {
                                     </div>
                                     <div className="mr-4 w-full">
                                         <h2 className="font-sans font-bold">محصولات شرکت</h2>
-                                        <span className="font-sans text-xs text-gray-500">ثبت | جستجو</span>
+                                        <span className="font-sans text-xs text-gray-500">ویرایش | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
                                         <BsFillCaretLeftFill className="text-blue-400 "/>
@@ -58,7 +58,7 @@ const ManageStore = () => {
                             </Link>
 
                             <Link href={'/store/manage-products/insert'}>
-                                <a className="cursor-pointer py-4 hover:bg-green-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
+                                <a className="cursor-pointer py-4 hover:bg-green-50 flex items-center justify-between rounded-xl bg-white shadow-md overflow-hidden">
                                     <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-green-200 bg-green-50">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-green-700">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
@@ -66,7 +66,7 @@ const ManageStore = () => {
                                     </div>
                                     <div className="mr-4 w-full">
                                         <h2 className="font-sans font-bold">ثبت کالا</h2>
-                                        <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
+                                        <span className="font-sans text-xs text-gray-500">ثبت کالا</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
                                         <BsFillCaretLeftFill className="text-green-400 "/>
