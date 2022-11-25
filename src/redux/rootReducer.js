@@ -10,7 +10,8 @@ import { admin_brandsReducer } from './admin/admin_manageBrand/admin_manageBrand
 import { admin_productsReducer } from './admin/admin_manageProducts/admin_manageProductsReducer'
 import { admin_storesReducer } from './admin/admin_manageStores/admin_manageStoresReducer'
 import { admin_manageUsersReducer } from './admin/admin_manageUsers/admin_manageUsersReducer'
-import { manageStoreReducer } from './manage-store/manageStore_reducer'
+import { manageStoreReducer } from './manage-store/insertProduct/manageStore_reducer'
+import { store_companyProductsReducer } from './manage-store/companyProducts/companyProducts_reducer'
 
 const rootReducer = combineReducers({
     auth : authReduser,
@@ -28,5 +29,6 @@ const rootReducer = combineReducers({
     
     // Store Panel Reducers 
     manage_store : manageStoreReducer,
+    store_companyProducts : store_companyProductsReducer,
 })
 export default rootReducer
