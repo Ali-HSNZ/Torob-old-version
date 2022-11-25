@@ -15,7 +15,7 @@ import FormikInput from "@/common/admin/FormikInput";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import DatePicker,{DateObject} from "react-multi-date-picker"
-import { insertStoreProduct } from "@/redux/manage-store/manageStore_actions";
+import { insertStoreProduct } from "@/redux/manage-store/insertProduct/manageStore_actions";
 import { useRouter } from "next/router";
 //  <==
 const InsertStoreProduct = () => {
@@ -102,7 +102,7 @@ const InsertStoreProduct = () => {
                             <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
                         </div>
                         <div className="flex gap-x-2">
-                            <Link href={'/store/manage-products'}>
+                            <Link href={'/store/manage-products/insert'}>
                                 <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
