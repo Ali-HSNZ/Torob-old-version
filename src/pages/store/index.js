@@ -35,7 +35,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} کالا</h2>
+                                        <h2 className="font-sans font-bold"> مدیریت محصولات</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -52,7 +52,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} سفارشات</h2>
+                                        <h2 className="font-sans font-bold"> سفارشات</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -71,7 +71,7 @@ const ManageStore = () => {
 
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} تنظیمات</h2>
+                                        <h2 className="font-sans font-bold"> تنظیمات</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
