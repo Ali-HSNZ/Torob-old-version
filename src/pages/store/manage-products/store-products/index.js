@@ -76,8 +76,7 @@ const StoreManageProducts = () => {
         }
     })
 
-    
-    return (  
+    return ( 
         <Layout isFooter={true} pageTitle={"پنل مدیریت | مدیریت محصولات شرکت"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
                 <StorePageAside/>
@@ -97,6 +96,7 @@ const StoreManageProducts = () => {
                             <h1 className="font-sans font-bold text-lg">مدیریت محصولات شرکت</h1>
                         </div>
                         <div className="flex gap-x-2 items-center">
+                            {/* Back SVG */}
                             <Link href={'/store/manage-products'}>
                                 <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -104,13 +104,15 @@ const StoreManageProducts = () => {
                                     </svg>
                                 </a>
                             </Link>
-                            <Link href={{pathname:"/store/manage-products"}}>
+                            {/* Refresh SVG */}
+                            <Link href={{pathname:"/store/manage-products/store-products"}}>
                                 <a className="items-center hover:bg-red-200 bg-red-100 flex border border-red-800 text-red-800 rounded-md py-2  px-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                                     </svg>
                                 </a>
                             </Link>
+                            {/* Home SVG */}
                             <Link href={'/store'}>
                                 <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
