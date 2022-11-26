@@ -87,8 +87,8 @@ const InsertStoreProduct = () => {
             warehouse_count : product && setComma(product.warehouse_count) || "",
             delivery_description : product && product.delivery_description || "",
             store_note : product && product.store_note || "",
-            discount : product && product.discount || "",
-            commission : product && product.commission || "",
+            discount : product && setComma(product.discount) || "",
+            commission : product && setComma(product.commission) || "",
         }
     })
 
