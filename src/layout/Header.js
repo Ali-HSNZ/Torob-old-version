@@ -117,7 +117,7 @@ const Header = () => {
               <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">
                 {toPersianDigits(user.phone_number_primary)}
               </button>
-              <div className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[35px] left-[1px]  whitespace-nowrap py-2`}>
+              <div className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[33px] left-[1px]  whitespace-nowrap py-2`}>
                   <Link href={`/${user.account_type}`} >
                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[29.5px] font-bold text-gray-700 py-1.5 text-center font-sans block">پنل مدیریت</a>
                   </Link>
