@@ -12,8 +12,10 @@ import { admin_storesReducer } from './admin/admin_manageStores/admin_manageStor
 import { admin_manageUsersReducer } from './admin/admin_manageUsers/admin_manageUsersReducer'
 import { manageStoreReducer } from './manage-store/insertProduct/manageStore_reducer'
 import { store_companyProductsReducer } from './manage-store/companyProducts/companyProducts_reducer'
+import { admin_dataCountReducer } from './admin/admin_dataCount/admin_dataCountReducer'
 
 const rootReducer = combineReducers({
+    // User
     auth : authReduser,
     history : historyReducer,
     likes : likesReducer,
@@ -26,6 +28,7 @@ const rootReducer = combineReducers({
     admin_products : admin_productsReducer,
     admin_stores : admin_storesReducer,
     admin_users : admin_manageUsersReducer,
+    admin_dataCount : admin_dataCountReducer,
     
     // Store Panel Reducers 
     manage_store : manageStoreReducer,
