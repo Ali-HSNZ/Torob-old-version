@@ -10,7 +10,7 @@ function insertrialcamma( n ) {
     }
     return m;
 }
-function toFarsiNumber( n ) {
+function toFarsiNumber( n="" ) {
     var o = "";
     n = n.toString();
     const farsiDigits = [ '۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹' ];
