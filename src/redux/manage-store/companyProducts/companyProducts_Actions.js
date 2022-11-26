@@ -38,7 +38,7 @@ const fetchCompanyOneProductFailure = (payload) => {
 
 export const fetchCompanyProducts = ({state, page, limit,order, paramsBrand,barcode, paramsCategory, name}) => dispatch => {
     dispatch(fetchCompanyProductsRequest())
-    axios.get(encodeURI(`https://market-api.iran.liara.run/api/store/products?state=${state || "active"}&order=${order || "desc"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : `Bearer ${token}`}})
+    axios.get(encodeURI(`https://market-api.iran.liara.run/api/store/products?state=${state || "all"}&order=${order || "desc"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchCompanyProductsSuccess(data)))
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
