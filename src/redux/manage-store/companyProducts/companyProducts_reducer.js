@@ -17,9 +17,10 @@ export const store_companyProductsReducer = (state = initialValues , action) => 
             return  {...state,products : null , loading : true , error : null}
         }
         case STORE_FETCH_COMPANY_PRODUCTS_SUCCESS:{
+            const availableBaseProducts = action.payload.products.filter(product => product.base_product != null)
             return {
                 ...state,
-                products : action.payload.products.length > 0 ? action.payload.products : null,
+                products : action.payload.products.length > 0 ? availableBaseProducts : null,
                 pagination : action.payload.pagination,
                 error : null , 
                 loading : false,
