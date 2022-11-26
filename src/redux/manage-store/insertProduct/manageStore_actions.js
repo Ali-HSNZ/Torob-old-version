@@ -19,6 +19,10 @@ const {
     STORE_INSERT_PRODUCT_SUCCESS,
     STORE_INSERT_PRODUCT_FAILURE,
 
+    FETCH_STORE_COUNT_REQUEST, 
+    FETCH_STORE_COUNT_SUCCESS, 
+    FETCH_STORE_COUNT_FAILURE, 
+
 } = require("./manageStore_types");
 
 const fetchBaseProductsRequest = () => {return {type : STORE_FETCH_PRODUCTS_BASES_REQUEST}}
@@ -37,8 +41,24 @@ const insertStoreProductRequest = () => {return {type : STORE_INSERT_PRODUCT_REQ
 const insertStoreProductSuccess = (payload) => { return {type : STORE_INSERT_PRODUCT_SUCCESS , payload}}
 const insertStoreProductFailure = (payload) => {return {type : STORE_INSERT_PRODUCT_FAILURE , payload}}
 
-
+const fetchStoreCountRequest = () => {return {type : FETCH_STORE_COUNT_REQUEST}}
+const fetchStoreCountSuccess = (payload) => {return {type : FETCH_STORE_COUNT_SUCCESS , payload}}
+const fetchStoreCountFailure = (payload) => {return {type : FETCH_STORE_COUNT_FAILURE , payload}
+}
 const token = new Cookies().get("userToken");
+
+
+export const fetchStoreCount = () => dispatch => {
+    dispatch(fetchStoreCountRequest())
+    axios.get(`https://market-api.iran.liara.run/api/store/counter` , {headers : {authorization : `Bearer ${token}`}})
+    .then(({data}) => dispatch(fetchStoreCountSuccess(data.count)))
+    .catch(error => {
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن تعداد داده ها")
+        dispatch(fetchStoreCountFailure("خطای سرور در بخش گرفتن تعداد داده ها"))
+    })
+  }
 
 export const fetchBaseProducts = ({ page, limit, paramsBrand,barcode, paramsCategory, name}) => dispatch => {
     dispatch(fetchBaseProductsRequest())
