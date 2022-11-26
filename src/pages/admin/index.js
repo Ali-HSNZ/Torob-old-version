@@ -4,16 +4,23 @@ import { useState } from "react";
 import AdminPageAside from "@/components/adminPage/Aside";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { BsFillCaretLeftFill } from 'react-icons/bs';
-import { HiOutlineDocumentText } from 'react-icons/hi';
 import { BiCategory } from 'react-icons/bi';
 import { TbBrandAsana } from 'react-icons/tb';
 import Link from "next/link";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchAdminCount } from "@/redux/admin/admin_dataCount/admin_dataCountActions";
 
 const AdminPage = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
-
+    const dispatch = useDispatch()
+    const {data , loading} = useSelector(state => state.admin_dataCount)
+    useEffect(() => {
+        dispatch(fetchAdminCount())
+    },[])
+    console.log("data : ",data);
     return (  
         <Layout isFooter={true} pageTitle="پنل مدیریت ترب">
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
@@ -21,9 +28,7 @@ const AdminPage = () => {
 
                 <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 
                     <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
-                        <>
-                            <AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/>
-                        </>
+                        <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
                     <section className="w-full ">
 
@@ -37,14 +42,14 @@ const AdminPage = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full ">
-                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} کاربر</h2>
+                                        <h2 className="font-sans font-bold">{loading ? "..." : toPersianDigits(data && data.users || 0)} کاربر</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
                                         <BsFillCaretLeftFill className="text-orange-400 "/>
                                     </div>
                                 </a>
-                            </Link>
+                            </Link> 
 
                             <Link href={'/admin/manage-products'}>
                                 <a className="cursor-pointer py-4 hover:bg-blue-50 flex items-center justify-between rounded-xl bg-white shadow-md overflow-hidden">
@@ -54,7 +59,7 @@ const AdminPage = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} کالا</h2>
+                                        <h2 className="font-sans font-bold">{loading ? "..." : toPersianDigits(data && data.products || 0)} کالا</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -70,7 +75,7 @@ const AdminPage = () => {
                                         <TbBrandAsana className="h-6 w-6 text-pink-700"/>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} برند</h2>
+                                        <h2 className="font-sans font-bold">{loading ? "..." : toPersianDigits(data && data.brands || 0)} برند</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -85,7 +90,7 @@ const AdminPage = () => {
                                         <BiCategory className="h-6 w-6 text-purple-700"/>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} دسته بندی</h2>
+                                        <h2 className="font-sans font-bold">{loading ? "..." : toPersianDigits(data && data.categories || 0)} دسته بندی</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -102,7 +107,7 @@ const AdminPage = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold">{toPersianDigits(574)} فروشگاه</h2>
+                                        <h2 className="font-sans font-bold">{loading ? "..." : toPersianDigits(data && data.stores || 0)} فروشگاه</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
