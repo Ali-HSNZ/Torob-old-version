@@ -29,6 +29,7 @@ const ManageStore = () => {
                             <h1 className="font-sans font-bold text-lg">مدیریت محصولات</h1>
                         </div>
                         <div className="flex gap-x-2 items-center">
+                            {/* Home SVG */}
                             <Link href={'/store'}>
                                 <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
