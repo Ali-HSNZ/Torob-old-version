@@ -86,7 +86,7 @@ const StoreManageProducts = () => {
                         <><StorePageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
 
-                    <div className="flex justify-between w-full items-center mt-4">
+                    <div className="flex flex-col sm:flex-row justify-between w-full  sm:items-center mt-4">
                         <div className="flex items-center">
                             <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
@@ -95,7 +95,7 @@ const StoreManageProducts = () => {
                             </button>
                             <h1 className="font-sans font-bold text-lg">مدیریت محصولات شرکت</h1>
                         </div>
-                        <div className="flex gap-x-2 items-center">
+                        <div className="flex gap-x-2 my-2 sm:m-0 justify-end  sm:items-center">
                             {/* Back SVG */}
                             <Link href={'/store/manage-products'}>
                                 <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
