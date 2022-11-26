@@ -6,10 +6,19 @@ import { BsFillCaretLeftFill } from 'react-icons/bs';
 import Link from "next/link";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchStoreCount } from "@/redux/manage-store/insertProduct/manageStore_actions";
+import { toPersianDigits } from "@/utils/toPersianDigits";
 
 const ManageStore = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
-
+    const {data , loading} = useSelector(state => state.manage_store.mainDataCount)
+    
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(fetchStoreCount())
+    },[])
     return (  
         <Layout isFooter={true} pageTitle="پنل فروشگاه | مدیریت محصولات">
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
@@ -49,7 +58,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold">محصولات شرکت</h2>
+                                        <h2 className="font-sans font-bold">{loading ? "..." : toPersianDigits(data && data.products || 0)} کالا</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -67,7 +76,7 @@ const ManageStore = () => {
                                     </div>
                                     <div className="mr-4 w-full">
                                         <h2 className="font-sans font-bold">ثبت کالا</h2>
-                                        <span className="font-sans text-xs text-gray-500">ثبت کالا</span>
+                                        <span className="font-sans text-xs text-gray-500">ثبت </span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
                                         <BsFillCaretLeftFill className="text-green-400 "/>
