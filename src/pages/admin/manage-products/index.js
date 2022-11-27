@@ -182,21 +182,20 @@ const ManageProduct = () => {
                                     return(
                                         <section key={product.id}>
                                             <div className="p-4 bg-white w-full">
-                                                <input  type={"checkbox"} id={`detail_${product.id}`} className="peer hidden"/>
-                                                {/* Lower XL Screen */}
+                                                <input  type={"checkbox"}  id={`detail_${product.id}`} className="peer hidden"/>
                                                 <section className=" flex flex-col sm:flex-row items-center  justify-between">
                                                     <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
                                                         <img onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
                                                     </div>
                                                     <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex">
-                                                            <b className="whitespace-nowrap pl-2">عنوان کالا : </b>
+                                                        <p className="font-sans leading-6 text-sm ">
+                                                            <b className="whitespace-nowrap">عنوان کالا : </b>
                                                              {product.title.length > 35 ? product.title.substring(0,35)+'...' : product.title} </p>
-                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex ">
-                                                            <b className="whitespace-nowrap pl-2">برند : </b> 
+                                                        <p className="font-sans leading-6 text-sm  ">
+                                                            <b className="whitespace-nowrap">برند : </b> 
                                                             {product.brand.name && product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
-                                                        <div className="font-sans leading-6 text-sm flex flex-col w-full sm:flex-row pl-3">
-                                                            <b className="whitespace-nowrap pl-2">دسته‌بندی : </b>
+                                                        <div className="font-sans leading-6 flex text-sm w-full">
+                                                            <b className="whitespace-nowrap pl-1">دسته‌بندی : </b>
                                                             <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
                                                         </div>
                                                     </div>
@@ -219,16 +218,14 @@ const ManageProduct = () => {
                                                 </section>
                                                 {/* Description */}
                                                 <section className="w-full bg-gray-50 rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                    <div className="flex flex-col gap-y-4">
+                                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                                         <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.title}</p>
-                                                        
-                                                        <p className="font-sans text-sm   flex flex-col sm:flex-row">
+                                                        <div className="font-sans text-sm   flex flex-col sm:flex-row">
                                                             <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
                                                             <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
-                                                        </p>
+                                                        </div>
                                                         <p className="font-sans text-sm  flex flex-col sm:flex-row "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.brand.name && product.brand.name.length ===0 ? "نامشخص" : product.brand.name}</p>
                                                         <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.barcode}</p>
-                                                        <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description.length === 0 ? "نامشخص" : product.description}</p>
                                                         {/* Logo */}
                                                         <div className="flex">
                                                             <b className="font-sans text-sm pl-1">تصویر کالا : </b>
@@ -249,10 +246,11 @@ const ManageProduct = () => {
                                                             ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
                                                         </div>
                                                     </div>
+                                                        <p className="font-sans w-full mt-2 text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description.length === 0 ? "نامشخص" : product.description}</p>
 
                                                     <div className="flex justify-end w-full mt-4 mb-4">
                                                         <Link href={`/admin/manage-products/edit/${product.id}`} >
-                                                            <a className=" font-sans text-sm hover:bg-blue-200 bg-blue-100 text-blue-700 border border-blue-500 px-4 py-1 rounded-md">ویرایش</a>
+                                                            <a className=" font-sans text-sm hover:bg-blue-200 bg-blue-100 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش</a>
                                                         </Link>
                                                     </div>
                                                 </section>
