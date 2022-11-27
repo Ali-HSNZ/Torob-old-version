@@ -20,6 +20,7 @@ import axios from "axios";
 import { deleteUser, fetchOneUser, insertUser, updateUser } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
 import { useRouter } from "next/router";
 import FormikInput from "@/common/admin/FormikInput";
+import { ONLY_DIGIT_REGIX, PHONE_NUMBER_REGIX, POSTAL_CODE_REGIX } from "@/utils/Regex";
 
 
 const InsertStore = () => {
@@ -116,9 +117,6 @@ const InsertStore = () => {
         dispatch(updateUser({values,profileImage,city,province,house_number,pageId}))
     }
     
-    const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
-    const ONLY_DIGIT_REGIX = /^\d+$/;
-    const POSTAL_CODE_REGIX = /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/;
 
 
     const validationSchema = Yup.object({

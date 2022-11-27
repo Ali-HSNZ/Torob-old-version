@@ -162,7 +162,17 @@ const ManageStores = () => {
                     {users && !loading && (
                         <>
                             <section className="w-full mt-3 rounded-md overflow-hidden shadow-md flex flex-col ">
-
+                            {/* User Profile Image Modal */}
+                            <Modal open={Image_Modal} onClose={() => setImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                    <img className="max-h-full w-auto" src={modal_imageSrc}/>
+                                    <button onClick={() => setImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
+                                            <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </section>
+                            </Modal>
                                 {users && users.map(user => {
                                     return(
                                         <section key={user.id}>
@@ -173,14 +183,14 @@ const ManageStores = () => {
                                                         <img onClick={()=> {user.is_profile_image && setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="w-full h-auto" src={user.profile_image}/>
                                                     </div>
                                                     <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex">
-                                                            <b className="whitespace-nowrap pl-2">نام و نام خانوادگی : </b>
+                                                        <p className="font-sans leading-6 text-sm flex">
+                                                            <b className="whitespace-nowrap pl-1">نام و نام خانوادگی : </b>
                                                                 {user.full_name.length >0 ?  user.full_name : "نامشخص"} </p>
-                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex ">
-                                                            <b className="whitespace-nowrap pl-2">کد ملی : </b> 
+                                                        <p className="font-sans leading-6 text-sm flex ">
+                                                            <b className="whitespace-nowrap pl-1">کد ملی : </b> 
                                                             {user.national_code.length > 0 ? user.national_code : "نامشخص"}</p>
-                                                        <div className="font-sans leading-6 text-sm flex flex-col w-full sm:flex-row pl-3">
-                                                            <b className="whitespace-nowrap pl-2">کد پستی : </b>
+                                                        <div className="font-sans leading-6 text-sm flex pl-1">
+                                                            <b className="whitespace-nowrap pl-1">کد پستی : </b>
                                                             {user.address.post_code&& user.address.post_code.length > 0 ? user.address.post_code : "نامشخص"}
                                                         </div>
                                                     </div>
@@ -203,7 +213,7 @@ const ManageStores = () => {
                                                 </section>
                                                 {/* Description */}
                                                 <section className="mt-4 rounded-md bg-gray-50 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                    <div className="grid grid-cols-3 gap-4">
+                                                    <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                                                         <p className="font-sans text-sm"><b>نام و نام خانوادگی : </b>{user.full_name}</p>
                                                         <p className="font-sans text-sm"><b>کد ملی : </b>{user.national_code.length > 0 ? user.national_code : "نامشخص"}</p>
                                                         <p className="font-sans text-sm"><b>شماره موبایل : </b>{user.phone_number_primary}</p>
@@ -216,20 +226,8 @@ const ManageStores = () => {
                                                         {/* User Profile Image */}
                                                         <div className="flex">
                                                             <b className="font-sans text-sm">عکس کاربر : </b>
-                                                            {user.profile_image ? (
-                                                                <>
-                                                                    <button onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                    <Modal open={Image_Modal} onClose={() => setImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
-                                                                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                                                                            <img className="max-h-full w-auto" src={modal_imageSrc}/>
-                                                                            <button onClick={() => setImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
-                                                                                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
-                                                                                </svg>
-                                                                            </button>
-                                                                        </section>
-                                                                    </Modal>
-                                                                </>
+                                                            {user.is_profile_image ? (
+                                                                <button onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
                                                             ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
                                                         </div>
                                                     </div>
