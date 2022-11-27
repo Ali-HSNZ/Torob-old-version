@@ -44,10 +44,21 @@ const ManageCategory = () => {
 
     function showDialogAlert_reduxActions(){
         if(isModal_deleteCategory === true){
-            return <DialogAlert_deleteCategory  isModal={isModal_deleteCategory} setIsModal={setIsModal_deleteCategory} id={modalDetail_deleteCategory.category_id} title={modalDetail_deleteCategory.title} description={modalDetail_deleteCategory.description}/>
+            return <DialogAlert_deleteCategory  
+                            isModal={isModal_deleteCategory} 
+                            setIsModal={setIsModal_deleteCategory} 
+                            id={modalDetail_deleteCategory.category_id} 
+                            title={modalDetail_deleteCategory.title}
+                        />
         }
         if(isModal_updateCategory === true){
-            return <DialogAlert_updateCategory  isModal={isModal_updateCategory} setIsModal={setIsModal_updateCategory} id={modalDetail_updateCategory.category_id} title={modalDetail_updateCategory.title} categoryName={modalDetail_updateCategory.categoryName} />
+            return <DialogAlert_updateCategory  
+                            isModal={isModal_updateCategory} 
+                            setIsModal={setIsModal_updateCategory} 
+                            id={modalDetail_updateCategory.category_id} 
+                            title={modalDetail_updateCategory.title} 
+                            categoryName={modalDetail_updateCategory.categoryName} 
+                        />
         }
         if(isModal_insertMainCategory === true){ 
             return <DialogAlert_insertMainCategory isModal={isModal_insertMainCategory} setIsModal={setIsModal_insertMainCategory} title={modalDetail_insertMainCategory.title}/>
@@ -178,7 +189,7 @@ const ManageCategory = () => {
                                                         ) : (
                                                             <p className="cursor-not-allowed whitespace-nowrap font-sans text-xs text-blue-700 line-through"> زیردسته</p>
                                                         )}
-                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:` تغییر وضعیت دسته‌بندی   ${category.name}`,description :  "آیا مایل به تغییر وضعیت این دسته‌بندی هستید؟.",categoryName: category.name, category_id : category.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${category.name}`, category_id : category.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
                                                         <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی  ${category.name}`,categoryName: category.name, category_id : category.id })}} className="  font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                     </div>
                                                 </div>
@@ -204,8 +215,8 @@ const ManageCategory = () => {
                                                                         ) : (
                                                                             <p className="cursor-not-allowed whitespace-nowrap font-sans text-xs text-blue-700 line-through"> زیردسته</p>
                                                                         )}                                                                    
-                                                                        <button onClick={()=>  { setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:` تغییر وضعیت دسته بندی  :  ${sub.name}`,description :  "آیا مایل به تغییر وضعیت این دسته‌بندی هستید؟.",categoryName: sub.name, category_id : sub.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
-                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته بندی  :  ${sub.name}`,categoryName: sub.name, category_id : sub.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
+                                                                        <button onClick={()=>  { setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:` تغییر وضعیت دسته‌بندی ${sub.name}`, category_id : sub.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub.name}`,categoryName: sub.name, category_id : sub.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                                     </div>
                                                                 </section>
                                                                 <section className="peer-checked:flex peer-checked:bg-gray-50 hidden items-center p-2 gap-x-1 rounded-b-md mb-2">
@@ -230,8 +241,8 @@ const ManageCategory = () => {
                                                                                         ) : (
                                                                                             <p className="cursor-not-allowed group-hover:block hidden whitespace-nowrap font-sans text-xs text-blue-700 line-through"> زیردسته</p>
                                                                                         )}
-                                                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`وضعیت دسته بندی  :  ${sub_sub.name}`,description :  "با وضعیت دسته‌بندی تمام زیردسته های آن وضعیت خواهند شد.",categoryName: sub_sub.name, category_id : sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
-                                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته بندی  :  ${sub_sub.name}`,categoryName: sub_sub.name, category_id : sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
+                                                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${sub_sub.name}`, category_id : sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub_sub.name}`,categoryName: sub_sub.name, category_id : sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                                                     </div>
                                                                                 </section>
                                                                                 <section className="peer-checked:flex rounded-b-md peer-checked:bg-gray-50 hidden items-center p-2 gap-x-1  mb-2">
@@ -242,13 +253,13 @@ const ManageCategory = () => {
                                                                             {sub_sub.sub_categories && sub_sub.sub_categories.map(sub_sub_sub => {
                                                                                 return (
                                                                                     <section key={sub_sub_sub.id} className="flex group gap-x-2 hover:bg-gray-50 rounded-md pl-2 pr-14 py-2 ">
-                                                                                    {sub_sub_sub.is_show ? (
-                                                                                        <p className=" before:content-['\2022'] before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub_sub_sub.name}>{sub_sub_sub.name.length > 15 ? sub_sub_sub.name.substring(0,15)+"..." : sub_sub_sub.name } </p>
-                                                                                    ) : (
-                                                                                        <p className=" before:content-['\2022'] before:text-red-600 before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub_sub_sub.name}>{sub_sub_sub.name.length > 15 ? sub_sub_sub.name.substring(0,15)+"..." : sub_sub_sub.name } </p>
-                                                                                    )}         
-                                                                                    <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`وضعیت دسته بندی  :  ${sub_sub_sub.name}`,description :  "با وضعیت دسته‌بندی تمام زیردسته های آن وضعیت خواهند شد.",categoryName: sub_sub_sub.name, category_id : sub_sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
-                                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته بندی  :  ${sub_sub_sub.name}`,categoryName: sub_sub_sub.name, category_id : sub_sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
+                                                                                        {sub_sub_sub.is_show ? (
+                                                                                            <p className=" before:content-['\2022'] before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub_sub_sub.name}>{sub_sub_sub.name.length > 15 ? sub_sub_sub.name.substring(0,15)+"..." : sub_sub_sub.name } </p>
+                                                                                        ) : (
+                                                                                            <p className=" before:content-['\2022'] before:text-red-600 before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub_sub_sub.name}>{sub_sub_sub.name.length > 15 ? sub_sub_sub.name.substring(0,15)+"..." : sub_sub_sub.name } </p>
+                                                                                        )}         
+                                                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${sub_sub_sub.name}`, category_id : sub_sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub_sub_sub.name}`,categoryName: sub_sub_sub.name, category_id : sub_sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                                                     </section>
                                                                                 )
                                                                             })}
