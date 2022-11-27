@@ -114,7 +114,7 @@ const ManageStores = () => {
                     </div>
 
                     <form className="w-full " onSubmit={formik.handleSubmit}>
-                        <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
+                        <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md overflow-hidden">
                             <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
 
                                 <FormikInput name={"name"} title={"نام فروشگاه"} formik={formik} placeholder={"بر اساس نام فروشگاه"} parentClassName="flex flex-col relative"/>
@@ -161,7 +161,7 @@ const ManageStores = () => {
                     {!stores && !loading && <Warning text={'فروشگاهی با این مشخصات یافت نشد!'}/>}
                     {stores && (
                         <>
-                            <section className="w-full mt-3 rounded-lg shadow-md flex flex-col ">
+                            <section className="w-full mt-3 rounded-lg overflow-hidden shadow-md flex flex-col ">
                                 {stores && stores.map(store => {
                                     return(
                                         <section key={store.id}>
@@ -203,7 +203,7 @@ const ManageStores = () => {
                                                 </section>
                                                 {/* Description */}
                                                 <section className="bg-gray-50 rounded-md mt-4 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                    <div className="flex flex-col gap-y-2">
+                                                    <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                                                         <p className="font-sans text-sm"><b>نام فروشگاه : </b>{store.name}</p>
                                                         <p className="font-sans text-sm"><b>نام صاحب فروشگاه : </b>{store.owner_full_name}</p>
                                                         <p className="font-sans text-sm"><b>کد ملی صاحب فروشگاه : </b>{store.owner_national_code}</p>
@@ -281,7 +281,7 @@ const ManageStores = () => {
 
                                                     <div className="flex justify-end w-full mt-4 mb-4">
                                                         <Link href={`/admin/manage-stores/edit/${store.id}`} >
-                                                            <a className=" font-sans text-sm hover:bg-blue-200 bg-blue-100 text-blue-700 border border-blue-500 px-4 py-1 rounded-md">ویرایش</a>
+                                                            <a className=" font-sans  shadow-sm md:shadow-md  lg:shadow-lg text-sm hover:bg-blue-100 bg-blue-50 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش فروشگاه {store.name}</a>
                                                         </Link>
                                                     </div>
                                                 </section>
