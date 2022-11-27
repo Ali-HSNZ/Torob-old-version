@@ -14,6 +14,7 @@ import { fetchUsers } from "@/redux/admin/admin_manageUsers/admin_manageUsersAct
 import Cookies from "universal-cookie";
 import axios from "axios";
 import FormikInput from "@/common/admin/FormikInput";
+import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
 
 const ManageStores = () => {
     const dispatch = useDispatch()
@@ -22,12 +23,8 @@ const ManageStores = () => {
     
     const [Image_Modal , setImage_Modal] = useState(false)
 
-
     const [modal_imageSrc , setModal_imageSrc] = useState("")
 
-    const [isStoreBannerImage_Modal , setIsStoreBannerImage_Modal] = useState(false)
-
-    const [isLicenseImage_Modal , setIsLicenseImage_Modal] = useState(false)
     const [isAsideModal , setIsAsideModal] = useState(false)
     const [status , setStatus] = useState('all')
 
@@ -46,10 +43,6 @@ const ManageStores = () => {
         router.push(`/admin/manage-users?page=1&state=${status || "all"}&full_name=${full_name || ""}&national_code=${national_code || ""}&number=${number || ""}&order=${order || 'desc'}&limit=${limit}`)
     }
 
-    const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
-    const ONLY_DIGIT_REGIX = /^\d+$/;
-    const POSTAL_CODE_REGIX = /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/;
-
     const validationSchema = Yup.object({
         full_name : Yup.string()
             .min(2, "نام و نام خانوادگی نمی تواند کمتر از ۲ نویسه باشد")
@@ -64,7 +57,7 @@ const ManageStores = () => {
             .max(11 , "شماره نامعتبر است")
             .min(2 , "شماره نمی تواند کمتر از ۲ نویسه باشد")
             .trim(),
-        })
+    })
 
     const formik = useFormik({ 
         onSubmit, 
@@ -173,7 +166,7 @@ const ManageStores = () => {
                                 {users && users.map(user => {
                                     return(
                                         <section key={user.id}>
-                                            <div className="p-2 bg-white w-full">
+                                            <div className="p-4 bg-white w-full">
                                                 <input type={"checkbox"} id={`detail_${user.id}`} className="peer hidden"/>
                                                 <section className=" flex flex-col sm:flex-row items-center  justify-between">
                                                     <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
@@ -210,9 +203,9 @@ const ManageStores = () => {
                                                 </section>
                                                 {/* Description */}
                                                 <section className="mt-4 rounded-md bg-gray-50 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                    <div className="flex flex-col gap-y-2">
+                                                    <div className="grid grid-cols-3 gap-4">
                                                         <p className="font-sans text-sm"><b>نام و نام خانوادگی : </b>{user.full_name}</p>
-                                                        <p className="font-sans text-sm"><b>کد ملی : </b>{user.national_code}</p>
+                                                        <p className="font-sans text-sm"><b>کد ملی : </b>{user.national_code.length > 0 ? user.national_code : "نامشخص"}</p>
                                                         <p className="font-sans text-sm"><b>شماره موبایل : </b>{user.phone_number_primary}</p>
                                                         <p className="font-sans text-sm"><b>شماره همراه دوم : </b>{user.phone_number_secondary.length > 0 ? user.phone_number_secondary : "نامشخص"}</p>
                                                         <p className="font-sans text-sm"><b>تلفن ثابت : </b>{user.house_number.length > 0 ? user.house_number : "نامشخص"  }</p>
@@ -243,7 +236,7 @@ const ManageStores = () => {
 
                                                     <div className="flex justify-end w-full mt-4 mb-4">
                                                         <Link href={`/admin/manage-users/edit/${user.id}`} >
-                                                            <a className=" font-sans text-sm hover:bg-blue-200 bg-blue-100 text-blue-700 border border-blue-500 px-4 py-1 rounded-md">ویرایش</a>
+                                                            <a className=" font-sans  shadow-sm md:shadow-md  lg:shadow-lg text-sm hover:bg-blue-100 bg-blue-50 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش</a>
                                                         </Link>
                                                     </div>
                                                 </section>
