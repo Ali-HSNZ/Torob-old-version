@@ -178,6 +178,17 @@ const ManageProduct = () => {
                     {products && (
                         <>
                             <section className="rounded-md overflow-hidden w-full mt-3  shadow-md flex flex-col">
+                            {/* Product Image Modal */}
+                            <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                    <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                        <img className="max-h-full w-auto" src={modal_imageSrc}/>
+                                        <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
+                                                <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </section>
+                                </Modal>
                                 {products && products.map(product => {
                                     return(
                                         <section key={product.id}>
@@ -229,20 +240,8 @@ const ManageProduct = () => {
                                                         {/* Logo */}
                                                         <div className="flex">
                                                             <b className="font-sans text-sm pl-1">تصویر کالا : </b>
-                                                            {product.is_image_url ? (
-                                                                <>
-                                                                    <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                    <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
-                                                                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                                                                            <img className="max-h-full w-auto" src={modal_imageSrc}/>
-                                                                            <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
-                                                                                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
-                                                                                </svg>
-                                                                            </button>
-                                                                        </section>
-                                                                    </Modal>
-                                                                </>
+                                                            {!product.is_image_url ? (
+                                                                <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
                                                             ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
                                                         </div>
                                                     </div>
