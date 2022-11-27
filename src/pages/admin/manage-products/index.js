@@ -250,7 +250,7 @@ const ManageProduct = () => {
 
                                                     <div className="flex justify-end w-full mt-4 mb-4">
                                                         <Link href={`/admin/manage-products/edit/${product.id}`} >
-                                                            <a className=" font-sans text-sm hover:bg-blue-200 bg-blue-100 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش</a>
+                                                            <a className=" font-sans  shadow-sm md:shadow-md  lg:shadow-lg text-sm hover:bg-blue-100 bg-blue-50 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش</a>
                                                         </Link>
                                                     </div>
                                                 </section>
