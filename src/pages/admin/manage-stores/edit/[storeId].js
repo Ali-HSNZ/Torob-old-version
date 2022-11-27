@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import * as Yup from 'yup'
 import InputMask from "react-input-mask";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteStore, fetchOneStore, insertStore, updateStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
+import { deleteStore, fetchOneStore,updateStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
 import { provinces } from "@/common/admin/provinces";
 import SelectBox from "@/common/admin/SelectBox";
 import { useEffect } from "react";
@@ -20,10 +20,10 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import FormikInput from "@/common/admin/FormikInput";
+import { ONLY_DIGIT_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
 
 
 const InsertStore = () => {
-
 
     const dispatch = useDispatch()
     const {store} = useSelector(state => state.admin_stores.oneStore)
@@ -91,8 +91,6 @@ const InsertStore = () => {
         }
     }    
 
-
-
     useEffect(()=>{
         if(store){
             const currentProvince = provinces.find(province => province.name == store.province);
@@ -126,6 +124,7 @@ const InsertStore = () => {
         const bankCardNumber = formik.values.bank_card_number.replace(/\s/g, '').replace(/-/g, '')
         const staticWarehouseNumber = formik.values.warehouse_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
         const staticOfficeNumber = formik.values.office_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+        
         if(bankCardNumber.length < 16){
             toast.error('شماره کارت معتبر نیست'); return false
         } 
@@ -145,9 +144,7 @@ const InsertStore = () => {
     }
 
 
-    
-    const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
-    const ONLY_DIGIT_REGIX = /^\d+$/;
+
     const validationSchema = Yup.object({
         name : Yup.string()
             .required('نام فروشگاه الزامی است')
