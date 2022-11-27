@@ -165,7 +165,7 @@ const ManageStores = () => {
                                 {stores && stores.map(store => {
                                     return(
                                         <section key={store.id}>
-                                            <div className="p-2 bg-white w-full">
+                                            <div className="p-4 bg-white w-full">
                                                 <input type={"checkbox"} id={`detail_${store.id}`} className="peer hidden"/>
 
                                                 <section className=" flex flex-col sm:flex-row items-center  justify-between">
@@ -173,16 +173,16 @@ const ManageStores = () => {
                                                         <img onClick={()=> {store.is_logo_image && setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}} className="w-full h-auto" src={store.logo_image}/>
                                                     </div>
                                                     <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex">
-                                                            <b className="whitespace-nowrap pl-2">نام فروشگاه : </b>
-                                                                {store.name.length >0 ?  store.name : "نامشخص"} </p>
-                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex ">
-                                                            <b className="whitespace-nowrap pl-2">نام صاحب فروشگاه : </b> 
+                                                        <p className="font-sans leading-6 text-sm  flex">
+                                                            <b className="whitespace-nowrap pl-1">نام فروشگاه : </b>
+                                                            {store.name.length >0 ?  store.name : "نامشخص"} </p>
+                                                        <p className="font-sans leading-6 text-sm  flex ">
+                                                            <b className="whitespace-nowrap pl-1">نام صاحب فروشگاه : </b> 
                                                             {store.owner_full_name.length > 0 ? store.owner_full_name : "نامشخص"}</p>
-                                                        <div className="font-sans leading-6 text-sm flex flex-col w-full sm:flex-row pl-3">
-                                                            <b className="whitespace-nowrap pl-2">استان : </b>
+                                                        <p className="font-sans leading-6 text-sm flex  pl-3">
+                                                            <b className="whitespace-nowrap pl-1">استان : </b>
                                                             {store.province&& store.province.length > 0 ? store.province : "نامشخص"}
-                                                        </div>
+                                                        </p>
                                                     </div>
                                                     <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                         <div className=" flex items-center">
