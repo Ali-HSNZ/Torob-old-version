@@ -19,6 +19,7 @@ import ReactLoading from 'react-loading';
 import Cookies from "universal-cookie";
 import axios from "axios";
 import FormikInput from "@/common/admin/FormikInput";
+import { ONLY_DIGIT_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
 
 
 const InsertStore = () => {
@@ -123,8 +124,6 @@ const InsertStore = () => {
         dispatch(insertStore({values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}))
     }
     
-    const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
-    const ONLY_DIGIT_REGIX = /^\d+$/;
     const validationSchema = Yup.object({
         name : Yup.string()
             .required('نام فروشگاه الزامی است')
