@@ -81,7 +81,7 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        product_image : productImage,
+        product_image_1 : productImage,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
@@ -105,7 +105,7 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        product_image : productImage,
+        product_image_1 : productImage,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
