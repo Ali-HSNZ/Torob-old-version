@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authPanel, changePanelType, userSignin, userSignin_withUserPass, userSignup } from "src/redux/user/userActions";
 import { Modal } from "@mui/material";
 import ReactLoading from 'react-loading';
+import { ONLY_DIGIT_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
 
 const Login = () => {
   const { user, loading, panel ,panelType} = useSelector((state) => state.auth);
@@ -16,25 +17,22 @@ const Login = () => {
   const onSubmit_userPass = (values) => {
     dispatch(userSignin_withUserPass(values))
   };
-  const phoneRegExp = /^(?:98|\+98|0098|0)?9[0-9]{9}$/;
  
   const withUserVerifyCode_Validation = Yup.object({
     phone_number: Yup.string()
       .required("شماره موبایل نمی تواند خالی باشد")
-      .matches(phoneRegExp, "شماره موبایل معتبر نیست"),
+      .matches(PHONE_NUMBER_REGIX, "شماره موبایل معتبر نیست"),
   });
   const withOutUserVerifyCode_Validation = Yup.object({
     phone_number: Yup.string()
       .required("شماره موبایل نمی تواند خالی باشد")
-      .matches(phoneRegExp, "شماره موبایل معتبر نیست"),
+      .matches(PHONE_NUMBER_REGIX, "شماره موبایل معتبر نیست"),
     verification_code: Yup.string()
       .required("کد تایید نمی تواند خالی باشد")
       .min(4, "کد تایید نمیتواند کمتر  از 4 کاراکتر باشد")
       .max(4, "کد تایید نمیتواند بیشتر  از 4 کاراکتر باشد"),
   });
 
-  const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
-  const ONLY_DIGIT_REGIX = /^\d+$/;
   const userPass_validation = Yup.object({
     national_code : Yup.string()
                                       .required("نام کاربری الزامی است")
