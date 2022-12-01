@@ -20,7 +20,6 @@ const AdminPage = () => {
     useEffect(() => {
         dispatch(fetchAdminCount())
     },[])
-    console.log("data : ",data);
     return (  
         <Layout isFooter={true} pageTitle="پنل مدیریت ترب">
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
