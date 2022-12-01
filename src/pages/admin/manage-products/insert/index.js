@@ -58,6 +58,7 @@ const InsertProduct = () => {
         product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از ۲۰ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
         barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
+    const [imageArray , setImageArray] = useState([])
 
     const onSubmit = ({product_title ,barcode, product_description}) => {
         const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
@@ -77,7 +78,7 @@ const InsertProduct = () => {
             toast.error('مقدار دسته‌بندی الزامی می باشد')
             return false
         }
-        const payload = {categoryId,brandId,product_title,barcode,product_description,productImage}
+        const payload = {categoryId,brandId,product_title,barcode,product_description,imageArray}
         dispatch(insertProduct(payload))
     }
     // useEffect(()=>{
@@ -145,8 +146,7 @@ const InsertProduct = () => {
     }
     const [imageSrc_modal , setImageSrc_modal] = useState(null)
     const [isImage_modal , setIsImage_modal] = useState(false)
-    const [imageArray , setImageArray] = useState([])
-console.log("Array : ",imageArray);
+    console.log("Array : ",imageArray);
     const changeFIleAction_input = (input) => {
         const image = input.target.files[0]
         setImageArray([...imageArray , {id : Date.now() + Math.random() , image , name : `product_image_${imageArray.length+1}` , imageUrl : URL.createObjectURL(image) , isOriginal : imageArray.length === 0 ? true : false}])
