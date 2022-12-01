@@ -73,7 +73,7 @@ const fetchCategoriesFailure = (payload) => {return {type : ADMIN_FETCH_CATEGORI
 const token = new Cookies().get("userToken");
 
 
-export const insertProduct = ({categoryId ,barcode, brandId , product_title , product_description , productImage}) => dispatch => {
+export const insertProduct = ({categoryId ,barcode, brandId , product_title , product_description , imageArray}) => dispatch => {
     dispatch(insertProductRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/products` ,{
         title : product_title,
@@ -81,7 +81,7 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        product_image_1 : productImage,
+        product_image_1 : imageArray,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
