@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { Modal } from "@mui/material";
 import { useRef } from "react";
 import FormikInput from "@/common/admin/FormikInput";
+import { toPersianDigits } from "@/utils/toPersianDigits";
 
 const InsertProduct = () => {
     const productData = useSelector(state => state.admin_products)
@@ -57,45 +58,11 @@ const InsertProduct = () => {
         product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از ۲۰ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
         barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
-    const [onChangeFile , setOnChangeFile] = useState(null)
-    const imageInput_ref = useRef()
-
-    const checkImageFormat = (fileName) => {
-        const type =  fileName.split('.').pop();
-        const valid = ['png','jpg','jpeg','webp']
-        if(!valid.includes(type.toLocaleLowerCase())){
-            return false
-        }
-        return true
-    }
-
-    const changeFIleAction_input = (input) => {
-        const image = input.target.files[0]
-        if(input.target.files && image){
-            if(!checkImageFormat(image.name)){
-                toast.error('تصویر کالا معتبر نیست')
-                imageInput_ref.current.value = null
-                return false
-            }
-            if(Number(image.size) < 16000){
-                toast.error('تصویر کالا نمی تواند کمتر از ۱۶kb باشد')
-                imageInput_ref.current.value = null
-                return false
-            } 
-            if(Number(image.size) > 1024000){
-                toast.error("تصویر کالا نمی تواند بیشتر از ۱.۰۲۴mb باشد")
-                imageInput_ref.current.value = null
-                return false
-            }
-            setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
-        }
-    }
 
     const onSubmit = ({product_title ,barcode, product_description}) => {
         const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const brandId = selectedBrand.id || null
         const productImage = onChangeFile && onChangeFile.selectedFile || null
-        
         if(productImage === null){
             toast.error('تصویر کالا الزامی می باشد')
             return false
@@ -113,29 +80,22 @@ const InsertProduct = () => {
         const payload = {categoryId,brandId,product_title,barcode,product_description,productImage}
         dispatch(insertProduct(payload))
     }
-
-    useEffect(()=>{
-        dispatch(fetchBrands())
-        dispatch(fetchMainCategories())
-    },[])
-
+    // useEffect(()=>{
+    //     dispatch(fetchBrands())
+    //     dispatch(fetchMainCategories())
+    // },[])
     useEffect(()=>{
         if(selectedCategory_main && selectedCategory_main.id) dispatch(fetchSub1(selectedCategory_main.id))
         setSelectedCategory_sub1("")
     },[selectedCategory_main])
-    
     useEffect(()=>{
         if(selectedCategory_sub1 && selectedCategory_sub1.id) dispatch(fetchSub2(selectedCategory_sub1.id))
         setSelectedCategory_sub2("")
     },[selectedCategory_sub1])
-
     useEffect(()=>{
         if(selectedCategory_sub2 && selectedCategory_sub2.id) dispatch(fetchSub3(selectedCategory_sub2.id))
         setSelectedCategory_sub3("")
     },[selectedCategory_sub2])
-
-
-
     const formik = useFormik({
         onSubmit,
         validationSchema,
@@ -147,6 +107,71 @@ const InsertProduct = () => {
         }
     })
 
+    const [onChangeFile , setOnChangeFile] = useState(null)
+    const imageInput_ref = useRef()
+
+    const checkImageFormat = (fileName) => {
+        const type =  fileName.split('.').pop();
+        const valid = ['png','jpg','jpeg','webp']
+        if(!valid.includes(type.toLocaleLowerCase())){
+            return false
+        }
+        return true
+    }
+    const deleteImageViaId = (id) => {
+        const cloneArray = [...imageArray]
+        const currentImage_index = cloneArray.findIndex(image => image.id === id)
+        const filterdArray = cloneArray.filter(image => image.id !== id)
+        if(cloneArray[currentImage_index].isOriginal === true){
+            if(filterdArray.length > 0){
+                filterdArray[0].isOriginal = true
+                setImageArray(filterdArray)
+            }
+            else{
+                setImageArray(filterdArray);
+            }
+        }else setImageArray(filterdArray);
+
+        setIsImage_modal(false)
+    }
+    const setOriginalImageViaId = (id) => {
+        const cloneArray = [...imageArray]
+        cloneArray.forEach(image => image.isOriginal = false)
+        const currentImage_index = cloneArray.findIndex(image => image.id === id)
+        cloneArray[currentImage_index].isOriginal = true;
+        setImageArray(cloneArray)
+        setIsImage_modal(false)
+
+    }
+    const [imageSrc_modal , setImageSrc_modal] = useState(null)
+    const [isImage_modal , setIsImage_modal] = useState(false)
+    const [imageArray , setImageArray] = useState([])
+console.log("Array : ",imageArray);
+    const changeFIleAction_input = (input) => {
+        const image = input.target.files[0]
+        setImageArray([...imageArray , {id : Date.now() + Math.random() , image , name : `product_image_${imageArray.length+1}` , imageUrl : URL.createObjectURL(image) , isOriginal : imageArray.length === 0 ? true : false}])
+        
+        imageInput_ref.current.value = null
+        // if(input.target.files && image){
+        //     if(!checkImageFormat(image.name)){
+        //         toast.error('تصویر کالا معتبر نیست')
+        //         imageInput_ref.current.value = null
+        //         return false
+        //     }
+        //     if(Number(image.size) < 16000){
+        //         toast.error('تصویر کالا نمی تواند کمتر از ۱۶kb باشد')
+        //         imageInput_ref.current.value = null
+        //         return false
+        //     } 
+        //     if(Number(image.size) > 1024000){
+        //         toast.error("تصویر کالا نمی تواند بیشتر از ۱.۰۲۴mb باشد")
+        //         imageInput_ref.current.value = null
+        //         return false
+        //     }
+        //     setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
+        // }
+    }
+
     return (  
         <Layout isFooter={true} pageTitle={"پنل مدیریت | افزودن کالا"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
@@ -155,6 +180,21 @@ const InsertProduct = () => {
                 <section  className=" w-full lg:w-4/5 flex-0 h-max p-4">
                     <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
                         <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
+                    </Modal>
+                    {/* Image Modal */}
+                    <Modal open={isImage_modal} onClose={() => setIsImage_modal(false)} className="outline-none p-4 h-full w-full flex justify-center items-center">
+                        <section className=" bg-white outline-none sm:w-1/2 h-1/2 rounded-md  flex flex-col justify-center items-center p-4 relative">
+                            <img className="max-h-full w-auto" src={imageSrc_modal && imageSrc_modal.imageUrl || ""}/>
+                            <button onClick={() => setIsImage_modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
+                                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                                </svg>
+                            </button>
+                            <div className="w-full flex justify-end gap-x-3 absolute bottom-2 left-0 py-1 px-3  bg-[#fffffff0]">
+                                <button onClick={() => deleteImageViaId(imageSrc_modal.id)} className="text-xs font-sans rounded-md hover:underline underline-offset-4 text-red-600">حذف تصویر</button>
+                                <button onClick={() => setOriginalImageViaId(imageSrc_modal.id)} className="text-xs font-sans rounded-md hover:underline underline-offset-4 text-blue-600">انتخاب به عنوان تصویر اصلی</button>
+                            </div>
+                        </section>
                     </Modal>
                     <div className="flex justify-between w-full items-center">
                         <div className="flex items-center">
@@ -183,64 +223,52 @@ const InsertProduct = () => {
                         </div>
                     </div>
                     <form onSubmit={formik.handleSubmit}>
+                        {/* Product Title - Brand - Barcode */}
                         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                         <FormikInput title={"عنوان کالا"} formik={formik} placeholder={"عنوان کالا"} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
-
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">برند :</p>
                                 <div className="w-full mt-2">
                                     <SelectBox notFoundTitle="برند مورد نظر یافت نشد." placeholder={'انتخاب عنوان برند'} query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                 </div>
                             </div>
-
-
-                            <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600">تصویر کالا :</p>
-                                <input type={'file'} id="chooseImage" ref={imageInput_ref} accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
-                                {onChangeFile? (
-                                    <section className="flex justify-between items-center mt-2  ">
-                                        <button type={"button"} onClick={()=>setIsProductImage_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
-                                            <span className="text-sm font-sans text-green-800 ">تصویر کالا انتخاب شده است.</span>
-                                        </button>
-                                        <button onClick={()=> {setOnChangeFile(null) ; imageInput_ref.current.value = null}}  type={"button"}className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-500 hover:border-red-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </button>
-                                    </section>
-                                ) : (
-                                    <>
-                                        <label htmlFor="chooseImage" className="flex justify-between mt-2 cursor-pointer text-sm font-sans rounded-md p-2 bg-blue-50 hover:bg-blue-100 hover:border-blue-700 border border-blue-500 ">
-                                            <span className="text-blue-700">انتخاب تصویر</span>
-                                            <svg className="w-5 h-5 text-blue-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
-                                            </svg>
-                                        </label>
-                                    </>
-                                )}
-                                <Modal open={isProductImage_Modal} onClose={() => setIsProductImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
-                                    <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                                        <img className="max-h-full w-auto" src={onChangeFile && onChangeFile.imageUrl || ""}/>
-                                        <button onClick={() => setIsProductImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
-                                                <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
-                                            </svg>
-                                        </button>
-                                    </section>
-                                </Modal>
-                            </div>
-
                             <FormikInput title={"بارکد"} formik={formik} placeholder={"بارکد کالا"} isRequired={true} name={"barcode"} parentClassName={"flex flex-col relative"}/>
-
-
                         </section>
+                        {/* توضیحات */}
                         <div className="flex flex-col mt-4">
                             <p className="font-sans text-sm before:content-['*'] before:text-red-600">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
                             <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} placeholder="توضیحات..." className="leading-8 max-h-[250px] min-h-[50px] w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                             {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
                         </div>
-
+                        <section className="mt-4 w-full flex flex-row ">
+                            <input type={'file'} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' className="hidden"/>
+                            <div className="flex sm:flex-row flex-col flex-start w-full">
+                                <label htmlFor="chooseImageInput" className=" sticky top-0 z-50 cursor-pointer sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed border-2 rounded-lg hover:bg-blue-100 bg-blue-50 border-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-blue-700">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                    <p className="font-sans text-sm whitespace-nowrap w-full text-blue-700 font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
+                                    <p className="font-sans text-sm text-blue-800 font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${imageArray.length}/20`)}</p>
+                                </label> {/**flex flex-row flex-wrap */}
+                                {/* <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5  xl:grid-cols-6 gap-4 mt-4 sm:mr-4 sm:mt-0"> */}
+                                <div className="class_grid_manage_products mt-4 sm:mr-4 sm:mt-0">
+                                    {imageArray.map(image => {
+                                        return(
+                                            <div key={image.id} onClick={()=>{setImageSrc_modal(image) , setIsImage_modal(true)}} className="z-10 cursor-pointer group h-28 p-1 relative border-gray-500 border w-auto flex   rounded-md overflow-hidden items-center justify-center">
+                                                <img src={image.imageUrl} className="h-full w-auto"/> 
+                                                <button type={"button"} className="absolute  top-2 right-2 p-1 rounded-full shadow-lg group-hover:bg-gray-800 bg-white">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 group-hover:text-gray-50 text-gray-800">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                    </svg>
+                                                </button>
+                                                {image.isOriginal && <p className="absolute bottom-0 font-sans text-xs text-gray-100 text-center p-1 bg-[#000000b7] w-full">تصویر اصلی</p>}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        </section>
+                        {/* دسته بندی */}
                         <div className="flex flex-col mt-4 gap-x-4">
                             <input type="checkbox" className="peer hidden" id="category_section" />
                             <section className="flex items-center">
