@@ -64,20 +64,20 @@ const InsertProduct = () => {
         const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const brandId = selectedBrand.id || null
         const productImage = onChangeFile && onChangeFile.selectedFile || null
-        if(productImage === null){
-            toast.error('تصویر کالا الزامی می باشد')
-            return false
-        }
+        // if(productImage === null){
+        //     toast.error('تصویر کالا الزامی می باشد')
+        //     return false
+        // }
         // Check Brand
-        if(!brandId){
-            toast.error('مقدار برند الزامی می باشد')
-            return false
-        }
-        // Check Category
-        if(!categoryId){
-            toast.error('مقدار دسته‌بندی الزامی می باشد')
-            return false
-        }
+        // if(!brandId){
+        //     toast.error('مقدار برند الزامی می باشد')
+        //     return false
+        // }
+        // // Check Category
+        // if(!categoryId){
+        //     toast.error('مقدار دسته‌بندی الزامی می باشد')
+        //     return false
+        // }
         const payload = {categoryId,brandId,product_title,barcode,product_description,imageArray}
         dispatch(insertProduct(payload))
     }
@@ -99,7 +99,7 @@ const InsertProduct = () => {
     },[selectedCategory_sub2])
     const formik = useFormik({
         onSubmit,
-        validationSchema,
+        // validationSchema,
         validateOnMount : true,
         initialValues : {
             product_title :  "",
