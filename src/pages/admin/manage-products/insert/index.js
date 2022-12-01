@@ -63,21 +63,20 @@ const InsertProduct = () => {
     const onSubmit = ({product_title ,barcode, product_description}) => {
         const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
         const brandId = selectedBrand.id || null
-        const productImage = onChangeFile && onChangeFile.selectedFile || null
-        // if(productImage === null){
-        //     toast.error('تصویر کالا الزامی می باشد')
-        //     return false
-        // }
+        if(imageArray.length === 0){
+            toast.error('تصویر کالا الزامی می باشد')
+            return false
+        }
         // Check Brand
-        // if(!brandId){
-        //     toast.error('مقدار برند الزامی می باشد')
-        //     return false
-        // }
-        // // Check Category
-        // if(!categoryId){
-        //     toast.error('مقدار دسته‌بندی الزامی می باشد')
-        //     return false
-        // }
+        if(!brandId){
+            toast.error('مقدار برند الزامی می باشد')
+            return false
+        }
+        // Check Category
+        if(!categoryId){
+            toast.error('مقدار دسته‌بندی الزامی می باشد')
+            return false
+        }
         const payload = {categoryId,brandId,product_title,barcode,product_description,imageArray}
         dispatch(insertProduct(payload))
     }
@@ -99,7 +98,7 @@ const InsertProduct = () => {
     },[selectedCategory_sub2])
     const formik = useFormik({
         onSubmit,
-        // validationSchema,
+        validationSchema,
         validateOnMount : true,
         initialValues : {
             product_title :  "",
@@ -146,30 +145,27 @@ const InsertProduct = () => {
     }
     const [imageSrc_modal , setImageSrc_modal] = useState(null)
     const [isImage_modal , setIsImage_modal] = useState(false)
-    console.log("Array : ",imageArray);
     const changeFIleAction_input = (input) => {
-        const image = input.target.files[0]
-        setImageArray([...imageArray , {id : Date.now() + Math.random() , image , name : `product_image_${imageArray.length+1}` , imageUrl : URL.createObjectURL(image) , isOriginal : imageArray.length === 0 ? true : false}])
-        
-        imageInput_ref.current.value = null
-        // if(input.target.files && image){
-        //     if(!checkImageFormat(image.name)){
-        //         toast.error('تصویر کالا معتبر نیست')
-        //         imageInput_ref.current.value = null
-        //         return false
-        //     }
-        //     if(Number(image.size) < 16000){
-        //         toast.error('تصویر کالا نمی تواند کمتر از ۱۶kb باشد')
-        //         imageInput_ref.current.value = null
-        //         return false
-        //     } 
-        //     if(Number(image.size) > 1024000){
-        //         toast.error("تصویر کالا نمی تواند بیشتر از ۱.۰۲۴mb باشد")
-        //         imageInput_ref.current.value = null
-        //         return false
-        //     }
-        //     setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
-        // }
+        const image = input.target.files[0]        
+        if(input.target.files && image){
+            if(!checkImageFormat(image.name)){
+                toast.error('تصویر کالا معتبر نیست')
+                imageInput_ref.current.value = null
+                return false
+            }
+            if(Number(image.size) < 16000){
+                toast.error('تصویر کالا نمی تواند کمتر از ۱۶kb باشد')
+                imageInput_ref.current.value = null
+                return false
+            } 
+            if(Number(image.size) > 1024000){
+                toast.error("تصویر کالا نمی تواند بیشتر از ۱.۰۲۴mb باشد")
+                imageInput_ref.current.value = null
+                return false
+            }
+            setImageArray([...imageArray , {id : Date.now() + Math.random() , image  , imageUrl : URL.createObjectURL(image) , isOriginal : imageArray.length === 0 ? true : false}])
+            imageInput_ref.current.value = null
+        }
     }
 
     return (  
