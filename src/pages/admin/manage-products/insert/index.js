@@ -54,8 +54,8 @@ const InsertProduct = () => {
     const filteredBrands = brandQuery === '' ? brands : brands.filter((brand) => brand.name.toLowerCase().replace(/\s+/g, '').includes(brandQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
     const validationSchema = Yup.object({
-        product_title : Yup.string().min(10, "نام کالا نمی‌تواند کم تر از ۱۰ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
-        product_description : Yup.string().min(20,"توضیحات کالا نمیتواند کم تر از ۲۰ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
+        product_title : Yup.string().min(3, "نام کالا نمی‌تواند کم تر از ۳ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
+        product_description : Yup.string().min(2,"توضیحات کالا نمیتواند کم تر از ۲ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
         barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
     })
     const [imageArray , setImageArray] = useState([])
@@ -81,8 +81,8 @@ const InsertProduct = () => {
         dispatch(insertProduct(payload))
     }
     useEffect(()=>{
-        dispatch(fetchBrands())
-        dispatch(fetchMainCategories())
+        // dispatch(fetchBrands())
+        // dispatch(fetchMainCategories())
     },[])
     useEffect(()=>{
         if(selectedCategory_main && selectedCategory_main.id) dispatch(fetchSub1(selectedCategory_main.id))
@@ -236,16 +236,15 @@ const InsertProduct = () => {
                             {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
                         </div>
                         <section className="mt-4 w-full flex flex-row ">
-                            <input type={'file'} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' className="hidden"/>
-                            <div className="flex sm:flex-row flex-col flex-start w-full">
-                                <label htmlFor="chooseImageInput" className=" sticky top-0 z-50 cursor-pointer sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed border-2 rounded-lg hover:bg-blue-100 bg-blue-50 border-blue-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-blue-700">
+                            <div className={`flex sm:flex-row flex-col flex-start w-full`}>
+                            <input type={'file'} disabled={imageArray.length > 19 ? true : false} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' className="hidden peer"/>
+                                <label htmlFor="chooseImageInput" className={`sticky top-0 z-50  sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed peer-disabled:cursor-not-allowed peer-disabled:text-gray-800 text-blue-700 peer-disabled:border-gray-800 cursor-pointer peer-disabled:bg-gray-300 hover:bg-blue-100 bg-blue-50 border-blue-600 border-2 rounded-lg `}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
-                                    <p className="font-sans text-sm whitespace-nowrap w-full text-blue-700 font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
-                                    <p className="font-sans text-sm text-blue-800 font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${imageArray.length}/20`)}</p>
-                                </label> {/**flex flex-row flex-wrap */}
-                                {/* <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5  xl:grid-cols-6 gap-4 mt-4 sm:mr-4 sm:mt-0"> */}
+                                    <p className="font-sans text-sm whitespace-nowrap w-full  font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
+                                    <p className="font-sans text-sm  font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${imageArray.length}/20`)}</p>
+                                </label> 
                                 <div className="class_grid_manage_products mt-4 sm:mr-4 sm:mt-0">
                                     {imageArray.map(image => {
                                         return(
