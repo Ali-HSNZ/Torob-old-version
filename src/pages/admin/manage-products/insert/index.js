@@ -80,10 +80,10 @@ const InsertProduct = () => {
         const payload = {categoryId,brandId,product_title,barcode,product_description,imageArray}
         dispatch(insertProduct(payload))
     }
-    // useEffect(()=>{
-    //     dispatch(fetchBrands())
-    //     dispatch(fetchMainCategories())
-    // },[])
+    useEffect(()=>{
+        dispatch(fetchBrands())
+        dispatch(fetchMainCategories())
+    },[])
     useEffect(()=>{
         if(selectedCategory_main && selectedCategory_main.id) dispatch(fetchSub1(selectedCategory_main.id))
         setSelectedCategory_sub1("")
@@ -107,7 +107,6 @@ const InsertProduct = () => {
         }
     })
 
-    const [onChangeFile , setOnChangeFile] = useState(null)
     const imageInput_ref = useRef()
 
     const checkImageFormat = (fileName) => {
