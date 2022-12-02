@@ -97,7 +97,7 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
 }
 
 
-export const editProductAction = ({categoryId ,barcode, brandId , product_title , product_description , productImage , id}) => dispatch => {
+export const editProductAction = ({categoryId ,barcode, brandId , product_title , product_description , imageArray , id}) => dispatch => {
     dispatch(fetchOneProductRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/products/${id}/update` ,{
         title : product_title,
@@ -105,7 +105,7 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        product_image_1 : productImage,
+        product_image : imageArray,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
@@ -117,6 +117,18 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
         if(!serverMessage_list) toast.error("خطای سرور در بخش ویرایش اطلاعات کالا")
         dispatch(fetchOneProductFailure("خطای سرور در بخش ویرایش اطلاعات کالا"))
+    })
+}
+
+export const deleteImage = (id) => dispatch => {
+    dispatch(fetchOneProductRequest())
+    axios.delete(`https://market-api.iran.liara.run/api/admin/products/images/${id}`, {headers : {authorization : `Bearer ${token}`}})
+    .then(({data}) =>  dispatch(fetchOneProductSuccess(data)))
+    .catch(error => {
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش حذف تصویر")
+        dispatch(fetchOneProductFailure("خطای سرور در بخش حذف تصویر"))
     })
 }
 
