@@ -29,7 +29,6 @@ const InsertProduct = () => {
 
     const [isAsideModal,setIsAsideModal] = useState(false)
     
-    const [isProductImage_Modal , setIsProductImage_Modal] = useState(false)
 
     const [selectedCategory_main, setSelectedCategory_main] = useState("")
     const [categoryQuery_main, setCategoryQuery_main] = useState("")
@@ -81,8 +80,8 @@ const InsertProduct = () => {
         dispatch(insertProduct(payload))
     }
     useEffect(()=>{
-        // dispatch(fetchBrands())
-        // dispatch(fetchMainCategories())
+        dispatch(fetchBrands())
+        dispatch(fetchMainCategories())
     },[])
     useEffect(()=>{
         if(selectedCategory_main && selectedCategory_main.id) dispatch(fetchSub1(selectedCategory_main.id))
@@ -96,6 +95,7 @@ const InsertProduct = () => {
         if(selectedCategory_sub2 && selectedCategory_sub2.id) dispatch(fetchSub3(selectedCategory_sub2.id))
         setSelectedCategory_sub3("")
     },[selectedCategory_sub2])
+
     const formik = useFormik({
         onSubmit,
         validationSchema,
