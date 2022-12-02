@@ -82,6 +82,7 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
         brand_id : brandId,
         category_id : categoryId,
         product_image : imageArray,
+        images_count : imageArray.length,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
@@ -105,6 +106,7 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
+        images_count : imageArray.length,
         product_image : imageArray,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
@@ -123,7 +125,7 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
 export const deleteImage = (id) => dispatch => {
     dispatch(fetchOneProductRequest())
     axios.delete(`https://market-api.iran.liara.run/api/admin/products/images/${id}`, {headers : {authorization : `Bearer ${token}`}})
-    .then(({data}) =>  dispatch(fetchOneProductSuccess(data)))
+    .then(({data}) =>  dispatch(fetchOneProductSuccess(data.product)))
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
