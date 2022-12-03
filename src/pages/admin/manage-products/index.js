@@ -74,7 +74,6 @@ const ManageProduct = () => {
         }
     })
 
-    
     return (  
         <Layout isFooter={true} pageTitle={"پنل مدیریت | مدیریت کالاها"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
@@ -239,8 +238,8 @@ const ManageProduct = () => {
                                                         <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.barcode}</p>
                                                         {/* Logo */}
                                                         <div className="flex">
-                                                            <b className="font-sans text-sm pl-1">تصویر کالا : </b>
-                                                            {!product.is_image_url ? (
+                                                            <b className="font-sans text-sm pl-1">تصویر اصلی کالا : </b>
+                                                            {product.is_image_url ? (
                                                                 <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
                                                             ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
                                                         </div>
@@ -261,7 +260,7 @@ const ManageProduct = () => {
                             </section>
                             <section dir="ltr" className=" w-full flex justify-center py-4">
                                 <Pagination size="large" color="primary" page={page} count={pagination.last} onChange={(event , page)=> {
-                                    router.push(`/admin/manage-products?page=${page}&state=${router.query.state || ''}&name=${router.query.name || ""}&limit=${limit || 12}&order=${router.query.order || 'asc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
+                                    router.push(`/admin/manage-products?page=${page}&state=${router.query.state || 'all'}&name=${router.query.name || ""}&limit=${limit || 12}&order=${router.query.order || 'desc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
                                 }}/>
                             </section>
                         </>
