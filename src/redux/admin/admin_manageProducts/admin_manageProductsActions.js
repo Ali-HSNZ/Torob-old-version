@@ -42,7 +42,7 @@ const fetchProductsSuccess = (payload) => { return {type : ADMIN_FETCH_PRODUCTS_
 const fetchProductsFailure = (payload) => {return {type : ADMIN_FETCH_PRODUCTS_FAILURE , payload}}
 
 const fetchOneProductRequest = () => {return {type : ADMIN_FETCH_ONE_PRODUCT_REQUEST}}
-const fetchOneProductSuccess = (payload=null) => { return {type : ADMIN_FETCH_ONE_PRODUCT_SUCCESS , payload}}
+const fetchOneProductSuccess = (payload) => { return {type : ADMIN_FETCH_ONE_PRODUCT_SUCCESS , payload : payload || null}}
 const fetchOneProductFailure = (payload) => {return {type : ADMIN_FETCH_ONE_PRODUCT_FAILURE , payload}}
 
 const insertProductRequest = () => {return {type : ADMIN_INSERT_ONE_PRODUCT_REQUEST}}
@@ -73,7 +73,7 @@ const fetchCategoriesFailure = (payload) => {return {type : ADMIN_FETCH_CATEGORI
 const token = new Cookies().get("userToken");
 
 
-export const insertProduct = ({categoryId ,barcode, brandId , product_title , product_description , imageArray}) => dispatch => {
+export const insertProduct = ({categoryId ,barcode, brandId , product_title , product_description , productImages}) => dispatch => {
     dispatch(insertProductRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/products` ,{
         title : product_title,
@@ -81,8 +81,8 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        product_image : imageArray,
-        images_count : imageArray.length,
+        product_image : productImages,
+        images_count : productImages.length,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
@@ -98,7 +98,7 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
 }
 
 
-export const editProductAction = ({categoryId ,barcode, brandId , product_title , product_description , imageArray , id}) => dispatch => {
+export const editProductAction = ({categoryId ,barcode, brandId , product_title , product_description , productImages , id}) => dispatch => {
     dispatch(fetchOneProductRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/products/${id}/update` ,{
         title : product_title,
@@ -106,8 +106,8 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
         description : product_description,
         brand_id : brandId,
         category_id : categoryId,
-        images_count : imageArray.length,
-        product_image : imageArray,
+        images_count : productImages.length,
+        product_image : productImages,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
@@ -125,7 +125,7 @@ export const editProductAction = ({categoryId ,barcode, brandId , product_title 
 export const deleteImage = (id) => dispatch => {
     dispatch(fetchOneProductRequest())
     axios.delete(`https://market-api.iran.liara.run/api/admin/products/images/${id}`, {headers : {authorization : `Bearer ${token}`}})
-    .then(({data}) =>  dispatch(fetchOneProductSuccess(data.product)))
+    .then(() =>  dispatch(fetchOneProductSuccess()))
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
