@@ -22,7 +22,6 @@ const EditProduct = () => {
     const {product} = productData.product
     const {subCategoryLoading} = productData
     const productLoading = productData.product.loading
-
     
     const [isEditCategory , setIsEditCategory] = useState(false)
     const {brands} = useSelector(state => state.admin_products.brands)
@@ -30,12 +29,13 @@ const EditProduct = () => {
     const sub1 = useSelector(state => state.admin_products.sub1)
     const sub2 = useSelector(state => state.admin_products.sub2)
     const sub3 = useSelector(state => state.admin_products.sub3)
+
     const router = useRouter()
     const id = Number(router.query.productId)
     
+    const imageInput_ref = useRef()
+
     const [isAsideModal,setIsAsideModal] = useState(false)
-    
-    const [isProductImage_Modal , setIsProductImage_Modal] = useState(false)
     
     const [selectedCategory_main, setSelectedCategory_main] = useState("")
     const [categoryQuery_main, setCategoryQuery_main] = useState("")
@@ -52,8 +52,9 @@ const EditProduct = () => {
     const [selectedBrand, setSelectedBrand] = useState("")
     const [brandQuery, setBrandQuery] = useState('')
     
-    const [imageArray , setImageArray] = useState([])
-
+    const [productImages , setProductImages] = useState([])
+    const [imageSrc_modal , setImageSrc_modal] = useState(null)
+    const [isImage_modal , setIsImage_modal] = useState(false)
 
     const filteredCategories = categoryQuery_main === '' ? categories : categories && categories.filter((category) => category.name.toLowerCase().replace(/\s+/g, '').includes(categoryQuery_main.toLocaleLowerCase().replace(/\s+/g, '')))
     const filteredsub1 = categoryQuery_sub1 === '' ? sub1.categories : sub1.categories && sub1.categories.filter((category) => category.name.toLowerCase().replace(/\s+/g, '').includes(categoryQuery_sub1.toLocaleLowerCase().replace(/\s+/g, '')))
@@ -62,14 +63,7 @@ const EditProduct = () => {
     
     const filteredBrands = brandQuery === '' ? brands : brands.filter((brand) => brand.name.toLowerCase().replace(/\s+/g, '').includes(brandQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
-    const validationSchema = Yup.object({
-        product_title : Yup.string().min(3, "نام کالا نمی‌تواند کم تر از ۳ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
-        product_description : Yup.string().min(2,"توضیحات کالا نمیتواند کم تر از ۲ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
-        barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
-    })
-    
-    const imageInput_ref = useRef()
-    
+
     const checkImageFormat = (fileName) => {
         const type =  fileName.split('.').pop();
         const valid = ['png','jpg','jpeg','webp']
@@ -79,29 +73,17 @@ const EditProduct = () => {
         return true
     }
 
-    const onSubmit = ({product_title ,barcode, product_description}) => {
-        const selectCategory = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
-        const pageCategoryId =  product.categories[3] || product.categories[2] || product.categories[1] || product.categories[0] 
-        let categoryId = null;
-        const brandId = selectedBrand.id || null
-        if(isEditCategory)  categoryId = Number(selectCategory) ; else categoryId = Number(pageCategoryId.id)
-        // Check Brand
-        if(!brandId){
-            toast.error('مقدار برند الزامی می باشد')
-            return false
-        }
-        // Check Category
-        if(!categoryId){
-            toast.error('مقدار دسته‌بندی الزامی می باشد')
-            return false
-        }
-        const payload = {categoryId,barcode,brandId,product_title,product_description,imageArray,id}
-        dispatch(editProductAction(payload))
-    }
+
+    useEffect(()=>{
+        setProductImages([])
+        if(id) dispatch(fetchProduct(id));
+        dispatch(fetchBrands())
+        dispatch(fetchMainCategories())
+    },[router])
 
     useEffect(()=>{
         setSelectedBrand(product && product.brand || "") 
-        setImageArray(product && product.images || [])
+        setProductImages(product && product.images || [])
     },[product])
 
     useEffect(()=>{
@@ -119,40 +101,31 @@ const EditProduct = () => {
         setSelectedCategory_sub3("")
     },[selectedCategory_sub2])
 
-    useEffect(()=>{
-        if(id) dispatch(fetchProduct(id));
-        dispatch(fetchBrands())
-        dispatch(fetchMainCategories())
-    },[router.query])
-
-
     const deleteImageViaId = (id) => {
-        const cloneArray = [...imageArray]
+        const cloneArray = [...productImages]
         const currentImage_index = cloneArray.findIndex(image => image.id === id)
-        const filterdArray = cloneArray.filter(image => image.id !== id)
+        const availableImages = cloneArray.filter(image => image.id !== id)
         if(cloneArray[currentImage_index].is_main === true){
-            if(filterdArray.length > 0){
-                filterdArray[0].is_main = true
-                setImageArray(filterdArray)
+            if(availableImages.length > 0){
+                availableImages[0].is_main = true
+                setProductImages(availableImages)
             }
             else{
-                setImageArray(filterdArray);
+                setProductImages(availableImages);
             }
-        }else setImageArray(filterdArray);
+        }else setProductImages(availableImages);
 
         setIsImage_modal(false)
     }
     const setOriginalImageViaId = (id) => {
-        const cloneArray = [...imageArray]
+        const cloneArray = [...productImages]
         cloneArray.forEach(image => image.is_main = false)
         const currentImage_index = cloneArray.findIndex(image => image.id === id)
         cloneArray[currentImage_index].is_main = true;
-        setImageArray(cloneArray)
+        setProductImages(cloneArray)
         setIsImage_modal(false)
     }
 
-    const [imageSrc_modal , setImageSrc_modal] = useState(null)
-    const [isImage_modal , setIsImage_modal] = useState(false)
     const changeFIleAction_input = (input) => {
         const image = input.target.files[0]        
         if(input.target.files && image){
@@ -171,16 +144,34 @@ const EditProduct = () => {
                 imageInput_ref.current.value = null
                 return false
             }
-            setImageArray([...imageArray , {id : Date.now(),
-                                                                image , //image : image
-                                                                is_uploaded : false,
-                                                                url : URL.createObjectURL(image),
-                                                                is_main : imageArray.length === 0 ? true : false
-                                                            }])
+            setProductImages([...productImages , {id : Date.now(),image ,is_uploaded : false,url : URL.createObjectURL(image),is_main : productImages.length === 0 ? true : false}])
             imageInput_ref.current.value = null
         }
     }
 
+    const validationSchema = Yup.object({
+        product_title : Yup.string().min(3, "نام کالا نمی‌تواند کم تر از ۳ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
+        product_description : Yup.string().min(2,"توضیحات کالا نمیتواند کم تر از ۲ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
+        barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
+    })
+
+    const onSubmit = ({product_title ,barcode, product_description}) => {
+        const selectCategory = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
+        const pageCategoryId =  product.categories[3] || product.categories[2] || product.categories[1] || product.categories[0] 
+        let categoryId = null;
+        const brandId = selectedBrand.id || null
+        if(isEditCategory)  categoryId = Number(selectCategory) ; else categoryId = Number(pageCategoryId.id)
+        // Check Brand
+        if(!brandId){
+            toast.error('مقدار برند الزامی می باشد'); return false
+        }
+        // Check Category
+        if(!categoryId){
+            toast.error('مقدار دسته‌بندی الزامی می باشد'); return false
+        }
+        const payload = {categoryId,barcode,brandId,product_title,product_description,productImages,id}
+        dispatch(editProductAction(payload))
+    }
 
     const formik = useFormik({
         onSubmit,
@@ -210,7 +201,7 @@ const EditProduct = () => {
                                 </svg>
                             </button>
                             <div className="w-full flex justify-end gap-x-3 absolute bottom-2 left-0 py-1 px-3  bg-[#fffffff0]">
-                                <button onClick={() => imageSrc_modal.is_uploaded ? dispatch(deleteImage(imageSrc_modal.id)) : deleteImageViaId(imageSrc_modal.id)} className="text-xs font-sans rounded-md hover:underline underline-offset-4 text-red-600">حذف تصویر</button>
+                                <button onClick={() => imageSrc_modal.is_uploaded ? dispatch(deleteImage(imageSrc_modal.id)) & deleteImageViaId(imageSrc_modal.id): deleteImageViaId(imageSrc_modal.id)} className="text-xs font-sans rounded-md hover:underline underline-offset-4 text-red-600">حذف تصویر</button>
                                 <button onClick={() => setOriginalImageViaId(imageSrc_modal.id)} className="text-xs font-sans rounded-md hover:underline underline-offset-4 text-blue-600">انتخاب به عنوان تصویر اصلی</button>
                             </div>
                         </section>
@@ -260,18 +251,20 @@ const EditProduct = () => {
                         </div>
 
                         {/* select Image Section */}
-                        <section className="mt-4 w-full flex flex-row ">
+                        <section className="sm:mt-4 w-full flex flex-row ">
                             <div className={`flex sm:flex-row flex-col flex-start w-full`}>
-                            <input type={'file'} disabled={imageArray.length > 19 ? true : false} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' className="hidden peer"/>
-                                <label htmlFor="chooseImageInput" className={`sticky top-0 z-50  sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed peer-disabled:cursor-not-allowed peer-disabled:text-gray-800 text-blue-700 peer-disabled:border-gray-800 cursor-pointer peer-disabled:bg-gray-300 hover:bg-blue-100 bg-blue-50 border-blue-600 border-2 rounded-lg `}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                    </svg>
-                                    <p className="font-sans text-sm whitespace-nowrap w-full  font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
-                                    <p className="font-sans text-sm  font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${imageArray.length}/20`)}</p>
-                                </label> 
-                                <div className="class_grid_manage_products mt-4 sm:mr-4 sm:mt-0">
-                                    {imageArray.map(image => {
+                                <input type={'file'} disabled={productImages.length > 19 ? true : false} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' className="hidden peer" accept=".jpg,.png,.jpeg,.webp"/>
+                                <div className="sticky top-0 z-50 py-4  sm:p-0 bg-gray-100 sm:bg-transparent">
+                                    <label htmlFor="chooseImageInput" className={`sticky top-0 z-50  sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed peer-disabled:cursor-not-allowed peer-disabled:text-gray-800 text-blue-700 peer-disabled:border-gray-800 cursor-pointer peer-disabled:bg-gray-300 hover:bg-blue-100 bg-blue-50 border-blue-600 border-2 rounded-md sm:rounded-lg `}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                        <p className="font-sans text-sm whitespace-nowrap w-full  font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
+                                        <p className="font-sans text-sm  font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${productImages.length}/20`)}</p>
+                                    </label> 
+                                </div>
+                                <div className="class_grid_manage_products sm:mr-4">
+                                    {productImages.map(image => {
                                         return(
                                             <div key={image.id} onClick={()=>{setImageSrc_modal(image) , setIsImage_modal(true)}} className="z-10 cursor-pointer group h-28 p-1 relative border-gray-500 border w-auto flex   rounded-md overflow-hidden items-center justify-center">
                                                 <img src={image.url} className="h-full w-auto"/> 
@@ -295,17 +288,16 @@ const EditProduct = () => {
                                 <label onClick={()=> {setSelectedCategory_main("") & setIsEditCategory(!isEditCategory)}} htmlFor="category_section" className="peer-checked:hidden cursor-pointer font-sans text-xs hover:underline underline-offset-4 mr-2 text-blue-600"> (ویرایش)</label>
                                 {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
                             </section>
-                            <section className=" peer-checked:hidden mt-2">
+                            <section className=" peer-checked:hidden ">
                                 {product && product.categories && product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
                             </section>
-                            <section className="hidden peer-checked:flex flex-wrap gap-3 mt-4">
+                            <section className="hidden peer-checked:flex flex-wrap gap-3 mt-2">
                                 <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
                                 {selectedCategory_main && sub1.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته اول'} query={categoryQuery_sub1} setQuery={setCategoryQuery_sub1} filteredData={filteredsub1} selected={selectedCategory_sub1} setSelected={setSelectedCategory_sub1}/>}
                                 {selectedCategory_sub1 && sub2.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته دوم'} query={categoryQuery_sub2} setQuery={setCategoryQuery_sub2} filteredData={filteredsub2} selected={selectedCategory_sub2} setSelected={setSelectedCategory_sub2}/>}
                                 {selectedCategory_sub2 && sub3.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته سوم'} query={categoryQuery_sub3} setQuery={setCategoryQuery_sub3} filteredData={filteredsub3} selected={selectedCategory_sub3} setSelected={setSelectedCategory_sub3}/>}
                             </section>
                         </div>
-
 
                         <div className="mt-6 w-full flex justify-end gap-x-2">
                             {productLoading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
