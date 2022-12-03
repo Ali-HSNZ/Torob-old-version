@@ -28,7 +28,6 @@ const InsertProduct = () => {
     const dispatch = useDispatch();
 
     const [isAsideModal,setIsAsideModal] = useState(false)
-    
 
     const [selectedCategory_main, setSelectedCategory_main] = useState("")
     const [categoryQuery_main, setCategoryQuery_main] = useState("")
@@ -45,6 +44,10 @@ const InsertProduct = () => {
     const [selectedBrand, setSelectedBrand] = useState("")
     const [brandQuery, setBrandQuery] = useState('')
     
+    const [productImages , setProductImages] = useState([])
+    const [imageSrc_modal , setImageSrc_modal] = useState(null)
+    const [isImage_modal , setIsImage_modal] = useState(false)
+
     const filteredCategories = categoryQuery_main === '' ? categories : categories && categories.filter((category) => category.name.toLowerCase().replace(/\s+/g, '').includes(categoryQuery_main.toLocaleLowerCase().replace(/\s+/g, '')))
     const filteredsub1 = categoryQuery_sub1 === '' ? sub1.categories : sub1.categories && sub1.categories.filter((category) => category.name.toLowerCase().replace(/\s+/g, '').includes(categoryQuery_sub1.toLocaleLowerCase().replace(/\s+/g, '')))
     const filteredsub2 = categoryQuery_sub2 === '' ? sub2.categories : sub2.categories && sub2.categories.filter((category) => category.name.toLowerCase().replace(/\s+/g, '').includes(categoryQuery_sub2.toLocaleLowerCase().replace(/\s+/g, '')))
@@ -52,33 +55,10 @@ const InsertProduct = () => {
     
     const filteredBrands = brandQuery === '' ? brands : brands.filter((brand) => brand.name.toLowerCase().replace(/\s+/g, '').includes(brandQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
-    const validationSchema = Yup.object({
-        product_title : Yup.string().min(3, "نام کالا نمی‌تواند کم تر از ۳ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
-        product_description : Yup.string().min(2,"توضیحات کالا نمیتواند کم تر از ۲ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
-        barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
-    })
-    const [imageArray , setImageArray] = useState([])
+    const imageInput_ref = useRef()
 
-    const onSubmit = ({product_title ,barcode, product_description}) => {
-        const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
-        const brandId = selectedBrand.id || null
-        if(imageArray.length === 0){
-            toast.error('تصویر کالا الزامی می باشد')
-            return false
-        }
-        // Check Brand
-        if(!brandId){
-            toast.error('مقدار برند الزامی می باشد')
-            return false
-        }
-        // Check Category
-        if(!categoryId){
-            toast.error('مقدار دسته‌بندی الزامی می باشد')
-            return false
-        }
-        const payload = {categoryId,brandId,product_title,barcode,product_description,imageArray}
-        dispatch(insertProduct(payload))
-    }
+
+
     useEffect(()=>{
         dispatch(fetchBrands())
         dispatch(fetchMainCategories())
@@ -96,18 +76,8 @@ const InsertProduct = () => {
         setSelectedCategory_sub3("")
     },[selectedCategory_sub2])
 
-    const formik = useFormik({
-        onSubmit,
-        validationSchema,
-        validateOnMount : true,
-        initialValues : {
-            product_title :  "",
-            product_description :  "",
-            barcode : "",
-        }
-    })
 
-    const imageInput_ref = useRef()
+
 
     const checkImageFormat = (fileName) => {
         const type =  fileName.split('.').pop();
@@ -118,32 +88,31 @@ const InsertProduct = () => {
         return true
     }
     const deleteImageViaId = (id) => {
-        const cloneArray = [...imageArray]
+        const cloneArray = [...productImages]
         const currentImage_index = cloneArray.findIndex(image => image.id === id)
-        const filterdArray = cloneArray.filter(image => image.id !== id)
-        if(cloneArray[currentImage_index].isOriginal === true){
-            if(filterdArray.length > 0){
-                filterdArray[0].isOriginal = true
-                setImageArray(filterdArray)
+        const availableImages = cloneArray.filter(image => image.id !== id)
+        if(cloneArray[currentImage_index].is_main === true){
+            if(availableImages.length > 0){
+                availableImages[0].is_main = true
+                setProductImages(availableImages)
             }
             else{
-                setImageArray(filterdArray);
+                setProductImages(availableImages);
             }
-        }else setImageArray(filterdArray);
+        }else setProductImages(availableImages);
 
         setIsImage_modal(false)
     }
     const setOriginalImageViaId = (id) => {
-        const cloneArray = [...imageArray]
-        cloneArray.forEach(image => image.isOriginal = false)
+        const cloneArray = [...productImages]
+        cloneArray.forEach(image => image.is_main = false)
         const currentImage_index = cloneArray.findIndex(image => image.id === id)
-        cloneArray[currentImage_index].isOriginal = true;
-        setImageArray(cloneArray)
+        cloneArray[currentImage_index].is_main = true;
+        setProductImages(cloneArray)
         setIsImage_modal(false)
 
     }
-    const [imageSrc_modal , setImageSrc_modal] = useState(null)
-    const [isImage_modal , setIsImage_modal] = useState(false)
+
     const changeFIleAction_input = (input) => {
         const image = input.target.files[0]        
         if(input.target.files && image){
@@ -162,10 +131,48 @@ const InsertProduct = () => {
                 imageInput_ref.current.value = null
                 return false
             }
-            setImageArray([...imageArray , {id : Date.now() + Math.random() , image  , imageUrl : URL.createObjectURL(image) , isOriginal : imageArray.length === 0 ? true : false}])
+            setProductImages([...productImages , {id : Date.now() , image  , imageUrl : URL.createObjectURL(image) , is_main : productImages.length === 0 ? true : false}])
             imageInput_ref.current.value = null
         }
     }
+
+    const validationSchema = Yup.object({
+        product_title : Yup.string().min(3, "نام کالا نمی‌تواند کم تر از ۳ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
+        product_description : Yup.string().min(2,"توضیحات کالا نمیتواند کم تر از ۲ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
+        barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
+    })
+
+    const onSubmit = ({product_title ,barcode, product_description}) => {
+        const categoryId = selectedCategory_sub3.id || selectedCategory_sub2.id || selectedCategory_sub1.id || selectedCategory_main.id
+        const brandId = selectedBrand.id || null
+        if(productImages.length === 0){
+            toast.error('تصویر کالا الزامی می باشد')
+            return false
+        }
+        // Check Brand
+        if(!brandId){
+            toast.error('مقدار برند الزامی می باشد')
+            return false
+        }
+        // Check Category
+        if(!categoryId){
+            toast.error('مقدار دسته‌بندی الزامی می باشد')
+            return false
+        }
+        const payload = {categoryId,brandId,product_title,barcode,product_description,productImages}
+        dispatch(insertProduct(payload))
+    }
+    
+    const formik = useFormik({
+        onSubmit,
+        validationSchema,
+        validateOnMount : true,
+        initialValues : {
+            product_title :  "",
+            product_description :  "",
+            barcode : "",
+        }
+    })
 
     return (  
         <Layout isFooter={true} pageTitle={"پنل مدیریت | افزودن کالا"}>
@@ -220,7 +227,7 @@ const InsertProduct = () => {
                     <form onSubmit={formik.handleSubmit}>
                         {/* Product Title - Brand - Barcode */}
                         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-                        <FormikInput title={"عنوان کالا"} formik={formik} placeholder={"عنوان کالا"} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
+                            <FormikInput title={"عنوان کالا"} formik={formik} placeholder={"عنوان کالا"} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">برند :</p>
                                 <div className="w-full mt-2">
@@ -235,18 +242,21 @@ const InsertProduct = () => {
                             <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} placeholder="توضیحات..." className="leading-8 max-h-[250px] min-h-[50px] w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
                             {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
                         </div>
-                        <section className="mt-4 w-full flex flex-row ">
+                        {/* Choose Product Images */}
+                        <section className="sm:mt-4 w-full flex flex-row ">
                             <div className={`flex sm:flex-row flex-col flex-start w-full`}>
-                            <input type={'file'} disabled={imageArray.length > 19 ? true : false} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' className="hidden peer"/>
-                                <label htmlFor="chooseImageInput" className={`sticky top-0 z-50  sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed peer-disabled:cursor-not-allowed peer-disabled:text-gray-800 text-blue-700 peer-disabled:border-gray-800 cursor-pointer peer-disabled:bg-gray-300 hover:bg-blue-100 bg-blue-50 border-blue-600 border-2 rounded-lg `}>
+                            <input type={'file'} disabled={productImages.length > 19 ? true : false} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' accept=".jpg,.png,.jpeg,.webp" className="hidden peer"/>
+                            <div className="sticky top-0 z-50 py-4  sm:p-0 bg-gray-100 sm:bg-transparent">
+                                <label htmlFor="chooseImageInput" className={`  sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed peer-disabled:cursor-not-allowed peer-disabled:text-gray-800 text-blue-700 peer-disabled:border-gray-800 cursor-pointer peer-disabled:bg-gray-300 hover:bg-blue-100 bg-blue-50 border-blue-600 border-2 rounded-md sm:rounded-lg `}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
                                     <p className="font-sans text-sm whitespace-nowrap w-full  font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
-                                    <p className="font-sans text-sm  font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${imageArray.length}/20`)}</p>
+                                    <p className="font-sans text-sm  font-bold  sm:absolute top-3 left-3">{toPersianDigits(`${productImages.length}/20`)}</p>
                                 </label> 
-                                <div className="class_grid_manage_products mt-4 sm:mr-4 sm:mt-0">
-                                    {imageArray.map(image => {
+                            </div>
+                                <div className="class_grid_manage_products sm:mr-4 ">
+                                    {productImages.map(image => {
                                         return(
                                             <div key={image.id} onClick={()=>{setImageSrc_modal(image) , setIsImage_modal(true)}} className="z-10 cursor-pointer group h-28 p-1 relative border-gray-500 border w-auto flex   rounded-md overflow-hidden items-center justify-center">
                                                 <img src={image.imageUrl} className="h-full w-auto"/> 
@@ -255,7 +265,7 @@ const InsertProduct = () => {
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                     </svg>
                                                 </button>
-                                                {image.isOriginal && <p className="absolute bottom-0 font-sans text-xs text-gray-100 text-center p-1 bg-[#000000b7] w-full">تصویر اصلی</p>}
+                                                {image.is_main && <p className="absolute bottom-0 font-sans text-xs text-gray-100 text-center p-1 bg-[#000000b7] w-full">تصویر اصلی</p>}
                                             </div>
                                         )
                                     })}
@@ -269,7 +279,7 @@ const InsertProduct = () => {
                                 <p className="font-sans text-sm before:content-['*'] before:text-red-600">دسته‌بندی :</p>
                                 {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" delay={0} height={20} width={20} color="red" />}
                             </section>
-                            <section className="flex flex-wrap gap-3 mt-4">
+                            <section className="flex flex-wrap gap-3 mt-2">
                                 <SelectBox  isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
                                 {selectedCategory_main && sub1.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته اول'} query={categoryQuery_sub1} setQuery={setCategoryQuery_sub1} filteredData={filteredsub1} selected={selectedCategory_sub1} setSelected={setSelectedCategory_sub1}/>}
                                 {selectedCategory_sub1 && sub2.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته دوم'} query={categoryQuery_sub2} setQuery={setCategoryQuery_sub2} filteredData={filteredsub2} selected={selectedCategory_sub2} setSelected={setSelectedCategory_sub2}/>}
