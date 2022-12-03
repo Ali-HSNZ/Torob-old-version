@@ -40,7 +40,7 @@ export const updateBrand = ({brandImage , order, companyName , faName ,enName  ,
         brand_english_name : enName,
         brand_company : companyName,
         slug,
-        brand_logo : brandImage ? brandImage : null
+        brand_logo : brandImage || 1
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then((data) =>{
         dispatch(fetchBrands(payload))
@@ -49,10 +49,9 @@ export const updateBrand = ({brandImage , order, companyName , faName ,enName  ,
         else toast.success('تغییرات با موفقیت ثبت شد')
     })
     .catch(error => {
-        dispatch(fetchBrands(payload))
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-        else dispatch(fetchProductsFailure( "خطا در ثبت تغییرات"))
+        else dispatch(admin_fetchBrandsFailure( "خطا در ثبت تغییرات"))
     })
 }
 
@@ -71,6 +70,6 @@ export const insertBrand = (payload) => dispatch => {
         dispatch(fetchBrands(payload))
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-        else dispatch(fetchProductsFailure( "خطا در ثبت برند"))
+        else dispatch(admin_fetchBrandsFailure( "خطا در ثبت برند"))
     })
 }
