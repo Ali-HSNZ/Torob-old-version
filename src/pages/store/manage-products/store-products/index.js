@@ -19,6 +19,7 @@ import { toPersianPrice } from "@/utils/toPersianPrice";
 import { timeDifference } from "@/utils/timeDifference";
 import { timeStampToPersianDate } from "@/utils/timeStampToPersianDate";
 import { fetchBrands, fetchCategories } from "@/redux/manage-store/insertProduct/manageStore_actions";
+import { toPersianDigits } from "@/utils/toPersianDigits";
 
 const StoreManageProducts = () => {
     
@@ -235,6 +236,7 @@ const StoreManageProducts = () => {
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">موجودی انبار : </b>{product.warehouse_count && product.warehouse_count.length === 0 ? "نامشخص" : toPersianPrice(product.warehouse_count)}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">پورسانت بازاریابی محصول : </b>{product.commission && product.commission.length === 0 ? "نامشخص" : toPersianPrice(product.commission)}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">آخرین تاریخ بروزرسانی قیمت : </b>{product.price_update_time && product.price_update_time.length === 0 ? "نامشخص" : timeDifference(product.price_update_time) + " | "+timeStampToPersianDate(product.price_update_time*1000)}</p>                
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">درصد تخفیف نقدی : </b>{product.cash_payment_discount && product.cash_payment_discount.length === 0 ? "نامشخص" : toPersianDigits(product.cash_payment_discount)}%</p>                
                                                     </div>
                                                     <div>
                                                         <b className="font-sans text-sm">تخفیف پله‌ایی : </b>
