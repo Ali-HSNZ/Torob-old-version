@@ -106,7 +106,7 @@ export const insertStoreProduct = ({product_id,values,production_date,expire_dat
         warehouse_count,
         delivery_description,
         store_note,
-        discount,
+        cash_payment_discount,
         commission,
         product_discounts,
     } = values
@@ -118,7 +118,7 @@ export const insertStoreProduct = ({product_id,values,production_date,expire_dat
         warehouse_count : warehouse_count.replace(/,/g, ''),
         delivery_description,
         store_note,
-        discount : discount.replace(/,/g, '') ,
+        cash_payment_discount : cash_payment_discount.replace(/,/g, '') ,
         commission : commission.replace(/,/g, '') ,
         production_date,
         expire_date,
