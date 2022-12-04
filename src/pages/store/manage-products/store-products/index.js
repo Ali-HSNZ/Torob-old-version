@@ -184,11 +184,21 @@ const StoreManageProducts = () => {
                     {products && (
                         <>
                             <section className="rounded-md overflow-hidden w-full mt-3  shadow-md flex flex-col">
+                            <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                                <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                                    <img className="max-h-full w-auto" src={modal_imageSrc}/>
+                                    <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
+                                            <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </section>
+                            </Modal>
                                 {products && products.map(product => {
                                     return(
                                         <section key={product.id}>
                                             <div className="p-4 bg-white w-full">
-                                                <input  type={"checkbox"} checked id={`detail_${product.id}`} className="peer hidden"/>
+                                                <input  type={"checkbox"}  id={`detail_${product.id}`} className="peer hidden"/>
 
                                                 <section className=" flex flex-col sm:flex-row items-center  justify-between">
                                                     <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
@@ -254,13 +264,13 @@ const StoreManageProducts = () => {
                                                                     </div>
                                                                 ))}
                                                         </div>
-                                                        <p className="font-sans text-sm flex mt-2"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات ارسال کالا : </b>{product.delivery_description && product.delivery_description.length === 0 ? "نامشخص" : product.delivery_description}</p>
-                                                        <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات فروشنده : </b>{product.store_note && product.store_note.length === 0 ? "نامشخص" : product.store_note}</p>
+                                                        <p className="font-sans text-sm flex mt-2"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات ارسال کالا : </b>{product.delivery_description.length === 0 ? "نامشخص" : product.delivery_description}</p>
+                                                        <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات فروشنده : </b>{product.store_note.length === 0 ? "نامشخص" : product.store_note}</p>
                                                     </div>
 
                                                     <hr className="border-gray-300 my-2"/>
                                                  
-                                                    <div className="flex flex-col gap-y-4">
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                         <p className="font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.base_product.title}</p>
                                                         
                                                         <div className="font-sans text-sm   flex ">
@@ -269,27 +279,16 @@ const StoreManageProducts = () => {
                                                         </div>
                                                         <p className="font-sans text-sm  flex  "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.base_product.brand.name && product.base_product.brand.name.length ===0 ? "نامشخص" : product.base_product.brand.name}</p>
                                                         <p className="font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.base_product.barcode}</p>
-                                                        <p className="font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.base_product.description.length === 0 ? "نامشخص" : product.base_product.description}</p>
                                                         {/* Logo */}
                                                         <div className="flex">
                                                             <b className="font-sans text-sm pl-1">تصویر کالا : </b>
                                                             {product.base_product.is_image_url ? (
-                                                                <>
-                                                                    <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.base_product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                    <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
-                                                                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                                                                            <img className="max-h-full w-auto" src={modal_imageSrc}/>
-                                                                            <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
-                                                                                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
-                                                                                </svg>
-                                                                            </button>
-                                                                        </section>
-                                                                    </Modal>
-                                                                </>
+                                                                <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.base_product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
                                                             ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
                                                         </div>
                                                     </div>
+                                                    <p className="mt-2 font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.base_product.description.length === 0 ? "نامشخص" : product.base_product.description}</p>
+
                                                     <div className="flex justify-end w-full mt-4 ">
                                                         <Link href={`/store/manage-products/store-products/edit/${product.id}`} >
                                                             <a className=" font-sans  shadow-sm md:shadow-md  lg:shadow-lg text-sm hover:bg-blue-100 bg-blue-50 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش</a>
