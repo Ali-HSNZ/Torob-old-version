@@ -19,7 +19,7 @@ import { insertStoreProduct } from "@/redux/manage-store/insertProduct/manageSto
 import { useRouter } from "next/router";
 import { setComma } from "@/utils/setComma";
 import { toPersianDigits } from "@/utils/toPersianDigits";
-import { fetchProduct, updateStoreProduct } from "@/redux/manage-store/companyProducts/companyProducts_Actions";
+import { deleteProduct, fetchProduct, updateStoreProduct } from "@/redux/manage-store/companyProducts/companyProducts_Actions";
 //  <==
 const InsertStoreProduct = () => {
     const dispatch = useDispatch();
@@ -74,7 +74,7 @@ const InsertStoreProduct = () => {
             .max(5000,"توضیحات فروشنده نمی تواند بیشتر از 5000 نویسه باشد")
             .trim(),
         cash_payment_discount : Yup.string()
-            .test("check-value-typeof","تخفیف نقدی عدد باشد", (value="") => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","تخفیف نقدی باید عدد باشد", (value="") => !isNaN(value && value.replace(/,/g, '') || ""))
             .test("check-degree","درصد تخفیف باید بین ۰ تا ۱۰۰ باشد", (value="") => {
                 if(Number(value) > 100 || Number(value) < 0){return false}
                 return true
@@ -112,13 +112,15 @@ const InsertStoreProduct = () => {
                             <h1 className="font-sans font-bold text-lg">ویرایش کالا</h1>
                         </div>
                         <div className="flex gap-x-2">
-                            <Link href={'/store/manage-products/insert'}>
+                            {/* Back Page Link */}
+                            <Link href={'/store/manage-products/store-products'}>
                                 <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                                     </svg>
                                 </a>
                             </Link>
+                            {/* Home Link */}
                             <Link href={'/store'}>
                                 <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -188,7 +190,8 @@ const InsertStoreProduct = () => {
                                                     <p className={`font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600`}>قیمت تولید :</p>
                                                     <Field 
                                                         type="text" 
-                                                        name={`production_price`} 
+                                                        name={`production_price`}
+                                                        value={setComma(values.production_price)}
                                                         placeholder={"قیمت تولید"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -201,6 +204,7 @@ const InsertStoreProduct = () => {
                                                     <Field 
                                                         type="text" 
                                                         name={`consumer_price`} 
+                                                        value={setComma(values.consumer_price)}
                                                         placeholder={"قیمت مصرف کننده"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -213,6 +217,7 @@ const InsertStoreProduct = () => {
                                                     <Field 
                                                         type="text" 
                                                         name={`store_price`} 
+                                                        value={setComma(values.store_price)}
                                                         placeholder={"قیمت فروش"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -225,6 +230,7 @@ const InsertStoreProduct = () => {
                                                     <Field 
                                                         type="text" 
                                                         name={`per_unit`} 
+                                                        value={setComma(values.per_unit)}
                                                         placeholder={"تعداد در واحد"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -238,6 +244,7 @@ const InsertStoreProduct = () => {
                                                         type="text" 
                                                         name={`warehouse_count`} 
                                                         placeholder={"موجودی انبار"}
+                                                        value={setComma(values.warehouse_count)}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
                                                 </section>
@@ -245,10 +252,11 @@ const InsertStoreProduct = () => {
                                             </div>
                                             <div className={'flex flex-col'}>
                                                 <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                    <p className={`font-sans text-sm text-gray-800 `}> تخفیف نقدی (درصد) :</p>
+                                                    <p className={`font-sans text-sm text-gray-800 `}>تخفیف نقدی (درصد) :</p>
                                                     <Field 
                                                         type="text" 
                                                         name={`cash_payment_discount`} 
+                                                        value={values.cash_payment_discount}
                                                         placeholder={"0 - 100"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -257,11 +265,12 @@ const InsertStoreProduct = () => {
                                             </div>
                                             <div className={'flex flex-col'}>
                                                 <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                    <p className={`font-sans text-sm text-gray-800 `}>پورسانت بازاریابی محصول :</p>
+                                                    <p className={`font-sans text-sm text-gray-800 `}>پورسانت بازاریابی محصول (درصد) :</p>
                                                     <Field 
                                                         type="text" 
                                                         name={`commission`} 
-                                                        placeholder={"پورسانت بازاریابی محصول"}
+                                                        value={values.commission}
+                                                        placeholder={"0 - 100"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
                                                 </section>
@@ -292,7 +301,7 @@ const InsertStoreProduct = () => {
                                                                         </div>
                                                                     </section>
                                                                 </div>
-                 
+                
                                                                 <div className="flex items-start flex-col">
                                                                     <p className="font-sans text-sm whitespace-nowrap">مقدار تخفیف : </p>
                                                                     <Field 
@@ -316,11 +325,11 @@ const InsertStoreProduct = () => {
                                                                             className="w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                                         />
                                                                         <div className="flex items-center">
-                                                                            {index > 0 && <button type="button" onClick={() => arrayHelpers.remove(index)} className=" items-center hover:bg-red-100 bg-red-50 flex border border-[#c32e2e] text-[#cc3d3d] rounded-md py-2 px-3 mr-2">
+                                                                            <button type="button" onClick={() => arrayHelpers.remove(index)} className=" items-center hover:bg-red-100 bg-red-50 flex border border-[#c32e2e] text-[#cc3d3d] rounded-md py-2 px-3 mr-2">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                                                                                 </svg>
-                                                                            </button>}
+                                                                            </button>
                                                                         </div>
                                                                     </div>
                                                                     <ErrorMessage  name={`product_discounts.${index}.final_price`}>{message => <p className={'text-red-600 font-sans text-xs pt-2'}>{message}</p>}</ErrorMessage>
@@ -353,11 +362,12 @@ const InsertStoreProduct = () => {
                                             {errors.store_note && touched.store_note && <p className="mt-2 font-sans text-xs text-red-700">{errors.store_note}</p>} 
                                         </div>
         
-                                        <div className="mt-6 w-full flex justify-end gap-x-2">
-                                            <section className=" flex justify-end  items-center ">
+                                        <div className="mt-6 w-full flex justify-end ">
+                                            <section className=" flex justify-end  items-center gap-x-2">
                                                 {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
+                                                {!loading && <button type={"button"} onClick={()=> dispatch(deleteProduct({id : query.productId}))} className={`items-center ${product && product.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>}
                                                 <button  type={"submit"} disabled={loading} className={`flex items-center hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer py-[6px] px-6 font-sans  text-sm rounded-md`}>
-                                                    ثبت تغییرات
+                                                    تایید تغییرات
                                                 </button>
                                             </section>
                                         </div>
