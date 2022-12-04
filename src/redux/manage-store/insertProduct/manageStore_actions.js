@@ -124,7 +124,7 @@ export const insertStoreProduct = ({product_id,values,production_date,expire_dat
         expire_date,
         product_id,
         product_discounts,
-        dicounts_count : product_discounts.length,
+        discounts_count : product_discounts.length,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         toast.success("کالا با موفقیت ثبت شد")
