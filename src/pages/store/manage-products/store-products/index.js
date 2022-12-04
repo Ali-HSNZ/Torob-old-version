@@ -303,7 +303,7 @@ const StoreManageProducts = () => {
                             </section>
                             <section dir="ltr" className=" w-full flex justify-center py-4">
                                 <Pagination size="large" color="primary" page={page} count={pagination.last} onChange={(event , page)=> {
-                                    router.push(`/store/manage-products/store-products?page=${page}&state=${router.query.state || ''}&barcode=${router.query.barcode || ""}&name=${router.query.name || ""}&limit=${limit || 12}&order=${router.query.order || 'asc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
+                                    router.push(`/store/manage-products/store-products?page=${page}&state=${router.query.state || 'all'}&barcode=${router.query.barcode || ""}&name=${router.query.name || ""}&limit=${limit || 12}&order=${router.query.order || 'desc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}`)
                                 }}/>
                             </section>
                         </>
