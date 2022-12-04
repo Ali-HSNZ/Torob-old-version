@@ -245,11 +245,11 @@ const StoreManageProducts = () => {
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تعداد در واحد : </b>{product.per_unit && product.per_unit.length === 0 ? "نامشخص" : toPersianPrice(product.per_unit)}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">موجودی انبار : </b>{product.warehouse_count && product.warehouse_count.length === 0 ? "نامشخص" : toPersianPrice(product.warehouse_count)}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">پورسانت بازاریابی محصول : </b>{product.commission && product.commission.length === 0 ? "نامشخص" : toPersianPrice(product.commission)}%</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">آخرین تاریخ بروزرسانی قیمت : </b>{product.price_update_time && product.price_update_time.length === 0 ? "نامشخص" : timeDifference(product.price_update_time) + " | "+timeStampToPersianDate(product.price_update_time*1000)}</p>                
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">آخرین تاریخ بروزرسانی قیمت : </b>{product.price_update_time && product.price_update_time.length === 0 ? "نامشخص" : timeStampToPersianDate(product.price_update_time*1000)}</p>                
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">درصد تخفیف نقدی : </b>{product.cash_payment_discount && product.cash_payment_discount.length === 0 ? "نامشخص" : toPersianDigits(product.cash_payment_discount)}%</p>                
                                                     </div>
                                                     <section >
-                                                        <div className="flex flex-col">
+                                                        <div className="flex flex-col mt-2">
                                                             <div className="flex flex-row test-sm font-sans">
                                                                 <b className="font-sans text-sm">تخفیف پله‌ایی : </b>
                                                                 {product.discounts.length === 0 && <p className="mr-1 font-sans text-sm">نامشخص</p>}
@@ -269,7 +269,7 @@ const StoreManageProducts = () => {
                                                                     ))}
                                                             </div>}
                                                         </div>
-                                                        <p className="font-sans text-sm flex mt-2"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات ارسال کالا : </b>{product.delivery_description.length === 0 ? "نامشخص" : product.delivery_description}</p>
+                                                        <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات ارسال کالا : </b>{product.delivery_description.length === 0 ? "نامشخص" : product.delivery_description}</p>
                                                         <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات فروشنده : </b>{product.store_note.length === 0 ? "نامشخص" : product.store_note}</p>
                                                     </section>
 
