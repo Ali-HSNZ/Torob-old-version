@@ -187,12 +187,12 @@ const ManageStores = () => {
                                                 </div>
                                                 <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                    {product.is_created ? (
-                                                        <p className="whitespace-nowrap font-sans text-sm gap-x-1 items-center  bg-green-100 flex text-green-800  rounded-md  px-3">
+                                                        <p className="text-green-800 whitespace-nowrap font-sans text-sm gap-x-1 items-center  bg-green-50 flex rounded-md py-1.5 px-3">
                                                             ثبت شده
                                                         </p>          
                                                    ) : (
                                                         <Link href={`/store/manage-products/insert/${product.id}`}>
-                                                            <a className="whitespace-nowrap font-sans text-sm gap-x-1 items-center hover:bg-green-100 bg-green-50 flex border border-green-600  rounded-md py-1.5 px-3">
+                                                            <a className=" text-green-800 whitespace-nowrap font-sans text-sm gap-x-1 items-center hover:bg-green-100 bg-green-50 flex border border-green-600  rounded-md py-1.5 px-3">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
                                                                 </svg>
