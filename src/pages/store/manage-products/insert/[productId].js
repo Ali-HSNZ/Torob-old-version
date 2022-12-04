@@ -68,11 +68,19 @@ const InsertStoreProduct = () => {
             .required("توضیحات فروشنده الزامی است")
             .max(5000,"توضیحات فروشنده نمی تواند بیشتر از 5000 نویسه باشد")
             .trim(),
-        discount : Yup.string()
-            .test("check-value-typeof","تخفیف باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+        cash_payment_discount : Yup.string()
+            .test("check-value-typeof","تخفیف نقدی باید عدد باشد", (value="") => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-degree","درصد تخفیف باید بین ۰ تا ۱۰۰ باشد", (value="") => {
+                if(Number(value) > 100 || Number(value) < 0){return false}
+                return true
+            })
             .trim(),
         commission : Yup.string()
-            .test("check-value-typeof","پورسانت بازاریابی محصول باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","پورسانت بازاریابی محصول باید عدد باشد", (value="") => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-degree","درصد پورسانت بازاریابی محصول باید بین ۰ تا ۱۰۰ باشد", (value="") => {
+                if(Number(value) > 100 || Number(value) < 0){return false}
+                return true
+            })
             .trim(),
     })
     const onSubmit = (values) => {
@@ -130,15 +138,9 @@ const InsertStoreProduct = () => {
                             warehouse_count : "",
                             delivery_description : "",
                             store_note : "",
-                            discount : "",
+                            cash_payment_discount : "",
                             commission : "",
-                            product_discounts : [
-                                {
-                                    discount_value : '', // 0 - 100 -  NUMBER 
-                                    final_price : '' , // Price
-                                    discount_type : 'count', // count or price
-                                },
-                            ]
+                            product_discounts : []
                         }}
                         >
                             {({ errors, touched ,values}) => {
@@ -178,7 +180,8 @@ const InsertStoreProduct = () => {
                                                     <p className={`font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600`}>قیمت تولید :</p>
                                                     <Field 
                                                         type="text" 
-                                                        name={`production_price`} 
+                                                        name={`production_price`}
+                                                        value={setComma(values.production_price)}
                                                         placeholder={"قیمت تولید"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -191,6 +194,7 @@ const InsertStoreProduct = () => {
                                                     <Field 
                                                         type="text" 
                                                         name={`consumer_price`} 
+                                                        value={setComma(values.consumer_price)}
                                                         placeholder={"قیمت مصرف کننده"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -203,6 +207,7 @@ const InsertStoreProduct = () => {
                                                     <Field 
                                                         type="text" 
                                                         name={`store_price`} 
+                                                        value={setComma(values.store_price)}
                                                         placeholder={"قیمت فروش"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -215,6 +220,7 @@ const InsertStoreProduct = () => {
                                                     <Field 
                                                         type="text" 
                                                         name={`per_unit`} 
+                                                        value={setComma(values.per_unit)}
                                                         placeholder={"تعداد در واحد"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
@@ -228,6 +234,7 @@ const InsertStoreProduct = () => {
                                                         type="text" 
                                                         name={`warehouse_count`} 
                                                         placeholder={"موجودی انبار"}
+                                                        value={setComma(values.warehouse_count)}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
                                                 </section>
@@ -235,23 +242,25 @@ const InsertStoreProduct = () => {
                                             </div>
                                             <div className={'flex flex-col'}>
                                                 <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                    <p className={`font-sans text-sm text-gray-800 `}>تخفیف :</p>
+                                                    <p className={`font-sans text-sm text-gray-800 `}>تخفیف نقدی (درصد) :</p>
                                                     <Field 
                                                         type="text" 
-                                                        name={`discount`} 
-                                                        placeholder={"تخفیف"}
+                                                        name={`cash_payment_discount`} 
+                                                        value={values.cash_payment_discount}
+                                                        placeholder={"0 - 100"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
                                                 </section>
-                                                {errors.discount && touched.discount && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.discount}</p>}
+                                                {errors.cash_payment_discount && touched.cash_payment_discount && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.cash_payment_discount}</p>}
                                             </div>
                                             <div className={'flex flex-col'}>
                                                 <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                    <p className={`font-sans text-sm text-gray-800 `}>پورسانت بازاریابی محصول :</p>
+                                                    <p className={`font-sans text-sm text-gray-800 `}>پورسانت بازاریابی محصول (درصد) :</p>
                                                     <Field 
                                                         type="text" 
                                                         name={`commission`} 
-                                                        placeholder={"پورسانت بازاریابی محصول"}
+                                                        value={values.commission}
+                                                        placeholder={"0 - 100"}
                                                         className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                     />
                                                 </section>
@@ -306,11 +315,11 @@ const InsertStoreProduct = () => {
                                                                             className="w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                                         />
                                                                         <div className="flex items-center">
-                                                                            {index > 0 && <button type="button" onClick={() => arrayHelpers.remove(index)} className=" items-center hover:bg-red-100 bg-red-50 flex border border-[#c32e2e] text-[#cc3d3d] rounded-md py-2 px-3 mr-2">
+                                                                            <button type="button" onClick={() => arrayHelpers.remove(index)} className=" items-center hover:bg-red-100 bg-red-50 flex border border-[#c32e2e] text-[#cc3d3d] rounded-md py-2 px-3 mr-2">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                                                                                 </svg>
-                                                                            </button>}
+                                                                            </button>
                                                                         </div>
                                                                     </div>
                                                                     <ErrorMessage  name={`product_discounts.${index}.final_price`}>{message => <p className={'text-red-600 font-sans text-xs pt-2'}>{message}</p>}</ErrorMessage>
