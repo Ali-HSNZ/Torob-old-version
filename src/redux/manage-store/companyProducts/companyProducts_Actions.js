@@ -69,8 +69,9 @@ export const updateStoreProduct = ({product_id,baseProduct_id,values,production_
         warehouse_count,
         delivery_description,
         store_note,
-        discount,
-        commission,
+        cash_payment_discount,
+        commission, 
+        product_discounts
     } = values
     axios.post(`https://market-api.iran.liara.run/api/store/products/${product_id}/update` ,{
         production_price : production_price.replace(/,/g, ''),
@@ -80,13 +81,17 @@ export const updateStoreProduct = ({product_id,baseProduct_id,values,production_
         warehouse_count : warehouse_count.replace(/,/g, ''),
         delivery_description,
         store_note,
-        discount : discount.replace(/,/g, '') ,
+        cash_payment_discount : cash_payment_discount.replace(/,/g, '') ,
         commission : commission.replace(/,/g, '') ,
         production_date,
         expire_date,
         product_id : baseProduct_id,
+        product_discounts,
+        discounts_count : product_discounts.length,
+
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
-    .then(() => {
+    .then((data) => {
+        console.log("data : ",data);
         toast.success("تغییرات با موفقیت ثبت شد")
         setTimeout(() => {
             if(window){
