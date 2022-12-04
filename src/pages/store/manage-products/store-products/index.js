@@ -248,25 +248,30 @@ const StoreManageProducts = () => {
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">آخرین تاریخ بروزرسانی قیمت : </b>{product.price_update_time && product.price_update_time.length === 0 ? "نامشخص" : timeDifference(product.price_update_time) + " | "+timeStampToPersianDate(product.price_update_time*1000)}</p>                
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">درصد تخفیف نقدی : </b>{product.cash_payment_discount && product.cash_payment_discount.length === 0 ? "نامشخص" : toPersianDigits(product.cash_payment_discount)}%</p>                
                                                     </div>
-                                                    <div>
-                                                        <b className="font-sans text-sm">تخفیف پله‌ایی : </b>
-                                                        <div className="w-full mt-2 border border-gray-400 rounded-lg py-4">
-                                                            <div className="w-full grid grid-cols-3 px-4 mb-2">
-                                                                <p className="font-sans text-sm font-bold">نوع</p>
-                                                                <p className="font-sans text-sm font-bold">مقدار </p>
-                                                                <p className="font-sans text-sm font-bold">قیمت نهایی</p>
+                                                    <section >
+                                                        <div className="flex flex-col">
+                                                            <div className="flex flex-row test-sm font-sans">
+                                                                <b className="font-sans text-sm">تخفیف پله‌ایی : </b>
+                                                                {product.discounts.length === 0 && <p className="mr-1 font-sans text-sm">نامشخص</p>}
                                                             </div>
-                                                                {product.discounts.map((discount,index) => (
-                                                                    <div key={index} className="px-4 w-full grid grid-cols-3 py-2 odd:bg-gray-200 even:bg-gray-100">
-                                                                        <p className="font-sans text-sm px-1 sm:p-0">{discount.discount_type === 'count' ? "تعداد" : 'قیمت'}</p>
-                                                                        <p className="font-sans text-sm px-1 sm:p-0">{toPersianPrice(discount.discount_value)} {discount.discount_type === 'price' ? "تومان" : ''} </p>
-                                                                        <p className="font-sans text-sm px-1 sm:p-0">{toPersianPrice(discount.final_price)} تومان</p>
-                                                                    </div>
-                                                                ))}
+                                                            {product.discounts.length > 0 && <div className="w-full mt-2 border border-gray-400 rounded-lg py-4">
+                                                                <div className="w-full grid grid-cols-3 px-4 mb-2">
+                                                                    <p className="font-sans text-sm font-bold">نوع</p>
+                                                                    <p className="font-sans text-sm font-bold">مقدار </p>
+                                                                    <p className="font-sans text-sm font-bold">قیمت نهایی</p>
+                                                                </div>
+                                                                    {product.discounts.map((discount,index) => (
+                                                                        <div key={index} className="px-4 w-full grid grid-cols-3 py-2 odd:bg-gray-200 even:bg-gray-100">
+                                                                            <p className="font-sans text-sm px-1 sm:p-0">{discount.discount_type === 'count' ? "تعداد" : 'قیمت'}</p>
+                                                                            <p className="font-sans text-sm px-1 sm:p-0">{toPersianPrice(discount.discount_value)} {discount.discount_type === 'price' ? "تومان" : ''} </p>
+                                                                            <p className="font-sans text-sm px-1 sm:p-0">{toPersianPrice(discount.final_price)} تومان</p>
+                                                                        </div>
+                                                                    ))}
+                                                            </div>}
                                                         </div>
                                                         <p className="font-sans text-sm flex mt-2"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات ارسال کالا : </b>{product.delivery_description.length === 0 ? "نامشخص" : product.delivery_description}</p>
                                                         <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات فروشنده : </b>{product.store_note.length === 0 ? "نامشخص" : product.store_note}</p>
-                                                    </div>
+                                                    </section>
 
                                                     <hr className="border-gray-300 my-2"/>
                                                  
