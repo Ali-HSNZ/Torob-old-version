@@ -108,6 +108,7 @@ export const insertStoreProduct = ({product_id,values,production_date,expire_dat
         store_note,
         discount,
         commission,
+        product_discounts,
     } = values
     axios.post(`https://market-api.iran.liara.run/api/store/products` ,{
         production_price : production_price.replace(/,/g, ''),
@@ -122,6 +123,8 @@ export const insertStoreProduct = ({product_id,values,production_date,expire_dat
         production_date,
         expire_date,
         product_id,
+        product_discounts,
+        dicounts_count : product_discounts.length,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         toast.success("کالا با موفقیت ثبت شد")
