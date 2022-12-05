@@ -9,18 +9,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { Modal } from "@mui/material";
-import FormikInput from "@/common/admin/FormikInput";
-
 // Date Picker
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import DatePicker,{DateObject} from "react-multi-date-picker"
+//  <==
 import { insertStoreProduct } from "@/redux/manage-store/insertProduct/manageStore_actions";
 import { useRouter } from "next/router";
 import { setComma } from "@/utils/setComma";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { deleteProduct, fetchProduct, updateStoreProduct } from "@/redux/manage-store/companyProducts/companyProducts_Actions";
-//  <==
+
 const InsertStoreProduct = () => {
     const dispatch = useDispatch();
     const [production_date, setProduction_date] = useState(new DateObject())
@@ -58,6 +57,12 @@ const InsertStoreProduct = () => {
         store_price : Yup.string()
             .required("قیمت فروش الزامی است")
             .test("check-value-typeof","قیمت فروش باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .trim(),
+        store_price_1 : Yup.string()
+            .test("check-value-typeof","قیمت فروش ۱ باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .trim(),
+        store_price_2 : Yup.string()
+            .test("check-value-typeof","قیمت فروش ۲ باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
             .trim(),
         per_unit : Yup.string()
             .test("check-value-typeof","تعداد در واحد باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
@@ -138,19 +143,15 @@ const InsertStoreProduct = () => {
                             production_price : product && setComma(product.production_price) ||  "",
                             consumer_price : product && setComma(product.consumer_price)  || "",
                             store_price : product && setComma(product.store_price) || "",
+                            store_price_1 : product && setComma(product.store_price_1) || "",
+                            store_price_2 : product && setComma(product.store_price_2) || "",
                             per_unit : product && setComma(product.per_unit) || "",
                             warehouse_count : product && setComma(product.warehouse_count) || "",
                             delivery_description : product && product.delivery_description || "",
                             store_note : product && product.store_note || "",
                             cash_payment_discount : product && setComma(product.cash_payment_discount) || "",
                             commission : product && setComma(product.commission) || "",
-                            product_discounts : product && product.discounts || [
-                                {
-                                    discount_value : '', // 0 - 100 -  NUMBER 
-                                    final_price : '6011' , // Price
-                                    discount_type : 'count', // count or price
-                                },
-                            ]
+                            product_discounts : product && product.discounts || []
                         }}
                         >
                             {({ errors, touched ,values}) => {
@@ -223,6 +224,32 @@ const InsertStoreProduct = () => {
                                                     />
                                                 </section>
                                                 {errors.store_price && touched.store_price && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.store_price}</p>}
+                                            </div>
+                                            <div className={'flex flex-col'}>
+                                                <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
+                                                    <p className={`font-sans text-sm text-gray-800`}>قیمت فروش ۱ :</p>
+                                                    <Field 
+                                                        type="text" 
+                                                        name={`store_price_1`} 
+                                                        value={setComma(values.store_price_1)}
+                                                        placeholder={"قیمت فروش ۱ "}
+                                                        className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
+                                                    />
+                                                </section>
+                                                {errors.store_price_1 && touched.store_price_1 && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.store_price_1}</p>}
+                                            </div>
+                                            <div className={'flex flex-col'}>
+                                                <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
+                                                    <p className={`font-sans text-sm text-gray-800`}>قیمت فروش ۲ :</p>
+                                                    <Field 
+                                                        type="text" 
+                                                        name={`store_price_2`} 
+                                                        value={setComma(values.store_price_2)}
+                                                        placeholder={"قیمت فروش ۲"}
+                                                        className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
+                                                    />
+                                                </section>
+                                                {errors.store_price_2 && touched.store_price_2 && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.store_price_2}</p>}
                                             </div>
                                             <div className={'flex flex-col'}>
                                                 <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
