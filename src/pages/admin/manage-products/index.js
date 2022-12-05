@@ -211,11 +211,7 @@ const ManageProduct = () => {
                                                     </div>
                                                     <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                         <div className=" flex items-center">
-                                                            {product.is_show ? (
-                                                                <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
-                                                            ) : (
-                                                                <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
-                                                            )}
+                                                            {!product.is_show &&<p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>}
                                                         </div>
                                                         <div className="flex items-center ">
                                                             <label htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
