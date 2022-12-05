@@ -65,6 +65,8 @@ export const updateStoreProduct = ({product_id,baseProduct_id,values,production_
         production_price,
         consumer_price,
         store_price,
+        store_price_1,
+        store_price_2,
         per_unit,
         warehouse_count,
         delivery_description,
@@ -85,6 +87,8 @@ export const updateStoreProduct = ({product_id,baseProduct_id,values,production_
         commission : commission.replace(/,/g, '') ,
         production_date,
         expire_date,
+        store_price_1 : store_price_1.replace(/,/g, '') ,
+        store_price_2 : store_price_2.replace(/,/g, '') ,
         product_id : baseProduct_id,
         product_discounts,
         discounts_count : product_discounts.length,
@@ -103,7 +107,7 @@ export const updateStoreProduct = ({product_id,baseProduct_id,values,production_
         const serverMessage_list = error?.response?.data?.errors
         if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
         if(!serverMessage_list) toast.error("خطای سرور در بخش ثبت کالا")
-        dispatch(fetchCompanyProductsFailure("خطای سرور در بخش ثبت کالا"))
+        dispatch(fetchCompanyOneProductFailure("خطای سرور در بخش ویرایش کالا"))
     })
 }
 
