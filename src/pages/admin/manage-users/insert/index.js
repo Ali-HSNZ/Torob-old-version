@@ -19,6 +19,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import { insertUser } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
 import FormikInput from "@/common/admin/FormikInput";
+import { ONLY_DIGIT_REGIX, PHONE_NUMBER_REGIX, POSTAL_CODE_REGIX } from "@/utils/Regex";
 
 
 const InsertStore = () => {
@@ -98,10 +99,6 @@ const InsertStore = () => {
     }
     
     
-    const PHONE_NUMBER_REGIX = /^09[0|1|2|3][0-9]{8}$/;
-    const ONLY_DIGIT_REGIX = /^\d+$/;
-    const POSTAL_CODE_REGIX = /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/;
-
     const validationSchema = Yup.object({
         full_name : Yup.string()
             .required('نام و نام خانوادگی الزامی است')
