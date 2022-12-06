@@ -17,7 +17,7 @@ import { allCities } from "@/common/admin/cities";
 import ReactLoading from 'react-loading';
 import Cookies from "universal-cookie";
 import axios from "axios";
-import { deleteUser, fetchOneUser, insertUser, updateUser } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
+import { deleteUser, fetchOneUser, updateUser } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
 import { useRouter } from "next/router";
 import FormikInput from "@/common/admin/FormikInput";
 import { ONLY_DIGIT_REGIX, PHONE_NUMBER_REGIX, POSTAL_CODE_REGIX } from "@/utils/Regex";
