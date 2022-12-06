@@ -13,6 +13,7 @@ import {
 const authRequest = () => { return {type : AUTH_REQUEST}}
 const authSuccess = (payload) => { return {type : AUTH_SUCCESS , payload}}
 const authFailure = (payload) => {return {type : AUTH_FAILURE , payload}}
+const token = new Cookies().get("userToken");
 
 // Sign Up User With Phone Number
 export const userSignup = (phone_number) => {
@@ -68,7 +69,6 @@ export const userSignin_withUserPass = (data) => dispatch => {
 export const loadUserInfo = () => {
     return (dispatch) => {
         dispatch(authRequest())
-        const token = new Cookies().get("userToken");
         axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
         .then(response => {
             dispatch(authSuccess(response.data.user))
@@ -81,6 +81,7 @@ export const loadUserInfo = () => {
 }
 
 export const userLogout = () => dispatch =>  {
+    axios.delete("https://market-api.iran.liara.run/api/user/logout", {headers : {Authorization : `Bearer ${token}`}})
     new Cookies().remove("userToken",{path : '/'})
     window.location.reload()
 }
