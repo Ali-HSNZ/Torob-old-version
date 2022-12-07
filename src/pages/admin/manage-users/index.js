@@ -43,7 +43,6 @@ const ManageStores = () => {
     const onSubmit = ({ full_name ,national_code,number,order}) => {
         router.push(`/admin/manage-users?page=1&state=${status.type || "all"}&full_name=${full_name || ""}&national_code=${national_code || ""}&number=${number || ""}&order=${order || 'desc'}&limit=${limit}`)
     }
-    console.log(status.type);
     const validationSchema = Yup.object({
         full_name : Yup.string()
             .min(2, "نام و نام خانوادگی نمی تواند کمتر از ۲ نویسه باشد")
