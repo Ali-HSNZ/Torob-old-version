@@ -4,7 +4,6 @@ import { Listbox, Transition } from '@headlessui/react'
 const classNames = (...classes) => classes.filter(Boolean).join(' ')
 
 const  SelectBox_withoutSearch = ({selected , setSelected , data}) => {
-    console.log("data : ",data);
   return (
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
@@ -26,7 +25,6 @@ const  SelectBox_withoutSearch = ({selected , setSelected , data}) => {
                   <Listbox.Option key={index}  className={({ active }) => `relative cursor-pointer select-none py-2 pl-10  pr-4 ${active ? 'bg-gray-700  text-white ' : 'text-gray-900'}`} value={state}>
                     {({ selected, active }) => (
                         <>
-                        {console.log("selected : ",selected)}
                         <div className="flex items-center">
                           <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'font-sans ml-3 block truncate ')}>{state.name}</span>
                         </div>
