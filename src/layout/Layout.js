@@ -3,16 +3,17 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 
-
 const Layout = ({children , isFooter,pageTitle}) => {
     return (  
-        <div>
+        <div className="w-full flex flex-col items-center">
             <Head>
                 <title>{pageTitle || "عنوان  صفحه نامشخص"}</title>
             </Head>
-            <Header/>
-            {children}
-           {isFooter ? <Footer/> : <></>}
+            <div className={`w-full max-w-[1700px]`}>
+                <Header/>
+                {children}
+                {isFooter ? <Footer/> : <></>}
+            </div>
         </div>
     );
 }
