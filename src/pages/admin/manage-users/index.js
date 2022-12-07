@@ -41,9 +41,9 @@ const ManageStores = () => {
     },[router.query])
 
     const onSubmit = ({ full_name ,national_code,number,order}) => {
-        router.push(`/admin/manage-users?page=1&state=${state.type || "all"}&full_name=${full_name || ""}&national_code=${national_code || ""}&number=${number || ""}&order=${order || 'desc'}&limit=${limit}`)
+        router.push(`/admin/manage-users?page=1&state=${status.type || "all"}&full_name=${full_name || ""}&national_code=${national_code || ""}&number=${number || ""}&order=${order || 'desc'}&limit=${limit}`)
     }
-
+    console.log(status.type);
     const validationSchema = Yup.object({
         full_name : Yup.string()
             .min(2, "نام و نام خانوادگی نمی تواند کمتر از ۲ نویسه باشد")
@@ -143,9 +143,9 @@ const ManageStores = () => {
                                         selected={status} 
                                         setSelected={setStatus} 
                                         data={[
-                                            {type : "all" , name:"تایید شده‌ها"},
+                                            {type : "all" , name:"نمایش همه وضعیت ها" },
                                             {type : "trashed" , name:"رد شده‌ها"},
-                                            {type : "active" , name:"نمایش همه وضعیت ها"},
+                                            {type : "active" , name:"تایید شده‌ها"},
                                             ]}
                                         />
                                 </div>
@@ -250,7 +250,7 @@ const ManageStores = () => {
 
                             <section dir="ltr" className=" w-full flex justify-center py-4">
                                 <Pagination size="large" color="primary" page={page} count={pagination && pagination.last || 100} onChange={(event , page)=> {
-                                    router.push(`/admin/manage-users?page=${page }&state=${status || "all"}&full_name=${router.query.full_name || ""}&national_code=${router.query.national_code || ""}&number=${router.query.number || ""}&order=${router.query.order || 'desc'}&limit=${router.query.limit || limit}`)
+                                    router.push(`/admin/manage-users?page=${page }&state=${status.type || "all"}&full_name=${router.query.full_name || ""}&national_code=${router.query.national_code || ""}&number=${router.query.number || ""}&order=${router.query.order || 'desc'}&limit=${router.query.limit || limit}`)
                                 }}/>
                             </section>
                         </>
