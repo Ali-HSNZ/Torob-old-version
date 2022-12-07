@@ -95,7 +95,6 @@ export const updateStoreProduct = ({product_id,baseProduct_id,values,production_
 
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then((data) => {
-        console.log("data : ",data);
         toast.success("تغییرات با موفقیت ثبت شد")
         setTimeout(() => {
             if(window){
