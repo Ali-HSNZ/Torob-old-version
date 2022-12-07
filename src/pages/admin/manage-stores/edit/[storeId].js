@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import * as Yup from 'yup'
 import InputMask from "react-input-mask";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteStore, fetchOneStore,updateStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
+import { confirmStore, deleteStore, fetchOneStore,updateStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
 import { provinces } from "@/common/admin/provinces";
 import SelectBox from "@/common/admin/SelectBox";
 import { useEffect } from "react";
@@ -30,7 +30,7 @@ const InsertStore = () => {
     const {loading} = useSelector(state => state.admin_stores)
 
     const router = useRouter()
-    const pageId = router.query.storeId
+    const storeId = router.query.storeId
     const [isAsideModal,setIsAsideModal] = useState(false)
     const [provienceQuery,setProvienceQuery] = useState('')
     const [cities,setCities] = useState(null)    
@@ -39,8 +39,8 @@ const InsertStore = () => {
     const [selectedCity,setSelectedCity] = useState("")
 
     useEffect(()=>{
-        dispatch(fetchOneStore(pageId))
-    },[pageId])
+        dispatch(fetchOneStore(storeId))
+    },[storeId])
 
 
     const filteredProvinces = provienceQuery === '' ? provinces : provinces && provinces.filter((province) => province.name.toLowerCase().replace(/\s+/g, '').includes(provienceQuery.toLocaleLowerCase().replace(/\s+/g, '')))
@@ -140,7 +140,7 @@ const InsertStore = () => {
         if(!city){
             toast.error('حوضه فعالیت شرکت (شهر) را وارد کنید'); return false
         }
-        dispatch(updateStore({pageId,values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}))
+        dispatch(updateStore({storeId,values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}))
     }
 
 
@@ -432,7 +432,13 @@ const InsertStore = () => {
                             {loading === true ? (
                                 <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />
                             ) : (
-                                <button type={"button"} onClick={()=> dispatch(deleteStore(pageId))} className={`items-center ${store && store.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>
+                                <>
+                                    {store.is_pending ? (
+                                        <button type={"button"} onClick={()=> dispatch(confirmStore(storeId))} className={`items-center ${store && store.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تایید فروشگاه</button>
+                                        ) : (
+                                        <button type={"button"} onClick={()=> dispatch(deleteStore(storeId))} className={`items-center ${store && store.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>
+                                    )}
+                                </>
                             )}
                             <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}> تایید تغییرات</button>
                         </section>
