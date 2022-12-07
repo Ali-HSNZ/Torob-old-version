@@ -15,6 +15,8 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import FormikInput from "@/common/admin/FormikInput";
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
+import Example from "@/common/admin/SelectBox_withoutSearch";
+import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 
 const ManageStores = () => {
     const dispatch = useDispatch()
@@ -26,7 +28,7 @@ const ManageStores = () => {
     const [modal_imageSrc , setModal_imageSrc] = useState("")
 
     const [isAsideModal , setIsAsideModal] = useState(false)
-    const [status , setStatus] = useState('all')
+    const [status , setStatus] = useState({name:"نمایش همه وصعیت ها" , type : 'all'})
 
     const page = Number(useRouter().query.page || 1);
     const limit = 5
@@ -35,12 +37,11 @@ const ManageStores = () => {
         window.scroll({top : 0 , behavior : 'smooth'})
         const {state , page , national_code,full_name,number,order} = router.query;
         const payload = {state,page,limit,order,national_code,number,full_name}
-
         dispatch(fetchUsers(payload))
     },[router.query])
 
     const onSubmit = ({ full_name ,national_code,number,order}) => {
-        router.push(`/admin/manage-users?page=1&state=${status || "all"}&full_name=${full_name || ""}&national_code=${national_code || ""}&number=${number || ""}&order=${order || 'desc'}&limit=${limit}`)
+        router.push(`/admin/manage-users?page=1&state=${state.type || "all"}&full_name=${full_name || ""}&national_code=${national_code || ""}&number=${number || ""}&order=${order || 'desc'}&limit=${limit}`)
     }
 
     const validationSchema = Yup.object({
@@ -136,16 +137,18 @@ const ManageStores = () => {
                                         </div>
                                     </section>
                                 </div>
-                                
-                                <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">وضعیت :</p>
-                                    <select defaultValue={ router.query.state || 'all'} onChange={event => setStatus(event.target.value)} className=" cursor-pointer border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md">
-                                        <option className="py-2 text-sm font-sans" value={'active'}>تایید شده‌ها</option>
-                                        <option className="py-2 text-sm font-sans" value={'trashed'}>رد شده‌ها</option>
-                                        <option className="py-2 text-sm font-sans" value={'all'} >نمایش همه وضعیت ها</option>
-                                    </select>
+                                <div>
+                                    <p className="font-sans text-sm mb-2">وضعیت :</p>
+                                    <SelectBox_withoutSearch 
+                                        selected={status} 
+                                        setSelected={setStatus} 
+                                        data={[
+                                            {type : "all" , name:"تایید شده‌ها"},
+                                            {type : "trashed" , name:"رد شده‌ها"},
+                                            {type : "active" , name:"نمایش همه وضعیت ها"},
+                                            ]}
+                                        />
                                 </div>
-
                             </section>
                             <div className="w-full flex items-center justify-end mt-3">
                                 <button type={"submit"} className={`${formik.isValid ? "hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>جستجو</button>
@@ -158,10 +161,10 @@ const ManageStores = () => {
                             <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
                         </div>
                     )}
-                    {!users && !loading && <Warning text={'کاربری با این مشخصات یافت نشد!'}/>}
+                    {!users && !loading && <Warning text={'کاربری یافت نشد!'}/>}
                     {users && !loading && (
                         <>
-                            <section className="w-full mt-3 rounded-md overflow-hidden shadow-md flex flex-col ">
+                            <section className="w-full mt-4 rounded-md overflow-hidden shadow-md flex flex-col ">
                             {/* User Profile Image Modal */}
                             <Modal open={Image_Modal} onClose={() => setImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
                                 <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
