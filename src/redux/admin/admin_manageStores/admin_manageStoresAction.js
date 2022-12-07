@@ -83,8 +83,7 @@ export const deleteStore = (pageId) => dispatch => {
 
 
 
-export const insertStore = ({values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}) => dispatch => {
-    
+export const insertStore = ({values,logo,license,storeBanner,city,province}) => dispatch => {
     const {
         name,
         economic_code,
@@ -97,6 +96,9 @@ export const insertStore = ({values,logo,license,storeBanner,city,province,bankC
         bank_code,
         bank_sheba_number,
         owner_national_code,
+        bank_card_number,
+        office_number,
+        warehouse_number,
     } = values
     dispatch(insertStoreRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/stores` ,{
@@ -106,12 +108,12 @@ export const insertStore = ({values,logo,license,storeBanner,city,province,bankC
         owner_phone_number ,
         secend_phone_number ,
         office_address ,
-        office_number : staticOfficeNumber,
+        office_number : office_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, ''),
         warehouse_address ,
-        warehouse_number : staticWarehouseNumber,
+        warehouse_number : warehouse_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, ''),
         bank_name ,
         bank_code ,
-        bank_card_number : bankCardNumber,
+        bank_card_number : bank_card_number.replace(/\s/g, '').replace(/-/g, ''),
         bank_sheba_number,
         province,
         owner_national_code,
