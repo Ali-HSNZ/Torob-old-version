@@ -59,9 +59,9 @@ export const fetchStores = ({state,page,limit,order,economic_code,number,name,pr
         toast.error(message)
     })
 }
-export const fetchOneStore = (id) => dispatch => {
+export const fetchOneStore = (storeId) => dispatch => {
     dispatch(fetchOneStoreRequest())
-    axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/stores?id=${id}`) , {headers : {authorization : `Bearer ${token}`}})
+    axios.get(encodeURI(`https://market-api.iran.liara.run/api/admin/stores?id=${storeId}`) , {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(fetchOneStoreSuccess(data.store)))
     .catch(error => {
         const message = error?.response?.data?.message || "خطای سرور در بخش گرفتن اطلاعات یک فروشگاه";
@@ -70,10 +70,10 @@ export const fetchOneStore = (id) => dispatch => {
     })
 }
 
-export const deleteStore = (pageId) => dispatch => {
+export const deleteStore = (storeId) => dispatch => {
     dispatch(fetchOneStoreRequest())
-    axios.put(`https://market-api.iran.liara.run/api/admin/stores/${pageId}/state` ,{}, {headers : {authorization : `Bearer ${token}`}})
-    .then(() =>  dispatch(fetchOneStore(pageId)))
+    axios.put(`https://market-api.iran.liara.run/api/admin/stores/${storeId}/state` ,{}, {headers : {authorization : `Bearer ${token}`}})
+    .then(({data}) => dispatch(fetchOneStoreSuccess(data.store)))
     .catch(error => {
         const errorMessage = error?.response?.data?.message || "خطای سرور در بخش  تغییر وضعیت فروشگاه";
         toast.error(errorMessage)
@@ -81,6 +81,19 @@ export const deleteStore = (pageId) => dispatch => {
     })
 }
 
+export const confirmStore = (storeId) => dispatch => {
+    dispatch(fetchOneStoreRequest())
+    axios.put(`https://market-api.iran.liara.run/api/admin/stores/${storeId}/confirm` ,{}, {headers : {authorization : `Bearer ${token}`}})
+    .then(({data}) => {
+        toast.success("فروشگاه با موفقیت تایید شد")
+        dispatch(fetchOneStoreSuccess(data.store))
+    })
+    .catch(error => {
+        const errorMessage = error?.response?.data?.message || "خطای سرور در بخش  تغییر وضعیت فروشگاه";
+        toast.error(errorMessage)
+        dispatch(fetchOneStoreFailure(errorMessage))
+    })
+}
 
 
 export const insertStore = ({values,logo,license,storeBanner,city,province}) => dispatch => {
