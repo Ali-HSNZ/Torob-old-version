@@ -11,10 +11,10 @@ export const signupReducer = (state = initialValues , action) => {
         case SIGNUP_REQUEST:{
             return {user : null , loading : true , error : null}
         }
-        case SIGNUP_FAILURE:{
+        case SIGNUP_SUCCESS:{
             return {user : null , loading : false , error : null}
         }
-        case SIGNUP_SUCCESS:{
+        case SIGNUP_FAILURE:{
             return {user : null , loading : false , error : action.payload}
         }
         default : return state
