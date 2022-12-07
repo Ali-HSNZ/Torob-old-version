@@ -142,6 +142,7 @@ const ManageStores = () => {
                                     <select defaultValue={ router.query.state || 'all'} onChange={event => setStatus(event.target.value)} className=" cursor-pointer border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md">
                                         <option className="py-2 text-sm font-sans" value={'active'}>تایید شده‌ها</option>
                                         <option className="py-2 text-sm font-sans" value={'trashed'}>رد شده‌ها</option>
+                                        <option className="py-2 text-sm font-sans" value={'all'} >بررسی نشده‌ها</option>
                                         <option className="py-2 text-sm font-sans" value={'all'} >نمایش همه وضعیت ها</option>
                                     </select>
                                 </div>
@@ -219,9 +220,11 @@ const ManageStores = () => {
                                                     </div>
                                                     <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                         <div className=" flex items-center">
-                                                            {store.is_show ? (
+                                                            {store.is_pending ? (
+                                                                <p className="whitespace-nowrap font-sans text-sm max-w-min bg-yellow-50 text-yellow-600 rounded-lg px-3 py-1">در حال بررسی</p>
+                                                            ) : store.is_show ? (
                                                                 <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
-                                                            ) : (
+                                                                ) : (
                                                                 <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
                                                             )}
                                                         </div>
