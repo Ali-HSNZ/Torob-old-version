@@ -254,7 +254,7 @@ const SignupStorePage = () => {
                         {/*  مالک فروشگاه */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
                             <p className="font-sans font-bold"> مالک فروشگاه</p>
-                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
+                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                                 <FormikInput isRequired={true} name={"owner_full_name"} title={"نام و نام خانوادگی مالک فروشگاه"} formik={formik} placeholder={"نام و نام خانوادگی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
                                 <FormikInput isRequired={true} name={"owner_phone_number"} title={"شماره همراه مالک فروشگاه (رمز عبور)" } formik={formik} placeholder={"شماره همراه مالک فروشگاه"} parentClassName="flex flex-col relative"/>
                                 <FormikInput isRequired={true} name={"owner_national_code"}title={"کد ملی مالک فروشگاه (نام کاربری)" } formik={formik} placeholder={"کد ملی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
@@ -264,7 +264,7 @@ const SignupStorePage = () => {
                         {/*  فروشگاه | شرکت */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
                             <p className="font-sans font-bold"> فروشگاه | شرکت</p>
-                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
+                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                                 <FormikInput isRequired={true} name={"name"} title={"نام فروشگاه"} formik={formik} placeholder={"نام فروشگاه"} parentClassName="flex flex-col relative"/>
                                 <FormikInput isRequired={true} name={"office_address"} title={"آدرس دفتر مرکزی شرکت"} formik={formik} placeholder={"آدرس دفتر مرکزی شرکت"} parentClassName="flex flex-col relative"/>
                                 
@@ -317,7 +317,7 @@ const SignupStorePage = () => {
                         {/*  حساب بانکی */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
                             <p className="font-sans font-bold"> حساب بانکی</p>
-                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
+                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
 
 
                                 <div className="flex flex-col relative ">
@@ -335,7 +335,7 @@ const SignupStorePage = () => {
                         {/* تصاویر و فایل ها */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
                             <p className="font-sans font-bold">تصاویر و فایل ها</p>
-                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
+                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                                 {/* License Image */}
                                 <div className="flex flex-col relative ">
                                     <p className="font-sans text-[13px] text-gray-800"> تصویر مجوز :</p>
