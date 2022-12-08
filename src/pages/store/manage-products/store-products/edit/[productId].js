@@ -14,10 +14,8 @@ import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import DatePicker,{DateObject} from "react-multi-date-picker"
 //  <==
-import { insertStoreProduct } from "@/redux/manage-store/insertProduct/manageStore_actions";
 import { useRouter } from "next/router";
 import { setComma } from "@/utils/setComma";
-import { toPersianDigits } from "@/utils/toPersianDigits";
 import { deleteProduct, fetchProduct, updateStoreProduct } from "@/redux/manage-store/companyProducts/companyProducts_Actions";
 
 const InsertStoreProduct = () => {
