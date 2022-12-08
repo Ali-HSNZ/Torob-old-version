@@ -13,7 +13,7 @@ import { changeStorePasswordAction } from "@/redux/manage-store/manageStore/mana
 import Cookies from "universal-cookie";
 import axios from "axios";
 
-const changePasswordPage = () => {
+const ChangePasswordPage = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
     const {loading} = useSelector(state => state.manage_store.changePassword)
     const dispatch = useDispatch()
@@ -101,7 +101,7 @@ const changePasswordPage = () => {
         </Layout>
     );
 }
-export default changePasswordPage;
+export default ChangePasswordPage;
 
 export const getServerSideProps = async(ctx) => {
     // Check Permission
