@@ -116,7 +116,7 @@ const Header = () => {
             <>
               <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">{toPersianDigits(user.phone_number_primary)}</button>
               <div className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[33px] left-[1px]  whitespace-nowrap py-2`}>
-                  {!user.is_pending ? (
+                  {user.is_pending ? (
                       <button onClick={()=>toast.error(" فروشگاه شما در وضعیت 'بررسی نشده' است. و پس از بررسی به پنل خود دسترسی خواهید داشت")} className="text-xs min-w-[119.2px] max-w-[119.2px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-1.5 text-center font-sans block">در حال بررسی</button>
                   ) : (
                     <Link href={`/${user.account_type}`} >
