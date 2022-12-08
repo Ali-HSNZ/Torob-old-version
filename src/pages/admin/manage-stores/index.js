@@ -14,6 +14,7 @@ import { fetchStores } from "@/redux/admin/admin_manageStores/admin_manageStores
 import Cookies from "universal-cookie";
 import axios from "axios";
 import FormikInput from "@/common/admin/FormikInput";
+import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 
 const ManageStores = () => {
     const dispatch = useDispatch()
@@ -29,21 +30,33 @@ const ManageStores = () => {
 
     const [isLicenseImage_Modal , setIsLicenseImage_Modal] = useState(false)
     const [isAsideModal , setIsAsideModal] = useState(false)
-    const [status , setStatus] = useState('all')
 
+    const returnState = (type) => {
+        return allState.find(state => state.type === type)
+    }
+    const allState = [
+        {type : "all" , name:"نمایش همه وضعیت ها" },
+        {type : "trashed" , name:"رد شده‌ها"},
+        {type : "active" , name:"تایید شده‌ها"},
+        {type : "pending" , name:"بررسی نشده‌ها"},
+    ]
+
+    const [status , setStatus] = useState( {type : "all" , name:"نمایش همه وضعیت ها" })
     const page = Number(useRouter().query.page || 1);
     const limit = 5
+
+
     
     useEffect(()=> {
         window.scroll({top : 0 , behavior : 'smooth'})
         const {state , page , economic_code,name,number,city,province,order} = router.query;
         const payload = {state,page,limit,order,economic_code,number,name,province,city}
-
+        setStatus(router.query.state ? returnState(router.query.state) : allState[0])
         dispatch(fetchStores(payload))
     },[router.query])
 
     const onSubmit = ({ name ,economic_code,number,city,province,order}) => {
-        router.push(`/admin/manage-stores?page=1&state=${status || "all"}&economic_code=${economic_code || ""}&province=${province}&city=${city || ""}&number=${number || ""}&order=${order || 'asc'}&name=${name || ""}&limit=${limit}`)
+        router.push(`/admin/manage-stores?page=1&state=${status.type || "all"}&economic_code=${economic_code || ""}&province=${province}&city=${city || ""}&number=${number || ""}&order=${order || 'asc'}&name=${name || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
         name : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
@@ -114,7 +127,7 @@ const ManageStores = () => {
                     </div>
 
                     <form className="w-full " onSubmit={formik.handleSubmit}>
-                        <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md overflow-hidden">
+                        <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
                             <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
 
                                 <FormikInput name={"name"} title={"نام فروشگاه"} formik={formik} placeholder={"بر اساس نام فروشگاه"} parentClassName="flex flex-col relative"/>
@@ -139,12 +152,11 @@ const ManageStores = () => {
                                 
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm">وضعیت :</p>
-                                    <select defaultValue={ router.query.state || 'all'} onChange={event => setStatus(event.target.value)} className=" cursor-pointer border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md">
-                                        <option className="py-2 text-sm font-sans" value={'active'}>تایید شده‌ها</option>
-                                        <option className="py-2 text-sm font-sans" value={'trashed'}>رد شده‌ها</option>
-                                        <option className="py-2 text-sm font-sans" value={'all'} >بررسی نشده‌ها</option>
-                                        <option className="py-2 text-sm font-sans" value={'all'} >نمایش همه وضعیت ها</option>
-                                    </select>
+                                    <SelectBox_withoutSearch 
+                                        selected={status} 
+                                        setSelected={setStatus} 
+                                        data={allState}
+                                        />
                                 </div>
 
                             </section>
@@ -281,7 +293,7 @@ const ManageStores = () => {
 
                                                     <div className="flex justify-end w-full mt-4 mb-4">
                                                         <Link href={`/admin/manage-stores/edit/${store.id}`} >
-                                                            <a className=" font-sans  shadow-sm md:shadow-md  lg:shadow-lg text-sm hover:bg-blue-100 bg-blue-50 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش فروشگاه {store.name}</a>
+                                                            <a className=" font-sans  shadow-sm md:shadow-md  lg:shadow-lg text-sm hover:bg-blue-100 bg-blue-50 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش</a>
                                                         </Link>
                                                     </div>
                                                 </section>
@@ -294,7 +306,7 @@ const ManageStores = () => {
 
                             <section dir="ltr" className=" w-full flex justify-center py-4">
                                 <Pagination size="large" color="primary" page={page} count={pagination && pagination.last || 100} onChange={(event , page)=> {
-                                    router.push(`/admin/manage-stores?page=${page }&state=${status || "all"}&economic_code=${router.query.economic_code || ""}&province=${router.query.province || ""}&city=${router.query.city || ""}&number=${router.query.number || ""}&order=${router.query.order || 'asc'}&name=${router.query.name || ""}&limit=${router.query.limit}`)
+                                    router.push(`/admin/manage-stores?page=${page }&state=${status.type || "all"}&economic_code=${router.query.economic_code || ""}&province=${router.query.province || ""}&city=${router.query.city || ""}&number=${router.query.number || ""}&order=${router.query.order || 'desc'}&name=${router.query.name || ""}&limit=${router.query.limit}`)
                                 }}/>
                             </section>
                         </>
