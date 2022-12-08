@@ -29,6 +29,7 @@ export const signupUserAction = ({values,profileImage,city,province}) => async d
         phone_number_secondary,
         address_detail,
         address_postcode,
+        password,
         house_number,
     } = values
 
@@ -42,6 +43,7 @@ export const signupUserAction = ({values,profileImage,city,province}) => async d
         address_detail,
         address_postcode,
         house_number,
+        password,
         profile_image : profileImage,
         address_city : city,
         address_province : province,
@@ -83,6 +85,7 @@ export const insertStoreAction = ({values,onChangeFile_logo,onChangeFile_license
         bank_card_number,
         office_number,
         warehouse_number,
+        owner_password,
     } = values
     dispatch(signupRequest())
     await axios.post(`https://market-api.iran.liara.run/api/signup/store` ,{
@@ -105,6 +108,7 @@ export const insertStoreAction = ({values,onChangeFile_logo,onChangeFile_license
         license_image,
         banner_image,
         logo_image,
+        owner_password,
     } , {headers : {'content-type' : 'multipart/form-data'}})
     .then(({data}) => {
         new Cookies().set('userToken' ,data.API_TOKEN,{path:'/'} )
