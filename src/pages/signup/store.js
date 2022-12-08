@@ -16,10 +16,8 @@ import { allCities } from "@/common/admin/cities";
 import ReactLoading from 'react-loading';
 import Cookies from "universal-cookie";
 import FormikInput from "@/common/admin/FormikInput";
-import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PHONE_NUMBER_REGIX } from "@/utils/Regex";
+import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PASSWORD_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
 import { insertStoreAction } from "@/redux/signup/signupActions";
-import axios from "axios";
-
 
 const InsertStorePage = () => {
 
@@ -144,6 +142,11 @@ const InsertStorePage = () => {
                 if(phoneNumber.length < 11) return false;
                 return true
             }),
+        owner_password : Yup.string()
+            .min(6 , "رمز عبور نمی تواند کمتر از 6 کاراکتر باشد.")
+            .max(24 , "رمز عبور نمی تواند بیشتر از 24 نویسه باشد.")
+            .required("رمز عبور الزامی است.")
+            .matches(PASSWORD_REGIX,"رمز عبور معتبر نیست | رمز عبور میتواند ترکیبی از عدد و حروف انگلیسی باشد."),
         name : Yup.string()
             .required('نام فروشگاه الزامی است.')
             .min(3, "نام فروشگاه نمی تواند کم تر از ۳ نویسه باشد.")
@@ -170,8 +173,9 @@ const InsertStorePage = () => {
         office_address : Yup.string()
             .required('آدرس دفتر مرکزی الزامی است.')
             .trim(),
-        warehouse_address : Yup.string().trim(),
-
+        warehouse_address : Yup.string()
+            .required('آدرس انبار مرکزی الزامی است.')
+            .trim(),
         bank_name: Yup.string()
             .required("نام بانک الزامی است.")
             .min(3,"نام بانک نمی تواند کم تر از ۳ نویسه باشد.")
@@ -261,17 +265,11 @@ const InsertStorePage = () => {
                             <h1 className="font-sans font-bold text-lg">ثبت فروشگاه</h1>
                         </div>
                         <div className="flex gap-x-2 items-center">
-                        <Link href={'/admin/manage-stores'}>
-                            <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                                </svg>
-                            </a>
-                        </Link>
-                            <Link href={'/admin'}>
-                                <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
+                            {/* Back Page */}
+                            <Link href={'/'}>
+                                <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                                     </svg>
                                 </a>
                             </Link>
@@ -283,34 +281,32 @@ const InsertStorePage = () => {
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
                             <p className="font-sans font-bold"> مالک فروشگاه</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
-                                <FormikInput  isRequired={true} name={"owner_full_name"} title={"نام و نام خانوادگی مالک فروشگاه"} formik={formik} placeholder={"نام و نام خانوادگی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
-                                <FormikInput maxLength={11} isRequired={true} name={"owner_phone_number"} title={"شماره همراه مالک فروشگاه (رمز عبور)" } formik={formik} placeholder={"شماره همراه مالک فروشگاه"} parentClassName="flex flex-col relative"/>
-                                <FormikInput maxLength={10} isRequired={true} name={"owner_national_code"}title={"کد ملی مالک فروشگاه (نام کاربری)" } formik={formik} placeholder={"کد ملی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
-                                <FormikInput maxLength={11} isRequired={false} name={"secend_phone_number"} title={"شماره همراه دوم مالک فروشگاه"} formik={formik} placeholder={"شماره همراه دوم مالک فروشگاه"} parentClassName="flex flex-col relative"/>
+                                <FormikInput  isRequired={true} name={"owner_full_name"} title={"نام و نام خانوادگی مالک فروشگاه"} formik={formik}/>
+                                <FormikInput maxLength={11} isRequired={true} name={"owner_phone_number"} title={"شماره همراه مالک فروشگاه" } formik={formik} />
+                                <FormikInput maxLength={10} isRequired={true} name={"owner_national_code"}title={"کد ملی مالک فروشگاه (نام کاربری)" } formik={formik}/>
+                                <FormikInput maxLength={11} isRequired={false} name={"secend_phone_number"} title={"شماره همراه دوم مالک فروشگاه"} formik={formik}/>
+                                <FormikInput maxLength={24} isRequired={true} name={"owner_password"} title={"رمز عبور"} formik={formik}/>
                             </section>
                         </div>
                         {/*  فروشگاه | شرکت */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
                             <p className="font-sans font-bold"> فروشگاه | شرکت</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
-                                <FormikInput isRequired={true} name={"name"} title={"نام فروشگاه"} formik={formik} placeholder={"نام فروشگاه"} parentClassName="flex flex-col relative"/>
-                                <FormikInput isRequired={true} name={"office_address"} title={"آدرس دفتر مرکزی شرکت"} formik={formik} placeholder={"آدرس دفتر مرکزی شرکت"} parentClassName="flex flex-col relative"/>
-                                
+                                <FormikInput isRequired={true} name={"name"} title={"نام فروشگاه"} formik={formik}/>
+                                <FormikInput isRequired={true} name={"office_address"} title={"آدرس دفتر مرکزی شرکت"} formik={formik}/>
                                 <div className="flex flex-col relative ">
                                     <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">شماره تلفن ثابت دفتر مرکزی:</p>
                                     <InputMask dir="ltr"  type={"text"} value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="office_number"  maskPlaceholder="-" className={`${formik.errors.office_number && formik.touched.office_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.office_number && formik.touched.office_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.office_number}</p>}
                                 </div>
-                                
-                                <FormikInput isRequired={false} name={"warehouse_address"} title={"آدرس انبار مرکزی شرکت"} formik={formik} placeholder={"آدرس انبار مرکزی شرکت"} parentClassName="flex flex-col relative"/>
-                                
+                                <FormikInput isRequired={true} name={"warehouse_address"} title={"آدرس انبار مرکزی شرکت"} formik={formik}/>
                                 <div className="flex flex-col relative ">
                                     <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">شماره تلفن ثابت انبار مرکزی شرکت:</p>
                                     <InputMask dir="ltr"  type={"text"} value={formik.values.warehouse_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="warehouse_number"  maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.warehouse_number && formik.touched.warehouse_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.warehouse_number}</p>}
                                 </div>
                                 
-                                <FormikInput maxLength={12} isRequired={true} name={"economic_code"} title={"کد اقتصادی"} formik={formik} placeholder={"کد اقتصادی"} parentClassName="flex flex-col relative"/>
+                                <FormikInput maxLength={12} isRequired={true} name={"economic_code"} title={"کد اقتصادی"} formik={formik}/>
                                 
                                 <div className="flex flex-col relative ">
                                     <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">حوضه فعالیت شرکت - استان :</p>
@@ -348,12 +344,12 @@ const InsertStorePage = () => {
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                                 <div className="flex flex-col relative ">
                                     <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">شماره کارت :</p>
-                                    <InputMask dir="ltr"  type={"text"} value={formik.values.bank_card_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="9999 9999 9999 9999" name="bank_card_number" maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
+                                    <InputMask dir="ltr"  type={"text"} value={formik.values.bank_card_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="9999 9999 9999 9999" name="bank_card_number" maskPlaceholder="-" className={`${formik.errors.bank_card_number && formik.touched.bank_card_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.bank_card_number && formik.touched.bank_card_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_card_number}</p>}
                                 </div>
-                                <FormikInput maxLength={24} isRequired={true} name={"bank_sheba_number"} title={"شماره شبا"} formik={formik} placeholder={"شماره شبا"} parentClassName="flex flex-col relative"/>
-                                <FormikInput isRequired={true} name={"bank_name"} title={"نام بانک"} formik={formik} placeholder={"نام بانک"} parentClassName="flex flex-col relative"/>
-                                <FormikInput maxLength={4} isRequired={true} name={"bank_code"} title={"کد شعبه"} formik={formik} placeholder={"کد شعبه"} parentClassName="flex flex-col relative"/>
+                                <FormikInput maxLength={24} isRequired={true} name={"bank_sheba_number"} title={"شماره شبا"} formik={formik}/>
+                                <FormikInput isRequired={true} name={"bank_name"} title={"نام بانک"} formik={formik}/>
+                                <FormikInput maxLength={4} isRequired={true} name={"bank_code"} title={"کد شعبه"} formik={formik}/>
                             </section>
                         </div>
                         {/* تصاویر و فایل ها */}
