@@ -8,7 +8,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchStoreCount } from "@/redux/manage-store/insertProduct/manageStore_actions";
+import { fetchStoreCount } from "@/redux/manage-store/manageStore/manageStore_actions";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 
 const ManageStore = () => {

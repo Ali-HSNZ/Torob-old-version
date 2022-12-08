@@ -16,9 +16,8 @@ import SelectBox from "@/common/admin/SelectBox";
 import FormikInput from "@/common/admin/FormikInput";
 import { fetchCompanyProducts } from "@/redux/manage-store/companyProducts/companyProducts_Actions";
 import { toPersianPrice } from "@/utils/toPersianPrice";
-import { timeDifference } from "@/utils/timeDifference";
 import { timeStampToPersianDate } from "@/utils/timeStampToPersianDate";
-import { fetchBrands, fetchCategories } from "@/redux/manage-store/insertProduct/manageStore_actions";
+import { fetchBrands, fetchCategories } from "@/redux/manage-store/manageStore/manageStore_actions";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 
 const StoreManageProducts = () => {

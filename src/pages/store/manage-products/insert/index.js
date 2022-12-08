@@ -13,7 +13,7 @@ import Warning from "@/common/alert/Warning";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import FormikInput from "@/common/admin/FormikInput";
-import { fetchBaseProducts, fetchBrands, fetchCategories } from "@/redux/manage-store/insertProduct/manageStore_actions";
+import { fetchBaseProducts, fetchBrands, fetchCategories } from "@/redux/manage-store/manageStore/manageStore_actions";
 import SelectBox from "@/common/admin/SelectBox";
 
 const ManageStores = () => {

@@ -9,17 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { Modal } from "@mui/material";
-import FormikInput from "@/common/admin/FormikInput";
 
 // Date Picker
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import DatePicker,{DateObject} from "react-multi-date-picker"
-import { insertStoreProduct } from "@/redux/manage-store/insertProduct/manageStore_actions";
+//  <==
+import { insertStoreProduct } from "@/redux/manage-store/manageStore/manageStore_actions";
 import { useRouter } from "next/router";
 import { setComma } from "@/utils/setComma";
-import { toPersianDigits } from "@/utils/toPersianDigits";
-//  <==
 const InsertStoreProduct = () => {
     const dispatch = useDispatch();
     const [production_date, setProduction_date] = useState(new DateObject())
