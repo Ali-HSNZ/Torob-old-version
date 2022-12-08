@@ -99,7 +99,9 @@ export const getServerSideProps = async(ctx) => {
     if(!token) return{notFound : true}
     await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
     .then(({data}) =>  {
+        console.log("data.user.is_pending : ",data.user);
         if(data.user.account_type !== 'store') ErrorCode = 403
+        if(data.user.is_pending === true ) ErrorCode = 403;
     })  
     .catch( () => ErrorCode = 403)
     if(ErrorCode === 403){

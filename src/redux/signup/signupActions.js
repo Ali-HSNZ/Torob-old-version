@@ -21,7 +21,6 @@ const signupFailure = (payload) => {
 }
 
 
-
 export const signupUserAction = ({values,profileImage,city,province}) => async dispatch => {
     const {
         full_name ,
@@ -64,7 +63,11 @@ export const signupUserAction = ({values,profileImage,city,province}) => async d
     })
 }
 
-export const insertStoreAction = ({values,logo,license,storeBanner,city,province}) => async dispatch => {
+export const insertStoreAction = ({values,onChangeFile_logo,onChangeFile_license,onChangeFile_storeBanner,city,province}) => async dispatch => {
+    const logo_image = onChangeFile_logo.selectedFile ? onChangeFile_logo.selectedFile : onChangeFile_logo.imageUrl ? 0 : 1;
+    const banner_image = onChangeFile_storeBanner.selectedFile ? onChangeFile_storeBanner.selectedFile : onChangeFile_storeBanner.imageUrl ? 0 : 1;
+    const license_image = onChangeFile_license.selectedFile ? onChangeFile_license.selectedFile : onChangeFile_license.imageUrl ? 0 : 1;
+
     const {
         name,
         economic_code,
@@ -99,9 +102,9 @@ export const insertStoreAction = ({values,logo,license,storeBanner,city,province
         province,
         owner_national_code,
         city,
-        license_image : license,
-        banner_image : storeBanner,
-        logo_image : logo,
+        license_image,
+        banner_image,
+        logo_image,
     } , {headers : {'content-type' : 'multipart/form-data'}})
     .then(({data}) => {
         new Cookies().set('userToken' ,data.API_TOKEN,{path:'/'} )
