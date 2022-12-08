@@ -1,7 +1,7 @@
 import { setComma } from "@/utils/setComma";
 import { TextField } from "@mui/material";
 
-const FormikInput = ({isComma , formik,name,placeholder,title,parentClassName,isRequired}) => {
+const FormikInput = ({isComma , formik,name,maxLength,title,parentClassName,isRequired}) => {
     return (  
         <div className={parentClassName}>
             <section className="w-auto flex flex-col items-right gap-x-1">
@@ -9,6 +9,7 @@ const FormikInput = ({isComma , formik,name,placeholder,title,parentClassName,is
                 <input 
                     type="text" 
                     name={name} 
+                    maxLength={maxLength}
                     onChange={formik.handleChange} 
                     value={isComma ? setComma(formik.values[name]) : formik.values[name]} 
                     onBlur={formik.handleBlur} 
