@@ -96,7 +96,11 @@ export const confirmStore = (storeId) => dispatch => {
 }
 
 
-export const insertStore = ({values,logo,license,storeBanner,city,province}) => dispatch => {
+export const insertStore = ({values,onChangeFile_logo,onChangeFile_license,onChangeFile_storeBanner,city,province}) => dispatch => {
+    const logo_image = onChangeFile_logo.selectedFile ? onChangeFile_logo.selectedFile : onChangeFile_logo.imageUrl ? 0 : 1;
+    const banner_image = onChangeFile_storeBanner.selectedFile ? onChangeFile_storeBanner.selectedFile : onChangeFile_storeBanner.imageUrl ? 0 : 1;
+    const license_image = onChangeFile_license.selectedFile ? onChangeFile_license.selectedFile : onChangeFile_license.imageUrl ? 0 : 1;
+
     const {
         name,
         economic_code,
@@ -131,9 +135,9 @@ export const insertStore = ({values,logo,license,storeBanner,city,province}) => 
         province,
         owner_national_code,
         city,
-        license_image : license,
-        banner_image : storeBanner,
-        logo_image : logo,
+        license_image,
+        banner_image,
+        logo_image,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
@@ -148,8 +152,10 @@ export const insertStore = ({values,logo,license,storeBanner,city,province}) => 
     })
 }
 
-export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,province,bankCardNumber,staticWarehouseNumber,staticOfficeNumber}) => dispatch => {
-    dispatch(fetchOneStoreRequest())
+export const updateStore = ({storeId,values,onChangeFile_logo,onChangeFile_license,onChangeFile_storeBanner,city,province}) => dispatch => {
+    const logo_image = onChangeFile_logo.selectedFile ? onChangeFile_logo.selectedFile : onChangeFile_logo.imageUrl ? 0 : 1;
+    const banner_image = onChangeFile_storeBanner.selectedFile ? onChangeFile_storeBanner.selectedFile : onChangeFile_storeBanner.imageUrl ? 0 : 1;
+    const license_image = onChangeFile_license.selectedFile ? onChangeFile_license.selectedFile : onChangeFile_license.imageUrl ? 0 : 1;
     const {
         name,
         economic_code,
@@ -162,9 +168,12 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
         bank_name,
         bank_code,
         bank_sheba_number,
+        office_number,
+        warehouse_number,
+        bank_card_number,
     } = values
-    dispatch(insertStoreRequest())
-    axios.post(`https://market-api.iran.liara.run/api/admin/stores/${id}/update` ,{
+    dispatch(fetchOneStoreRequest())
+    axios.post(`https://market-api.iran.liara.run/api/admin/stores/${storeId}/update` ,{
         name ,
         economic_code ,
         owner_full_name ,
@@ -172,18 +181,18 @@ export const updateStore = ({pageId : id,values,logo,license,storeBanner,city,pr
         secend_phone_number ,
         owner_national_code,
         office_address ,
-        office_number : staticOfficeNumber,
+        office_number : office_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, ''),
         warehouse_address ,
-        warehouse_number : staticWarehouseNumber,
+        warehouse_number : warehouse_number.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, ''),
         bank_name ,
         bank_code ,
-        bank_card_number : bankCardNumber,
+        bank_card_number : bank_card_number.replace(/\s/g, '').replace(/-/g, ''),
         bank_sheba_number,
         province :province,
         city,
-        license_image : license || 0,
-        banner_image : storeBanner || 0,
-        logo_image : logo || 0
+        license_image,
+        banner_image,
+        logo_image,
     } , {headers : {'content-type' : 'multipart/form-data' ,authorization : `Bearer ${token}`,}})
     .then(() => {
         if(window){
