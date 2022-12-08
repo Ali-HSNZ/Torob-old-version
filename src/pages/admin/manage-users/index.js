@@ -15,7 +15,6 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import FormikInput from "@/common/admin/FormikInput";
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
-import Example from "@/common/admin/SelectBox_withoutSearch";
 import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 
 const ManageStores = () => {
