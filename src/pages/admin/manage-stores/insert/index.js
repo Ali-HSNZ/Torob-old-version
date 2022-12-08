@@ -23,7 +23,7 @@ import AdminPageAside from "@/components/adminPage/Aside";
 import { insertStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
 
 
-const SignupStorePage = () => {
+const InsertStorePage = () => {
 
     const dispatch = useDispatch()
     const {loading} = useSelector(state => state.admin_stores)
@@ -220,7 +220,7 @@ const SignupStorePage = () => {
     })
 
     return (  
-        <Layout isFooter={true} pageTitle={"ترب | ثبت فروشگاه"}>
+        <Layout isFooter={true} pageTitle={"پنل مدیریت | ثبت فروشگاه"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between">
                 <AdminPageAside/>
                 <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 
@@ -460,7 +460,7 @@ const SignupStorePage = () => {
     );
 }
  
-export default SignupStorePage;
+export default InsertStorePage;
 
 export const getServerSideProps = async(ctx) => {
     // Check Permission
