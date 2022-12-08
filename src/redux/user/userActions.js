@@ -30,33 +30,18 @@ export const userSignup = (phone_number) => {
         })
     }
 }
-// Sign in User With Phone Number & Code
-export const userSignin = (data) => {
-    return (dispatch) => {
-        dispatch(authRequest())
-        axios.post("https://market-api.iran.liara.run/api/verify" ,data)
-        .then(response => {
-            dispatch(authSuccess(response.data))
-            new Cookies().set('userToken' ,response.data.API_TOKEN,{path:'/'} )
-            toast.success(" با موفقیت وارد حساب کاربری خود شدید")
-            setTimeout(() => window.location.reload(), 1000);
-        })
-        .catch(err => {
-            const message = err.response?.data?.message || "خطای سرور در بخش احراز هویت";
-            toast.error(message)
-            dispatch(authFailure(message))
-        })
-    }
-}
-
 export const userSignin_withUserPass = (data) => dispatch => {
     dispatch(authRequest())
     axios.post("https://market-api.iran.liara.run/api/login/credentials" ,data)
-    .then(response => {
-        dispatch(authSuccess(response.data))
-        new Cookies().set('userToken' ,response.data.API_TOKEN,{path:'/'} )
+    .then(({data}) => {
+        dispatch(authSuccess(data))
+        new Cookies().set('userToken' ,data.API_TOKEN,{path:'/'} )
         toast.success(" با موفقیت وارد حساب کاربری خود شدید")
-        setTimeout(() => window.location.reload(), 1000);
+        if(!data.is_password){
+            setTimeout(() => window.location.href = '/store/change-password', 1000);
+        }else{
+            setTimeout(() => window.location.reload(), 1000);
+        }
     })
     .catch(err => {
         const message = err.response?.data?.message || "خطای سرور در بخش احراز هویت";
