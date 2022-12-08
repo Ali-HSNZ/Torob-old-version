@@ -19,6 +19,10 @@ const {
     FETCH_STORE_COUNT_SUCCESS, 
     FETCH_STORE_COUNT_FAILURE, 
 
+    STORE_CHANGE_PASSWORD_REQUEST, 
+    STORE_CHANGE_PASSWORD_SUCCESS, 
+    STORE_CHANGE_PASSWORD_FAILURE,
+
 } = require("./manageStore_types")
 
 const initialState = {
@@ -26,6 +30,7 @@ const initialState = {
     categories:{categories : null,loading : false,error : null},
     brands:{brands : null,loading : false,error : null},
     mainDataCount:{data : null,loading : false,error : null},
+    changePassword : {data : null,loading : false,error : null},
 }
 export const manageStoreReducer = (state = initialState , action) => {
     switch (action.type) {
@@ -63,6 +68,10 @@ export const manageStoreReducer = (state = initialState , action) => {
         case STORE_FETCH_BRANDS_FAILURE : {
             return {...state,brands : {brands : null, loading : false,error : action.payload}}
         }
+        // Change Store Password
+        case STORE_CHANGE_PASSWORD_REQUEST : {return { ...state ,changePassword :  {data : null , loading : true , error : null}}}
+        case STORE_CHANGE_PASSWORD_SUCCESS : {return { ...state ,changePassword :  {data : action.payload , loading : false , error : null}}}    
+        case STORE_CHANGE_PASSWORD_FAILURE : {return { ...state , changePassword : {data : null , loading : false , error : action.payload}}}
 
         // Fetch Store Categories
         case STORE_FETCH_CATEGORIES_REQUEST : { return { ...state, categories:{ categories : null , loading : true, error : null,}}}

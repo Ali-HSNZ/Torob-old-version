@@ -23,7 +23,15 @@ const {
     FETCH_STORE_COUNT_SUCCESS, 
     FETCH_STORE_COUNT_FAILURE, 
 
+    STORE_CHANGE_PASSWORD_REQUEST, 
+    STORE_CHANGE_PASSWORD_SUCCESS, 
+    STORE_CHANGE_PASSWORD_FAILURE,
+
 } = require("./manageStore_types");
+
+const changeStorePassword_request = () => {return {type : STORE_CHANGE_PASSWORD_REQUEST}}
+const changeStorePassword_success = (payload) => {return {type : STORE_CHANGE_PASSWORD_SUCCESS , payload}}
+const changeStorePassword_failure = (payload) => {return {type : STORE_CHANGE_PASSWORD_FAILURE , payload}}
 
 const fetchBaseProductsRequest = () => {return {type : STORE_FETCH_PRODUCTS_BASES_REQUEST}}
 const fetchBaseProductsSuccess = (payload) => {return {type : STORE_FETCH_PRODUCTS_BASES_SUCCESS , payload}}
@@ -47,6 +55,21 @@ const fetchStoreCountFailure = (payload) => {return {type : FETCH_STORE_COUNT_FA
 }
 const token = new Cookies().get("userToken");
 
+// Change Store Password Action
+export const changeStorePasswordAction = (values) => dispatch => {
+    dispatch(changeStorePassword_request())
+    axios.post(`https://market-api.iran.liara.run/api/user/password`, values , {headers : {authorization : `Bearer ${token}`}})
+    .then(() => {
+        toast.success("رمز عبور جدید شما با موفقیت ثبت شد")
+        dispatch(changeStorePassword_success("رمز عبور جدید شما با موفقیت ثبت شد"))
+    })
+    .catch(error => {
+        const serverMessage_list = error?.response?.data?.errors
+        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+        if(!serverMessage_list) toast.error("خطای سرور در بخش تغییر رمز فروشگاه")
+        dispatch(changeStorePassword_failure("خطای سرور در بخش تغییر رمز فروشگاه"))
+    })
+}
 
 export const fetchStoreCount = () => dispatch => {
     dispatch(fetchStoreCountRequest())
