@@ -16,12 +16,20 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import SelectBox from "@/common/admin/SelectBox";
 import FormikInput from "@/common/admin/FormikInput";
+import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 
 const ManageProduct = () => {
     const router = useRouter()
     
     const [isAsideModal , setIsAsideModal] = useState(false)
-    const [status , setStatus] = useState('all')
+
+    const allState = [
+        {id : 1 , type : "all" , name:"نمایش همه وضعیت ها" },
+        {id : 2 , type : "trashed" , name:"رد شده‌ها"},
+        {id : 3 , type : "active" , name:"تایید شده‌ها"},
+    ]
+
+    const [status , setStatus] = useState(allState[0])
 
     const {loading,products,pagination} = useSelector(state => state.admin_products.products)
     const {brands} = useSelector(state => state.admin_products.brands)
@@ -43,9 +51,12 @@ const ManageProduct = () => {
     const dispatch = useDispatch()
     const page = Number(useRouter().query.page || 1);
     const limit = 5
-    
+
+    const returnState = type => allState.find(state => state.type === type);
+
     useEffect(()=> {
         window.scroll({top : 0 , behavior : 'smooth'})
+        setStatus(router.query.state ? returnState(router.query.state) : allState[0])
         const {state , page , brand,category,name,barcode,order} = router.query;
         const payload = {state,page,limit,order,paramsBrand :  brand,barcode, paramsCategory :  category ,name}
 
@@ -55,7 +66,7 @@ const ManageProduct = () => {
     },[router.query])
 
     const onSubmit = ({ product_title ,barcode,order}) => {
-        router.push(`/admin/manage-products?page=1&state=${status || "all"}&barcode=${barcode || ""}&order=${order || 'asc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${product_title || ""}&limit=${limit}`)
+        router.push(`/admin/manage-products?page=1&state=${status.type || "all"}&barcode=${barcode || ""}&order=${order || 'asc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${product_title || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
         product_title : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
@@ -125,14 +136,14 @@ const ManageProduct = () => {
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm"> برند :</p>
                                     <div className="w-full mt-2">
-                                        <SelectBox notFoundTitle="برند مورد نظر یافت نشد." placeholder={'انتخاب برند'} query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
+                                        <SelectBox notFoundTitle="برند مورد نظر یافت نشد."  query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm"> دسته‌بندی :</p>
                                     <div className="w-full mt-2">
-                                        <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'انتخاب دسته بندی'} query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
+                                        <SelectBox notFoundTitle="دسته مورد نظر یافت نشد."  query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
                                     </div>
                                 </div>
 
@@ -154,11 +165,7 @@ const ManageProduct = () => {
                                 
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm">وضعیت :</p>
-                                    <select defaultValue={ router.query.state || 'all'} onChange={event => setStatus(event.target.value)} className=" cursor-pointer border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md">
-                                        <option className="py-2 text-sm font-sans" value={'active'}>تایید شده‌ها</option>
-                                        <option className="py-2 text-sm font-sans" value={'trashed'}>رد شده‌ها</option>
-                                        <option className="py-2 text-sm font-sans" value={'all'} >نمایش همه وضعیت ها</option>
-                                    </select>
+                                    <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                                 </div>
 
                             </section>
