@@ -315,8 +315,8 @@ const InsertStore = () => {
                             <p className="font-sans font-bold"> مالک فروشگاه</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                 <FormikInput  isRequired={true} name={"owner_full_name"} title={"نام و نام خانوادگی مالک فروشگاه"} formik={formik} placeholder={"نام و نام خانوادگی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
-                                <FormikInput maxLength={11} isRequired={true} name={"owner_phone_number"} title={"شماره همراه مالک فروشگاه (رمز عبور)" } formik={formik} placeholder={"شماره همراه مالک فروشگاه"} parentClassName="flex flex-col relative"/>
-                                <FormikInput maxLength={10} isRequired={true} name={"owner_national_code"}title={"کد ملی مالک فروشگاه (نام کاربری)" } formik={formik} placeholder={"کد ملی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
+                                <FormikInput maxLength={11} isRequired={true} name={"owner_phone_number"} title={"شماره همراه مالک فروشگاه" } formik={formik} placeholder={"شماره همراه مالک فروشگاه"} parentClassName="flex flex-col relative"/>
+                                <FormikInput maxLength={10} isRequired={true} name={"owner_national_code"}title={"کد ملی مالک فروشگاه" } formik={formik} placeholder={"کد ملی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
                                 <FormikInput maxLength={11} isRequired={false} name={"secend_phone_number"} title={"شماره همراه دوم مالک فروشگاه"} formik={formik} placeholder={"شماره همراه دوم مالک فروشگاه"} parentClassName="flex flex-col relative"/>
                             </section>
                         </div>
