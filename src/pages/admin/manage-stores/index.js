@@ -234,10 +234,8 @@ const ManageStores = () => {
                                                         <div className=" flex items-center">
                                                             {store.is_pending ? (
                                                                 <p className="whitespace-nowrap font-sans text-sm max-w-min bg-yellow-50 text-yellow-600 rounded-lg px-3 py-1">در حال بررسی</p>
-                                                            ) : store.is_show ? (
-                                                                <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
-                                                                ) : (
-                                                                <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
+                                                            ) : !store.is_show && (
+                                                                <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">حذف شده</p>
                                                             )}
                                                         </div>
                                                         <div className="flex items-center ">
