@@ -147,11 +147,7 @@ const ManageStores = () => {
                                 </div>
                                 <div>
                                     <p className="font-sans text-sm mb-2 text-gray-800">وضعیت :</p>
-                                    <SelectBox_withoutSearch 
-                                        selected={status} 
-                                        setSelected={setStatus} 
-                                        data={allState}
-                                    />
+                                    <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                                 </div>
                             </section>
                             <div className="w-full flex items-center justify-end mt-3">
