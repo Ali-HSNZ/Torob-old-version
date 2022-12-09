@@ -26,12 +26,12 @@ const SelectBox = ({isDisabled,placeholder ,notFoundTitle, selected , query , se
                                 <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-sans">{notFoundTitle}</div>
                             ) : (
                                 filteredData && filteredData.map((category) => (
-                                    <Combobox.Option  value={category} key={category.id} className={({ active }) => `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-700 text-white' : 'text-gray-900'}`}>
+                                    <Combobox.Option  value={category} key={category.id} className={({ active }) => `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-100' : 'text-gray-900'}`}>
                                         {({ selected, active }) => (
                                             <>
-                                                <span className={`  font-sans text-sm block truncate ${ selected && 'font-bold' }`}> {category.name} </span>
+                                                <span className={`  font-sans text-sm block truncate text-gray-800 ${ selected && 'font-bold text-black' }`}> {category.name} </span>
                                                 {selected && (
-                                                    <span className={`absolute  cursor-pointer inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-gray-700'}`}>
+                                                    <span className={`absolute  cursor-pointer inset-y-0 left-0 flex items-center pl-3 text-gray-700`}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                                         </svg>
