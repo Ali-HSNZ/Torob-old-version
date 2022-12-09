@@ -171,6 +171,7 @@ export const updateStore = ({storeId,values,onChangeFile_logo,onChangeFile_licen
         office_number,
         warehouse_number,
         bank_card_number,
+        owner_password,
     } = values
     dispatch(fetchOneStoreRequest())
     axios.post(`https://market-api.iran.liara.run/api/admin/stores/${storeId}/update` ,{
@@ -188,6 +189,7 @@ export const updateStore = ({storeId,values,onChangeFile_logo,onChangeFile_licen
         bank_code ,
         bank_card_number : bank_card_number.replace(/\s/g, '').replace(/-/g, ''),
         bank_sheba_number,
+        owner_password,
         province :province,
         city,
         license_image,
