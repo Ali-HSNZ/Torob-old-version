@@ -17,6 +17,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import ReactLoading from 'react-loading';
 import FormikInput from "@/common/admin/FormikInput";
+import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 
 
 const ManageBrands = () => {
@@ -28,7 +29,14 @@ const ManageBrands = () => {
     
     const dispatch = useDispatch();
 
-    const [status , setStatus] = useState( 'all')
+    const returnState = (type) => allState.find(state => state.type === type);
+    const allState = [
+        {type : "all" , name:"نمایش همه وضعیت ها" },
+        {type : "trashed" , name:"رد شده‌ها"},
+        {type : "active" , name:"تایید شده‌ها"},
+    ]
+    const [status , setStatus] = useState(allState[0])
+
     const [isAsideModal , setIsAsideModal] = useState(false)
     const [isImage , setIsImage] = useState(false)
     const [isImage_photoSrc , setIsImage_photoSrc] = useState("ImageNotSelected")
@@ -55,6 +63,7 @@ const ManageBrands = () => {
     }
 
     useEffect(()=>{
+        setStatus(router.query.state ? returnState(router.query.state) : allState[0])
         window.scroll({top : 0,behavior:'smooth'})
         const {state , page , limit,order} = router.query;
         const payload = { state, page,order, limit, paramsName : router.query.name  || "", paramsCompany : router.query.company  || ""}
@@ -68,7 +77,7 @@ const ManageBrands = () => {
     
     const onSubmit = (values) => {
         const  { name , company ,order} = values;
-        router.push(`/admin/manage-brands?state=${status || "all"}&order=${order || 'desc'}&name=${name || ""}&page=1&company=${company || ""}&limit=${limit}`)
+        router.push(`/admin/manage-brands?state=${status.type || "all"}&order=${order || 'desc'}&name=${name || ""}&page=1&company=${company || ""}&limit=${limit}`)
     }
     const validationSchema = Yup.object({
         name : Yup.string().min(2 , 'عنوان برند نمی تواند کمتر از ۲ نویسه باشد').max(50 , 'عنوان برند نمی تواند بیشتر از ۵۰ نویسه باشد').trim(),
@@ -159,11 +168,7 @@ const ManageBrands = () => {
                             </div>
                             <div className="flex flex-col relative">
                                 <p className="font-sans text-sm">وضعیت :</p>
-                                <select defaultValue={ router.query.state || 'all'} onChange={event => setStatus(event.target.value)} className=" cursor-pointer border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md">
-                                    <option className="py-2 text-sm font-sans" value={'active'}>تایید شده‌ها</option>
-                                    <option className="py-2 text-sm font-sans" value={'trashed'}>رد شده‌ها</option>
-                                    <option className="py-2 text-sm font-sans" value={'all'} >نمایش همه وضعیت ها</option>
-                                </select>
+                                <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                             </div>
                         </section>
 
@@ -185,9 +190,9 @@ const ManageBrands = () => {
                             <section className={` w-full grid sm:grid-cols-2 lg:grid-cols-3 mt-4 gap-4`}>
                                 {brands.map(brand => {
                                     return(
-                                        <div key={brand.id} className="flex flex-col bg-white pb-4  relative rounded-md shadow-md h-min overflow-hidden">
-                                            <div className="flex  w-full justify-between mb-4 mt-4 px-4">
-                                                <div className={`shadow-xl w-2 h-2 ${!brand.is_show &&  "bg-red-600"} rounded-full`}></div>
+                                        <div key={brand.id} className={`z-20 flex flex-col bg-white pb-4  ${!brand.is_show &&  "border border-red-400"}   relative rounded-md shadow-md h-min overflow-hidden`}>
+                                            <div className="flex  w-full justify-between mb-4 mt-4 px-4  ">
+                                                <div className={` w-2 h-2 ${!brand.is_show &&  "bg-red-600"} rounded-full`}></div>
                                                 <div className="flex gap-x-2 items-center">
                                                     <button onClick={()=> {
                                                         setIsModal_deleteBrand(true) & 
