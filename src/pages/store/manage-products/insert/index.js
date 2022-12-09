@@ -37,7 +37,6 @@ const ManageStores = () => {
     const filteredCategories = categoryQuery === '' ? categories : categories && categories.filter((category) => category.name.toLowerCase().replace(/\s+/g, '').includes(categoryQuery.toLocaleLowerCase().replace(/\s+/g, '')))
     const filteredBrands = brandQuery === '' ? brands : brands.filter((brand) => brand.name.toLowerCase().replace(/\s+/g, '').includes(brandQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
-    
     const dispatch = useDispatch()
     const page = Number(useRouter().query.page || 1);
     const limit = 5
@@ -117,28 +116,28 @@ const ManageStores = () => {
                     </div>
 
                     <form className="w-full " onSubmit={formik.handleSubmit}>
-                        <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
+                        <section className="w-full p-4 bg-white mt-4 rounded-lg shadow-md">
                             <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                <FormikInput formik={formik} placeholder={"بر اساس نام محصول"} title={"نام کالا"} name={"product_title"} parentClassName={"flex flex-col relative"}/>
+                                <FormikInput maxLength={250} formik={formik} title={"نام کالا"} name={"product_title"} parentClassName={"flex flex-col relative"}/>
 
                                 <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm"> برند :</p>
+                                    <p className="font-sans text-sm text-gray-800"> برند :</p>
                                     <div className="w-full mt-2">
-                                        <SelectBox notFoundTitle="برند مورد نظر یافت نشد." placeholder={'انتخاب برند'} query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
+                                        <SelectBox notFoundTitle="برند مورد نظر یافت نشد."  query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm"> دسته‌بندی :</p>
+                                    <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
                                     <div className="w-full mt-2">
-                                        <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'انتخاب دسته بندی'} query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
+                                        <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
                                     </div>
                                 </div>
 
-                                <FormikInput formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
+                                <FormikInput maxLength={12} formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
 
                             </section>
-                            <div className="w-full flex items-center justify-end mt-3">
+                            <div className="w-full flex items-center justify-end mt-4">
                                 <button type={"submit"} className={`${formik.isValid ? "hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>جستجو</button>
                             </div>
                         </section>
@@ -152,7 +151,7 @@ const ManageStores = () => {
                     {!products && !loading && <Warning text={'کالایی یافت نشد!'}/>}
                     {products && (
                         <>
-                        <section className="rounded-md overflow-hidden w-full mt-3  shadow-md flex flex-col">
+                        <section className="rounded-md overflow-hidden w-full mt-4  shadow-md flex flex-col">
                         {/* isImage_Modal */}
                         <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
                             <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
