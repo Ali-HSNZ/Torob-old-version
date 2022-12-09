@@ -480,7 +480,7 @@ const InsertStore = () => {
                             ) : (
                                 <>
                                     {store && store.is_pending ? (
-                                        <button type={"button"} onClick={()=> dispatch(confirmStore(storeId))} className={`items-center ${store && store.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>بررسی شده</button>
+                                        <button type={"button"} onClick={()=> dispatch(confirmStore(storeId))} className={`items-center ${store && store.is_show ? "bg-yellow-50 hover:bg-yellow-100  border-yellow-600 text-yellow-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>بررسی شده</button>
                                         ) : (
                                         <button type={"button"} onClick={()=> dispatch(deleteStore(storeId))} className={`items-center ${store && store.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>
                                     )}
