@@ -1,0 +1,1 @@
+export const validImageTypes =  ['png','jpg','jpeg','webp']
