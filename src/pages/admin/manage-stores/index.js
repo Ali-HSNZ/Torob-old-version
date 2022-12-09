@@ -31,9 +31,8 @@ const ManageStores = () => {
     const [isLicenseImage_Modal , setIsLicenseImage_Modal] = useState(false)
     const [isAsideModal , setIsAsideModal] = useState(false)
 
-    const returnState = (type) => {
-        return allState.find(state => state.type === type)
-    }
+    const returnState = (type) => allState.find(state => state.type === type);
+    
     const allState = [
         {type : "all" , name:"نمایش همه وضعیت ها" },
         {type : "trashed" , name:"رد شده‌ها"},
@@ -41,7 +40,7 @@ const ManageStores = () => {
         {type : "pending" , name:"بررسی نشده‌ها"},
     ]
 
-    const [status , setStatus] = useState( {type : "all" , name:"نمایش همه وضعیت ها" })
+    const [status , setStatus] = useState(allState[0])
     const page = Number(useRouter().query.page || 1);
     const limit = 5
 
@@ -152,11 +151,7 @@ const ManageStores = () => {
                                 
                                 <div className="flex flex-col relative">
                                     <p className="font-sans text-sm">وضعیت :</p>
-                                    <SelectBox_withoutSearch 
-                                        selected={status} 
-                                        setSelected={setStatus} 
-                                        data={allState}
-                                        />
+                                    <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                                 </div>
 
                             </section>
