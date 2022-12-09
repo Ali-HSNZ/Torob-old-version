@@ -20,7 +20,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import FormikInput from "@/common/admin/FormikInput";
-import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PHONE_NUMBER_REGIX } from "@/utils/Regex";
+import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PASSWORD_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
 
 
 const InsertStore = () => {
@@ -123,15 +123,7 @@ const InsertStore = () => {
         if(!city){
             toast.error('حوضه فعالیت شرکت (شهر) را وارد کنید'); return false
         }
-        dispatch(updateStore({
-                                                storeId,
-                                                values,
-                                                onChangeFile_logo,
-                                                onChangeFile_license,
-                                                onChangeFile_storeBanner,
-                                                city,
-                                                province,
-                                            }))
+        dispatch(updateStore({storeId,values,onChangeFile_logo,onChangeFile_license,onChangeFile_storeBanner,city,province}))
     }
 
 
@@ -222,7 +214,11 @@ const InsertStore = () => {
             .required("کد ملی مالک فروشگاه الزامی است.")
             .length(10 , "کد ملی نامعتبر است.")
             .matches(ONLY_DIGIT_REGIX , "کد ملی نامعتبر است.")
-            .trim()
+            .trim(),
+        owner_password : Yup.string()
+            .min(6 , "رمز عبور نمی تواند کمتر از ۶ کاراکتر باشد")
+            .max(24 , "رمز عبور نمی تواند بیشتر از ۲۴ نویسه باشد")
+            .matches(PASSWORD_REGIX,"رمز عبور معتبر نیست | رمز عبور میتواند ترکیبی از عدد و حروف انگلیسی باشد"),
     })
     const formik = useFormik({
         onSubmit,
@@ -474,6 +470,15 @@ const InsertStore = () => {
                                 </div>
                             </section>
                         </div>
+
+                        {/*  مالک فروشگاه */}
+                        <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+                            <p className="font-sans font-bold"> رمز عبور</p>
+                            <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
+                                <FormikInput maxLength={11} isRequired={false} name={"owner_password"} title={"رمز عبور جدید"} formik={formik} placeholder={"شماره همراه دوم مالک فروشگاه"} parentClassName="flex flex-col relative"/>
+                            </section>
+                        </div>
+
                         <section className="w-full flex justify-end gap-x-2 my-4 items-center ">
                             {loading === true ? (
                                 <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />
