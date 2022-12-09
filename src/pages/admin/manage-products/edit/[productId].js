@@ -15,6 +15,7 @@ import { Modal } from "@mui/material";
 import toast from "react-hot-toast";
 import FormikInput from "@/common/admin/FormikInput";
 import { toPersianDigits } from "@/utils/toPersianDigits";
+import { validImageTypes } from "@/utils/global";
 
 const EditProduct = () => {
     const dispatch = useDispatch()
@@ -66,10 +67,7 @@ const EditProduct = () => {
 
     const checkImageFormat = (fileName) => {
         const type =  fileName.split('.').pop();
-        const valid = ['png','jpg','jpeg','webp']
-        if(!valid.includes(type.toLocaleLowerCase())){
-            return false
-        }
+        if(!validImageTypes.includes(type.toLocaleLowerCase()))return false;
         return true
     }
 
@@ -207,7 +205,7 @@ const EditProduct = () => {
                         </section>
                     </Modal>
                     <div className="flex justify-between w-full items-center">
-                    <div className="flex items-center">
+                        <div className="flex items-center">
                             <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -231,73 +229,81 @@ const EditProduct = () => {
                                 </a>
                             </Link>
                         </div>
-                    </div>
+                    </div> 
                     <form onSubmit={formik.handleSubmit}>
-                        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-                            <FormikInput title={"عنوان کالا"} formik={formik} placeholder={"عنوان کالا"} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
-                            
-                            <div className="flex flex-col relative">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600">برند :</p>
-                                <div className="w-full mt-2">
-                                    <SelectBox notFoundTitle="برند مورد نظر یافت نشد." placeholder={'انتخاب عنوان برند'} query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
+                        <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <p className="font-sans font-bold"> مشخصات کالا</p>
+                            <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                                <FormikInput maxLength={250} title={"عنوان کالا"} formik={formik} placeholder={"عنوان کالا"} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
+                                <div>
+                                    <p className="font-sans text-sm before:content-['*'] before:text-red-600 text-gray-800">برند :</p>
+                                    <div className="w-full mt-2">
+                                        <SelectBox notFoundTitle="برند مورد نظر یافت نشد."  query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
+                                    </div>
                                 </div>
+                                <FormikInput maxLength={12} title={"بارکد"} formik={formik} placeholder={"بارکد کالا"} isRequired={true} name={"barcode"} parentClassName={"flex flex-col relative"}/>
+                            </section>
+                            <div className="flex flex-col mt-4 gap-x-4">
+                                <input type="checkbox" className="peer hidden" id="category_section" />
+                                <section className="flex items-center">
+                                    <p className="font-sans text-sm before:content-['*'] before:text-red-600 ">دسته‌بندی :</p>
+                                    <label onClick={()=> {setSelectedCategory_main("") & setIsEditCategory(!isEditCategory)}} htmlFor="category_section" className="peer-checked:hidden cursor-pointer font-sans text-xs hover:underline underline-offset-4 mr-2 text-blue-600"> (ویرایش)</label>
+                                    {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
+                                </section>
+                                <section className=" peer-checked:hidden mt-1">
+                                    {product && product.categories && product.categories.map((category,index) => <span key={index} className="font-sans text-sm text-gray-800">{index>0 && " / "}{category.name}</span>)}
+                                </section>
+                                <section className="hidden peer-checked:flex flex-wrap gap-3 mt-2">
+                                    <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
+                                    {selectedCategory_main && sub1.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته اول'} query={categoryQuery_sub1} setQuery={setCategoryQuery_sub1} filteredData={filteredsub1} selected={selectedCategory_sub1} setSelected={setSelectedCategory_sub1}/>}
+                                    {selectedCategory_sub1 && sub2.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته دوم'} query={categoryQuery_sub2} setQuery={setCategoryQuery_sub2} filteredData={filteredsub2} selected={selectedCategory_sub2} setSelected={setSelectedCategory_sub2}/>}
+                                    {selectedCategory_sub2 && sub3.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته سوم'} query={categoryQuery_sub3} setQuery={setCategoryQuery_sub3} filteredData={filteredsub3} selected={selectedCategory_sub3} setSelected={setSelectedCategory_sub3}/>}
+                                </section>
                             </div>
-
-                            <FormikInput title={"بارکد"} formik={formik} placeholder={"بارکد کالا"} isRequired={true} name={"barcode"} parentClassName={"flex flex-col relative"}/>
-                        </section>
-                        <div className="flex flex-col mt-4">
-                            <p className="font-sans text-sm before:content-['*'] before:text-red-600">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
-                            <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} placeholder="توضیحات..." className="leading-8 max-h-[250px] min-h-[50px] w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md "/>
+                        </div>
+                        <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <p className="font-sans font-bold"> توضیحات</p>
+                            <p className="font-sans text-sm mt-4 text-gray-800 before:content-['*'] before:text-red-600">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
+                            <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} className={`${formik.errors.product_description && formik.touched.product_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-7`}/>
+                            {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
+                        
                         </div>
 
-                        {/* select Image Section */}
-                        <section className="sm:mt-4 w-full flex flex-row ">
-                            <div className={`flex sm:flex-row flex-col flex-start w-full`}>
-                                <input type={'file'} disabled={productImages.length > 19 ? true : false} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' className="hidden peer" accept=".jpg,.png,.jpeg,.webp"/>
-                                <div className="sticky top-0 z-50 py-4  sm:p-0 bg-gray-100 sm:bg-transparent">
-                                    <label htmlFor="chooseImageInput" className={`sticky top-0 z-50  sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed peer-disabled:cursor-not-allowed peer-disabled:text-gray-800 text-blue-700 peer-disabled:border-gray-800 cursor-pointer peer-disabled:bg-gray-300 hover:bg-blue-100 bg-blue-50 border-blue-600 border-2 rounded-md sm:rounded-lg `}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                        </svg>
-                                        <p className="font-sans text-sm whitespace-nowrap w-full  font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
-                                        <p className="font-sans text-sm  font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${productImages.length}/20`)}</p>
-                                    </label> 
+                        <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <p className="font-sans font-bold"> تصاویر و فایل ها</p>
+                            {/* select Image Section */}
+                            <section className="sm:mt-4 w-full flex flex-row ">
+                                <div className={`flex sm:flex-row flex-col flex-start w-full`}>
+                                    <input type={'file'} disabled={productImages.length > 19 ? true : false} ref={imageInput_ref} onChange={input => changeFIleAction_input(input)} id='chooseImageInput' className="hidden peer" accept=".jpg,.png,.jpeg,.webp"/>
+                                    <div className="sticky top-0 z-50 py-4  sm:p-0 bg-white">
+                                        <label htmlFor="chooseImageInput" className={`sticky top-0 z-50  sm:h-28 p-2 sm:p-5 flex flex-row sm:flex-col justify-center items-center  border-dashed peer-disabled:cursor-not-allowed peer-disabled:text-gray-800 text-blue-700 peer-disabled:border-gray-800 cursor-pointer peer-disabled:bg-gray-300 hover:bg-blue-100 bg-blue-50 border-blue-600 border-2 rounded-md sm:rounded-lg `}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                            </svg>
+                                            <p className="font-sans text-sm whitespace-nowrap w-full  font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
+                                            <p className="font-sans text-sm  font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${productImages.length}/20`)}</p>
+                                        </label> 
+                                    </div>
+                                    <div className="class_grid_manage_products sm:mr-4">
+                                        {productImages.map(image => {
+                                            return(
+                                                <div key={image.id} onClick={()=>{setImageSrc_modal(image) , setIsImage_modal(true)}} className="z-10 cursor-pointer group h-28 p-1 relative border-gray-500 border w-auto flex   rounded-md overflow-hidden items-center justify-center">
+                                                    <img src={image.url} className="h-full w-auto"/> 
+                                                    <button type={"button"} className="absolute  top-2 right-2 p-1 rounded-full shadow-lg group-hover:bg-gray-800 bg-white">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 group-hover:text-gray-50 text-gray-800">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                        </svg>
+                                                    </button>
+                                                    {image.is_main && <p className="absolute bottom-0 font-sans text-xs text-gray-100 text-center p-1 bg-[#000000b7] w-full">تصویر اصلی</p>}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
                                 </div>
-                                <div className="class_grid_manage_products sm:mr-4">
-                                    {productImages.map(image => {
-                                        return(
-                                            <div key={image.id} onClick={()=>{setImageSrc_modal(image) , setIsImage_modal(true)}} className="z-10 cursor-pointer group h-28 p-1 relative border-gray-500 border w-auto flex   rounded-md overflow-hidden items-center justify-center">
-                                                <img src={image.url} className="h-full w-auto"/> 
-                                                <button type={"button"} className="absolute  top-2 right-2 p-1 rounded-full shadow-lg group-hover:bg-gray-800 bg-white">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 group-hover:text-gray-50 text-gray-800">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                    </svg>
-                                                </button>
-                                                {image.is_main && <p className="absolute bottom-0 font-sans text-xs text-gray-100 text-center p-1 bg-[#000000b7] w-full">تصویر اصلی</p>}
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        </section>
-
-                        <div className="flex flex-col mt-4 gap-x-4">
-                            <input type="checkbox" className="peer hidden" id="category_section" />
-                            <section className="flex items-center">
-                                <p className="font-sans text-sm before:content-['*'] before:text-red-600 ">دسته‌بندی :</p>
-                                <label onClick={()=> {setSelectedCategory_main("") & setIsEditCategory(!isEditCategory)}} htmlFor="category_section" className="peer-checked:hidden cursor-pointer font-sans text-xs hover:underline underline-offset-4 mr-2 text-blue-600"> (ویرایش)</label>
-                                {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
-                            </section>
-                            <section className=" peer-checked:hidden ">
-                                {product && product.categories && product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index>0 && " / "}{category.name}</span>)}
-                            </section>
-                            <section className="hidden peer-checked:flex flex-wrap gap-3 mt-2">
-                                <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
-                                {selectedCategory_main && sub1.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته اول'} query={categoryQuery_sub1} setQuery={setCategoryQuery_sub1} filteredData={filteredsub1} selected={selectedCategory_sub1} setSelected={setSelectedCategory_sub1}/>}
-                                {selectedCategory_sub1 && sub2.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته دوم'} query={categoryQuery_sub2} setQuery={setCategoryQuery_sub2} filteredData={filteredsub2} selected={selectedCategory_sub2} setSelected={setSelectedCategory_sub2}/>}
-                                {selectedCategory_sub2 && sub3.categories && <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={'زیردسته سوم'} query={categoryQuery_sub3} setQuery={setCategoryQuery_sub3} filteredData={filteredsub3} selected={selectedCategory_sub3} setSelected={setSelectedCategory_sub3}/>}
                             </section>
                         </div>
+
+
 
                         <div className="mt-6 w-full flex justify-end gap-x-2">
                             {productLoading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
