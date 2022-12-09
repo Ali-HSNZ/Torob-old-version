@@ -33,6 +33,7 @@ const ManageStores = () => {
     const limit = 5
     
     useEffect(()=> {
+        setStatus(router.query.state ? returnState(router.query.state) : allState[0])
         window.scroll({top : 0 , behavior : 'smooth'})
         const {state , page , national_code,full_name,number,order} = router.query;
         const payload = {state,page,limit,order,national_code,number,full_name}
@@ -57,6 +58,15 @@ const ManageStores = () => {
             .min(2 , "شماره نمی تواند کمتر از ۲ نویسه باشد")
             .trim(),
     })
+
+    const returnState = (type) => {
+        return allState.find(state => state.type === type)
+    }
+    const allState = [
+        {type : "all" , name:"نمایش همه وضعیت ها" },
+        {type : "trashed" , name:"رد شده‌ها"},
+        {type : "active" , name:"تایید شده‌ها"},
+    ]
 
     const formik = useFormik({ 
         onSubmit, 
@@ -123,7 +133,7 @@ const ManageStores = () => {
                                 <FormikInput name={"number"} title={"شماره همراه یا ثابت"} formik={formik} placeholder={"بر اساس شماره همراه یا ثابت"} parentClassName="flex flex-col relative"/>
 
                                 <div className="flex flex-col relative">
-                                    <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
+                                    <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                     <section className="flex justify-between mt-2 gap-x-2">
                                         <div className="flex w-1/2">
                                             <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
@@ -136,16 +146,12 @@ const ManageStores = () => {
                                     </section>
                                 </div>
                                 <div>
-                                    <p className="font-sans text-sm mb-2">وضعیت :</p>
+                                    <p className="font-sans text-sm mb-2 text-gray-800">وضعیت :</p>
                                     <SelectBox_withoutSearch 
                                         selected={status} 
                                         setSelected={setStatus} 
-                                        data={[
-                                            {type : "all" , name:"نمایش همه وضعیت ها" },
-                                            {type : "trashed" , name:"رد شده‌ها"},
-                                            {type : "active" , name:"تایید شده‌ها"},
-                                            ]}
-                                        />
+                                        data={allState}
+                                    />
                                 </div>
                             </section>
                             <div className="w-full flex items-center justify-end mt-3">
@@ -197,9 +203,7 @@ const ManageStores = () => {
                                                     </div>
                                                     <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                         <div className=" flex items-center">
-                                                            {user.is_active ? (
-                                                                <p className="whitespace-nowrap font-sans text-sm max-w-min bg-green-50 text-green-600 rounded-lg px-3 py-1">تایید شده</p>
-                                                            ) : (
+                                                            {!user.is_active && (
                                                                 <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
                                                             )}
                                                         </div>
@@ -222,7 +226,6 @@ const ManageStores = () => {
                                                         <p className="font-sans text-sm"><b>تلفن ثابت : </b>{user.house_number.length > 0 ? user.house_number : "نامشخص"  }</p>
                                                         <p className="font-sans text-sm"><b>استان : </b>{user.address.province && user.address.province.length > 0 ? user.address.province : "نامشخص"}</p>
                                                         <p className="font-sans text-sm"><b>شهر : </b>{user.address.city && user.address.city.length > 0 ? user.address.city : "نامشخص"}</p>
-                                                        <p className="font-sans text-sm"><b>آدرس : </b>{user.address.detail && user.address.detail.length > 0 ? user.address.detail : "نامشخص"}</p>
                                                         <p className="font-sans text-sm"><b>کد پستی : </b>{user.address.post_code && user.address.post_code.length > 0 ? user.address.post_code : "نامشخص"}</p>
                                                         {/* User Profile Image */}
                                                         <div className="flex">
@@ -233,12 +236,14 @@ const ManageStores = () => {
                                                         </div>
                                                     </div>
 
+                                                    <p className="font-sans text-sm mt-2"><b>آدرس : </b>{user.address.detail && user.address.detail.length > 0 ? user.address.detail : "نامشخص"}</p>
                                                     <div className="flex justify-end w-full mt-4 mb-4">
                                                         <Link href={`/admin/manage-users/edit/${user.id}`} >
                                                             <a className=" font-sans  shadow-sm md:shadow-md  lg:shadow-lg text-sm hover:bg-blue-100 bg-blue-50 text-blue-700 border border-blue-500 px-4 py-2 rounded-md">ویرایش</a>
                                                         </Link>
                                                     </div>
                                                 </section>
+
                                             </div>
                                             <hr/>
                                         </section>
