@@ -188,7 +188,7 @@ const ManageBrands = () => {
                             <section className={` w-full grid sm:grid-cols-2 lg:grid-cols-3 mt-4 gap-4`}>
                                 {brands.map(brand => {
                                     return(
-                                        <div key={brand.id} className={`z-20 flex flex-col bg-white pb-4  ${!brand.is_show &&  "border border-red-300"}   relative rounded-md shadow-md h-min overflow-hidden`}>
+                                        <div key={brand.id} className={`flex flex-col bg-white pb-4  ${!brand.is_show &&  "border border-red-300"}   relative rounded-md shadow-md h-min overflow-hidden`}>
                                             <div className="flex  w-full justify-end mb-4 mt-4 px-4  ">
                                                 <div className="flex gap-x-2 items-center">
                                                     <button onClick={()=> {
