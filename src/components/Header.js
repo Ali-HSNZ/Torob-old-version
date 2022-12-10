@@ -4,6 +4,7 @@ import { toPersianDigits } from "@/utils/toPersianDigits";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { authPanel, userLogout } from "src/redux/user/userActions";
 import Login from "./Login";
@@ -104,20 +105,20 @@ const Header = () => {
                 </button>
               </div>
             </>
-          ) : user && user.phone_number_primary && user.account_type !== 'normal' ? (
+          ) : user && user.phone_number_primary  ? (
             <>
               <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="bg-white px-6 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500 min-w-[123px] max-w-[123px]" >
                 {toPersianDigits(user.phone_number_primary)}
               </button>
-              <div className={`bg-gray-50 rounded-b-md ${ userPanel ? "" : "hidden" } absolute  top-[37px] left-0  whitespace-nowrap py-2`} >
-                <Link href={`/${user.account_type}`}>
-                  <a className="text-xs cursor-pointer hover:bg-gray-200 px-8 font-bold text-gray-700 py-2 text-center font-sans block">
-                    پنل مدیریت
-                  </a>
-                </Link>
-                <button onClick={() => { dispatch(userLogout()); setUserPanel(false)}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-1.5 text-center font-sans ">
-                  خروج
-                </button>
+              <div className={`bg-gray-50 rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[33px] left-[1px]  whitespace-nowrap py-2`}>
+                  {user.is_pending ? (
+                      <button onClick={()=>toast.error(' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت')} className="text-xs min-w-[119.2px] max-w-[119.2px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-1.5 text-center font-sans block">در حال بررسی</button>
+                  ) : (
+                    <Link href={`/${user.account_type}`} >
+                      <a className="text-xs cursor-pointer min-w-[119.2px] max-w-[119.2px] hover:bg-gray-200 font-bold text-gray-700 py-1.5 text-center font-sans block">پنل مدیریت</a>
+                    </Link>
+                  )}
+                  <button onClick={()=> {dispatch(userLogout())}} className="min-w-[119.2px] max-w-[119.2px] text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 w-full py-1.5 text-center font-sans ">خروج</button>
               </div>
             </>
           ) : (
