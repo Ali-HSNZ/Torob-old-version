@@ -2,7 +2,7 @@
 
 export const toPersianDigits = (requestDigits) => {
 	const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹']
-	return  requestDigits.toString().replace(/\d/g , (e) => persianDigits[parseInt(e)])
+	return requestDigits !== undefined ? requestDigits.toString().replace(/\d/g , (e) => persianDigits[parseInt(e)]) : ""
 }
 var
 persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
