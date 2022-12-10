@@ -14,6 +14,7 @@ import { manageStoreReducer } from "./manage-store/manageStore/manageStore_reduc
 import { store_companyProductsReducer } from "./manage-store/companyProducts/companyProducts_reducer";
 import { admin_dataCountReducer } from "./admin/admin_dataCount/admin_dataCountReducer";
 import { signupReducer } from "./signup/signupReducer";
+import { admin_changePasswordReducer } from "./admin/admin_changePassword.js/admin_changePasswordReducer";
 
 const rootReducer = combineReducers({
   // User
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   admin_stores: admin_storesReducer,
   admin_users: admin_manageUsersReducer,
   admin_dataCount: admin_dataCountReducer,
+  admin_changePassword : admin_changePasswordReducer,
 
   // Store Panel Reducers
   manage_store: manageStoreReducer,
@@ -38,4 +40,5 @@ const rootReducer = combineReducers({
   // Signup User And Store
   signupReducer: signupReducer,
 });
+
 export default rootReducer;
