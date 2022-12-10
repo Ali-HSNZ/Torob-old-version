@@ -13,18 +13,17 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import FormikInput from '@/common/admin/FormikInput';
 
-export default function DialogAlert_updateBrand({imageUrl,faName, enName, company, id, isModal , setIsModal, title, submitBtnTitle}) {
-
+export default function DialogAlert_updateBrand({imageUrl,is_brand_image,faName, enName, company, id, isModal , setIsModal, title, submitBtnTitle}) {
     const {query} = useRouter()
     const {limit,order,page,name : paramsName,company:paramsCompany,state} = query
     const [isProductImage_Modal,setIsProductImage_Modal] = useState(false)
     const imageInput_ref = useRef()
     const dispatch =  useDispatch()
 
-    const [onChangeFile , setOnChangeFile] = useState(null)
+    const [onChangeFile , setOnChangeFile] = useState({imageUrl : null , selectedFile : null})
 
     useEffect(()=>{
-        setOnChangeFile(imageUrl && {imageUrl} || null) 
+        setOnChangeFile(imageUrl && is_brand_image &&  {imageUrl , selectedFile : null} || {imageUrl : null , selectedFile : null}) 
     },[imageUrl])
     
     const checkImageFormat = (fileName) => {
@@ -60,13 +59,13 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
 
     const onSubmit = ({faName , enName , companyName}) => {
         setIsModal(false)
-        dispatch(updateBrand({order,page,limit,id,faName,enName,paramsName,state,paramsCompany,companyName,brandImage : onChangeFile && onChangeFile.selectedFile || ""}))
+        dispatch(updateBrand({order,page,limit,id,faName,enName,paramsName,state,paramsCompany,companyName,brandImage : onChangeFile}))
     }
 
     const validationSchema = Yup.object({
         faName: Yup.string().required("نام فارسی برند نمی تواند خالی باشد.").min(3 , "نام فارسی برند نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام فارسی برند نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
         enName: Yup.string().required("نام انگلیسی برند نمی تواند خالی باشد.").min(3 , "نام انگلیسی برند نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام انگلیسی برند نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
-        companyName:Yup.string().required("نام شرکت نمی تواند خالی باشد.").min(2 , "نام شرکت نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام شرکت نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
+        companyName:Yup.string().required("نام شرکت نمی تواند خالی باشد.").min(3 , "نام شرکت نمی تواند کم تر از ۳ نویسه باشد.").max(30 , "نام شرکت نمی تواند بیشتر از ۳۰ نویسه باشد.").trim(),
     })
     const formik = useFormik({
         onSubmit,
@@ -93,7 +92,9 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
             </div>
             <form onSubmit={formik.handleSubmit}>
                 <section className='px-4'>
-                    <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"faName"} title="نام فارسی برند" placeholder={"نام فارسی برند"} />
+                    <div>
+                        <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"faName"} title="نام فارسی برند" placeholder={"نام فارسی برند"} />
+                    </div>
                     <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"enName"} title="نام انگلیسی برند" placeholder={"نام انگلیسی برند"} />
                     <FormikInput parentClassName={"flex flex-col relative mt-4"} formik={formik} name={"companyName"} title="نام شرکت" placeholder={"نام شرکت"} />
 
@@ -101,12 +102,12 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
                     <div className="flex flex-col relative mt-4">
                         <p className="font-sans text-sm text-gray-800"> تصویر (لوگو) برند :</p>
                         <input type={'file'} id="chooseImage" ref={imageInput_ref} accept="image/*" className="hidden" name='brandImage' onChange={event => changeFIleAction_input(event)} onBlur={formik.handleBlur}/>
-                        {onChangeFile? (
+                        {onChangeFile.imageUrl? (
                             <section className="flex justify-between items-center mt-2  ">
                                 <button type={"button"} onClick={()=>setIsProductImage_Modal(true)} className="flex justify-between w-full rounded-r-md bg-green-100 p-2 border-l-0 hover:bg-green-200 hover:border-green-700 border border-green-500">
                                     <span className="text-sm font-sans text-green-800 ">تصویر کالا انتخاب شده است.</span>
                                 </button>
-                                <button onClick={()=> {setOnChangeFile(null) ; imageInput_ref.current.value = null}}  type={"button"} className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-500 hover:border-red-700">
+                                <button onClick={()=> {setOnChangeFile({selectedFile : null , imageUrl : null}) ; imageInput_ref.current.value = null}}  type={"button"} className="bg-red-200 hover:bg-red-300 border py-2 px-4 rounded-l-md border-red-500 hover:border-red-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
@@ -138,7 +139,7 @@ export default function DialogAlert_updateBrand({imageUrl,faName, enName, compan
                 </section>
                 <DialogActions>
                     <div className='w-full flex gap-x-4 justify-end p-2'>
-                        <button  className='font-sans font-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
+                        <button type={'button'} className='font-sans font-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
                         <button disabled={!formik.isValid} type={'submit'}  className={` text-sm font-sans py-[6px] px-5 rounded-md ${formik.errors.faName? "cursor-not-allowed bg-gray-600 text-white hover:bg-gray-700" : " bg-blue-600 text-white hover:bg-blue-700 "}  `} >{submitBtnTitle ? submitBtnTitle : "تایید"}</button>
                     </div>
                 </DialogActions>
