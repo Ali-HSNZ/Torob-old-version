@@ -44,7 +44,7 @@ export default function DialogAlert_insertMainCategory({isModal , setIsModal , t
                     </section>
                     <DialogActions>
                         <div className='w-full flex gap-x-4 justify-end p-2'>
-                            <button className='font-sans font-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
+                            <button type={'button'} className='font-sans font-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
                             <button type={'submit'}  className={` text-sm font-sans py-[6px] px-5 rounded-md ${formik.errors.mainCategoryName? "cursor-not-allowed bg-gray-600 text-white hover:bg-gray-700" : " bg-blue-600 text-white hover:bg-blue-700 "}  `} >تایید</button>
                         </div>
                     </DialogActions>
