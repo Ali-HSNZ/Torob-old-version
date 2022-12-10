@@ -55,7 +55,7 @@ const ManageBrands = () => {
             return <DialogAlert_deleteBrand page={page} limit={limit} isModal={isModal_deleteBrand} setIsModal={setIsModal_deleteBrand} id={modalDetail_deleteBrand.id} title={modalDetail_deleteBrand.title} description={modalDetail_deleteBrand.description} />
         }
         if(isModal_updateBrand === true){
-            return <DialogAlert_updateBrand imageUrl={modalDetail_updateBrand.imageUrl}  isModal={isModal_updateBrand} setIsModal={setIsModal_updateBrand} id={modalDetail_updateBrand.id} title={modalDetail_updateBrand.title} faName={modalDetail_updateBrand.faName} enName={modalDetail_updateBrand.enName} company={modalDetail_updateBrand.company} />
+            return <DialogAlert_updateBrand is_brand_image={modalDetail_updateBrand.is_brand_image} imageUrl={modalDetail_updateBrand.imageUrl}  isModal={isModal_updateBrand} setIsModal={setIsModal_updateBrand} id={modalDetail_updateBrand.id} title={modalDetail_updateBrand.title} faName={modalDetail_updateBrand.faName} enName={modalDetail_updateBrand.enName} company={modalDetail_updateBrand.company} />
         }
         if(isModal_insertBrand === true){
             return <DialogAlert_insertBrand isModal={isModal_insertBrand} setIsModal={setIsModal_insertBrand} title={modalDetail_insertBrand.title} page={page} limit ={limit} />
@@ -182,24 +182,21 @@ const ManageBrands = () => {
                         </div>
                     )}
 
-                    {!brands && !loading  &&(
-                        <Warning text={"برندی یافت نشد! می توانید برند جدیدی ثبت کنید."}></Warning>
-                    )}
+                    {!brands && !loading  && <Warning text={"برندی یافت نشد! می توانید برند جدیدی ثبت کنید."}></Warning>}
                     {brands && (
                         <>
                             <section className={` w-full grid sm:grid-cols-2 lg:grid-cols-3 mt-4 gap-4`}>
                                 {brands.map(brand => {
                                     return(
-                                        <div key={brand.id} className={`z-20 flex flex-col bg-white pb-4  ${!brand.is_show &&  "border border-red-400"}   relative rounded-md shadow-md h-min overflow-hidden`}>
-                                            <div className="flex  w-full justify-between mb-4 mt-4 px-4  ">
-                                                <div className={` w-2 h-2 ${!brand.is_show &&  "bg-red-600"} rounded-full`}></div>
+                                        <div key={brand.id} className={`z-20 flex flex-col bg-white pb-4  ${!brand.is_show &&  "border border-red-300"}   relative rounded-md shadow-md h-min overflow-hidden`}>
+                                            <div className="flex  w-full justify-end mb-4 mt-4 px-4  ">
                                                 <div className="flex gap-x-2 items-center">
                                                     <button onClick={()=> {
                                                         setIsModal_deleteBrand(true) & 
                                                         setModalDetail_deleteBrand({
                                                                 id : brand.id,
                                                                 title:`${brand.name}`,
-                                                                description :  `از تغییر وضعیت برند ( ${brand.name} ) مطمئن هستید؟.`,
+                                                                description :  `از تغییر وضعیت برند ${brand.name} مطمئن هستید؟.`,
                                                             })
                                                         }} 
                                                         className=" font-sans text-xs hover:underline underline-offset-4 text-orange-700 ">
@@ -213,7 +210,8 @@ const ManageBrands = () => {
                                                                 faName : brand.name,
                                                                 enName : brand.english_name,
                                                                 company : brand.company,
-                                                                imageUrl : brand.logo_url
+                                                                imageUrl : brand.logo_url,
+                                                                is_brand_image : brand.is_brand_image
                                                             })
                                                         }} 
                                                         className=" font-sans text-xs hover:underline underline-offset-4 text-blue-700 ">
@@ -222,24 +220,16 @@ const ManageBrands = () => {
                                                 </div>
                                             </div>
                                             <div className="flex flex-row items-center justify-between px-4">
-                                                <div className="w-32 h-full" onClick={() => showImageHandler(brand.logo_url)}>
-                                                    <Image   placeholder="blur" layout={'responsive'} alt={`لوگو`}
-                                                        blurDataURL={brand.logo_url} 
-                                                        loader={()=>brand.logo_url }
-                                                        unoptimized
-                                                        src={brand.logo_url}
-                                                        objectFit='cover'
-                                                        width={600}
-                                                        height={500}
-                                                    />
+                                                <div className="w-32 h-full" onClick={() => brand.is_brand_image && showImageHandler(brand.logo_url)}>
+                                                    <Image   placeholder="blur" layout={'responsive'} alt={`لوگو`} blurDataURL={brand.logo_url} loader={()=>brand.logo_url } unoptimized src={brand.logo_url} objectFit='cover' width={600} height={500} />
                                                 </div>
                                                 <div className="flex flex-col items-left gap-y-4 justify-between w-full pr-6 min-h-max">
-                                                    <p className="text-gray-700 w-full text-right font-sans text-sm">{brand.name}</p>
-                                                    <p className="text-gray-700 w-full text-right font-sans text-sm">{brand.english_name}</p>
+                                                    <p className={`text-gray-700 w-full text-right font-sans text-sm ${!brand.is_show &&  "text-red-700"}`}>{brand.name}</p>
+                                                    <p className={`text-gray-700 w-full text-right font-sans text-sm ${!brand.is_show &&  "text-red-700"}`}>{brand.english_name}</p>
                                                 </div>
                                             </div>
                                             <hr className="mt-4"/>
-                                            <p className="font-sans text-sm mt-4 w-full text-right px-4 text-gray-700">{brand.company}</p>
+                                            <p className={`font-sans text-sm mt-4 w-full text-right px-4 text-gray-700 ${!brand.is_show &&  "text-red-700"}`}>{brand.company}</p>
                                         </div>
                                     )
                                 })}
