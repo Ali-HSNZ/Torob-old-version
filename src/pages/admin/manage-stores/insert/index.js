@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { useRef } from "react";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import * as Yup from 'yup'
 import InputMask from "react-input-mask";
 import { useDispatch, useSelector } from "react-redux";

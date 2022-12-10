@@ -1,5 +1,5 @@
 import axios from "axios" 
-import toast from "react-hot-toast"
+import { toast } from "react-toastify";
 import Cookies from "universal-cookie"
 import { 
     AUTH_FAILURE, 
@@ -37,7 +37,7 @@ export const userSignin_withUserPass = (data) => dispatch => {
         dispatch(authSuccess(data))
         new Cookies().set('userToken' ,data.API_TOKEN,{path:'/'} )
         toast.success(" با موفقیت وارد حساب کاربری خود شدید")
-        if(!data.is_password){
+        if(data.is_password === false){
             setTimeout(() => window.location.href = '/store/change-password', 1000);
         }else{
             setTimeout(() => window.location.reload(), 1000);

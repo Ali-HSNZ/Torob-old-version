@@ -8,7 +8,7 @@ import { insertBrand } from '@/redux/admin/admin_manageBrand/admin_manageBrandAc
 import { useState } from 'react';
 import { Modal } from '@mui/material';
 import { useRef } from 'react';
-import toast from 'react-hot-toast';
+import { toast } from "react-toastify";
 import { useRouter } from 'next/router';
 import FormikInput from '@/common/admin/FormikInput';
 

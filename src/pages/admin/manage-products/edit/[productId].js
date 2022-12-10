@@ -12,7 +12,7 @@ import SelectBox from "@/common/admin/SelectBox";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { Modal } from "@mui/material";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import FormikInput from "@/common/admin/FormikInput";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { validImageTypes } from "@/utils/global";

@@ -10,7 +10,7 @@ import { fetchBrands, fetchMainCategories, fetchSub1, fetchSub2, fetchSub3, inse
 import SelectBox from "@/common/admin/SelectBox";
 import Cookies from "universal-cookie";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { Modal } from "@mui/material";
 import { useRef } from "react";
 import FormikInput from "@/common/admin/FormikInput";
