@@ -18,6 +18,7 @@ import Warning from "@/common/alert/Warning";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import FormikInput from "@/common/admin/FormikInput";
+import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 
 const ManageCategory = () => {
 
@@ -25,9 +26,15 @@ const ManageCategory = () => {
     const page = Number(useRouter().query.page || 1)
     const limit = 12
 
-    const [status,setStatus] = useState('all')
+    const returnState = (type) => allState.find(state => state.type === type);
+    const allState = [
+        {type : "all" , name:"نمایش همه وضعیت ها" },
+        {type : "trashed" , name:"رد شده‌ها"},
+        {type : "active" , name:"تایید شده‌ها"},
+    ]
+    const [status , setStatus] = useState(allState[0])
 
-    const {categories , pagination , loading , error} = useSelector(state => state.admin_categories)
+    const {categories , pagination , loading} = useSelector(state => state.admin_categories)
 
     const [isModal_deleteCategory , setIsModal_deleteCategory] = useState(false)
     const [modalDetail_deleteCategory , setModalDetail_deleteCategory] = useState({})
@@ -44,21 +51,10 @@ const ManageCategory = () => {
 
     function showDialogAlert_reduxActions(){
         if(isModal_deleteCategory === true){
-            return <DialogAlert_deleteCategory  
-                            isModal={isModal_deleteCategory} 
-                            setIsModal={setIsModal_deleteCategory} 
-                            id={modalDetail_deleteCategory.category_id} 
-                            title={modalDetail_deleteCategory.title}
-                        />
+            return <DialogAlert_deleteCategory  isModal={isModal_deleteCategory} setIsModal={setIsModal_deleteCategory} id={modalDetail_deleteCategory.category_id} title={modalDetail_deleteCategory.title}/>
         }
-        if(isModal_updateCategory === true){
-            return <DialogAlert_updateCategory  
-                            isModal={isModal_updateCategory} 
-                            setIsModal={setIsModal_updateCategory} 
-                            id={modalDetail_updateCategory.category_id} 
-                            title={modalDetail_updateCategory.title} 
-                            categoryName={modalDetail_updateCategory.categoryName} 
-                        />
+        if(isModal_updateCategory === true){ 
+            return <DialogAlert_updateCategory isModal={isModal_updateCategory} setIsModal={setIsModal_updateCategory} id={modalDetail_updateCategory.category_id} title={modalDetail_updateCategory.title} categoryName={modalDetail_updateCategory.categoryName} />
         }
         if(isModal_insertMainCategory === true){ 
             return <DialogAlert_insertMainCategory isModal={isModal_insertMainCategory} setIsModal={setIsModal_insertMainCategory} title={modalDetail_insertMainCategory.title}/>
@@ -66,6 +62,7 @@ const ManageCategory = () => {
     }
 
     useEffect(()=>{
+        setStatus(router.query.state ? returnState(router.query.state) : allState[0])
         window.scroll({top : 0,behavior:'smooth'})
         const {state , page , limit,order} = router.query;
         const payload = {state ,page,limit,order,paramsName : router.query.name || ""}
@@ -73,7 +70,7 @@ const ManageCategory = () => {
     },[router.query])
 
     const onSubmit = ({name,order}) => {
-        router.push(`/admin/manage-category?state=${status || "all"}&order=${order || 'desc'}&name=${name || ""}&limit=${limit}&page=1`)
+        router.push(`/admin/manage-category?state=${status.type || "all"}&order=${order || 'desc'}&name=${name || ""}&limit=${limit}&page=1`)
     }
 
     const validationSchema = Yup.object({
@@ -140,7 +137,7 @@ const ManageCategory = () => {
                             <FormikInput formik={formik} name={'name'} placeholder="عنوان دسته‌بندی را وارد کنید" title={"عنوان دسته‌بندی"} parentClassName={"flex flex-col relative"} />
                             
                             <div className="flex flex-col relative">
-                                <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
+                                <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                 <section className="flex justify-between mt-2 gap-x-2">
                                     <div className="flex w-1/2">
                                         <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
@@ -153,13 +150,9 @@ const ManageCategory = () => {
                                 </section>
                             </div>
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm">وضعیت :</p>
-                                <select defaultValue={ router.query.state || 'all'} onChange={event => setStatus(event.target.value)} className=" cursor-pointer border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm mt-2 font-sans bg-white text-gray-800 rounded-md">
-                                    <option className="py-2 text-sm font-sans" value={'active'}>تایید شده‌ها</option>
-                                    <option className="py-2 text-sm font-sans" value={'trashed'}>رد شده‌ها</option>
-                                    <option className="py-2 text-sm font-sans" value={'all'} >نمایش همه وضعیت ها</option>
-                                </select>
-                                </div>
+                                <p className="font-sans text-sm text-gray-800">وضعیت :</p>
+                                <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
+                            </div>
                         </section>
 
                         <div className="w-full flex  items-center justify-end mt-3">
@@ -172,7 +165,7 @@ const ManageCategory = () => {
                             <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
                         </div>
                     )}
-                    {!categories && !loading && <Warning text={'دسته‌بندی مورد نظر یافت نشد!'}/>}
+                    {!categories && !loading && <Warning text={'دسته‌بندی یافت نشد!'}/>}
                     {categories && (
                         <>
                             <section className={` w-full grid grid-cols-1  md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4 auto-rows-min`}>
