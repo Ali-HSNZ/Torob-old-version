@@ -33,12 +33,12 @@ export default function DialogAlert_insertMainCategory({isModal , setIsModal , t
                         <section className=" flex items-center gap-x-1">
                             <input
                                 type="text" 
+                                autoComplete='off'
                                 name='mainCategoryName'
                                 onChange={formik.handleChange}
                                 value={formik.values.mainCategoryName}
-                                placeholder="نام دسته‌بندی را وارد کنید"
                                 onBlur={formik.handleBlur} 
-                                className="w-[300px] border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "/>
+                                className={`${formik.errors.mainCategoryName && formik.touched.mainCategoryName ?  "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} w-[300px]  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md `}/>
                         </section>
                         {formik.errors.mainCategoryName && formik.touched.mainCategoryName && <p className={'text-red-600 font-sans text-xs pt-2'}>{formik.errors.mainCategoryName}</p>}
                     </section>

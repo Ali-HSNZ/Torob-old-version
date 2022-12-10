@@ -36,11 +36,12 @@ export default function DialogAlert_updateCategory({categoryName , id, isModal ,
                         <input
                             type="text" 
                             name='updateCategoryName'
+                            autoComplete='off'
                             onChange={formik.handleChange}
                             value={formik.values.updateCategoryName}
                             onBlur={formik.handleBlur} 
-                            className="w-[300px] border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "/>
-                    </section>
+                            className={`${formik.errors.updateCategoryName && formik.touched.updateCategoryName ?  "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} w-[300px]  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md `}/>
+                        </section>
                     {formik.errors.updateCategoryName && formik.touched.updateCategoryName && <p className={'text-red-600 font-sans text-xs pt-2'}>{formik.errors.updateCategoryName}</p>}
                 </section>
                 <DialogActions>

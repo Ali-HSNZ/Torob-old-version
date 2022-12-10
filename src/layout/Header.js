@@ -6,8 +6,8 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { userLogout, authPanel } from "src/redux/user/userActions";
 import images from "/public/torob_logo.svg"
 const Header = () => {
@@ -42,13 +42,13 @@ const Header = () => {
   const [currentCategory, setCurrentCategory] = useState("");
 
   useEffect(() => {
-    const getData = async () => {
-      // const {data} = await axios.get('https://project-torob-clone.iran.liara.run/api/categories').then(res => res.data)
-      // const setIdToMainCategories = data.map(category => {return {...category , id:Date.now()+Math.random()}})
-      // setCategories(setIdToMainCategories)
-      setCategories([]);
-    };
-    getData();
+    // const getData = async () => {
+    //   const {data} = await axios.get('https://market-api.iran.liara.run/api/public/categories').then(res => res.data)
+    //   const setIdToMainCategories = data.map(category => {return {...category , id:Date.now()+Math.random()}})
+    //   setCategories(setIdToMainCategories)
+    // };
+    // getData();
+      setCategories([])
   }, []);
   return (
     <section className=" py-4 bg-gray-50">
@@ -117,13 +117,13 @@ const Header = () => {
               <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">{toPersianDigits(user.phone_number_primary)}</button>
               <div className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[33px] left-[1px]  whitespace-nowrap py-2`}>
                   {user.is_pending ? (
-                      <button onClick={()=>toast.error(" فروشگاه شما در وضعیت 'بررسی نشده' است. و پس از بررسی به پنل خود دسترسی خواهید داشت")} className="text-xs min-w-[119.2px] max-w-[119.2px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-1.5 text-center font-sans block">در حال بررسی</button>
-                  ) : (
+                      <button onClick={()=>toast.error(' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت')} className="text-xs min-w-[119.2px] max-w-[119.2px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-1.5 text-center font-sans block">در حال بررسی</button>
+                      ) : (
                     <Link href={`/${user.account_type}`} >
                       <a className="text-xs cursor-pointer min-w-[119.2px] max-w-[119.2px] hover:bg-gray-200 font-bold text-gray-700 py-1.5 text-center font-sans block">پنل مدیریت</a>
                     </Link>
                   )}
-                  <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false)) ;  dispatch(authPanel(false))}} className="min-w-[119.2px] max-w-[119.2px] text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 w-full py-1.5 text-center font-sans ">خروج</button>
+                  <button onClick={()=> {dispatch(userLogout())}} className="min-w-[119.2px] max-w-[119.2px] text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 w-full py-1.5 text-center font-sans ">خروج</button>
               </div>
             </>
           ) : (
