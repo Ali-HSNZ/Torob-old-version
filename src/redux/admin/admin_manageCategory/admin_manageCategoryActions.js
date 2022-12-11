@@ -36,7 +36,7 @@ export const fetchCategories = (payload) => dispatch => {
 
 export const deleteCategory = ({id ,limit,page,paramsName,order,state}) => dispatch => {
     dispatch(admin_fetchCategoriesRequest())
-    axios.put(`https://market-api.iran.liara.run/api/admin/categories/${id}/state?order=${order || 'desc'}&state=${state || "desc"}&name=${paramsName || ""}&page=${page || 1}&limit=${limit || 12}` , {}, {headers : {authorization : `Bearer ${token}`}})
+    axios.put(`https://market-api.iran.liara.run/api/admin/categories/${id}/state?order=${order || 'desc'}&state=${state || "all"}&name=${paramsName || ""}&page=${page || 1}&limit=${limit || 12}` , {}, {headers : {authorization : `Bearer ${token}`}})
     .then(({data}) => dispatch(admin_fetchCategoriesSuccess(data)))
     .catch(error => {
         const serverMessage_list = error?.response?.data?.errors
