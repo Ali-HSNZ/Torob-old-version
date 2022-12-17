@@ -11,7 +11,7 @@ const MobileSort = ({closeHandler , isMobileMenu}) => {
         <Modal
         open={isMobileMenu}
         onClose={()=>closeHandler()}
-        className="flex justify-center items-center px-4">
+        className="flex lg:hidden justify-center items-center px-4">
             <div className="bg-white   w-full sm:w-2/5 fixed z-50 right-0 bottom-0 top-0  cursor-default">
                 <div className="px-4 mt-6 flex w-full">
                     <button onClick={()=> closeHandler(false)}>
@@ -25,17 +25,15 @@ const MobileSort = ({closeHandler , isMobileMenu}) => {
                 <hr className="mt-5"/>
 
                 <section className='mt-8 flex flex-col'>
-                    <button onClick={()=> setCurrentSort("mostFavorite")} className={`py-2 my-2 ${currentSort === "mostFavorite" ? "text-red-600" : " text-gray-800 "} text-right px-5 font-sans text-sm`}>محبوب‌ ترین</button>
-                    <button onClick={()=> setCurrentSort("dateRecent")} className={`py-2 my-2 ${currentSort === "dateRecent" ? "text-red-600" : " text-gray-800 "} text-right px-5 font-sans text-sm`}>جدید ترین</button>
-                    <button onClick={()=> setCurrentSort("priceMin")} className={`py-2 my-2 ${currentSort === "priceMin" ? "text-red-600" : " text-gray-800 "} text-right px-5 font-sans text-sm`}>ارزان ترین</button>
-                    <button onClick={()=> setCurrentSort("priceMax")} className={`py-2 my-2 ${currentSort === "priceMax" ? "text-red-600" : " text-gray-800 "} text-right px-5 font-sans text-sm`}>گران ترین</button>
+                    <button onClick={()=> setCurrentSort("mostFavorite")} className={`py-2  ${currentSort === "mostFavorite" ? "text-red-600" : " text-gray-800 "} text-right px-5 font-sans text-sm`}>محبوب‌ ترین</button>
+                    <button onClick={()=> setCurrentSort("dateRecent")} className={`py-2  ${currentSort === "dateRecent" ? "text-red-600" : " text-gray-800 "} text-right px-5 font-sans text-sm`}>جدید ترین</button>
+                    <button onClick={()=> setCurrentSort("priceMin")} className={`py-2  ${currentSort === "priceMin" ? "text-red-600" : " text-gray-800 "} text-right px-5 font-sans text-sm`}>ارزان ترین</button>
+                    <button onClick={()=> setCurrentSort("priceMax")} className={`py-2  ${currentSort === "priceMax" ? "text-red-600" : " text-gray-800 "} text-right px-5 font-sans text-sm`}>گران ترین</button>
                 </section>
 
 
                 <div className="bg-gray-100 flex gap-x-4 w-full h-auto absolute bottom-0 py-4 px-4">
-                    <button onClick={()=>  router.push({pathname : "/search" , query : {...query , sort:currentSort }}) & closeHandler("")} className="bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md w-3/4 text-center" >
-                            اعمال فیلتر 
-                    </button>
+                    <button onClick={()=>  router.push({pathname : "/search" , query : {...query , sort:currentSort }}) & closeHandler("")} className="bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md w-3/4 text-center" >اعمال فیلتر </button>
                     <button onClick={()=> {delete query.sort & router.push({pathname : "/search" , query : {...query}}) & closeHandler("")}}  className=" text-gray-800 w-1/4 border border-gray-700 rounded-md text-sm font-sans  py-3">حذف</button>
                 </div>
 

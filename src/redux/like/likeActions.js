@@ -1,4 +1,5 @@
 import axios from "axios"
+import { toast } from "react-toastify";
 import Cookies from 'universal-cookie';
 import { 
     FETCH_LIKES_FAILURE, 
@@ -15,9 +16,14 @@ export const fetchLikes = () => {
     const token = new Cookies().get("userToken");
     return (dispatch) => {
         dispatch(fetchLikeRequest())
-        axios.get(`https://project-torob-clone.iran.liara.run/api/user/favorites`, {headers : {Authorization : `Bearer ${token}`}})
+        axios.get(`https://market-api.iran.liara.run/api/public/user/favorites`, {headers : {Authorization : `Bearer ${token}`}})
             .then(({data}) => dispatch(fetchLikeSuccess(data.favorites)))
-            .catch(error => dispatch(fetchLikeFailure(error.response.data.message)))
+            .catch(error => {
+                const serverMessage_list = error?.response?.data?.errors
+                if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+                if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن محصولات پسندیده شده")
+                dispatch(fetchLikeFailure("خطای سرور در بخش گرفتن محصولات پسندیده شده"))
+            })
     }
 }
 export const likedAction  = ({hash_id}) => {
@@ -30,6 +36,11 @@ export const likedAction  = ({hash_id}) => {
                 axios.get(`https://project-torob-clone.iran.liara.run/api/user/favorites`,{headers : {Authorization : `Bearer ${token}`}})
                 .then(({data}) => dispatch(fetchLikeSuccess(data.favorites)))
             })
-            .catch(error => dispatch(fetchLikeFailure(error.response.data.message)))
+            .catch(error => {
+                const serverMessage_list = error?.response?.data?.errors
+                if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+                if(!serverMessage_list) toast.error("خطای سرور در بخش افزودن محصول به لیست پسندیده شده ها ")
+                dispatch(fetchLikeFailure("خطای سرور در بخش افزودن محصول به لیست پسندیده شده ها "))
+            })
     }
 }

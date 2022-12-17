@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 const Brands = ({brands}) => {
-    
-    const [isChooseBrans , setIsChooseBrans] = useState(true)
+    const [isChooseBrans , setIsChooseBrans] = useState(false)
     const [inputValue,setInputValue] = useState("")
     const {query} = useRouter()
+    
     const findBrands = (value) => {
         if(value){
             const faResualt = brands.filter(e => e.name.toLowerCase().includes(value.toLowerCase()))
-            const enResualt = brands.filter(e =>  e.name_english.toLowerCase().includes(value.toLowerCase()))
+            const enResualt = brands.filter(e =>  e.english_name.toLowerCase().includes(value.toLowerCase()))
             if(faResualt.length > 0){
                 return faResualt    
             }else if(enResualt.length > 0){
@@ -40,13 +40,12 @@ const Brands = ({brands}) => {
             </div>                                   
 
             <div className={`${isChooseBrans ? "" : "hidden"} my-4`}>
-                {
-                    findBrands(inputValue) && findBrands(inputValue).length > 0 ? findBrands(inputValue).map(brand => {
+                {findBrands(inputValue) && findBrands(inputValue).length > 0 ? findBrands(inputValue).map(brand => {
                         return(
                             <Link  href={{pathname : '/search' , query : {...query , brand : brand.name}}} key={brand.id} > 
                                 <a className={` ${query.brand === brand.name ? "bg-gray-100" : ""} flex justify-between py-3 hover:bg-gray-50 px-2 rounded-md`} key={brand.id}>
                                     <span className="font-sans text-gray-600 text-sm">{brand.name}</span>
-                                    <span className="font-sans text-gray-600 text-sm">{brand.name_english}</span>
+                                    <span className="font-sans text-gray-600 text-sm">{brand.english_name}</span>
                                 </a>
                             </Link>
                         )

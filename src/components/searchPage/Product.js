@@ -19,21 +19,13 @@ const Product = ({ data }) => {
   const { analytics, analyticsLoading } = useSelector(
     (state) => state.analytics
   );
-  const {
-    query: productName,
-    fromPrice,
-    toPrice,
-    category,
-    available,
-    sort,
-    brand,
-  } = query;
+  const { query: productName,fromPrice,toPrice,category,available,sort,brand,} = query;
   const { user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    dispatch(fetchLikes());
-    dispatch(fetchAnalytics());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchLikes());
+  //   dispatch(fetchAnalytics());
+  // }, []);
 
   useEffect(() => {
     setIsProducts(true);
@@ -43,25 +35,12 @@ const Product = ({ data }) => {
   }, [query]);
 
   const getMorePost = async () => {
-    setPageCount(pageCount + 1);
-    const { products } = await axios
-      .get(
-        encodeURI(
-          `https://project-torob-clone.iran.liara.run/api/search?${
-            productName ? "&q=" + productName : ""
-          }&perPage=9&page=${pageCount}${brand ? "&brand=" + brand : ""}${
-            available ? "&available=" + brand : ""
-          }${category ? "&category=" + category : ""}${
-            sort ? `&sort=${sort}` : ""
-          }${fromPrice ? "&fromPrice=" + fromPrice : ""}${
-            toPrice ? "&toPrice=" + toPrice : ""
-          }`
-        )
-      )
+      setPageCount(pageCount + 1);
+      const { products } = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/search?${productName ? "&q=" + productName : ""}&perPage=9&page=${pageCount}${brand ? "&brand=" + brand : ""}${available ? "&available=" + brand : ""}${category ? "&category=" + category : ""}${sort ? `&sort=${sort}` : ""}${fromPrice ? "&fromPrice=" + fromPrice : ""}${toPrice ? "&toPrice=" + toPrice : ""}`))
       .then((res) => res.data.data);
-    pageCount === 2 && products.shift();
-    products.length === 0 && setIsProducts(false);
-    setProducts((product) => [...product, ...products]);
+      pageCount === 2 && products.shift();
+      products.length === 0 && setIsProducts(false);
+      setProducts((product) => [...product, ...products]);
   };
   const hasMoreHandler = () => {
     if (isProducts) {
@@ -69,9 +48,7 @@ const Product = ({ data }) => {
         return false;
       }
       return true;
-    } else {
-      return isProducts;
-    }
+    } else return isProducts;
   };
 
   return (
@@ -81,59 +58,29 @@ const Product = ({ data }) => {
       hasMore={hasMoreHandler()}
       loader={
         <div className="w-full flex justify-center my-8">
-          <ReactLoading
-            type="spinningBubbles"
-            height={50}
-            width={50}
-            color="red"
-          />
+          <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
         </div>
       }
-      endMessage={
-        <h4 className="w-full text-center font-sans my-8 text-gray-800">
-          محصولات بیشتری یافت نشد
-        </h4>
-      }
-    >
+      endMessage={ <h4 className="w-full text-center font-sans my-8 text-gray-800">محصولات بیشتری یافت نشد</h4>}>
       <article className={Styles.productsParent}>
-        {products &&
-          products.map((product, index) => {
+        {products &&products.map((product, index) => {
             const isLiked = () => {
-              const likedProduct =
-                likes && likes.find((item) => item.hash_id === product.hash_id);
-              if (likedProduct) {
-                return true;
-              }
+              const likedProduct = likes && likes.find((item) => item.hash_id === product.hash_id);
+              if (likedProduct) return true;
               return false;
             };
             const isAnalyze = () => {
-              const analyticsProduct =
-                analytics &&
-                analytics.find((item) => item.hash_id === product.hash_id);
-              if (analyticsProduct) {
-                return true;
-              }
+              const analyticsProduct = analytics && analytics.find((item) => item.hash_id === product.hash_id);
+              if (analyticsProduct) return true;
               return false;
             };
             const isLikeLoading = () => {
-              const loadingProduct =
-                likesLoading &&
-                likesLoading.length > 0 &&
-                likesLoading.find((item) => item.hash_id === product.hash_id);
-              if (loadingProduct) {
-                return true;
-              }
+              const loadingProduct = likesLoading && likesLoading.length > 0 && likesLoading.find((item) => item.hash_id === product.hash_id); 
+              if (loadingProduct) return true;
             };
             const isAnalyzeLoading = () => {
-              const loadingProduct =
-                analyticsLoading &&
-                analyticsLoading.length > 0 &&
-                analyticsLoading.find(
-                  (item) => item.hash_id === product.hash_id
-                );
-              if (loadingProduct) {
-                return true;
-              }
+              const loadingProduct = analyticsLoading && analyticsLoading.length > 0 && analyticsLoading.find((item) => item.hash_id === product.hash_id);
+              if(loadingProduct)return true;
             };
             return (
               <ProductCommon

@@ -31,7 +31,7 @@ const MobileBrands = ({closeHandler , brands , isMobileMenu}) => {
         <Modal
         open={isMobileMenu}
         onClose={()=>closeHandler()}
-        className="flex justify-center items-center px-4">
+        className="flex lg:hidden justify-center  items-center px-4">
             <div className="bg-white  w-full sm:w-2/5 fixed z-50 right-0 bottom-0 top-0">
             
             <div className="px-4 mt-6 flex w-full">
@@ -59,9 +59,9 @@ const MobileBrands = ({closeHandler , brands , isMobileMenu}) => {
                             findBrands(inputValue) && findBrands(inputValue).length > 0 ? findBrands(inputValue).map(brand => {
                                 return(
                                     <Link href={{pathname : '/search' , query : {...query , brand : brand.name}}} key={brand.id} > 
-                                        <a className={`${router.query.brand === brand.name ? "bg-gray-100" : ""} flex justify-between py-3 hover:bg-gray-100 px-2 rounded-md`} key={brand.id}>
+                                        <a onClick={()=> closeHandler(false)} className={`${router.query.brand === brand.name ? "bg-gray-100" : ""} flex justify-between py-3 hover:bg-gray-100 px-2 rounded-md`} key={brand.id}>
                                             <span className="font-sans text-gray-600 text-sm">{brand.name}</span>
-                                            <span className="font-sans text-gray-600 text-sm">{brand.name_english}</span>
+                                            <span className="font-sans text-gray-600 text-sm">{brand.english_name}</span>
                                         </a>
                                     </Link>
                                 )

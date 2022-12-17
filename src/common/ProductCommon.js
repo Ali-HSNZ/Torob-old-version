@@ -10,13 +10,13 @@ import Image from "next/image";
 
 const ProductCommon = ({product , isLiked , isLikeLoading , user , isAnalyze , isAnalyzeLoading}) => {
     const dispatch = useDispatch() 
-    
     return (  
         <section  className="bg-white rounded-md w-full h-full min-w-[200px] px-4 flex flex-col items-center">
-            <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
+            {/* <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}> */}
+            <Link href={`/product/${product.title.replace(/\s+/g, '-')}`}>
                 <a className="w-24   lg:w-32 flex justify-center pt-4 relative  ">
-                    {/* <img src={product.image_url} className="w-full h-auto"/> */}
-                    <Image 
+                    <img src={product.image_url} className="w-full h-auto"/>
+                    {/* <Image 
                         placeholder="blur" 
                         blurDataURL={product.image_url} 
                         unoptimized 
@@ -26,7 +26,7 @@ const ProductCommon = ({product , isLiked , isLikeLoading , user , isAnalyze , i
                         layout={'intrinsic'} 
                         src={product.image_url} 
                         alt={`عکس ${product.title.length > 33 ? product.title.substring(0,33)+"..." : product.title} `}
-                    />
+                    /> */}
                 </a>
             </Link>
             <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>

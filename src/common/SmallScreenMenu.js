@@ -1,19 +1,18 @@
 import { Modal } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 
 const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory , categories , handleCategory , setCurrentCategory , currentCategory}) => {
     
-    const [brand , setBrand] = useState(null)
     const router = useRouter()
     const {query} = useRouter()
-
+console.log("categoriescategories : ",categories);
     return (  
             <section className={`h-full  pb-[230px]  fixed  ${isCategoryPanel ? "" : "hidden"} sm:hidden inset-0  z-40 w-full bg-white`}>
 
-                <div className="px-4 mt-6 flex w-full">
+                <div className="px-4 mt-4 flex w-full">
                     <button onClick={()=> closeCategory()}>
                         <svg className="w-6 h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -22,14 +21,10 @@ const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory ,
                     <h6 className="text-sm text-gray-700 text-center w-full font-sans">همه‌ دسته‌بندی ها</h6>
                 </div>
 
-                <hr className="mt-5"/>
+                <hr className="mt-4"/>
 
-                <div className="flex py-4  gap-x-4 mt-4 z-20 w-full whitespace-nowrap overflow-x-auto px-4">                    
-                    {categories&&categories.map((category,index) => {
-                        return(
-                            <button key={index}  className="hover:text-red-500 text-xs border px-4 py-2 rounded-md border-gray-400 cursor-pointer flex font-sans text-gray-700" onClick={()=> handleCategory(category.id)}>{category.title}</button>
-                        )
-                    })}
+                <div className="flex pb-4  gap-x-4 mt-4 z-20 w-full whitespace-nowrap overflow-x-auto px-4">                    
+                    {categories && categories.map((category,index) => <button key={index}  className="hover:text-red-500 text-xs border px-4 py-2 rounded-md border-gray-400 cursor-pointer flex font-sans text-gray-700" onClick={()=> handleCategory(category.id)}>{category.title}</button>)}
                 </div>
 
                 <div className=" h-full w-full pb-4 px-4 overflow-y-auto">
@@ -37,7 +32,9 @@ const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory ,
                         return(
                             <div className={`${category.status ? "" : "hidden"}`} key={index}>
                                 <section className="pb-4">
-                                    <button onClick={()=>setCurrentCategory(category.title)} className={`hover:text-red-500 ${category.title === currentCategory ? "text-red-500" : "text-gray-700"} font-bold font-sans text-sm `}>{category.title}</button>
+                                    <Link  href={{pathname : '/search' , query : {category : category.slug}}}  >
+                                        <a onClick={()=>{closeCategory()}} className="flex gap-x-4  text-gray-600  whitespace-nowrap text-sm font-sans font-bold">{category.title}</a>
+                                    </Link>
                                 </section>
                                 <hr/> 
                                 <div className="pb-4">
@@ -46,27 +43,43 @@ const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory ,
                                             <div className=" relative" key={main_index}>
                                                 <input type="checkbox" className="peer hidden" name={`${main_index}_checkbox_${index}`} id={`${main_index}_checkbox_${index}`} />
                                                 <section className="mt-4 mr-6 ">
-                                                    <label htmlFor={`${main_index}_checkbox_${index}`}  onClick={()=>setCurrentCategory(sub.title)} className={`hover:text-red-500 ${sub.title === currentCategory ? "text-red-500" : "text-gray-700"} font-sans font-bold text-sm cursor-pointer `}>{sub.title}</label>
+                                                    <Link  href={{pathname : '/search' , query : {category : sub.slug}}}  >
+                                                        <a onClick={()=>{closeCategory()}} className="flex gap-x-4  text-gray-600  whitespace-nowrap text-sm font-sans font-bold">{sub.title}</a>
+                                                    </Link>
                                                 </section>
-                                                {sub.sub_categories && (
-                                                    <div className=" peer-checked:rotate-[-90deg] absolute right-0 top-1.5">
+                                                {sub.sub_categories &&  sub.sub_categories.length > 0 && (
+                                                    <label htmlFor={`${main_index}_checkbox_${index}`} className=" cursor-pointer peer-checked:rotate-[-90deg] absolute right-0 top-0">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                                         </svg>
-                                                    </div>
+                                                    </label>
                                                 )}
                                                 {sub.sub_categories  && sub.sub_categories.map((sub_sub,sub_sub_index) => {
-                                                    const handlePath = sub_sub.type === 'brand' ? {category : sub_sub.category , brand : sub_sub.brand} : {category : sub_sub.title}
+                                                    const handlePath = sub_sub.type === 'brand' ? {category : sub_sub.category , brand : sub_sub.brand} : {category : sub_sub.slug}
                                                     return(
-                                                        <Link  key={sub_sub_index} href={{pathname : '/search' , query : handlePath}}  >
-                                                            <a onClick={()=>{closeCategory()}} className="peer-checked:flex hidden mr-8 gap-x-4 mt-4 text-gray-600  whitespace-nowrap text-xs font-sans ">
-                                                                {sub_sub.title}
-                                                            </a>
-                                                        </Link>
-
-                                                        // <section className="" key={sub_sub_index}>
-                                                        //     <button  onClick={()=>{setCurrentCategory(getCategory ? getCategory : sub_sub.title) & setBrand(getBrand)} } className={`hover:text-red-500 ${getCategory === currentCategory || sub_sub.title === currentCategory  ? "text-red-500" : "text-gray-700"} text-xs font-sans cursor-pointer `} >{sub_sub.title}</button>
-                                                        // </section>
+                                                        <Fragment key={sub_sub_index}>
+                                                            <Link  href={{pathname : '/search' , query : handlePath}}  >
+                                                                <a onClick={()=>{closeCategory()}} className="hidden peer-checked:flex  mr-8 gap-x-4 mt-4 text-gray-600 whitespace-nowrap text-xs font-sans ">{sub_sub.title}</a>
+                                                            </Link>
+                                                             <section className="relative hidden peer-checked:flex">
+                                                                <input type="checkbox" className="peer hidden" name={`${sub_sub_index}_checkbox_sub_${index}`} id={`${sub_sub_index}_checkbox_sub_${index}`} />
+                                                                {sub_sub.is_sub_category && <label htmlFor={`${sub_sub_index}_checkbox_sub_${index}`} className=" cursor-pointer peer-checked:rotate-[-90deg] absolute right-2 top-[-17px] ">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                                                    </svg>
+                                                                </label>}
+                                                                <div className="peer-checked:flex flex-col hidden">
+                                                                    {sub_sub.sub_categories  && sub_sub.sub_categories.map((sub_sub_sub,sub_sub_sub_index) => {
+                                                                        const handlePath_sub = sub_sub.type === 'brand' ? {category : sub_sub_sub.category , brand : sub_sub.brand} : {category : sub_sub_sub.slug}
+                                                                        return(
+                                                                            <Link  key={sub_sub_sub_index} href={{pathname : '/search' , query : handlePath_sub}}  >
+                                                                                <a onClick={()=>{closeCategory()}} className="mr-10 gap-x-4 mt-4 text-gray-600 whitespace-nowrap text-xs font-sans ">{sub_sub_sub.title}</a>
+                                                                            </Link>
+                                                                        )
+                                                                    })}
+                                                                </div>
+                                                            </section> 
+                                                        </Fragment>
                                                     )
                                                 })}
                                             </div>
@@ -78,10 +91,7 @@ const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory ,
                     })}
                 </div>
                 <div className="border-t bg-white flex fixed bottom-0 gap-x-4 w-full h-auto py-4 px-4">
-                    <button onClick={()=>  router.push({pathname : "/search" , query : {...query , category:currentCategory , brand : brand  }}) & closeCategory() & setIsCategoryPanel(false)} className={`bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md ${query.category ? "w-3/4" : "w-full"} text-center`}>
-                            اعمال فیلتر 
-                    </button>
-                    {query.category && <button onClick={()=> {delete query.category & delete query.brand &  router.push({pathname : "/search" , query : {...query}}) & closeCategory()}}  className="w-1/4 border border-gray-700 bg-white text-gray-700 rounded-md text-sm font-sans  py-3">حذف</button>}
+                    {query.category && <button onClick={()=> {delete query.category & delete query.brand &  router.push({pathname : "/search" , query : {...query}}) & closeCategory()}}  className="w-full border border-gray-700 bg-white text-gray-700 rounded-md text-sm font-sans  py-3">حذف فیلتر دسته‌بندی</button>}
                 </div>
 
             </section>

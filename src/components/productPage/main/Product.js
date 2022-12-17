@@ -1,7 +1,7 @@
 import { toPersianPrice } from "@/utils/toPersianPrice";
 import Link from "next/link";
 import ProductSlider from "../ProductSlider";
-import Styles from "@/pages/product/[hashId]/grid.module.css";
+import Styles from "@/pages/product/grid.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLikes, likedAction } from "@/redux/like/likeActions";
 import { useEffect } from "react";

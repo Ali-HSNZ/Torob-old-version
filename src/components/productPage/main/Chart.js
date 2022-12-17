@@ -1,4 +1,4 @@
-import Styles from '/src/pages/product/[hashId]/grid.module.css'
+import Styles from '/src/pages/product/grid.module.css'
 import ChartJs from '../Chartjs'
 import { Modal } from '@mui/material';
 import { useState } from 'react';

@@ -1,0 +1,50 @@
+import Layout from "@/layout/Layout";
+import axios from "axios";
+import Cookies from 'universal-cookie';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import Brands from "@/components/searchPage/aside/desk/Brands";
+import Categories from "@/components/searchPage/aside/desk/Categories";
+import Price from "@/components/searchPage/aside/desk/Price";
+import Available from "@/components/searchPage/aside/desk/Available";
+import Product from "@/components/searchPage/Product";
+import MainMenu from "@/components/searchPage/main/Menu";
+import BreadCrumpAndSort from "@/components/searchPage/main/BreadCrumpAndSort";
+import MainTags from "@/components/searchPage/main/Tags";
+
+const SearchQuery = ({categories , similarCategories , brands , mainSearch}) => {
+    const [isFilterTaggle , setIsFilterTaggle] = useState(false)    
+    const {query} = useRouter()
+    const {category , priceMin , priceMax} = query
+    return (  
+        <Layout>
+            <div className={`w-full h-full fixed bg-[#00000018] inset-0  z-30  ${isFilterTaggle ? "" : "hidden"}`} onClick={()=> setIsFilterTaggle(false)}></div>
+            <div className="w-full flex flex-col lg:flex-row  justify-between ">
+                
+                <aside className="hidden lg:flex min-w-[350px] max-w-[400px]  bg-white h-screen flex-col sticky top-0 bottom-0 overflow-y-auto">
+                    {brands && brands.length > 0 && <Brands brands={brands}/>}
+                    <hr />
+                        <Categories categories={mainSearch.data && mainSearch.data.categories || []} similarCategories={similarCategories}/>
+                    <hr />  
+                    <Price/>
+                    <hr />
+                    <Available/>
+                </aside>
+
+                <MainMenu brands={brands} categories={categories} similarCategories={similarCategories}/>
+
+                <section className="w-full flex-0 h-max px-4 "> 
+                    {/* <BreadCrumpAndSort category={category} similarCategories={similarCategories}/> */}
+                    <hr/>
+                    <MainTags priceMin={priceMin} priceMax={priceMax}/>                               
+                    {!query.query && query.category && <p className="font-sans font-bold text-md lg:text-lg mt-4 text-gray-800"> قیمت انواع {query.category} </p>}
+                    <article>
+                        {mainSearch.data.products.length > 0 &&  <Product data={mainSearch.data.products} query={query}/>}
+                        {mainSearch.data.products.length === 0 && <p className="mt-4 text-center font-sans text-sm text-gray-600">گشتم نبود نگرد نیست.</p>}
+                    </article>
+                </section>
+            </div>
+        </Layout>
+    );
+}
+export default SearchQuery;

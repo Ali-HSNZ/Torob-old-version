@@ -1,4 +1,4 @@
-import Styles from '/src/pages/product/[hashId]/grid.module.css'
+import Styles from '/src/pages/product/grid.module.css'
 
 const Properties = ({product}) => {
     return (  

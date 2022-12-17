@@ -18,6 +18,7 @@ import DatePicker,{DateObject} from "react-multi-date-picker"
 import { insertStoreProduct } from "@/redux/manage-store/manageStore/manageStore_actions";
 import { useRouter } from "next/router";
 import { setComma } from "@/utils/setComma";
+import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
 
 const InsertStoreProduct = () => {
     const dispatch = useDispatch();
@@ -34,36 +35,36 @@ const InsertStoreProduct = () => {
                 discount_value : Yup.string()
                     .required("مقدار تخفیف الزامی است")
                     .trim()
-                    .test("check-value-typeof","مقدار تخفیف باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || "")),
+                    .test("check-value-typeof","مقدار تخفیف باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0)),
                 final_price : Yup.string()
                     .required("مبلغ بعد از تخفیف الزامی است")
                     .trim()
-                    .test("check-value-typeof","مبلغ بعد از تخفیف باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+                    .test("check-value-typeof","مبلغ بعد از تخفیف باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0)),
             })
         ),
         production_price : Yup.string()
-            .test("check-value-typeof","قیمت تولید باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","قیمت تولید باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
         consumer_price : Yup.string()
             .required("قیمت مصرف کننده الزامی است")
-            .test("check-value-typeof","قیمت مصرف کننده باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","قیمت مصرف کننده باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
         store_price : Yup.string()
             .required("قیمت فروش الزامی است")
-            .test("check-value-typeof","قیمت فروش باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","قیمت فروش باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
         store_price_1 : Yup.string()
-            .test("check-value-typeof","قیمت فروش ۱ باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","قیمت فروش ۱ باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
         store_price_2 : Yup.string()
-            .test("check-value-typeof","قیمت فروش ۲ باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","قیمت فروش ۲ باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
         per_unit : Yup.string()
             .required('تعداد در واحد الزامی است')
-            .test("check-value-typeof","تعداد در واحد باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","تعداد در واحد باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
         warehouse_count : Yup.string()
-            .test("check-value-typeof","موجودی انبار باید عدد باشد", value => !isNaN(value && value.replace(/,/g, '') || ""))
+            .test("check-value-typeof","موجودی انبار باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
         delivery_description : Yup.string()
             .max(5000,"توضیحات ارسال کالا نمی تواند بیشتر از 5000 نویسه باشد")

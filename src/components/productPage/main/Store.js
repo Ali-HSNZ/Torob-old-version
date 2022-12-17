@@ -2,7 +2,7 @@ import ChooseCity from '@/common/ChooseCity';
 import {toPersianDigits } from '@/utils/toPersianDigits';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Styles from '/src/pages/product/[hashId]/grid.module.css'
+import Styles from '/src/pages/product/grid.module.css'
 import { useRouter } from 'next/router';
 import StoreCommon from '@/common/StoreCommon';
 import { useDispatch, useSelector } from 'react-redux';

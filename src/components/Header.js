@@ -16,14 +16,16 @@ const Header = () => {
   const { user, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [userPanel, setUserPanel] = useState(false);
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const { data } = await axios.get("https://project-torob-clone.iran.liara.run/api/categories").then((res) => res.data);
-  //     const setIdToMainCategories = data.map((category) => {return { ...category, id: Date.now() + Math.random()}});
-  //     setCategories(setIdToMainCategories);
-  //   };
-  //   getData();
-  // }, []);
+
+  
+  useEffect(() => {
+    const getData = async () => {
+      const {data} = await axios.get('https://market-api.iran.liara.run/api/public/categories').then(res => res.data)
+      const setIdToMainCategories = data.map(category => {return {...category , id:Date.now()+Math.random()}})
+      setCategories(setIdToMainCategories)
+    };
+    getData();
+  }, []);
 
   const closeCategory = () => {
     const allCategories = categories && categories.length > 0 ? [...categories] : [];

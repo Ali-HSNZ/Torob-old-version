@@ -26,7 +26,7 @@ const MobileAvailable = ({closeHandler,isMobileMenu}) => {
         <Modal
         open={isMobileMenu}
         onClose={()=>closeHandler()}
-        className="flex justify-center items-center px-4"
+        className="flex lg:hidden justify-center items-center px-4"
         >
             <div className="bg-white w-full sm:w-2/5 fixed z-50 right-0 bottom-0 top-0">
 

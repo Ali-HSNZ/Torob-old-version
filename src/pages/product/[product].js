@@ -22,7 +22,7 @@ const ProductPage = ({product , productSimilars}) => {
     const {hashId} = query;
 
     useEffect(()=>{
-        dispatch(insertHistory(hashId))
+        // dispatch(insertHistory(hashId))
     },[hashId])
 
     return (  
@@ -55,8 +55,8 @@ export const getServerSideProps = async(ctx) => {
     const {hashId} = ctx.query
     const cookies = new Cookies( ctx.req.headers.cookie);
     const token = cookies.get("userToken")
-    const {data : product} = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId}`),{headers : {Authorization : `Bearer ${token}`} }).then(res => res.data)
-    const {data : productSimilars} = await axios.get(encodeURI(`https://project-torob-clone.iran.liara.run/api/product/${hashId}/similars?perPage=9&page=1`)).then(res => res.data)
+    const {data : product} = await axios.get(encodeURI(`https://market-api.iran.liara.run/api/product/${hashId}`),{headers : {Authorization : `Bearer ${token}`} }).then(res => res.data)
+    const {data : productSimilars} = await axios.get(encodeURI(`https://market-api.iran.liara.run/api/product/${hashId}/similars?perPage=9&page=1`)).then(res => res.data)
     
     return{
         props : {product,productSimilars}

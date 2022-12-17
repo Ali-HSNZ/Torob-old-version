@@ -5,7 +5,7 @@ import MobileAvailable from "@/components/searchPage/aside/mobile/MobileAvailabl
 import MobileSort from "@/components/searchPage/aside/mobile/MobileSort";
 import { useState } from "react";
 
-const MainMenu = ({brands , categories , similarCategories}) => {
+const MainMenu = ({brands , categories , similarCategories , price}) => {
 
 const [isMobileMenu , setIsMobileMenu] = useState("")
 
@@ -23,7 +23,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
                     </svg>
                 </button>
             )}
-            { isMobileMenu === "brands" && <MobileBrands brands={brands} isMobileMenu={isMobileMenu} closeHandler={()=> setIsMobileMenu("")}/>}
+            {isMobileMenu === "brands" && <MobileBrands brands={brands} isMobileMenu={isMobileMenu} closeHandler={()=> setIsMobileMenu("")}/>}
 
             <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("category")}>
                 دسته‌بندی
@@ -39,7 +39,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
             </button>
-            { isMobileMenu === "price" && <MobilePrice  isMobileMenu={isMobileMenu} closeHandler={()=> setIsMobileMenu("")}/>}
+            { isMobileMenu === "price" && <MobilePrice price={price} isMobileMenu={isMobileMenu} closeHandler={()=> setIsMobileMenu("")}/>}
 
             <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("availableProducts")}>
                 وضعیت کالا    

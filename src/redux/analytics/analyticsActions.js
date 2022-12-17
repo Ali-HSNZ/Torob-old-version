@@ -1,4 +1,5 @@
 import axios from "axios"
+import { toast } from "react-toastify";
 import Cookies from 'universal-cookie';
 import { 
     FETCH_ANALYTICS_FAILURE, 
@@ -15,9 +16,14 @@ export const fetchAnalytics = () => {
     const token = new Cookies().get("userToken");
     return (dispatch) => {
         dispatch(fetchAnalyticsRequest())
-        axios.get(`https://project-torob-clone.iran.liara.run/api/user/analytics`, {headers : {Authorization : `Bearer ${token}`}})
+        axios.get(`https://market-api.iran.liara.run/api/user/analytics`, {headers : {Authorization : `Bearer ${token}`}})
             .then(({data}) => dispatch(fetchAnalyticsSuccess(data.analytics)))
-            .catch(error => dispatch(fetchAnalyticsFailure(error.response.data.message)))
+            .catch(error => {
+                const serverMessage_list = error?.response?.data?.errors
+                if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+                if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن لیست تغییرات قیمت ")
+                dispatch(fetchAnalyticsFailure("خطای سرور در بخش گرفتن لیست تغییرات قیمت "))
+            })
     }
 }
 export const analyzeAction  = ({hash_id}) => {
@@ -29,6 +35,11 @@ export const analyzeAction  = ({hash_id}) => {
                 axios.get(`https://project-torob-clone.iran.liara.run/api/user/analytics`,{headers : {Authorization : `Bearer ${token}`}})
                 .then(({data}) => dispatch(fetchAnalyticsSuccess(data.analytics)))
             })
-            .catch(error => dispatch(fetchAnalyticsFailure(error.response.data.message)))
+            .catch(error => {
+                const serverMessage_list = error?.response?.data?.errors
+                if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
+                if(!serverMessage_list) toast.error("خطای سرور در بخش افزودن محصول به لیست تغییرات قیمت ")
+                dispatch(fetchAnalyticsFailure("خطای سرور در بخش افزودن محصول به لیست تغییرات قیمت "))
+            })
     }
 }
