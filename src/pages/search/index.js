@@ -19,7 +19,7 @@ const SearchQuery = ({categories , similarCategories , brands , mainSearch}) => 
     const {category , priceMin , priceMax} = query
     
     return (  
-        <Layout>
+        <Layout pageTitle={"ترب | بهترین قیمت بازار"}>
             <div className={`w-full h-full fixed bg-[#00000018] inset-0  z-30  ${isFilterTaggle ? "" : "hidden"}`} onClick={()=> setIsFilterTaggle(false)}></div>
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
                 
