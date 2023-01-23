@@ -43,7 +43,7 @@ export const loadUserInfo = () => dispatch => {
           dispatch(authSuccess(data.user))
           dispatch(addToCartSuccess(data))
      }).catch(error => {
-          requestError({error : error?.response?.data?.errors , defaultMessage : "خطا در بخش احراز هویت"})
+          // requestError({error : error?.response?.data?.errors , defaultMessage : "خطا در بخش احراز هویت"})
           dispatch(authFailure("خطا در بخش احراز هویت"))
      })
 }
