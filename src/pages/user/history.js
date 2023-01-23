@@ -5,7 +5,7 @@ import { Modal } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteHistory, fetchHistory, historyFailure, historySuccess } from "@/redux/history/historyActions";
-import Styles from "@/components/searchPage/product.module.css";
+import Styles from "@/common/productsParent_grid.module.css";
 import empty_history from "@/images/empty_history1.png";
 import ReactLoading from "react-loading";
 import { wrapper } from "@/redux/store";
