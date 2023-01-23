@@ -40,7 +40,7 @@ const Header = () => {
                <div onClick={() => setUserPanel(false)} className={`fixed ${ userPanel ? "" : "hidden" } bg-[#44444438] inset-0  h-full w-full z-10`}></div>
                <div onClick={() => closeCategory() } className={`fixed ${isCategoryPanel ? "" : "hidden"} mt-0 inset-0 h-full w-full z-10`}></div>
                
-               <header className="flex relative  justify-between md:px-10  px-4 py-2 bg-gray-50 items-center z-10">
+               <header className="flex relative  justify-between px-4 py-2 bg-gray-50 items-center z-10">
                     {!user &&  <Login />}
 
                     {/* Big Screen Menu */}
@@ -64,8 +64,16 @@ const Header = () => {
                          </button>
                     </section>
 
-                    {/* //? User Modal */}
+                    {/* User Panel */}
                     <section className="w-full sm:w-fit flex justify-end relative ">
+                         <Link href={'/cart'}>
+                              <a className=" flex items-center justify-center ml-4 bg-white px-4 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500"> 
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-1">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                   </svg>
+                                   سبد خرید
+                              </a>
+                         </Link>
                          {user && user.account_type === 'normal' ? (
                               <>
                                    <button onClick={() => setUserPanel(!userPanel)} className="bg-white px-6 py-1.5 border border-gray-300 rounded-md text-xs font-sans text-gray-500 min-w-[123px] max-w-[123px]" >
@@ -116,6 +124,7 @@ const Header = () => {
                                    )}
                               </>
                          )}
+
                     </section>
                </header>
 
