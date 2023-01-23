@@ -1,3 +1,5 @@
+// Used in Search Page And Similar Products - Used When Rendering List of Products
+
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { toPersianPrice } from "@/utils/toPersianPrice";
 import Link from "next/link";
@@ -35,7 +37,7 @@ const ProductCommon = ({product}) => {
                          <div className="h-full flex  flex-row justify-between items-end w-full mt-4  sm:gap-y-2">
                               <h6 className="font-sans whitespace-nowrap text-xs text-gray-500">در {toPersianDigits(product.shops_count)} فروشگاه</h6>
                               <div className={`font-sans whitespace-nowrap text-sm  ${!product.is_available ? "text-red-600" : "text-gray-800"}`}>
-                                   {!product.is_available ? <h5>ناموجود</h5> : <h5><strong className="ml-1">{toPersianPrice(product.price_start)}</strong>تومان</h5>} 
+                                   {!product.is_available ? <h5 className="font-bold">ناموجود</h5> : <h5><strong className="ml-1">{toPersianPrice(product.price_start)}</strong>تومان</h5>} 
                               </div>
                          </div>
                     </section>
