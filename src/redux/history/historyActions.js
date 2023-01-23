@@ -1,42 +1,38 @@
-import axios from "axios"
-import Cookies from "universal-cookie"
+import http, { requestError, token } from "src/services/http"
 import { 
-   HISTORY_FAILURE,
-   HISTORY_REQUEST,
-   HISTORY_SUCCESS,
-   HISTORY_REMOVED
+     HISTORY_REQUEST,
+     HISTORY_SUCCESS,
+     HISTORY_FAILURE,
 } from "./historyTypes"
 
 
 const historyRequest = () => { return {type : HISTORY_REQUEST}}
-const historySuccess = (data) => { return {type : HISTORY_SUCCESS , payload : data}}
-const historyFailure = (error) => { return {type : HISTORY_FAILURE ,  payload : error  ? error : ""}}
-const historyRemoved = () => { return {type : HISTORY_REMOVED}}
+export const historySuccess = (payload) => { return {type : HISTORY_SUCCESS , payload}}
+export const historyFailure = (payload) => { return {type : HISTORY_FAILURE ,  payload}}
 
-export const insertHistory = (hashId) => {
-    return (dispatch) => {
-        dispatch(historyRequest())
-        const token = new Cookies().get("userToken");
-        axios.post(`https://project-torob-clone.iran.liara.run/api/user/${hashId}/history`, {} , {headers : {Authorization: `Bearer ${token}`}})
-            .then(({data}) => dispatch(historySuccess(data)))
-            .catch(error =>dispatch(historyFailure(error.response.data.message)))
-    }
+export const insertHistory = (slug) => dispatch => {
+     dispatch(historyRequest())
+     http.post(`user/history/${slug}`, {} , {headers : {authorization: token}})
+     .then(({data}) => dispatch(historySuccess(data)))
+     .catch(error => dispatch(historyFailure(error.response.data.message)))
 }
-export const fetchHistory = () => {
-    return (dispatch) => {
-        dispatch(historyRequest())
-        const token = new Cookies().get("userToken");
-        axios.get(`https://project-torob-clone.iran.liara.run/api/user/history`, {headers : {Authorization: `Bearer ${token}`}})
-            .then( ({data}) => dispatch(historySuccess(data.histories)))
-            .catch(error => dispatch(historyFailure(error.response.data.message)))
-    }
+
+export const fetchHistory = () => dispatch => {
+     dispatch(historyRequest())
+     http.get(`user/history`, {headers : {authorization: token}})
+     .then( ({data}) => dispatch(historySuccess(data.histories)))
+     .catch(error => {
+          requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش گرفتن لیست محصولات بازدیدشده"})
+          dispatch(historyFailure("خطای سرور در بخش گرفتن لیست محصولات بازدیدشده"))
+     })
 }
-export const deleteHistory = () => {
-    return (dispatch) => {
-        dispatch(historyRequest())
-        const token = new Cookies().get("userToken");
-        axios.delete(`https://project-torob-clone.iran.liara.run/api/user/history`, {headers : {Authorization: `Bearer ${token}`}})
-            .then(() => dispatch(historyRemoved()))
-            .catch(error => dispatch(historyFailure(error.response.data.message)))
-    }
+export const deleteHistory = () => dispatch => {
+     dispatch(historyRequest())
+     http.put(`user/history`, {} ,{headers : {authorization : token}})
+     .then(({data}) => dispatch(historySuccess(data.products)))
+     .catch(error => {
+          console.log("error : ",error);
+          requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش حذف محصول از لیست بازدید شده"})
+          dispatch(historyFailure("خطای سرور در بخش حذف محصول از لیست بازدید شده"))
+     })
 }

@@ -4,8 +4,12 @@ import { useState } from "react";
 import ManageStoreAside from "@/components/manageStore/storeAside";
 import { BsFillCaretLeftFill } from 'react-icons/bs';
 import Link from "next/link";
-import Cookies from "universal-cookie";
-import axios from "axios";
+import { wrapper } from "@/redux/store";
+import http, { returnTokenInServerSide } from "src/services/http";
+import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { authFailure, authSuccess } from "@/redux/user/userActions";
+import { fetchAdminCountFailure, fetchAdminCountSuccess } from "@/redux/admin/admin_dataCount/admin_dataCountActions";
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 
 const ManageStore = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
@@ -21,7 +25,7 @@ const ManageStore = () => {
                     </Modal>
                     <section className="w-full ">
 
-                        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+                        <nav className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 
 
                             <Link href={'/store/manage-products'}>
@@ -41,7 +45,7 @@ const ManageStore = () => {
                                 </a>
                             </Link>
 
-                            <Link href={'#'}>
+                            {/* <Link href={'#'}>
                                 <a className="cursor-pointer py-4 hover:bg-green-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
                                     <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-green-200 bg-green-50">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-green-700">
@@ -56,9 +60,9 @@ const ManageStore = () => {
                                         <BsFillCaretLeftFill className="text-green-400 "/>
                                     </div>
                                 </a>
-                            </Link>
+                            </Link> */}
 
-                            <Link href={'#'}>
+                            {/* <Link href={'#'}>
                                 <a className="cursor-pointer py-4 hover:bg-pink-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
                                     <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-pink-200 bg-pink-50">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-pink-700">
@@ -75,7 +79,7 @@ const ManageStore = () => {
                                         <BsFillCaretLeftFill className="text-pink-400 "/>
                                     </div>
                                 </a>
-                            </Link>
+                            </Link> */}
 
                             <Link href={'/store/change-password'}>
                                 <a className="cursor-pointer py-4 hover:bg-yellow-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
@@ -96,7 +100,7 @@ const ManageStore = () => {
 
 
 
-                        </div>
+                        </nav>
                     </section>
                 </section>
 
@@ -106,19 +110,33 @@ const ManageStore = () => {
 }
 export default ManageStore;
 
-export const getServerSideProps = async(ctx) => {
-    // Check Permission
-    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
-    let ErrorCode = 0;
-    if(!token) return{notFound : true}
-    await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
-    .then(({data}) =>  {
-        if(data.user.account_type !== 'store') ErrorCode = 403
-        if(data.user.is_pending === true ) ErrorCode = 403;
-    })  
-    .catch( () => ErrorCode = 403)
-    if(ErrorCode === 403){
-        return{notFound : true}
-    }
-    return { props : {}}
-}
+export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async(ctx) => {
+     // Check Permission
+     const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie , key : "userToken"});
+          
+     let ErrorCode = 0;
+     if(!token) return {notFound : true}
+
+     // Fetch User Data     
+          await http.get("user", {headers : {authorization : token}})
+          .then(({data}) =>  {
+               if(data.user.account_type !== 'store') ErrorCode = 403
+               if(data.user.is_pending === true ) ErrorCode = 403;
+               else {
+                    dispatch(addToCartSuccess(data))
+                    dispatch(authSuccess(data.user))
+               }
+          })  
+          .catch(() => {
+               ErrorCode = 403
+               dispatch(authFailure("خطا در بخش احراز هویت"))    
+          })
+
+     if(ErrorCode === 403){return{notFound : true}}
+          
+
+     // Fetch Categories
+     await http.get(`public/categories`)
+     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+})

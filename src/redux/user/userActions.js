@@ -1,6 +1,5 @@
-import axios from "axios" 
-import { toast } from "react-toastify";
-import Cookies from "universal-cookie"
+import http, { removeCookies, requestError, requestSuccess, setCookies, token } from "src/services/http";
+import { addToCartSuccess } from "../cart/cart/cartActions";
 import { 
     AUTH_FAILURE, 
     AUTH_REQUEST, 
@@ -10,66 +9,53 @@ import {
 } from "./userTypes"
 
 // Auth Actions
-const authRequest = () => { return {type : AUTH_REQUEST}}
-const authSuccess = (payload) => { return {type : AUTH_SUCCESS , payload}}
-const authFailure = (payload) => {return {type : AUTH_FAILURE , payload}}
-const token = new Cookies().get("userToken");
+export const authRequest = () => { return {type : AUTH_REQUEST}}
+export const authSuccess = (payload) => { return {type : AUTH_SUCCESS , payload}}
+export const authFailure = (payload) => {return {type : AUTH_FAILURE , payload}}
 
 // Sign Up User With Phone Number
-export const userSignup = (phone_number) => {
-    return (dispatch) => {
-        dispatch(authRequest())
-        axios.post("https://market-api.iran.liara.run/api/login" , {phone_number})
-        .then(response => {
-            dispatch(authSuccess(response.data))
-            toast.success("کد احراز هویت : "+response.data.verification_code)
-        }).catch(err => {
-            const message = err.response?.data?.message || " user Signup - خطای سرور در بخش احراز هویت";
-            toast.error(message)
-            dispatch(authFailure(message))
-        })
-    }
-}
-export const userSignin_withUserPass = (data) => dispatch => {
-    dispatch(authRequest())
-    axios.post("https://market-api.iran.liara.run/api/login/credentials" ,data)
-    .then(({data}) => {
-        dispatch(authSuccess(data))
-        new Cookies().set('userToken' ,data.API_TOKEN,{path:'/'} )
-        toast.success(" با موفقیت وارد حساب کاربری خود شدید")
-        if(data.is_password === false){
-            setTimeout(() => window.location.href = '/store/change-password', 1000);
-        }else{
-            setTimeout(() => window.location.reload(), 1000);
-        }
-    })
-    .catch(err => {
-        const message = err.response?.data?.message || "خطای سرور در بخش احراز هویت";
-        toast.error(message)
-        dispatch(authFailure(message))
-    })
+// export const userSignup = (phone_number) =>  dispatch => {
+
+export const userSignin = (data) => dispatch => {
+     dispatch(authRequest())
+     http.post("https://market-api.iran.liara.run/api/login/credentials" ,data)
+     .then(({data}) => {
+          dispatch(authSuccess(data.user))
+          setCookies({key : "userToken" , value : data.API_TOKEN , config : {path:'/'} })
+          requestSuccess(" با موفقیت وارد حساب کاربری خود شدید")
+          if(data.is_password === false){
+               setTimeout(() => window.location.href = '/store/change-password', 1000);
+          }else{
+               setTimeout(() => window.location.reload(), 1000);
+          }
+     })
+     .catch(error => {
+          requestError({error : error?.response?.data?.errors , defaultMessage : "خطا در بخش احراز هویت"})
+          dispatch(authFailure("خطا در بخش احراز هویت"))
+     })
 }
 
 // Load User Data When Site Refreshed
-export const loadUserInfo = () => {
-    return (dispatch) => {
-        dispatch(authRequest())
-        axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
-        .then(response => {
-            dispatch(authSuccess(response.data.user))
-        }).catch(err => {
-            const message = err.response?.data?.message || "خطای سرور در بخش احراز هویت";
-            toast.error(message)
-            dispatch(authFailure(message))
-        })
-    }
+export const loadUserInfo = () => dispatch => {
+     dispatch(authRequest())
+     http.get("user", {headers : {authorization : token}})
+     .then(({data}) => {
+          dispatch(authSuccess(data.user))
+          dispatch(addToCartSuccess(data))
+     }).catch(error => {
+          requestError({error : error?.response?.data?.errors , defaultMessage : "خطا در بخش احراز هویت"})
+          dispatch(authFailure("خطا در بخش احراز هویت"))
+     })
 }
 
-export const userLogout = () => dispatch =>  {
-    axios.delete("https://market-api.iran.liara.run/api/user/logout", {headers : {Authorization : `Bearer ${token}`}})
-    new Cookies().remove("userToken",{path : '/'})
-    window.location.reload()
+export const userLogout = () => () =>  {
+    http.delete("user/logout", {headers : {authorization : token}})
+    removeCookies({key : "userToken" , config : {path : '/'}})
+    if(window) window.location.reload()
 }
 
+// Example => dispatch(authPanel({type : 'userPass' , isOpen : true})) 
 export const authPanel = (payload) => dispatch => dispatch({type : AUTH_PANEL , payload })
+
+// Example => type is Normal Or userPass
 export const changePanelType = (payload) => dispatch => dispatch({type : CHANGE_PANEL_TYPE , payload })

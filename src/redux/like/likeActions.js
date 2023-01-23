@@ -1,46 +1,47 @@
-import axios from "axios"
-import { toast } from "react-toastify";
-import Cookies from 'universal-cookie';
+import http, { requestError, token } from "src/services/http";
+
 import { 
-    FETCH_LIKES_FAILURE, 
-    FETCH_LIKES_REQUEST, 
-    FETCH_LIKES_SUCCESS,
-    INSERT_LIKE_LOADING
+     FETCH_LIKES_FAILURE, 
+     FETCH_LIKES_REQUEST, 
+     FETCH_LIKES_SUCCESS,
+
+     // Actions Loading     
+     ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_REQUEST,
+     ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_SUCCESS,
+     ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_FAILURE,
 } from "./likeTypes";
 
-const fetchLikeRequest = (payload) => {return {type : FETCH_LIKES_REQUEST , hash_id : payload}}
-const fetchLikeSuccess = (payload) => {return {type : FETCH_LIKES_SUCCESS , payload}}
-const fetchLikeFailure = (payload) => {return {type : FETCH_LIKES_FAILURE , payload}}
+const fetchLikeRequest = () => {return {type : FETCH_LIKES_REQUEST,}}
+export const fetchLikeSuccess = (payload) => {return {type : FETCH_LIKES_SUCCESS , payload}}
+export const fetchLikeFailure = (payload) => {return {type : FETCH_LIKES_FAILURE , payload}}
 
-export const fetchLikes = () => {
-    const token = new Cookies().get("userToken");
-    return (dispatch) => {
-        dispatch(fetchLikeRequest())
-        axios.get(`https://market-api.iran.liara.run/api/public/user/favorites`, {headers : {Authorization : `Bearer ${token}`}})
-            .then(({data}) => dispatch(fetchLikeSuccess(data.favorites)))
-            .catch(error => {
-                const serverMessage_list = error?.response?.data?.errors
-                if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-                if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن محصولات پسندیده شده")
-                dispatch(fetchLikeFailure("خطای سرور در بخش گرفتن محصولات پسندیده شده"))
-            })
-    }
+// Payload is Product Id
+const addOrRemoveProductInLikesLoadingRequest = (payload) => {return {type : ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_REQUEST , payload}}
+const addOrRemoveProductInLikesLoadingSuccess = (payload) => {return {type : ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_SUCCESS , payload}}
+const addOrRemoveProductInLikesLoadingFailure = (payload) => {return {type : ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_FAILURE , payload}}
+
+// Use in SSR
+export const fetchLikes = () => dispatch => {
+     dispatch(fetchLikeRequest())
+     http.get(`public/user/favorites`, {headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchLikeSuccess(data.products)))
+     .catch(error => {
+          requestError({defaultMessage : "خطا در بخش گرفتن محصولات پسندیده شده" , error : error?.response?.data?.errors})
+          dispatch(fetchLikeFailure("خطای سرور در بخش گرفتن محصولات پسندیده شده"))
+     })
 }
-export const likedAction  = ({hash_id}) => {
-    const token = new Cookies().get("userToken");
-    return (dispatch) => {
-        // dispatch(fetchLikeRequest())
-        dispatch({type : INSERT_LIKE_LOADING , hash_id})
-        axios.put(`https://project-torob-clone.iran.liara.run/api/user/${hash_id}/favorites`, {} ,  {headers : {Authorization : `Bearer ${token}`}})
-            .then(()=> {
-                axios.get(`https://project-torob-clone.iran.liara.run/api/user/favorites`,{headers : {Authorization : `Bearer ${token}`}})
-                .then(({data}) => dispatch(fetchLikeSuccess(data.favorites)))
-            })
-            .catch(error => {
-                const serverMessage_list = error?.response?.data?.errors
-                if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-                if(!serverMessage_list) toast.error("خطای سرور در بخش افزودن محصول به لیست پسندیده شده ها ")
-                dispatch(fetchLikeFailure("خطای سرور در بخش افزودن محصول به لیست پسندیده شده ها "))
-            })
-    }
+
+export const likedAction  = ({product_id}) => dispatch => {
+     dispatch(fetchLikeRequest())
+     dispatch(addOrRemoveProductInLikesLoadingRequest(product_id))
+     http.put(`user/favorites/${product_id}`, {} ,  {headers : {authorization : token}})
+     .then(({data})=> {
+          dispatch(addOrRemoveProductInLikesLoadingSuccess(product_id))
+          dispatch(fetchLikeSuccess(data.products))
+     })
+     .catch(error => {
+          dispatch(addOrRemoveProductInLikesLoadingFailure(product_id))
+          requestError({defaultMessage : "خطا در بخش افزودن محصول به لیست پسندیده شده ها" , error : error?.response?.data?.errors})
+          dispatch(fetchLikeFailure("خطای سرور در بخش افزودن محصول به لیست پسندیده شده ها "))
+     })
 }

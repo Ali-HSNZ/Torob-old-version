@@ -3,11 +3,9 @@ import DialogAlert_deleteBrand from "@/components/adminPage/manage-brand/DialogA
 import Layout from "@/layout/Layout";
 import { fetchBrands } from "@/redux/admin/admin_manageBrand/admin_manageBrandActions";
 import { Modal, Pagination } from "@mui/material";
-import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "universal-cookie";
 import DialogAlert_updateBrand from "@/components/adminPage/manage-brand/DialogAlert_updateBrand";
 import DialogAlert_insertBrand from "@/components/adminPage/manage-brand/DialogAlert_insertBrand";
 import { useRouter } from "next/router";
@@ -18,6 +16,12 @@ import Link from "next/link";
 import ReactLoading from 'react-loading';
 import FormikInput from "@/common/admin/FormikInput";
 import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
+import { wrapper } from "@/redux/store";
+import http, { returnTokenInServerSide } from "src/services/http";
+import { authFailure, authSuccess } from "@/redux/user/userActions";
+import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
+import { buttonClassName } from "@/utils/global";
 
 
 const ManageBrands = () => {
@@ -126,7 +130,7 @@ const ManageBrands = () => {
                             </button>
                             <h1 className="font-sans font-bold text-lg">مدیریت برند</h1>
                         </div>
-                        <div className="flex gap-x-2 items-center">
+                        <nav className="flex gap-x-2 items-center">
                             <Link href={{pathname:"/admin/manage-brands"}}>
                                 <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -146,7 +150,7 @@ const ManageBrands = () => {
                                     </svg>
                                 </a>
                             </Link>
-                        </div>
+                        </nav>
                     </div>
                     <form onSubmit={formik.handleSubmit} className="w-full  p-4 bg-white mt-3 rounded-lg shadow-md">
                         <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -173,7 +177,7 @@ const ManageBrands = () => {
                         </section>
 
                         <section className="w-full flex justify-end mt-3 items-center">
-                            <button type={"submit"} className={`${formik.isValid ? "hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>جستجو</button>
+                            <button type={"submit"} className={buttonClassName({bgColor : "blue" , isOutline : false , isValid : formik.isValid})}>جستجو</button>
                         </section>
                     </form>
                     {loading && (
@@ -249,18 +253,32 @@ const ManageBrands = () => {
 }
 export default ManageBrands;
 
-export const getServerSideProps = async(ctx) => {
-    // Check Permission
-    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
-    let ErrorCode = 0;
-    if(!token) return{notFound : true}
-    await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
-    .then(({data}) =>  {
-        if(data.user.account_type !== 'admin') ErrorCode = 403
-    })
-    .catch( () => ErrorCode = 403)
-    if(ErrorCode === 403){
-        return{notFound : true}
-    }
-    return { props : {}}
-}
+export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async(ctx) => {
+
+     // Check Permission
+     const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie , key : "userToken"});
+     
+     let ErrorCode = 0;
+     if(!token) return {notFound : true}
+
+     // Fetch User Data     
+     await http.get("user", {headers : {authorization : token}})
+     .then(({data}) =>  {
+          if(data.user.account_type !== 'admin') ErrorCode = 403; 
+          else {
+               dispatch(authSuccess(data.user))
+               dispatch(addToCartSuccess(data))
+          }
+     })  
+     .catch(() => {
+          ErrorCode = 403
+          dispatch(authFailure("خطا در بخش احراز هویت"))    
+     })
+
+     if(ErrorCode === 403){return{notFound : true}}
+
+     // Fetch Navbar Categories
+     await http.get(`public/categories`)
+     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+})

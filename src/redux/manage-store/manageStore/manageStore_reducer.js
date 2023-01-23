@@ -22,7 +22,6 @@ const {
     STORE_CHANGE_PASSWORD_REQUEST, 
     STORE_CHANGE_PASSWORD_SUCCESS, 
     STORE_CHANGE_PASSWORD_FAILURE,
-
 } = require("./manageStore_types")
 
 const initialState = {
@@ -34,16 +33,14 @@ const initialState = {
 }
 export const manageStoreReducer = (state = initialState , action) => {
     switch (action.type) {
-        // Fetch Store Data Count => Show in Main Panel 
-
+         
+         // Fetch Store Data Count => Show in Main Panel 
         case FETCH_STORE_COUNT_REQUEST: {return {...state , mainDataCount : {data : null , loading : true , error : null}}}
         case FETCH_STORE_COUNT_SUCCESS: {return {...state , mainDataCount : {data : action.payload , loading : false , error : null}}}
         case FETCH_STORE_COUNT_FAILURE: {return {...state , mainDataCount : {data : null , loading : false , error : action.payload}}}
         
         // Fetch Store Products
-        case STORE_FETCH_PRODUCTS_BASES_REQUEST : {
-            return {...state,products : {products : null , loading : true , error : null}}
-        }
+        case STORE_FETCH_PRODUCTS_BASES_REQUEST : { return {...state,products : {products : null , loading : true , error : null}}}
         case STORE_FETCH_PRODUCTS_BASES_SUCCESS : {
             return {        
                 ...state, products : {
@@ -54,20 +51,13 @@ export const manageStoreReducer = (state = initialState , action) => {
                 }
             }
         }   
-        case STORE_FETCH_PRODUCTS_BASES_FAILURE : {
-            return {...state,products : {products : null , loading : false , error : action.payload}}
-        }
+        case STORE_FETCH_PRODUCTS_BASES_FAILURE : {return {...state,products : {products : null , loading : false , error : action.payload}}}
 
         // Fetch Store Brands
-        case STORE_FETCH_BRANDS_REQUEST : {
-            return {...state,brands : {brands : null, loading : true,error : null}}
-        }
-        case STORE_FETCH_BRANDS_SUCCESS : {
-            return {...state,brands : {brands : action.payload.brands, loading : false,error : null}}
-        }
-        case STORE_FETCH_BRANDS_FAILURE : {
-            return {...state,brands : {brands : null, loading : false,error : action.payload}}
-        }
+        case STORE_FETCH_BRANDS_REQUEST : {return {...state,brands : {brands : null, loading : true,error : null}}}
+        case STORE_FETCH_BRANDS_SUCCESS : {return {...state,brands : {brands : action.payload.brands, loading : false,error : null}}}
+        case STORE_FETCH_BRANDS_FAILURE : {return {...state,brands : {brands : null, loading : false,error : action.payload}}}
+        
         // Change Store Password
         case STORE_CHANGE_PASSWORD_REQUEST : {return { ...state ,changePassword :  {data : null , loading : true , error : null}}}
         case STORE_CHANGE_PASSWORD_SUCCESS : {return { ...state ,changePassword :  {data : action.payload , loading : false , error : null}}}    
@@ -80,7 +70,7 @@ export const manageStoreReducer = (state = initialState , action) => {
 
         //  Insert Store Product
         case STORE_INSERT_PRODUCT_REQUEST : { return { ...state, products:{ products : null , loading : true, error : null,}}}
-        // case STORE_FETCH_CATEGORIES_SUCCESS : { return { ...state, categories : { categories : action.payload.categories, loading : false, error : null}}}
+        
         case STORE_INSERT_PRODUCT_FAILURE : {return { ...state, products : { products : null, loading : false, error : action.payload}}}
 
         default: return state

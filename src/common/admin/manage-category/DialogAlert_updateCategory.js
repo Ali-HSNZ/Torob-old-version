@@ -6,6 +6,7 @@ import {updateCategory } from '@/redux/admin/admin_manageCategory/admin_manageCa
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useRouter } from 'next/router';
+import { buttonClassName } from '@/utils/global';
 
 export default function DialogAlert_updateCategory({categoryName , id, isModal , setIsModal , title , submitBtnTitle}) {
     const dispatch =  useDispatch()
@@ -47,7 +48,7 @@ export default function DialogAlert_updateCategory({categoryName , id, isModal ,
                 <DialogActions>
                     <div className='w-full flex gap-x-4 justify-end p-2'>
                         <button type={'button'} className='font-sans font-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
-                        <button type={'submit'}  className={` text-sm font-sans py-[6px] px-5 rounded-md ${formik.errors.updateCategoryName? "cursor-not-allowed bg-gray-600 text-white hover:bg-gray-700" : " bg-blue-600 text-white hover:bg-blue-700 "}  `} >{submitBtnTitle ? submitBtnTitle : "تایید"}</button>
+                        <button type={'submit'}  className={buttonClassName({bgColor : "blue" , isOutline : false , isValid : formik.isValid})} >ثبت</button>
                     </div>
                 </DialogActions>
             </form>

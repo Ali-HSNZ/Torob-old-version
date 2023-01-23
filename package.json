@@ -56,7 +56,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
-    "swiper": "^8.3.2",
+    "swiper": "^8.0.0",
     "universal-cookie": "^4.0.4",
     "use-reducer-async": "^2.1.1",
     "yup": "^0.32.11"

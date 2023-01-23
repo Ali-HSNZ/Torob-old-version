@@ -13,7 +13,12 @@ import {
 } from "./admin_manageUsersTypes"
 
 
-const initialValues = {user : null , loading : false , error : null , oneUser : {user : null , loading : false , error : null}}
+const initialValues = {
+     users : null , 
+     loading : false ,
+     error : null , 
+     oneUser : {user : null , loading : false , error : null}
+}
 
 export const admin_manageUsersReducer = (state = initialValues , action) => {
     switch (action.type) {
@@ -25,7 +30,7 @@ export const admin_manageUsersReducer = (state = initialValues , action) => {
             return {data : null , loading : false , error : null}
         }
         case ADMIN_INSERT_USER_FAILURE:{
-            return {data : null , loading : false , error : action.payload}
+            return {data : state.data , loading : false , error : action.payload}
         }
 
 
@@ -37,12 +42,12 @@ export const admin_manageUsersReducer = (state = initialValues , action) => {
             return {...state ,loading : false, oneUser : { user : action.payload , error : null}}
         }
         case ADMIN_FETCH_ONE_USER_FAILURE:{
-            return  {...state ,loading : false, oneUser : { user : null , error : action.payload}}
+            return  {...state ,loading : false, oneUser : { user : state.oneUser.user , error : action.payload}}
         }
 
 
         case ADMIN_FETCH_USERS_REQUEST:{
-            return {...state,stores : null , loading : true , error : null}
+            return {...state,users : null , loading : true , error : null}
         }
         case ADMIN_FETCH_USERS_SUCCESS:{
             return {
@@ -54,10 +59,8 @@ export const admin_manageUsersReducer = (state = initialValues , action) => {
             }
         }
         case ADMIN_FETCH_USERS_FAILURE:{
-            return {...state,stores : null , loading : false , error : action.payload}
+            return {...state,users : state.users , loading : false , error : action.payload}
         }
-
-
         
         default : return state
     }

@@ -1,0 +1,74 @@
+import Layout from '@/layout/Layout';
+import SuggestedProducts from '@/components/productPage/SuggestedProducts';
+import BreadCrump from '@/components/productPage/main/BreadCrump';
+import Product from '@/components/productPage/main/Product';
+import Store from '@/components/productPage/main/Store';
+import { wrapper } from '@/redux/store';
+import http, { returnTokenInServerSide } from 'src/services/http';
+import { authFailure, authRequest, authSuccess } from '@/redux/user/userActions';
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from '@/redux/categories/categoriesActions';
+import { addToCartSuccess } from '@/redux/cart/cart/cartActions';
+import { fetchLikeFailure, fetchLikeSuccess } from '@/redux/like/likeActions';
+
+const ProductPage = ({product , productSimilars}) => {
+     return (  
+          <Layout isFooter={true} pageTitle={`ترب | ${product.product.title}`}>
+               <main className="w-full px-4 flex justify-center">
+                    <div className='w-full '>
+                         <BreadCrump path={product.path}/>
+                         <div className={` mt-4 gap-4 flex flex-col lg:flex-row `}>
+                         <Product product={product}/>
+                         <Store product={product}/>
+                         </div>
+                    </div>
+               </main>
+               <section className="mt-4 w-full px-2 md:px-8 flex justify-center">
+                    <SuggestedProducts data={productSimilars}/>
+               </section>
+          </Layout>
+    );
+}
+export default ProductPage;
+
+
+export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) =>  async({req , query}) => {
+     const {slug} = query
+     const token = returnTokenInServerSide({cookie : req.headers.cookie , key : "userToken"})
+     // Fetch User Data
+     if(token){
+          dispatch(authRequest())
+          await http.get("user", {headers : {authorization : token}})
+          .then(({data}) => {
+               dispatch(authSuccess(data.user))
+               dispatch(addToCartSuccess(data))
+          })
+          .catch(error => dispatch(authFailure("خطا در بخش احراز هویت")))
+
+          // Add To History
+          await http.put(encodeURI(`user/history/${query.slug}`), {} , {headers : {authorization : token}})
+          .then(({data}) => {console.log("data history : ",data)})
+          .catch(error =>console.log("data history : ",error))
+
+          // Fetch Likes
+          await http.get(`user/favorites`, {headers : {authorization : token}})
+          .then(({data}) => dispatch(fetchLikeSuccess(data.products)))
+          .catch(error => dispatch(fetchLikeFailure("خطای سرور در بخش گرفتن محصولات پسندیده شده")))
+     }
+
+
+     // Fetch Categories
+     await http.get(`public/categories`)
+     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+     .catch(error => dispatch(fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته بندی‌ها ")))
+     
+     const {data : product} = await http.get(encodeURI(`public/product/${slug}`)).then(res => res.data)
+     const {data : productSimilars} = await http.get(encodeURI(`public/product/${slug}/similars?perPage=9&page=1`)).then(res => res.data)
+     
+     return{
+          props : {
+               product ,
+               productSimilars,
+          }
+     }
+})
+

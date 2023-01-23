@@ -37,7 +37,6 @@ const Categories2 = () => {
 
         for (const index in obj) {
             if(obj[index] === 'وسایل الکترونیکی'){
-                console.log(obj);
             }
             
         }

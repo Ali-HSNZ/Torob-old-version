@@ -9,9 +9,13 @@ import * as Yup from 'yup'
 import { PASSWORD_REGIX } from "@/utils/Regex";
 import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from 'react-loading';
-import Cookies from "universal-cookie";
-import axios from "axios";
 import { changeAdminPasswordAction } from "@/redux/admin/admin_changePassword.js/admin_changePasswordActions";
+import { wrapper } from "@/redux/store";
+import http, { returnTokenInServerSide } from "src/services/http";
+import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { authFailure, authSuccess } from "@/redux/user/userActions";
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
+import { buttonClassName } from "@/utils/global";
 
 const ChangeAdminPassword = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
@@ -91,7 +95,7 @@ const ChangeAdminPassword = () => {
                                 </section>
                                 <div className="mt-4 w-full flex justify-end">
                                     {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
-                                    <button type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}> تغییر رمز عبور</button>
+                                    <button type={"submit"} className={buttonClassName({bgColor : "blue" , isValid : formik.isValid , isOutline : false})}> تغییر رمز عبور</button>
                                 </div>
                             </div>
                         </section>
@@ -103,19 +107,32 @@ const ChangeAdminPassword = () => {
 }
 export default ChangeAdminPassword;
 
-export const getServerSideProps = async(ctx) => {
-    // Check Permission
-    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
-    let ErrorCode = 0;
-    if(!token) return{notFound : true}
-    await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
-    .then(({data}) =>  {
-        if(data.user.account_type !== 'admin') ErrorCode = 403
-        if(data.user.is_pending === true ) ErrorCode = 403;
-    })  
-    .catch( () => ErrorCode = 403)
-    if(ErrorCode === 403){
-        return{notFound : true}
-    }
-    return { props : {}}
-}
+export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async(ctx) => {
+
+     // Check Permission
+     const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie , key : "userToken"});
+     
+     let ErrorCode = 0;
+     if(!token) return {notFound : true}
+
+     // Fetch User Data     
+     await http.get("user", {headers : {authorization : token}})
+     .then(({data}) =>  {
+          if(data.user.account_type !== 'admin') ErrorCode = 403; 
+          else {
+               dispatch(addToCartSuccess(data))
+               dispatch(authSuccess(data.user))
+          }
+     })  
+     .catch(() => {
+          ErrorCode = 403
+          dispatch(authFailure("خطا در بخش احراز هویت"))    
+     })
+
+     if(ErrorCode === 403){return{notFound : true}}
+     
+     // Fetch Navbar Categories
+     await http.get(`public/categories`)
+     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+})

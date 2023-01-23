@@ -1,17 +1,38 @@
 import { 
-    FETCH_LIKES_FAILURE,
-    FETCH_LIKES_REQUEST, 
-    FETCH_LIKES_SUCCESS,
-    INSERT_LIKE_LOADING
+     // Loading
+     ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_FAILURE,
+     ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_REQUEST,
+     ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_SUCCESS,
+     
+     FETCH_LIKES_FAILURE,
+     FETCH_LIKES_REQUEST, 
+     FETCH_LIKES_SUCCESS,
 } from "./likeTypes";
 
-const initailState = {likes : null , error : null , loading : false , likesLoading : []}
+const initailState = {likes : [] , error : null , loading : false , likesLoading : []}
 export const likesReducer = (state = initailState , action) => {   
-    switch (action.type) {
-        case FETCH_LIKES_REQUEST : {return {likes : null,error : null,loading : true,likesLoading : state.likesLoading}}
-        case FETCH_LIKES_SUCCESS : {return {likes : action.payload.length > 0 ? action.payload : null,error : null ,loading : false,likesLoading : []}}
-        case FETCH_LIKES_FAILURE : {return {likes : null , error : action.payload , loading : false , likesLoading : state.likesLoading}}
-        case INSERT_LIKE_LOADING : {return {...state , likesLoading : [...state.likesLoading ,{hash_id : action.hash_id}]}}
-        default: return state
-    }
+     switch (action.type) {
+          case FETCH_LIKES_REQUEST : {return {...state , likes : [],error : null,loading : true}}
+          case FETCH_LIKES_SUCCESS : {return {...state , likes : action.payload ,error : null ,loading : false}}
+          case FETCH_LIKES_FAILURE : {return {...state , likes : [] , error : action.payload , loading : false}}
+          
+          // Loading Actions
+          case ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_REQUEST : { 
+               return {
+                    ...state , 
+                    likesLoading : [...state.likesLoading ,{product_id : action.payload}]
+               }
+               // console.log("action.payload : ",action.payload);
+          }
+          case ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_SUCCESS : { 
+               const loadingList = state.likesLoading.filter(product => product.product_id !==  action.payload)
+               return {...state , likesLoading : loadingList}
+          }
+          case ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_FAILURE : { 
+               const loadingList = state.likesLoading.filter(product => product.product_id !==  action.payload)
+               return {...state , likesLoading : loadingList}
+          }
+
+          default: return state
+     }
 }

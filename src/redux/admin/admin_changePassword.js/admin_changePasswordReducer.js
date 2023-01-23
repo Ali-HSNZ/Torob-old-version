@@ -4,8 +4,8 @@ import {
     ADMIN_CHANGE_PASSWORD_FAILURE, 
 } from "./admin_changePasswordTypes"
 
-
 const initialState = {loading : false , error : null}
+
 export const admin_changePasswordReducer = (state = initialState , action) => {
     switch (action.type) {
         case ADMIN_CHANGE_PASSWORD_REQUEST : {return {loading : true , error : null}}

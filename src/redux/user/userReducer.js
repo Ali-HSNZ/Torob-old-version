@@ -18,6 +18,7 @@ export const authReduser = (state = initialState , action) => {
             return {...state , panelType : type,panel : isOpen}
         }
         case CHANGE_PANEL_TYPE : {return {...state ,panelType : action.payload}}
+        
         default: return state
     }
 }

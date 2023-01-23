@@ -1,5 +1,7 @@
 export const AUTH_REQUEST = "AUTH_REQUEST"
 export const AUTH_SUCCESS = "AUTH_SUCCESS"
 export const AUTH_FAILURE = "SIGNUP_USER_FAILURE"
+
 export const CHANGE_PANEL_TYPE = "CHANGE_PANEL_TYPE"
+
 export const AUTH_PANEL = "AUTH_PANEL"

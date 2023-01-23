@@ -15,30 +15,42 @@ import { store_companyProductsReducer } from "./manage-store/companyProducts/com
 import { admin_dataCountReducer } from "./admin/admin_dataCount/admin_dataCountReducer";
 import { signupReducer } from "./signup/signupReducer";
 import { admin_changePasswordReducer } from "./admin/admin_changePassword.js/admin_changePasswordReducer";
+import { cartReducer } from "./cart/cart/cartReducer";
+import { checkoutReducer } from "./cart/checkout/checkoutReducer";
+import { categoriesReducer } from "./categories/categoriesReducer";
 
 const rootReducer = combineReducers({
-  // User
-  auth: authReduser,
-  history: historyReducer,
-  likes: likesReducer,
-  analytics: analyticsReducer,
-  store: storeReducer,
+     // User
+     auth: authReduser,
+     history: historyReducer,
+     likes: likesReducer,
+     analytics: analyticsReducer,
+     store: storeReducer,
 
-  // Admin Panel Reducers
-  admin_brands: admin_brandsReducer,
-  admin_categories: admin_categoriesReducer,
-  admin_products: admin_productsReducer,
-  admin_stores: admin_storesReducer,
-  admin_users: admin_manageUsersReducer,
-  admin_dataCount: admin_dataCountReducer,
-  admin_changePassword : admin_changePasswordReducer,
+     // Admin Panel Reducers
+     admin_brands: admin_brandsReducer,
+     admin_categories: admin_categoriesReducer,
+     admin_products: admin_productsReducer,
+     admin_stores: admin_storesReducer,
+     admin_users: admin_manageUsersReducer,
+     admin_dataCount: admin_dataCountReducer,
+     admin_changePassword : admin_changePasswordReducer,
 
-  // Store Panel Reducers
-  manage_store: manageStoreReducer,
-  store_companyProducts: store_companyProductsReducer,
+     // Store Panel Reducers
+     manage_store: manageStoreReducer,
+     store_companyProducts: store_companyProductsReducer,
 
-  // Signup User And Store
-  signupReducer: signupReducer,
+     // Signup User And Store
+     signupReducer: signupReducer,
+
+     // Cart
+     cart : cartReducer,
+
+     // Checkout
+     checkout : checkoutReducer,
+
+     // Categories
+     categories : categoriesReducer
 });
 
 export default rootReducer;

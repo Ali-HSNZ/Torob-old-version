@@ -89,7 +89,40 @@
 		 url('/fonts/woff2/IRANYekanWebExtraBlack.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('/fonts/ttf/IRANYekanWebExtraBlack.ttf') format('truetype');
 }
+.swiper-slide{
+     overflow: auto;
+     padding: 20px 0;
+}
+.swiper-button-next {
+     --swiper-navigation-color:white;
+     --swiper-navigation-size : 20px;
+     background-color: rgba(0, 0, 0, 0.377);
+     padding: 20px 20px; 
+     border-radius: 100%;
+}
+.swiper-button-next:hover {
+     background-color: rgba(0, 0, 0, 0.445);
+}
 
+.swiper-button-prev {
+     --swiper-navigation-color:white;
+     --swiper-navigation-size : 20px;
+     background-color: rgba(0, 0, 0, 0.377);
+     padding: 20px 20px; 
+     border-radius: 100%;
+}
+.swiper-button-prev:hover {
+     background-color: rgba(0, 0, 0, 0.445);
+}
+.swiper-pagination{
+     margin: 20px 0 0 0;
+     position: absolute;
+     bottom: 20px;
+     margin: 0px 0 -10px 0;
+}
+.swiper-pagination-bullet-active-main{
+     background-color: white;
+}
 :root {
     --toastify-font-family: 'iranyekan';
   }

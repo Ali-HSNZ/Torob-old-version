@@ -1,32 +1,21 @@
-import axios from "axios";
-import { toast } from "react-toastify";
-import Cookies from "universal-cookie";
+import http, { requestError, token } from "src/services/http";
 import  { 
-    FETCH_ADMIN_COUNT_REQUEST, 
-    FETCH_ADMIN_COUNT_SUCCESS, 
-    FETCH_ADMIN_COUNT_FAILURE 
+    ADMIN_FETCH_COUNT_REQUEST, 
+    ADMIN_FETCH_COUNT_SUCCESS, 
+    ADMIN_FETCH_COUNT_FAILURE 
 } from "./admin_dataCountTypes";
 
-const token = new Cookies().get("userToken");
+const fetchAdminCountRequest = () => {return {type : ADMIN_FETCH_COUNT_REQUEST}}
+export const fetchAdminCountSuccess = (payload) => {return {type : ADMIN_FETCH_COUNT_SUCCESS , payload}}
+export const fetchAdminCountFailure = (payload) => {return {type : ADMIN_FETCH_COUNT_FAILURE , payload}}
 
-const fetchAdminCountRequest = () => {
-    return {type : FETCH_ADMIN_COUNT_REQUEST}
-}
-const fetchAdminCountSuccess = (payload) => {
-    return {type : FETCH_ADMIN_COUNT_SUCCESS , payload}
-}
-const fetchAdminCountFailure = (payload) => {
-    return {type : FETCH_ADMIN_COUNT_FAILURE , payload}
-}
-
+// Used in SSR
 export const fetchAdminCount = () => dispatch => {
-    dispatch(fetchAdminCountRequest())
-    axios.get(`https://market-api.iran.liara.run/api/admin/counter` , {headers : {authorization : `Bearer ${token}`}})
-    .then(({data}) => dispatch(fetchAdminCountSuccess(data.count)))
-    .catch(error => {
-        const serverMessage_list = error?.response?.data?.errors
-        if(serverMessage_list && serverMessage_list.length > 0) serverMessage_list.forEach(error => toast.error(error));
-        if(!serverMessage_list) toast.error("خطای سرور در بخش گرفتن تعداد داده ها")
-        dispatch(fetchAdminCountFailure("خطای سرور در بخش گرفتن تعداد داده ها"))
-    })
+     dispatch(fetchAdminCountRequest())
+     http.get(`admin/counter` , {headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchAdminCountSuccess(data.count)))
+     .catch(error => {
+          requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش گرفتن تعداد داده ها"})
+          dispatch(fetchAdminCountFailure("خطای سرور در بخش گرفتن تعداد داده ها"))
+     })
 }

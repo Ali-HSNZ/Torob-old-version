@@ -22,11 +22,11 @@ const BreadCrumpAndSort = ({category , similarCategories}) => {
     const sub_subName = similarCategories && similarCategories.sub2 && removeHyphen(similarCategories.sub2.title) !== removeHyphen(category) ? similarCategories.sub2.title + " / " : "";
 
     return (  
-            <div className={`w-full flex ${category ? " justify-between" : "justify-end"}   z-10 font-sans relative items-center`}>
+            <div className={`w-full flex ${category ? " justify-between" : "justify-end"}   z-0 font-sans relative items-center`}>
                 {/* //? BreadCrump */}
                 {query.category &&  <p className="py-4 text-xs text-gray-500">همه دسته ها / {`${mainName} ${subName}  ${sub_subName} ${sub_subName === category  ? "" : " / ",removeHyphen(category)}`}</p>}
                 {/* //? Sort */}
-                <div className="max-w-fit py-2  cursor-pointer hidden  md:flex flex-col justify-end  items-end">
+                <div className="max-w-fit py-2 relative  cursor-pointer hidden  md:flex flex-col justify-end  items-end">
                 
                     <Button sx={{fontFamily : 'iranyekan' , fontSize : "14px", color : '#545353'}} id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} className="rounded-md text-sm">
                         {currentFilter}

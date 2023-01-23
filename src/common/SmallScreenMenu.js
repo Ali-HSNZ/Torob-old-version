@@ -1,19 +1,17 @@
-import { Modal } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 
 
-const SmallScreenMenu = ({isCategoryPanel , setIsCategoryPanel , closeCategory , categories , handleCategory , setCurrentCategory , currentCategory}) => {
-    
+const SmallScreenMenu = ({isCategoryPanel ,setIsCategoryPanel , closeCategory , handleCategory , categories , customClassname}) => {
     const router = useRouter()
     const {query} = useRouter()
-console.log("categoriescategories : ",categories);
+    
     return (  
-            <section className={`h-full  pb-[230px]  fixed  ${isCategoryPanel ? "" : "hidden"} sm:hidden inset-0  z-40 w-full bg-white`}>
+            <section className={`h-full  pb-[230px]  fixed  ${isCategoryPanel ? "" : "hidden"} ${customClassname || "sm:hidden"} inset-0  z-40 w-full bg-white`}>
 
                 <div className="px-4 mt-4 flex w-full">
-                    <button onClick={()=> closeCategory()}>
+                    <button onClick={()=> setIsCategoryPanel(false) & closeCategory()}>
                         <svg className="w-6 h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>

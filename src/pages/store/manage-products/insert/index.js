@@ -10,11 +10,15 @@ import * as Yup from 'yup'
 import { useFormik } from "formik";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
-import Cookies from "universal-cookie";
-import axios from "axios";
 import FormikInput from "@/common/admin/FormikInput";
-import { fetchBaseProducts, fetchBrands, fetchCategories } from "@/redux/manage-store/manageStore/manageStore_actions";
+import { fetchBaseProducts, fetchBrands, fetchBrandsFailure, fetchBrandsSuccess, fetchCategories, store_fetchCategoriesFailure, store_fetchCategoriesSuccess } from "@/redux/manage-store/manageStore/manageStore_actions";
 import SelectBox from "@/common/admin/SelectBox";
+import { wrapper } from "@/redux/store";
+import http, { returnTokenInServerSide } from "src/services/http";
+import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { authFailure, authSuccess } from "@/redux/user/userActions";
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
+import { buttonClassName } from "@/utils/global";
 
 const ManageStores = () => {
     const router = useRouter()
@@ -47,8 +51,8 @@ const ManageStores = () => {
         const payload = {page,limit,paramsBrand :  brand,barcode, paramsCategory :  category ,name}
 
         dispatch(fetchBaseProducts(payload))
-        dispatch(fetchBrands())
-        dispatch(fetchCategories()) 
+     //    dispatch(fetchBrands())
+     //    dispatch(fetchCategories()) 
     },[router.query])
 
     const onSubmit = ({ product_title ,barcode,order}) => {
@@ -90,7 +94,7 @@ const ManageStores = () => {
                             </button>
                             <h1 className="font-sans font-bold text-lg">مدیریت محصولات | ثبت کالا</h1>
                         </div>
-                        <div className="flex gap-x-2 my-2 sm:m-0 justify-end  sm:items-center">
+                        <nav className="flex gap-x-2 my-2 sm:m-0 justify-end  sm:items-center">
                             <Link href={'/store/manage-products'}>
                                 <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -112,7 +116,7 @@ const ManageStores = () => {
                                     </svg>
                                 </a>
                             </Link>
-                        </div>
+                        </nav>
                     </div>
 
                     <form className="w-full " onSubmit={formik.handleSubmit}>
@@ -138,7 +142,7 @@ const ManageStores = () => {
 
                             </section>
                             <div className="w-full flex items-center justify-end mt-4">
-                                <button type={"submit"} className={`${formik.isValid ? "hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-sm rounded-md`}>جستجو</button>
+                                <button type={"submit"} className={buttonClassName({bgColor : "blue" , isValid : formik.isValid , isOutline : false})}>جستجو</button>
                             </div>
                         </section>
                     </form>
@@ -252,19 +256,43 @@ const ManageStores = () => {
  
 export default ManageStores;
 
-export const getServerSideProps = async(ctx) => {
-    // Check Permission
-    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
-    let ErrorCode = 0;
-    if(!token) return{notFound : true}
-    await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
-    .then(({data}) =>  {
-        if(data.user.account_type !== 'store') ErrorCode = 403;
-        if(data.user.is_pending === true ) ErrorCode = 403;
-    })
-    .catch( () => ErrorCode = 403)
-    if(ErrorCode === 403){
-        return{notFound : true}
-    }
-    return { props : {}}
-}
+export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async(ctx) => {
+
+     // Check Permission
+     const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie , key : "userToken"});
+          
+     let ErrorCode = 0;
+     if(!token) return {notFound : true}
+
+     // Fetch User Data     
+          await http.get("user", {headers : {authorization : token}})
+          .then(({data}) =>  {
+               if(data.user.account_type !== 'store') ErrorCode = 403
+               if(data.user.is_pending === true ) ErrorCode = 403;
+               else {
+                    dispatch(addToCartSuccess(data))
+                    dispatch(authSuccess(data.user))
+               }
+          })  
+          .catch(() => {
+               ErrorCode = 403
+               dispatch(authFailure("خطا در بخش احراز هویت"))    
+          })
+
+     if(ErrorCode === 403){return{notFound : true}}
+          
+     // Fetch Navbar Categories
+     await http.get(`public/categories`)
+     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))     
+
+     // Fetch Categories
+     await http.get(`products/categories?list=1` , {headers : {authorization : token}})
+     .then(({data}) => dispatch(store_fetchCategoriesSuccess(data)))
+     .catch(error => dispatch(store_fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته‌بندی ها")))
+
+     // Fetch Brands
+     await http.get(`products/brands?list=1` , {headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchBrandsSuccess(data)))
+     .catch(error => dispatch(fetchBrandsFailure("خطای سرور در بخش گرفتن لیست برندها")))
+})

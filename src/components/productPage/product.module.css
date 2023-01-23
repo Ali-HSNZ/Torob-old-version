@@ -1,9 +1,0 @@
-.productsParent{
-    width: 100%;
-    margin: 25px 0;
-    padding: 0 0;
-    display: grid;
-    grid-template-columns: repeat( auto-fill , minmax( 200px, 1fr ));
-    grid-column-gap: 1rem;
-    grid-row-gap: 1rem;
-}

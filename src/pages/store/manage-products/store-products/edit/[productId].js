@@ -1,13 +1,11 @@
 import StorePageAside from "@/components/manageStore/storeAside";
 import Layout from "@/layout/Layout";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Yup from 'yup'
 import ReactLoading from 'react-loading';
 import { Formik, Field, Form , FieldArray ,ErrorMessage} from 'formik';
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "universal-cookie";
-import axios from "axios";
 import { Modal } from "@mui/material";
 // Date Picker
 import persian from "react-date-object/calendars/persian"
@@ -16,8 +14,14 @@ import DatePicker,{DateObject} from "react-multi-date-picker"
 //  <==
 import { useRouter } from "next/router";
 import { setComma } from "@/utils/setComma";
-import { deleteProduct, fetchProduct, updateStoreProduct } from "@/redux/manage-store/companyProducts/companyProducts_Actions";
+import { deleteProduct, fetchCompanyOneProductFailure, fetchCompanyOneProductSuccess, fetchProduct, updateStoreProduct } from "@/redux/manage-store/companyProducts/companyProducts_Actions";
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
+import { wrapper } from "@/redux/store";
+import http, { returnTokenInServerSide } from "src/services/http";
+import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { authFailure, authSuccess } from "@/redux/user/userActions";
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
+import { buttonClassName } from "@/utils/global";
 
 const InsertStoreProduct = () => {
     const dispatch = useDispatch();
@@ -28,9 +32,9 @@ const InsertStoreProduct = () => {
     const weekDays = ["ش", "ی", "د", "س", "چ", "پ", "ج"]
     const {product,loading} = useSelector(state => state.store_companyProducts.oneProduct)
 
-    useEffect(()=>{
-        dispatch(fetchProduct({id : query.productId}))
-    },[])
+//     useEffect(()=>{
+     //    dispatch(fetchProduct({id : query.productId}))
+//     },[])
 
     const validationSchema = Yup.object({
         product_discounts : Yup.array().of(
@@ -260,32 +264,6 @@ const InsertStoreProduct = () => {
                                                 </div>
                                                 <div className={'flex flex-col'}>
                                                     <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                        <p className={`font-sans text-sm text-gray-800`}>قیمت فروش ۱ :</p>
-                                                        <Field 
-                                                            type="text" 
-                                                            name={`store_price_1`} 
-                                                            value={setComma(values.store_price_1)}
-                                                            placeholder={"قیمت فروش ۱"}
-                                                            className={`${errors.store_price_1 &&  touched.store_price_1 ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
-                                                        />
-                                                    </section>
-                                                    {errors.store_price_1 && touched.store_price_1 && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.store_price_1}</p>}
-                                                </div>
-                                                <div className={'flex flex-col'}>
-                                                    <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                        <p className={`font-sans text-sm text-gray-800`}>قیمت فروش ۲ :</p>
-                                                        <Field 
-                                                            type="text" 
-                                                            name={`store_price_2`} 
-                                                            value={setComma(values.store_price_2)}
-                                                            placeholder={"قیمت فروش ۲"}
-                                                            className={`${errors.store_price_2 &&  touched.store_price_2 ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
-                                                        />
-                                                    </section>
-                                                    {errors.store_price_2 && touched.store_price_2 && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.store_price_2}</p>}
-                                                </div>
-                                                <div className={'flex flex-col'}>
-                                                    <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
                                                         <p className={`font-sans text-sm text-gray-800 `}>پورسانت بازاریابی محصول (درصد) :</p>
                                                         <Field 
                                                             type="text" 
@@ -321,7 +299,7 @@ const InsertStoreProduct = () => {
                                                 name="product_discounts"
                                                 render={arrayHelpers  => (
                                                     <div className="flex flex-col mt-4">
-                                                        <div className="font-sans text-sm before:content-['*'] before:text-red-600">
+                                                        <div className="font-sans text-sm ">
                                                             تخفیف پله‌ایی :
                                                             <button onClick={() => arrayHelpers.push({ discount_value: '', final_price: '' , discount_type : 'count' })} type="button" className="mr-2 font-sans text-xs text-blue-700 underline underline-offset-4 hover:text-red-700">(تخفیف جدید)</button>
                                                         </div>
@@ -366,9 +344,9 @@ const InsertStoreProduct = () => {
                                                                             />
                                                                             <div className="flex items-center">
                                                                                 <button type="button" onClick={() => arrayHelpers.remove(index)} className=" items-center hover:bg-red-100 bg-red-50 flex border border-[#c32e2e] text-[#cc3d3d] rounded-md py-2 px-3 mr-2">
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
-                                                                                    </svg>
+                                                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                                                          <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                                                     </svg>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
@@ -408,10 +386,8 @@ const InsertStoreProduct = () => {
                                         <div className="mt-6 w-full flex justify-end ">
                                             <section className=" flex justify-end  items-center gap-x-2">
                                                 {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
-                                                {!loading && <button type={"button"} onClick={()=> dispatch(deleteProduct({id : query.productId}))} className={`items-center ${product && product.is_show ? "bg-green-50 hover:bg-green-100  border-green-600 text-green-600 " : "bg-red-50 hover:bg-red-100  border-red-600 text-red-600 "}  flex border text-sm rounded-md py-[6px] px-5 font-sans`}>تغییر وضعیت</button>}
-                                                <button  type={"submit"} disabled={loading} className={`flex items-center hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer py-[6px] px-6 font-sans  text-sm rounded-md`}>
-                                                    تایید تغییرات
-                                                </button>
+                                                {!loading && <button type={"button"} onClick={()=> dispatch(deleteProduct({id : query.productId}))} className={buttonClassName({bgColor : product && product.is_show ? "green" : "red" , isOutline : true , isValid : true})}>تغییر وضعیت</button>}
+                                                <button  type={"submit"} disabled={loading} className={buttonClassName({bgColor : "blue" , isOutline : false , isValid : !loading})}>ثبت تغییرات</button>
                                             </section>
                                         </div>
                                     </Form>
@@ -424,25 +400,41 @@ const InsertStoreProduct = () => {
     );
 }
  
-
-
-
-
 export default InsertStoreProduct;
 
-export const getServerSideProps = async(ctx) => {
-    // Check Permission
-    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
-    let ErrorCode = 0;
-    if(!token) return{notFound : true}
-    await axios.get("https://market-api.iran.liara.run/api/user", {headers : {Authorization : `Bearer ${token}`}})
-    .then(({data}) =>  {
-        if(data.user.account_type !== 'store') ErrorCode = 403;
-        if(data.user.is_pending === true ) ErrorCode = 403;
-    })
-    .catch(() => ErrorCode = 403)
-    if(ErrorCode === 403){
-        return{notFound : true}
-    }
-    return { props : {}}
-}
+export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async(ctx) => {
+
+     // Check Permission
+     const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie , key : "userToken"});
+          
+     let ErrorCode = 0;
+     if(!token) return {notFound : true}
+
+     // Fetch User Data     
+     await http.get("user", {headers : {authorization : token}})
+     .then(({data}) =>  {
+          if(data.user.account_type !== 'store') ErrorCode = 403
+          if(data.user.is_pending === true ) ErrorCode = 403;
+          else {
+               dispatch(addToCartSuccess(data))
+               dispatch(authSuccess(data.user))
+          }
+     })  
+     .catch(() => {
+          ErrorCode = 403
+          dispatch(authFailure("خطا در بخش احراز هویت"))    
+     })
+
+     if(ErrorCode === 403){return{notFound : true}}
+          
+     // Fetch Navbar Categories
+     await http.get(`public/categories`)
+     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))  
+     
+     
+     // Fetch One Product Data
+     await http.get(`store/products?id=${ctx.query.productId}` , {headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchCompanyOneProductSuccess(data.product)))
+     .catch(error => dispatch(fetchCompanyOneProductFailure("خطای سرور در بخش گرفتن اطلاعات کالا")))
+})

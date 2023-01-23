@@ -47,7 +47,7 @@
         grid-template-columns: minmax(0px, 1fr) 416px ;
         grid-template-areas:
         "product    product"
-        "store   properties"
+        "store   store"
         "chart    properties";
     }
   }
@@ -57,7 +57,7 @@
         display: grid;
         grid-template-columns: 840px 416px;
         grid-template-areas:
-        "product    chart"
-        "store  properties";
+        "product    product"
+        "store  store";
     }
   }
