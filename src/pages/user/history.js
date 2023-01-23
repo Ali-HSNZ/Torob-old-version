@@ -4,7 +4,7 @@ import Layout from "@/layout/Layout";
 import { Modal } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteHistory, fetchHistory, historyFailure, historySuccess } from "@/redux/history/historyActions";
+import { deleteHistory, historyFailure, historySuccess } from "@/redux/history/historyActions";
 import Styles from "@/common/productsParent_grid.module.css";
 import empty_history from "@/images/empty_history1.png";
 import ReactLoading from "react-loading";
@@ -75,12 +75,12 @@ const History = () => {
 export default History;
 
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async({req}) => {
-     const token = returnTokenInServerSide({cookie : req.headers.cookie , key : "userToken"})
-     if(!token) return {notFound : true}
+     const token = returnTokenInServerSide({cookie : req.headers.cookie})
+     if(token.includes("undefined")) return {notFound : true}
 
      let ErrorCode = 0;
      
-     if(token){
+     if(!token.includes("undefined")){
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {

@@ -44,8 +44,8 @@ export default function Home(){
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async ({req}) => {
-     const token = returnTokenInServerSide({cookie : req.headers.cookie , key : "userToken"})
-     if(token){
+     const token = returnTokenInServerSide({cookie : req.headers.cookie})
+     if(!token.includes("undefined")){
           // Fetch User Data
           await http.get("user", {headers : {authorization : token}})
           .then(response => dispatch(authSuccess(response.data.user)))

@@ -17,7 +17,7 @@ import ReactLoading from 'react-loading';
 import FormikInput from "@/common/admin/FormikInput";
 import { signupUserAction } from "@/redux/signup/signupActions";
 import { ONLY_DIGIT_REGIX, PASSWORD_REGIX, PHONE_NUMBER_REGIX, POSTAL_CODE_REGIX } from "@/utils/Regex";
-import Cookies from "universal-cookie";
+import { returnTokenInServerSide } from "src/services/http";
 
 
 const UserSignup = () => {
@@ -273,9 +273,9 @@ const UserSignup = () => {
  
 export default UserSignup;
 
-export const getServerSideProps = async(ctx) => {
+export const getServerSideProps = async({req}) => {
     // Check Permission
-    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
-    if(token) return{notFound : true}
+    const token =  returnTokenInServerSide({cookie : req.headers.cookie})
+    if(token.includes("undefined")) return{notFound : true}
     return { props : {}}
 }

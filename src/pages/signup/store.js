@@ -14,10 +14,10 @@ import SelectBox from "@/common/admin/SelectBox";
 import { useEffect } from "react";
 import { allCities } from "@/common/admin/cities";
 import ReactLoading from 'react-loading';
-import Cookies from "universal-cookie";
 import FormikInput from "@/common/admin/FormikInput";
 import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PASSWORD_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
 import { insertStoreAction } from "@/redux/signup/signupActions";
+import { returnTokenInServerSide } from "src/services/http";
 
 const InsertStorePage = () => {
 
@@ -452,10 +452,10 @@ const InsertStorePage = () => {
  
 export default InsertStorePage;
 
-export const getServerSideProps = async(ctx) => {
+export const getServerSideProps = async({req}) => {
     // Check Permission
-    const token =  new Cookies( ctx.req.headers.cookie).get("userToken");
-    if(token) return{notFound : true}
+    const token = returnTokenInServerSide({cookie : req.headers.cookie})
+    if(token.includes("undefined")) return{notFound : true}
     return { props : {}}
 }
 

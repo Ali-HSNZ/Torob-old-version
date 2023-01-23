@@ -9,7 +9,7 @@ const NotFoundPage = () => {
 
      const dispatch = useDispatch()
      useEffect(()=>{
-          if(token){
+          if(!token.includes("undefined")){
                dispatch(loadUserInfo())
           }
      },[dispatch])

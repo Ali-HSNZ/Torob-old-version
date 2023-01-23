@@ -148,12 +148,12 @@ export default CartStore;
 
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async({req , query}) => {
      
-     const token = returnTokenInServerSide({cookie : req.headers.cookie , key : "userToken"})
-     if(!token) return {notFound : true}
+     const token = returnTokenInServerSide({cookie : req.headers.cookie})
+     if(token.includes("undefined")) return {notFound : true}
      
      let ErrorCode = 0;
 
-     if(token){
+     if(!token.includes("undefined")){
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {

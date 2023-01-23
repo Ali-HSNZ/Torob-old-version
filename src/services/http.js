@@ -16,7 +16,7 @@ export default http
 
 // Get User Token in Browser =>
 export const token =  `Bearer ${new Cookies().get("userToken")}`;
-export const returnTokenInServerSide = ({cookie , key}) => `Bearer ${new Cookies(cookie).get(key)}`; // use in getServerSideProps { cookie : ctx.req.headers.cookie , key : ? } 
+export const returnTokenInServerSide = ({cookie}) => `Bearer ${new Cookies(cookie).get("userToken")}`; // use in getServerSideProps { cookie : ctx.req.headers.cookie , key : ? } 
 
 // Show Request Error Message in Toast
 export const requestError = ({error , defaultMessage}) =>  error ? error.forEach(error => toast.error(error)) : toast.error(defaultMessage);

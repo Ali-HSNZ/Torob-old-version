@@ -33,9 +33,10 @@ export default ProductPage;
 
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) =>  async({req , query}) => {
      const {slug} = query
-     const token = returnTokenInServerSide({cookie : req.headers.cookie , key : "userToken"})
+     const token = returnTokenInServerSide({cookie : req.headers.cookie})
+     
      // Fetch User Data
-     if(token){
+     if(!token.includes("undefined")){
           dispatch(authRequest())
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) => {

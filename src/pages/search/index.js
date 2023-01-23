@@ -56,14 +56,14 @@ export default SearchQuery;
 
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async ({query , req}) => {
      
-     const token = returnTokenInServerSide({cookie : req.headers.cookie , key : "userToken"})
+     const token = returnTokenInServerSide({cookie : req.headers.cookie})
      
      if(!query.category && !query.brand && !query.query){
           return {notFound : true};
      }
      const {query : productName , price_from , price_to , category , available , sort , brand } = query;
      
-     if(token){
+     if(!token.includes("undefined")){
           // Fetch User Data
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) => {
