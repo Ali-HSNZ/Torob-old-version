@@ -24,7 +24,7 @@ const Product = ({ product }) => {
           if(likeLoading) return true ; else return false;
      };
      return (
-          <article className={`relative overflow-hidden bg-white flex lg:w-[300px] lg:max-w-[300px] lg:min-w-[300px] rounded-lg flex-col  sm:flex-row lg:flex-col h-fit lg:sticky top-4 p-4`}>
+          <article className={`relative overflow-hidden bg-white flex lg:w-[300px] lg:max-w-[300px] lg:min-w-[300px] rounded-lg flex-col  sm:flex-row lg:flex-col h-fit lg:sticky top-4 p-2`}>
                <div className=" flex justify-center items-center relative">
                     <Swiper pagination={{dynamicBullets: true}} modules={[ Pagination]} className={"mySwiper max-w-[300px] sm:max-w-[230px] lg:max-w-none  "}>
                          {product.product.images.map(image => (
@@ -37,7 +37,7 @@ const Product = ({ product }) => {
                     </Swiper>
                </div>
 
-               <section className=" w-full mt-4 p-4 ">
+               <section className=" w-full mt-4 p-2 ">
                     <p className="font-sans text-bold text-sm w-full text-right text-gray-700 leading-8  sm:mt-0 ">{product.product.title}</p>
                     <p className="w-full mt-1 text-right text-sm font-sans   text-red-600">از {toPersianPrice(product.prices_range.min)} تومان تا{" "}{toPersianPrice(product.prices_range.max)} تومان</p>
                     <div className="w-fit  flex items-center justify-between overflow-hidden rounded-bl-lg bg-gray-100 absolute top-0 right-0 z-20 ">
