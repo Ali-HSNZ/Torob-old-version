@@ -46,8 +46,6 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) =>  as
 
           // Add To History
           await http.put(encodeURI(`user/history/${query.slug}`), {} , {headers : {authorization : token}})
-          .then(({data}) => {console.log("data history : ",data)})
-          .catch(error =>console.log("data history : ",error))
 
           // Fetch Likes
           await http.get(`user/favorites`, {headers : {authorization : token}})

@@ -31,7 +31,6 @@ export const deleteHistory = () => dispatch => {
      http.put(`user/history`, {} ,{headers : {authorization : token}})
      .then(({data}) => dispatch(historySuccess(data.products)))
      .catch(error => {
-          console.log("error : ",error);
           requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش حذف محصول از لیست بازدید شده"})
           dispatch(historyFailure("خطای سرور در بخش حذف محصول از لیست بازدید شده"))
      })

@@ -20,7 +20,6 @@ const History = () => {
      const dispatch = useDispatch();
      const { history, loading } = useSelector(state => state.history);
 
-     console.log("history : ",history);
 
      return (
           <Layout isFooter={true} pageTitle={"ترب | مشاهدات اخیر"}>

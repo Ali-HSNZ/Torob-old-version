@@ -22,7 +22,6 @@ export const likesReducer = (state = initailState , action) => {
                     ...state , 
                     likesLoading : [...state.likesLoading ,{product_id : action.payload}]
                }
-               // console.log("action.payload : ",action.payload);
           }
           case ADD_OR_REMOVE_PRODUCT_IN_LIKES_LOADING_SUCCESS : { 
                const loadingList = state.likesLoading.filter(product => product.product_id !==  action.payload)
