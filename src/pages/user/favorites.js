@@ -1,7 +1,7 @@
 import ProductCommon from "@/common/ProductCommon";
 import UserPageAside from "@/components/userPage/Aside";
 import Layout from "@/layout/Layout";
-import Styles from "@/components/productPage/product.module.css";
+import Styles from "@/common/productsParent_grid.module.css";
 import { useSelector } from "react-redux";
 import { Modal } from "@mui/material";
 import { useState } from "react";
