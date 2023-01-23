@@ -22,7 +22,7 @@ const Product = ({ data }) => {
 
      const getMorePost = async () => {
           setPageCount(pageCount + 1);
-          const { data: productSimilars } = await http.get(encodeURI(`product/${slug}/similars?perPage=9&page=${pageCount}`))
+          const { data: productSimilars } = await http.get(encodeURI(`product/${slug}/similars?limit=9&page=${pageCount}`))
           .then(({data}) => data);
           productSimilars.length === 0 && setIsProducts(false);
           setProducts(product => [...product, ...productSimilars]);

@@ -62,7 +62,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) =>  as
      .catch(error => dispatch(fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته بندی‌ها ")))
      
      const {data : product} = await http.get(encodeURI(`public/product/${slug}`)).then(res => res.data)
-     const {data : productSimilars} = await http.get(encodeURI(`public/product/${slug}/similars?perPage=9&page=1`)).then(res => res.data)
+     const {data : productSimilars} = await http.get(encodeURI(`public/product/${slug}/similars?limit=9&page=1`)).then(res => res.data)
      
      return{
           props : {

@@ -34,7 +34,7 @@ const Product = ({ data }) => {
 
      const getMoreProducts = async () => {
           setPageCount(pageCount + 1);
-          const { products } = await http.get(encodeURI(`search?${productName ? "&q=" + productName : ""}&perPage=9&page=${pageCount}${brand ? "&brand=" + brand : ""}${available ? "&available=" + brand : ""}${category ? "&category=" + category : ""}${sort ? `&sort=${sort}` : ""}${fromPrice ? "&fromPrice=" + fromPrice : ""}${toPrice ? "&toPrice=" + toPrice : ""}`))
+          const { products } = await http.get(encodeURI(`search?${productName ? "&q=" + productName : ""}&limit=9&page=${pageCount}${brand ? "&brand=" + brand : ""}${available ? "&available=" + brand : ""}${category ? "&category=" + category : ""}${sort ? `&sort=${sort}` : ""}${fromPrice ? "&fromPrice=" + fromPrice : ""}${toPrice ? "&toPrice=" + toPrice : ""}`))
           .then((res) => res.data.data);
           pageCount === 2 && products.shift();
           products.length === 0 && setIsProducts(false);
