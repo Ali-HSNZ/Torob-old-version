@@ -211,13 +211,13 @@ const StoreManageProducts = () => {
                                                         <img onClick={()=> {product.base_product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.base_product.image_url)}} className="w-full h-auto" src={product.base_product && product.base_product.image_url || ""}/>
                                                     </div>
                                                     <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex">
-                                                            <b className="whitespace-nowrap pl-2">عنوان کالا : </b>
+                                                        <p className="font-sans leading-6 text-sm items-start flex-row flex">
+                                                            <b className="whitespace-nowrap pl-1">عنوان کالا : </b>
                                                             {product.base_product.title.length > 35 ? product.base_product.title.substring(0,35)+'...' : product.base_product.title} </p>
-                                                        <p className="font-sans leading-6 text-sm flex-col items-start sm:flex-row flex ">
+                                                        <p className="font-sans leading-6 text-sm  items-start flex-row flex ">
                                                             <b className="whitespace-nowrap pl-2">برند : </b> 
                                                             {product.base_product.brand.name && product.base_product.brand.name.length > 22 ? product.base_product.brand.name.substring(0,22)+'...' : product.base_product.brand.name}</p>
-                                                        <div className="font-sans leading-6 text-sm flex flex-col w-full sm:flex-row pl-3">
+                                                        <div className="font-sans leading-6 text-sm flex  w-full flex-row pl-3">
                                                             <b className="whitespace-nowrap pl-2">دسته‌بندی : </b>
                                                             <div>{product.base_product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
                                                         </div>
@@ -246,8 +246,6 @@ const StoreManageProducts = () => {
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت تولید : </b>{product.production_price && product.production_price.length === 0 ? "نامشخص" : toPersianPrice(product.production_price)+" تومان "}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت مصرف کننده : </b>{product.consumer_price && product.consumer_price.length === 0 ? "نامشخص" : toPersianPrice(product.consumer_price)+" تومان "}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت فروش : </b>{product.store_price && product.store_price.length === 0 ? "نامشخص" : toPersianPrice(product.store_price)+" تومان "}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت فروش ۱ : </b>{product.store_price_1 && product.store_price_1.length === 0 ? "نامشخص" : toPersianPrice(product.store_price_1)+" تومان "}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت فروش ۲ : </b>{product.store_price_2 && product.store_price_2.length === 0 ? "نامشخص" : toPersianPrice(product.store_price_2)+" تومان "}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تعداد در واحد : </b>{product.per_unit && product.per_unit.length === 0 ? "نامشخص" : toPersianPrice(product.per_unit)}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">موجودی انبار : </b>{product.warehouse_count && product.warehouse_count.length === 0 ? "نامشخص" : toPersianPrice(product.warehouse_count)}</p>
                                                         <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">پورسانت بازاریابی محصول : </b>{product.commission && product.commission.length === 0 ? "نامشخص" : toPersianPrice(product.commission)}%</p>
@@ -279,10 +277,10 @@ const StoreManageProducts = () => {
                                                         <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات فروشنده : </b>{product.store_note.length === 0 ? "نامشخص" : product.store_note}</p>
                                                     </section>
 
-                                                    <hr className="border-gray-300 my-2"/>
+                                                    <hr className="border-gray-300 mt-4"/>
                                                  
-                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                        <p className="font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.base_product.title}</p>
+                                                        <p className="font-sans text-sm flex mt-4 leading-6"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.base_product.title}</p>
+                                                    <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                         
                                                         <div className="font-sans text-sm   flex ">
                                                             <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
