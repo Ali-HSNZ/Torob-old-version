@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { token } from "src/services/http";
 
-const notFoundPage = () => {
+const NotFoundPage = () => {
 
      const dispatch = useDispatch()
      useEffect(()=>{
@@ -30,4 +30,4 @@ const notFoundPage = () => {
           </Layout>
      );
 }
-export default notFoundPage;
+export default NotFoundPage;
