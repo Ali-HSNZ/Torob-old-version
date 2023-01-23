@@ -261,32 +261,6 @@ const InsertStoreProduct = () => {
                                                        </div>
                                                        <div className={'flex flex-col'}>
                                                             <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                                 <p className={`font-sans text-sm text-gray-800`}>قیمت فروش ۱ :</p>
-                                                                 <Field 
-                                                                      type="text" 
-                                                                      name={`store_price_1`} 
-                                                                      value={setComma(values.store_price_1)}
-                                                                      placeholder={"قیمت فروش ۱"}
-                                                                      className={`${errors.store_price_1 &&  touched.store_price_1 ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
-                                                                 />
-                                                            </section>
-                                                            {errors.store_price_1 && touched.store_price_1 && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.store_price_1}</p>}
-                                                       </div>
-                                                       <div className={'flex flex-col'}>
-                                                            <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                                 <p className={`font-sans text-sm text-gray-800`}>قیمت فروش ۲ :</p>
-                                                                 <Field 
-                                                                      type="text" 
-                                                                      name={`store_price_2`} 
-                                                                      value={setComma(values.store_price_2)}
-                                                                      placeholder={"قیمت فروش ۲"}
-                                                                      className={`${errors.store_price_2 &&  touched.store_price_2 ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
-                                                                 />
-                                                            </section>
-                                                            {errors.store_price_2 && touched.store_price_2 && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.store_price_2}</p>}
-                                                       </div>
-                                                       <div className={'flex flex-col'}>
-                                                            <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
                                                                  <p className={`font-sans text-sm text-gray-800 `}>پورسانت بازاریابی محصول (درصد) :</p>
                                                                  <Field 
                                                                       type="text" 
