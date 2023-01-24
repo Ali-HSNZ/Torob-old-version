@@ -57,24 +57,12 @@ const InsertStoreProduct = () => {
                .required("قیمت فروش الزامی است")
                .test("check-value-typeof","قیمت فروش باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
                .trim(),
-          store_price_1 : Yup.string()
-               .test("check-value-typeof","قیمت فروش ۱ باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
-               .trim(),
-          store_price_2 : Yup.string()
-               .test("check-value-typeof","قیمت فروش ۲ باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
-               .trim(),
           per_unit : Yup.string()
                .required('تعداد در واحد الزامی است')
                .test("check-value-typeof","تعداد در واحد باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
                .trim(),
           warehouse_count : Yup.string()
                .test("check-value-typeof","موجودی انبار باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
-               .trim(),
-          delivery_description : Yup.string()
-               .max(5000,"توضیحات ارسال کالا نمی تواند بیشتر از 5000 نویسه باشد")
-               .trim(),
-          store_note : Yup.string()
-               .max(5000,"توضیحات فروشنده نمی تواند بیشتر از 5000 نویسه باشد")
                .trim(),
           cash_payment_discount : Yup.string()
                .test("check-value-typeof","تخفیف نقدی باید عدد باشد", (value="") => !isNaN(value && value.replace(/,/g, '') || ""))
@@ -143,8 +131,6 @@ const InsertStoreProduct = () => {
                                    production_price :  "",
                                    consumer_price : "",
                                    store_price : "",
-                                   store_price_1 : "",
-                                   store_price_2 : "",
                                    per_unit : "",
                                    warehouse_count : "",
                                    delivery_description : "",
@@ -152,8 +138,7 @@ const InsertStoreProduct = () => {
                                    cash_payment_discount : "",
                                    commission : "",
                                    product_discounts : []
-                              }}
-                         >
+                              }}>
                               {({ errors, touched ,values ,isValid}) => {
                                    return (
                                              <Form>
