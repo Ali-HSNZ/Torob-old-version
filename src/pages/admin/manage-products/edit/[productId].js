@@ -35,6 +35,7 @@ import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { fetchBrands } from "@/redux/admin/admin_manageBrand/admin_manageBrandActions";
+import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
 
 const EditProduct = () => {
      const dispatch = useDispatch()
@@ -164,9 +165,17 @@ const EditProduct = () => {
      }
 
      const validationSchema = Yup.object({
-          product_title : Yup.string().min(3, "نام کالا نمی‌تواند کم تر از ۳ نویسه باشد").max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim().required("نام کالا نمی تواند خالی باشد"),
-          product_description : Yup.string().min(2,"توضیحات کالا نمیتواند کم تر از ۲ نویسه باشد").trim().required("توضیحات کالا نمی تواند خالی باشد"),
-          barcode : Yup.string().length(12,"بارکد باید ۱۲ رقم باشد").required("مقدار بارکد نمی تواند خالی باشد").matches(/^[0-9]{12}\d*$/,"مقدار بارکد باید عدد باشد").trim()
+          product_title : Yup.string()
+               .min(3, "نام کالا نمی‌تواند کم تر از ۳ نویسه باشد")
+               .max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد')
+               .trim()
+               .required("نام کالا نمی تواند خالی باشد"),
+          product_description : Yup.string().trim(),
+          barcode : Yup.string()
+               .length(12,"بارکد باید ۱۲ رقم باشد")
+               .required("مقدار بارکد نمی تواند خالی باشد")
+               .matches(ONLY_DIGIT_REGIX,"مقدار بارکد باید عدد باشد.")
+               .trim()
      })
 
      const onSubmit = ({product_title ,barcode, product_description}) => {
@@ -279,7 +288,7 @@ const EditProduct = () => {
                               </div>
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
                                    <p className="font-sans font-bold"> توضیحات</p>
-                                   <p className="font-sans text-sm mt-4 text-gray-800 before:content-['*'] before:text-red-600">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
+                                   <p className="font-sans text-sm mt-4 text-gray-800">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
                                    <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} className={`${formik.errors.product_description && formik.touched.product_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-7`}/>
                                    {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
                               
