@@ -97,6 +97,8 @@ export const deleteStoreInCart = ({store_id}) => dispatch => {
      })
 }
 
+// This command has not been used
+// [{store_id : ? , product_id : ? , count : ?} , ... ] 
 export const fetchCartItems = () => dispatch => {
      dispatch(addToCartRequest())
      http.get(`user/cart/items`, {headers : {authorization : token}})
