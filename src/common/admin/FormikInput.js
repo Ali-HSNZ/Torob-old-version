@@ -1,13 +1,12 @@
 import { setComma } from "@/utils/setComma";
-import { TextField } from "@mui/material";
 
-const FormikInput = ({isComma , formik,name,maxLength,title,isRequired,parentClassName,isLtr}) => {
+const FormikInput = ({isComma , formik,name,maxLength,title,isRequired,parentClassName,isLtr , type}) => {
     return (  
         <div className={parentClassName || ""}>
             <section className="w-auto flex flex-col items-right">
                 <p className={`font-sans text-[13px] text-gray-800 ${isRequired ? "before:content-['*'] before:text-red-600" : ""}`}>{title} :</p>
                 <input 
-                    type="text" 
+                    type={type || "text"} 
                     name={name} 
                     dir={isLtr ? "ltr" : "rtl"}
                     autoComplete={"off"}
