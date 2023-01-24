@@ -61,25 +61,11 @@ const InsertStoreProduct = () => {
             .required("قیمت فروش الزامی است")
             .test("check-value-typeof","قیمت فروش باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
-        store_price_1 : Yup.string()
-            .test("check-value-typeof","قیمت فروش ۱ باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
-            .trim(),
-        store_price_2 : Yup.string()
-            .test("check-value-typeof","قیمت فروش ۲ باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
-            .trim(),
         per_unit : Yup.string()
             .test("check-value-typeof","تعداد در واحد باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
             .trim(),
         warehouse_count : Yup.string()
             .test("check-value-typeof","موجودی انبار باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
-            .trim(),
-        delivery_description : Yup.string()
-            .required("توضیحات ارسال کالا الزامی است")
-            .max(5000,"توضیحات ارسال کالا نمی تواند بیشتر از 5000 نویسه باشد")
-            .trim(),
-        store_note : Yup.string()
-            .required("توضیحات فروشنده الزامی است")
-            .max(5000,"توضیحات فروشنده نمی تواند بیشتر از 5000 نویسه باشد")
             .trim(),
         cash_payment_discount : Yup.string()
             .test("check-value-typeof","تخفیف نقدی باید عدد باشد", (value="") => !isNaN(value && value.replace(/,/g, '') || ""))
@@ -146,8 +132,6 @@ const InsertStoreProduct = () => {
                             production_price : product && setComma(product.production_price) ||  "",
                             consumer_price : product && setComma(product.consumer_price)  || "",
                             store_price : product && setComma(product.store_price) || "",
-                            store_price_1 : product && setComma(product.store_price_1) || "",
-                            store_price_2 : product && setComma(product.store_price_2) || "",
                             per_unit : product && setComma(product.per_unit) || "",
                             warehouse_count : product && setComma(product.warehouse_count) || "",
                             delivery_description : product && product.delivery_description || "",
