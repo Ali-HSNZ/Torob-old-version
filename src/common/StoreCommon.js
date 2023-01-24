@@ -10,16 +10,21 @@ const StoreCommon = ({store , index}) => {
      const {cart , increaseOrDecreaseProductCartLoading} = useSelector(state => state.cart)
      const {user} = useSelector(state => state.auth)
 
-     const availableStoreInCart = ({store_id}) => {
+     const availableStoreInCart = () => {
           if(cart.data && cart.data.length > 0){
-               return cart.data.find(store => store.store_id === store_id)
-          }return false
+               return cart.data.find(state => state.store_id === store.store_id)
+          }else return false
      }
-     const isIncreaseProductLoading = ({store_id}) => {
+     const isIncreaseProductLoading = () => {
           if(increaseOrDecreaseProductCartLoading.length > 0){
-               const availableStore = increaseOrDecreaseProductCartLoading.find(store => store.store_id === store_id)
+               const availableStore = increaseOrDecreaseProductCartLoading.find(state => state.store_id === store.store_id)
                if(availableStore) return true ; else return false
           }else return false
+     }
+     const limitHandler = () => {
+          const limit = availableStoreInCart()?.limit || 0
+          const count = availableStoreInCart()?.count || 0
+          return count >= limit;
      }
      return (  
           <section>
@@ -45,22 +50,22 @@ const StoreCommon = ({store , index}) => {
                     </section>
                     <section className="flex flex-col-reverse  sm:flex-row items-center gap-x-5 justify-between    sm:mr-4">
                          <p className={`text-red-600   font-bold whitespace-nowrap font-sans `}>{toPersianPrice(store.price) +" تومان " }</p>
-                         {availableStoreInCart({store_id : store.store_id}) ? (
-                              <div className="flex bg-white  border-2 border-red-500 rounded-md items-center mb-4 sm:m-0">
+                         {availableStoreInCart() ? (
+                              <div className="flex bg-white  border-2 border-red-500 rounded-md items-center mb-4 sm:m-0 overflow-hidden">
                                    {/* increase */}
-                                   <button onClick={()=>dispatch(increaseProductToCart({product_id : store.product_id , store_id : store.store_id}))} className="font-sans text-sm p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
+                                   <button disabled={limitHandler()} onClick={()=>dispatch(increaseProductToCart({product_id : store.product_id , store_id : store.store_id}))} className="font-sans text-sm p-2 disabled:cursor-not-allowed  text-gray-800 disabled:bg-red-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-gray-800">
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                         </svg>
                                    </button>
                                    {isIncreaseProductLoading({store_id : store.store_id}) ? (
-                                        <ReactLoading type="spinningBubbles" height={20} width={20} color="red" />
+                                        <ReactLoading type="spinningBubbles" height={20} width={20} color="red" className="mr-2"/>
                                    ) : (
-                                        <span className="font-sans text-sm px-1">{toPersianDigits(availableStoreInCart({store_id : store.store_id}).count)}</span>
+                                        <span className="font-sans text-sm px-3">{toPersianDigits(availableStoreInCart().count)}</span>
                                    )}
                                    {/* Decrease */}
                                    <button onClick={()=>dispatch(decreaseProductToCart({product_id : store.product_id , store_id : store.store_id}))} className="font-sans text-sm p-2">
-                                        {availableStoreInCart({store_id : store.store_id}).count <= 1 ? (
+                                        {availableStoreInCart().count <= 1 ? (
                                              // Trash Icon
                                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
