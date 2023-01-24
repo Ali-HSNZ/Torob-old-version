@@ -106,7 +106,7 @@ const Login = () => {
                </div>
                <section className="mt-4">
                     <FormikInput isLtr={true} name={"national_code"} title={"نام کاربری"} formik={formik}  parentClassName="flex flex-col relative"/>
-                    <FormikInput isLtr={true} name={"password"} title={"رمز عبور"} formik={formik}  parentClassName="flex flex-col relative mt-4"/>
+                    <FormikInput type={"password"} isLtr={true} name={"password"} title={"رمز عبور"} formik={formik}  parentClassName="flex flex-col relative mt-4"/>
                     <div className="w-full flex justify-center relative items-center mt-6 ">
                          <button type={"submit"} disabled={loading || !formik.isValid} className="duration-150 w-10/12 py-1.5 disabled:bg-gray-700 disabled:hover:bg-gray-800 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-600 hover:bg-red-700 text-sm">
                               ورود به حساب کاربری
