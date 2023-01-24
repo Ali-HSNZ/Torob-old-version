@@ -63,7 +63,7 @@ export const decreaseProductInCheckout = ({product_id , store_id}) => dispatch =
           dispatch(checkoutDecreaseSuccess(data))
      })
      .catch(error => {
-          // requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش کاهش تعداد کالا"})
+          requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش کاهش تعداد کالا"})
           dispatch(checkoutIncreaseOrDecreaseLoadingFailure(store_id))
           dispatch(checkoutDecreaseFailure("خطای سرور در بخش کاهش تعداد کالا"))
      })
