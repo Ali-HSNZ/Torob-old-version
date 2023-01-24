@@ -19,6 +19,13 @@ const CartStore = () => {
      const {data , loading , increaseOrDecreaseLoading} = useSelector(state => state.checkout)
      const dispatch = useDispatch()
 
+
+     const limitHandler = (props) => {
+          const limit = props?.limit || 0
+          const count = props?.count || 0
+          return count >= limit;
+     }
+
      const isIncreaseOrDecreaseProductLoading = ({store_id}) => {
           if(increaseOrDecreaseLoading.length > 0){
                const availableStore = increaseOrDecreaseLoading.find(store => store.store_id === store_id)
@@ -55,17 +62,17 @@ const CartStore = () => {
                                                             {item.price.discount_percent !== 0 && <span className="font-sans text-xs text-red-100 bg-red-600 rounded-lg py-1 px-3 font-bold flex items-center">{toPersianDigits(item.price.discount_percent)}%</span>}
                                                        </div>
                                                        <div className="flex justify-between items-center mt-4">
-                                                            <div className="flex bg-white  border-2 border-red-500 rounded-md items-center">
+                                                            <div className="flex bg-white  border-2 border-red-500 rounded-md items-center overflow-hidden">
                                                                  {/* increase */}
-                                                                 <button onClick={()=>dispatch(increaseProductInCheckout({product_id : item.item_id.product , store_id : item.item_id.store}))} className="font-sans text-sm p-2">
+                                                                 <button disabled={limitHandler({limit : item.state.limit , count : item.price.count})}  onClick={()=> dispatch(increaseProductInCheckout({product_id : item.item_id.product , store_id : item.item_id.store}))} className="font-sans text-sm p-2 text-gray-800 disabled:bg-red-100 disabled:cursor-not-allowed">
                                                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                                                       </svg>
                                                                  </button>
                                                                  { isIncreaseOrDecreaseProductLoading({store_id : item.item_id.store}) ? (
-                                                                      <ReactLoading type="spinningBubbles" height={20} width={20} color="red" />
+                                                                      <ReactLoading type="spinningBubbles" height={20} width={20} color="red" className="mr-2"/>
                                                                  ) : (
-                                                                      <span className="font-sans text-base px-1">{toPersianDigits(item.price.count)}</span>
+                                                                      <span className="font-sans text-base px-3">{toPersianDigits(item.price.count)}</span>
                                                                  )}
                                                                  {/* Decrease */}
                                                                  <button onClick={()=>dispatch(decreaseProductInCheckout({product_id : item.item_id.product , store_id : item.item_id.store}))} className="font-sans text-sm p-2">
