@@ -14,7 +14,7 @@ import { useRef } from "react";
 import FormikInput from "@/common/admin/FormikInput";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
-import { buttonClassName, validImageTypes } from "@/utils/global";
+import { buttonClassName, checkImageFormat, validImageTypes } from "@/utils/global";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
@@ -78,11 +78,7 @@ const InsertProduct = () => {
      },[selectedCategory_sub2])
 
 
-     const checkImageFormat = (fileName) => {
-          const type =  fileName.split('.').pop();
-          if(!validImageTypes.includes(type.toLocaleLowerCase())) return false;
-          return true
-     }
+
      const deleteImageViaId = (id) => {
           const cloneArray = [...productImages]
           const currentImage_index = cloneArray.findIndex(image => image.id === id)
@@ -112,7 +108,7 @@ const InsertProduct = () => {
      const changeFIleAction_input = (input) => {
           const image = input.target.files[0]        
           if(input.target.files && image){
-               if(!checkImageFormat(image.name)){
+               if(!checkImageFormat({fileName : image.name})){
                     toast.error('تصویر کالا معتبر نیست')
                     imageInput_ref.current.value = null
                     return false
@@ -138,10 +134,7 @@ const InsertProduct = () => {
                .max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد.')
                .trim()
                .required("نام کالا الزامی است.."),
-          product_description : Yup.string()
-               .min(2,"توضیحات کالا نمیتواند کم تر از ۲ نویسه باشد.")
-               .trim()
-               .required("توضیحات کالا الزامی است."),
+          product_description : Yup.string().trim(),
           barcode : Yup.string()
                .max(12,"بارکد نمی تواند بیش تر از ۱۲ رقم باشد.")
                .min(12,"بارکد نمی تواند کم تر از ۱۲ رقم باشد.")
@@ -263,7 +256,7 @@ const InsertProduct = () => {
                          {/* توضیحات */}
                          <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
                               <p className="font-sans font-bold "> توضیحات</p>
-                              <p className="mt-4 font-sans text-sm before:content-['*'] before:text-red-600 text-gray-800">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
+                              <p className="mt-4 font-sans text-sm  text-gray-800">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
                               <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} className={`${formik.errors.product_description && formik.touched.product_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-7`}/>
                               {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
                          </div>
