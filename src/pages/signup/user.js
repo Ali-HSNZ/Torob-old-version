@@ -272,10 +272,3 @@ const UserSignup = () => {
 }
  
 export default UserSignup;
-
-export const getServerSideProps = async({req}) => {
-    // Check Permission
-    const token =  returnTokenInServerSide({cookie : req.headers.cookie})
-    if(token.includes("undefined")) return{notFound : true}
-    return { props : {}}
-}
