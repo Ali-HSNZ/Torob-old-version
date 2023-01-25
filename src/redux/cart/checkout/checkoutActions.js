@@ -78,3 +78,20 @@ export const fetchMainCheckout = ({store_id}) => dispatch => {
         dispatch(checkoutMainFetchFailure("خطای سرور در بخش گرفتن اطلاعات فروشگاه در پیش فاکتور "))
     })
 }
+
+export const confirmFactor = ({store_id}) => dispatch => {
+     http.post(`user/factor/${store_id}` , {} ,{headers : {authorization : token}})
+     .then(({data}) => {
+          if(data.factor_state){
+               if(window) window.location.href = '/cart'
+          }else{
+
+               dispatch(checkoutMainFetchSuccess(data))
+          }
+     })
+     .catch(error => {
+         requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش ثبت  فاکتور"})
+         dispatch(checkoutMainFetchFailure("خطای سرور در بخش ثبت  فاکتور "))
+     })
+ }
+ 
