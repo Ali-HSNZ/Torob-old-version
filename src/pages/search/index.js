@@ -19,7 +19,6 @@ const SearchQuery = ({similarCategories , brands , mainSearch}) => {
     const [isFilterTaggle , setIsFilterTaggle] = useState(false)    
     const {query} = useRouter()
     const {category , priceMin , priceMax} = query
-    
     return (  
           <Layout pageTitle={"ترب | بهترین قیمت بازار"}>
                <div className={`w-full h-full fixed bg-[#00000018] inset-0  z-30  ${isFilterTaggle ? "" : "hidden"}`} onClick={()=> setIsFilterTaggle(false)}></div>

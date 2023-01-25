@@ -19,8 +19,6 @@ const CartStore = () => {
      const {data , loading , increaseOrDecreaseLoading} = useSelector(state => state.checkout)
      const dispatch = useDispatch()
 
-     console.log("data : ",data);
-
      const limitHandler = (props) => {
           const limit = props?.limit || 0
           const count = props?.count || 0

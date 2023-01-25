@@ -15,7 +15,7 @@ const Header = () => {
                document.addEventListener('click', function handleClickOutsideBox(event) {
                     const userPhoneNumber_btn = document.querySelectorAll('.userPhoneNumber_btn')[0];
                     const panel = document.querySelectorAll('.userPanel')[0];
-                    console.log("userPhoneNumber_btn : ",userPhoneNumber_btn);
+
                     if(userPhoneNumber_btn && panel){
                          if(userPhoneNumber_btn.contains(event.target)) {
                               panel.style.display = "block"
