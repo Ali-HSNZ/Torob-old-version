@@ -6,7 +6,7 @@ import ReactLoading from "react-loading";
 import { useDispatch, useSelector } from "react-redux";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import { checkoutMainFetchFailure, checkoutMainFetchSuccess, decreaseProductInCheckout, increaseProductInCheckout } from "@/redux/cart/checkout/checkoutActions";
+import { checkoutMainFetchFailure, checkoutMainFetchSuccess, confirmFactor, decreaseProductInCheckout, increaseProductInCheckout } from "@/redux/cart/checkout/checkoutActions";
 import Link from "next/link";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
@@ -19,6 +19,7 @@ const CartStore = () => {
      const {data , loading , increaseOrDecreaseLoading} = useSelector(state => state.checkout)
      const dispatch = useDispatch()
 
+     console.log("data : ",data);
 
      const limitHandler = (props) => {
           const limit = props?.limit || 0
@@ -127,7 +128,7 @@ const CartStore = () => {
                                    <span className="font-sans text-sm text-gray-600">{toPersianPrice(data.cart.cost.final_price)} تومان</span>
                               </div>
 
-                              <button disabled={!data.cart.cost.payment_state} className="disabled:cursor-not-allowed font-bold disabled:bg-red-500 bg-red-600 hover:bg-red-700 duration-150 py-3 w-full rounded-lg font-sans text-red-200 mt-6">
+                              <button onClick={()=>dispatch(confirmFactor({store_id : data.store.id}))} disabled={!data.cart.cost.payment_state} className="disabled:cursor-not-allowed font-bold disabled:bg-red-500 bg-red-600 hover:bg-red-700 duration-150 py-3 w-full rounded-lg font-sans text-red-200 mt-6">
                                    تایید و ثبت سفارش
                               </button>
 
