@@ -12,41 +12,35 @@ import images from "/public/torob_logo.svg"
 
 const Header = () => {
 
-     const [isCategoryPanel, setIsCategoryPanel] = useState(false);
      const router = useRouter();
      const { query } = useRouter();
      const { user, loading } = useSelector((state) => state.auth);
      const dispatch = useDispatch();
      const [inputValue, setInputValue] = useState(query.query);
-     const [userPanel, setUserPanel] = useState(false);
      const {cart_count} = useSelector(state => state.cart)
      
-     const {categories  : data} = useSelector(state => state.categories)
-     const [categories , setCategories] = useState(data)
+     const [isSmallScreenModal , setIsSmallScreenModal] = useState(false)
 
-     const closeCategory = () => {
-          const allCategories = categories && categories.length > 0 ? [...categories] : [];
-          allCategories.forEach(category => category.status = false);
-          setCategories(allCategories);
-          setIsCategoryPanel(false);
-     };
+     const {categories} = useSelector(state => state.categories)
 
-
-     function handleCategory(id) {
-          closeCategory();
-          const index = categories.findIndex(category => category.id === id);
-          const category = { ...categories[index] };
-          category.status = true;
-          const allCategories = [...categories];
-          allCategories[index] = category;
-          setCategories(allCategories);
-          setIsCategoryPanel(true);
+     const handleUserPanel_btn = ()=>{
+          if(document){
+               document.addEventListener('click', function handleClickOutsideBox(event) {
+                    const userPhoneNumber_btn = document.querySelectorAll('.userPhoneNumber_btn')[0];
+                    const panel = document.querySelectorAll('.userPanel')[0];
+                    if(userPhoneNumber_btn && panel){
+                         if(userPhoneNumber_btn.contains(event.target)) {
+                              panel.style.display = "block"
+                         }else{
+                              panel.style.display = "none"
+                         }
+                    }
+               });
+          }
      }
+
      return (
           <header className=" py-4 bg-gray-50">
-               <div onClick={() => closeCategory() } className={`fixed ${isCategoryPanel ? "" : "hidden"} mt-0 inset-0 h-full w-full z-10`}></div>
-               <div onClick={() => setUserPanel(false)} className={`fixed ${userPanel ? "" : "hidden"} bg-[#44444438] inset-0  h-full w-full z-10`}></div>
-
                {/* Login is Modal */}
                {!user && <Login />}
 
@@ -56,7 +50,8 @@ const Header = () => {
                     {/* //? Logo =>  */}
                     <section className="flex items-center justify-end">
                          {categories && categories.length > 0 && (
-                              <button className="flex items-center lg:hidden ml-4 justify-center p-2 bg-white" onClick={() => setIsCategoryPanel(!isCategoryPanel)}>
+                              // Menu Button
+                              <button className="flex items-center lg:hidden ml-4 justify-center p-2 bg-white" onClick={() => setIsSmallScreenModal(!isSmallScreenModal)}>
                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-700">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                    </svg>
@@ -95,25 +90,25 @@ const Header = () => {
                          </Link>
                          {user && user.account_type === 'normal' ? (
                          <>
-                              <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">
+                              <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">
                                    {toPersianDigits(user.phone_number_primary)}
                               </button>
-                              <nav className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute z-50  top-[39px] left-[1px]  whitespace-nowrap py-2`}>
+                              <nav className={`userPanel overflow-hidden bg-white border border-gray-300 border-t-0 rounded-b-md hidden absolute z-50  top-[42px] left-[0px]  whitespace-nowrap `}>
                                    <Link href={'/user/favorites'} >
-                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">محبوب‌ها</a>
+                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
                                    </Link>
                                    <Link href={'/user/history'} >
-                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-1.5 text-center font-sans block">مشاهدات اخیر</a>
+                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
                                    </Link>
-                                   <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-1.5 text-center font-sans ">
+                                   <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-2 text-center font-sans ">
                                         خروج
                                    </button>
                               </nav>
                          </>
                          ) : user && user.account_type !== 'normal' ? (
                          <>
-                              <button onClick={() => closeCategory() & setUserPanel(!userPanel)} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">{toPersianDigits(user.phone_number_primary)}</button>
-                              <div className={`bg-white rounded-b-md ${userPanel ? "" : "hidden"} absolute  top-[33px] left-[1px]  whitespace-nowrap py-2`}>
+                              <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 py-3  font-sans text-sm min-w-[121px] max-w-[121px]">{toPersianDigits(user.phone_number_primary)}</button>
+                              <div className={`userPanel bg-white border hidden overflow-hidden border-gray-300 border-t-0 rounded-b-md  absolute  top-[42px] left-[0px]  whitespace-nowrap `}>
                                    {user.is_pending ? (
                                         <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[119.2px] max-w-[119.2px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-1.5 text-center font-sans block">در حال بررسی</button>
                                         ) : (
@@ -129,7 +124,7 @@ const Header = () => {
                                                   </Link>
                                              </nav>
                                    )}
-                                   <button onClick={()=> {dispatch(userLogout())}} className="min-w-[119.2px] max-w-[119.2px] text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 w-full py-1.5 text-center font-sans ">خروج</button>
+                                   <button onClick={()=> {dispatch(userLogout())}} className="min-w-[119.2px] max-w-[119.2px] text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 w-full py-2 text-center font-sans ">خروج</button>
                               </div>
                          </>
                          ) : (
@@ -137,7 +132,7 @@ const Header = () => {
                                    {loading ? (
                                         <button className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2  text-sm">...</button>
                                    ) : (
-                                        <button onClick={() => closeCategory() & dispatch(authPanel({isOpen : true,type : "normal"}))} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">ورود / ثبت نام</button>
+                                        <button onClick={() => handleUserPanel_btn() & dispatch(authPanel({isOpen : true,type : "normal"}))} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">ورود / ثبت نام</button>
                                    )}
                               </>
                          )}
@@ -157,25 +152,11 @@ const Header = () => {
 
                {/* //?  Menu For Big Screen  ==> */}
                <section className="hidden lg:flex px-5 gap-x-6 font-sans text-sm mt-6">
-                    <BigScreenMenu
-                         customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}
-                         setIsCategoryPanel={setIsCategoryPanel}
-                         isCategoryPanel={isCategoryPanel}
-                         closeCategory={closeCategory}
-                         handleCategory={handleCategory}
-                         categories={categories}
-                    />
+                    <BigScreenMenu customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}/>
                </section>
 
                {/* //?  Menu For Small Width - Responsive  ==> */}
-               <SmallScreenMenu
-                    isCategoryPanel={isCategoryPanel}
-                    setIsCategoryPanel={setIsCategoryPanel}
-                    closeCategory={closeCategory}
-                    categories={categories}
-                    handleCategory={handleCategory}
-                    customClassname="lg:hidden"
-               />
+               {isSmallScreenModal && <SmallScreenMenu customClassname="lg:hidden" isSmallScreenModal={isSmallScreenModal} setIsSmallScreenModal={setIsSmallScreenModal} />} 
           </header>
      );
 };
