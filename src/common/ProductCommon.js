@@ -8,7 +8,7 @@ const ProductCommon = ({product}) => {
      return (  
           <>
                {product.is_available ? (
-                    <Link href={!product.is_available ? "#" : `/product/${product.title.replace(/\s+/g, '-')}`}>
+                    <Link href={encodeURI(`/product/${product.title.replace(/\s+/g, '-')}`)}>
                          <a  className="bg-white rounded-md w-full h-full min-w-[200px] p-4 flex flex-col sm:items-center">
                               <div className="flex flex-row sm:flex-col sm:items-center">
                                    <section className="w-40 lg:w-36 flex justify-center pt-4 relative  ">
