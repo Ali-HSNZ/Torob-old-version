@@ -7,6 +7,9 @@ import {
      STORE_FETCH_INVOICE_ITEMS_REQUEST,
      STORE_FETCH_INVOICE_ITEMS_SUCCESS,
      STORE_FETCH_INVOICE_ITEMS_FAILURE,
+     STORE_ACTION_LOADING_REQUEST,
+     STORE_ACTION_LOADING_SUCCESS,
+     STORE_ACTION_LOADING_FAILURE,
 } from "./manageFactors_types";
 
 export const store_fetchFactorsRequest = () => {return {type : STORE_FETCH_FACTORES_REQUEST}}
@@ -17,6 +20,9 @@ export const store_fetchInvoiceItemsRequest = () => {return {type : STORE_FETCH_
 export const store_fetchInvoiceItemsSuccess = payload => {return {type : STORE_FETCH_INVOICE_ITEMS_SUCCESS , payload}}
 export const store_fetchInvoiceItemsFailure = payload => { return {type : STORE_FETCH_INVOICE_ITEMS_FAILURE , payload}}
 
+const store_changeInvoiceStateLoadingRequest = (payload) => {return {type : STORE_ACTION_LOADING_REQUEST , payload}}
+const store_changeInvoiceStateLoadingSuccess = (payload) => {return {type : STORE_ACTION_LOADING_SUCCESS , payload}}
+const store_changeInvoiceStateLoadingFailure = (payload) => {return {type : STORE_ACTION_LOADING_FAILURE , payload}}
 
 
 export const store_fetchFactors = ({state , brand,category,name,number,order , title , limit , page}) => dispatch => {
@@ -31,11 +37,16 @@ export const store_fetchFactors = ({state , brand,category,name,number,order , t
 
 
 export const store_changeInvoiceState = ({invoiceId,state,comment}) => dispatch => {
-     const currentComment = comment && comment.includes(invoiceId) ?  comment[invoiceId] :  ""
+     const currentComment = Object.keys(comment).find(state => Number(state) ===invoiceId) 
+     dispatch(store_changeInvoiceStateLoadingRequest(invoiceId))
      dispatch(store_fetchFactorsRequest())
-     http.put(`store/invoices/${invoiceId}/state`, {state,comment : currentComment} , {headers : {authorization : token}})
-     .then(({data}) => dispatch(store_fetchFactorsSuccess(data.product)))
+     http.put(`store/invoices/${invoiceId}/state`, {state,comment : comment[currentComment]  || ""} , {headers : {authorization : token}})
+     .then(({data}) =>{
+          dispatch(store_changeInvoiceStateLoadingSuccess(invoiceId))
+          dispatch(store_fetchFactorsSuccess(data))
+     })
      .catch(error => {
+          dispatch(store_changeInvoiceStateLoadingFailure(invoiceId))
           requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش تفییرات فاکتور"})
           dispatch(store_fetchFactorsFailure("خطای سرور در بخش تفییرات فاکتور"))
      })
