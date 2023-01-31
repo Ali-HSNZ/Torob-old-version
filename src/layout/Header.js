@@ -122,7 +122,17 @@ const Header = () => {
                               <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 py-3  font-sans text-sm min-w-[121px] max-w-[121px]">{toPersianDigits(user.phone_number_primary)}</button>
                               <div className={`userPanel bg-white border hidden overflow-hidden border-gray-300 border-t-0 rounded-b-md  absolute  top-[42px] left-[0px]  whitespace-nowrap `}>
                                    {user.is_pending ? (
-                                        <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[119.2px] max-w-[119.2px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-1.5 text-center font-sans block">در حال بررسی</button>
+                                        <>
+                                             <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[120px] max-w-[120px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</button>
+                                             <nav>
+                                                  <Link href={'/user/favorites'} >
+                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                  </Link>
+                                                  <Link href={'/user/history'} >
+                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                  </Link>
+                                             </nav>
+                                             </>
                                         ) : (
                                              <nav>
                                                   <Link href={`/${user.account_type}`} >
