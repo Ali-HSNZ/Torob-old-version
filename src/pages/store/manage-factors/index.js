@@ -28,7 +28,7 @@ const ManageFactors = () => {
      const [isAsideModal , setIsAsideModal] = useState(false)
      const {brands} = useSelector(state => state.manage_store.brands)
      const {categories} = useSelector(state => state.manage_store.categories)
-     const {factors , loading} = useSelector(state => state.store_factor);
+     const {factors , loading , actionLoading} = useSelector(state => state.store_factor);
      const dispatch = useDispatch()
      const [comment , setComment] = useState(null)
      
@@ -49,6 +49,8 @@ const ManageFactors = () => {
      ]
      const returnState = (type) => allState.find(state => state.type === type);
      const [status , setStatus] = useState(allState[0])
+
+     const isActionLoading = id =>  actionLoading.includes(id);
 
 
      const [selectedCategory, setSelectedCategory] = useState("")
@@ -90,7 +92,6 @@ const ManageFactors = () => {
           validationSchema
      })
 
-     console.log("factors : ",factors);
      
      return (  
           <Layout isFooter={true} pageTitle="پنل فروشگاه | مدیریت فاکتور">
@@ -178,10 +179,10 @@ const ManageFactors = () => {
                          {factors?.users?.length === 0 && !loading && <Warning text={'فاکتوری یافت نشد!'}/>}
 
                          <section className="rounded-md overflow-hidden w-full mt-3  shadow-md flex flex-col">
-                              {factors && factors.users.length > 0 &&  factors.users.map((factor) => (
-                                   <section key={factor.id}>
+                              {factors && factors.users.length > 0 &&  factors.users.map((factor,index) => (
+                                   <section key={index}>
                                         <div className="p-4 bg-white w-full">
-                                             <input  type={"checkbox"}  id={`mainDetail_${factor.id}`} className="peer hidden"/>
+                                             <input  type={"checkbox"}  id={`mainDetail_${index}`} className="peer hidden"/>
                                              <section className=" flex flex-col md:flex-row items-center  justify-between">
                                                   <div className="w-full  mr-4  mt-4 sm:mt-0">
                                                        <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-y-3">
@@ -214,7 +215,7 @@ const ManageFactors = () => {
                                                   
                                                   <div className="w-full md:w-fit flex items-center mt-4 md:mt-0 justify-between md:justify-end">
                                                        <p className="whitespace-nowrap font-sans text-sm bg-gray-50 text-gray-600 rounded-md px-3 py-1">{toPersianPrice(factor.invoices.length)} فاکتور</p>
-                                                       <label htmlFor={`mainDetail_${factor.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                       <label htmlFor={`mainDetail_${index}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
                                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                             </svg>
@@ -267,7 +268,7 @@ const ManageFactors = () => {
                                                                            </div>
                                                                       </div>
                                                                       <div className="flex justify-between md:justify-end mt-4 md:mt-0 items-center gap-x-4">
-                                                                           <p className="whitespace-nowrap inline-block h-fit w-fit font-sans text-sm bg-gray-50 text-gray-600 rounded-md px-3 py-1">{factor.state}</p>
+                                                                           <p className="whitespace-nowrap inline-block h-fit w-fit font-sans text-sm bg-gray-50 text-gray-600 rounded-md px-3 py-1">{factor.state_persian}</p>
                                                                            <label htmlFor={`itemDetail_${factor.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
                                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -317,16 +318,31 @@ const ManageFactors = () => {
                                                                                 </div>
                                                                            ))}
                                                                       </section> 
-
                                                                       <p className="font-sans text-sm mt-4">توضیحات : </p>
-                                                                      <textarea name={factor.id} onChange={input => handleInputChange(input)} className={`border-gray-300 hover:border-gray-600  focus:border-gray-600 mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-8`}/>
+                                                                      <textarea name={factor.id} disabled={factor.state === "finished" || factor.state === "rejected"} defaultValue={factor.store_comment || ""}  onChange={input => handleInputChange(input)} className={`disabled:cursor-default disabled:hover:border-gray-300 border-gray-300 hover:border-gray-600  focus:border-gray-600 mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-8`}/>
                                                                  
                                                                       <section className="flex w-full items-center  justify-end gap-x-4 mt-4">
                                                                            <p className="font-sans text-sm">تغییر وضعیت : </p>
-                                                                           {/* <button className={buttonClassName({bgColor : 'blue' , isValid : true , isOutline : true})}>در حال ارسال</button> */}
-                                                                           <button className={buttonClassName({bgColor : 'red' , isValid : true , isOutline : true})}>رد کردن</button>
-                                                                           <button  onClick={() => dispatch(store_changeInvoiceState({comment , invoiceId : factor.id , state : "accept"}))} className={buttonClassName({bgColor : 'green' , isValid : true , isOutline : true})}>تایید فاکتور</button>
-                                                                           {/* <button className={buttonClassName({bgColor : 'blue' , isValid : true , isOutline : true})}>ارسال شده</button> */}
+                                                                           {isActionLoading(factor.id) ? (
+                                                                                     <ReactLoading type="spinningBubbles" height={26} width={26} color="red" />
+                                                                           ) : (
+                                                                                <>
+                                                                                     {factor.state === "rejected" ? (
+                                                                                          <p className="font-sans text-sm text-red-600">رد شده</p>
+                                                                                     ) : factor.state === "accepted" ? (
+                                                                                          <button onClick={() => dispatch(store_changeInvoiceState({comment , invoiceId : factor.id , state : "sending"}))} className={buttonClassName({bgColor : 'blue' , isValid : true , isOutline : true})}>در حال ارسال</button> 
+                                                                                     ) :  factor.state === "sending" ? (
+                                                                                          <button onClick={() => dispatch(store_changeInvoiceState({comment , invoiceId : factor.id , state : "finished"}))} className={buttonClassName({bgColor : 'blue' , isValid : true , isOutline : true})}>ارسال شده</button>
+                                                                                     ) : factor.state === "finished" ?  (
+                                                                                          <p className="font-sans text-sm text-green-600">ارسال شده</p>
+                                                                                     ) : (
+                                                                                          <>
+                                                                                               <button onClick={() => dispatch(store_changeInvoiceState({comment , invoiceId : factor.id , state : "reject"}))} className={buttonClassName({bgColor : 'red' , isValid : true , isOutline : true})}>رد کردن</button>
+                                                                                               <button  onClick={() => dispatch(store_changeInvoiceState({comment , invoiceId : factor.id , state : "accept"}))} className={buttonClassName({bgColor : 'green' , isValid : true , isOutline : true})}>تایید فاکتور</button>
+                                                                                          </>
+                                                                                     )}
+                                                                                </>
+                                                                           )}
                                                                       </section>
                                                                  </div>
 
