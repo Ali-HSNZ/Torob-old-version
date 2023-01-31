@@ -9,12 +9,13 @@ const StoreCommon = ({store , index}) => {
      const dispatch = useDispatch()
      const {cart , increaseOrDecreaseProductCartLoading} = useSelector(state => state.cart)
      const {user} = useSelector(state => state.auth)
-
+     
      const availableStoreInCart = () => {
-          if(cart.data && cart.data.length > 0){
-               return cart.data.find(state => state.store_id === store.store_id)
+          if(cart.data.length > 0){
+               return cart.data.find(state => state.product_id=== store.product_id)
           }else return false
      }
+
      const isIncreaseProductLoading = () => {
           if(increaseOrDecreaseProductCartLoading.length > 0){
                const availableStore = increaseOrDecreaseProductCartLoading.find(state => state.store_id === store.store_id)
