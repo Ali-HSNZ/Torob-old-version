@@ -18,6 +18,7 @@ import { admin_changePasswordReducer } from "./admin/admin_changePassword.js/adm
 import { cartReducer } from "./cart/cart/cartReducer";
 import { checkoutReducer } from "./cart/checkout/checkoutReducer";
 import { categoriesReducer } from "./categories/categoriesReducer";
+import { store_factorReducer } from "./manage-store/manageFactors/manageFactors_reducer";
 
 const rootReducer = combineReducers({
      // User
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
      // Store Panel Reducers
      manage_store: manageStoreReducer,
      store_companyProducts: store_companyProductsReducer,
+     store_factor : store_factorReducer,
 
      // Signup User And Store
      signupReducer: signupReducer,
