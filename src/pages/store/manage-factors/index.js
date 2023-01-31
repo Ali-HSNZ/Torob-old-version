@@ -1,5 +1,5 @@
 import Layout from "@/layout/Layout";
-import { Modal } from "@mui/material";
+import { Modal , Pagination} from "@mui/material";
 import { useEffect, useState } from "react";
 import ManageStoreAside from "@/components/manageStore/storeAside";
 import Link from "next/link";
@@ -23,18 +23,20 @@ import { useRouter } from "next/router";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
 
+
 const ManageFactors = () => {
      const [isAsideModal , setIsAsideModal] = useState(false)
      const {brands} = useSelector(state => state.manage_store.brands)
      const {categories} = useSelector(state => state.manage_store.categories)
      const {factors , loading} = useSelector(state => state.store_factor);
-     const limit = 5
      const dispatch = useDispatch()
      const [comment , setComment] = useState(null)
-
+     
      const handleInputChange = input => setComment({...comment ,  [input.target.name] : input.target.value})
-
+     
      const router= useRouter()
+     const page = Number(router.query.page || 1);
+     const limit = 5
 
      const allState = [
           {type : "all" , name:"نمایش همه وضعیت ها" },
@@ -337,6 +339,12 @@ const ManageFactors = () => {
                                    </section>
                               ))}
                          </section>
+
+                         {!loading && factors?.users?.length > 0 && <section dir="ltr" className=" w-full flex justify-center py-4">
+                                <Pagination size="large" color="primary" page={page} count={factors?.pagination?.last || 1} onChange={(event , page)=> {
+                                   router.push(`/store/manage-factors?page=${page || 1}&state=${router.query.state || 'all'}&number=${router.query.number || ""}&name=${router.query.name || ""}&limit=${limit || 5}&order=${router.query.order || 'desc'}&category=${router.query.category || ""}&brand=${router.query.brand || ""}&title=${router.query.title || ""}`)
+                                }}/>
+                         </section>}
 
                     </section>
                </div>
