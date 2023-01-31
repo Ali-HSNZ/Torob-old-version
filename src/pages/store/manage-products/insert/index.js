@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
 import FormikInput from "@/common/admin/FormikInput";
-import { fetchBaseProducts, fetchBrands, fetchBrandsFailure, fetchBrandsSuccess, fetchCategories, store_fetchCategoriesFailure, store_fetchCategoriesSuccess } from "@/redux/manage-store/manageStore/manageStore_actions";
+import { fetchBaseProducts, fetchBaseProductsRequest, fetchBrands, fetchBrandsFailure, fetchBrandsSuccess, fetchCategories, store_fetchCategoriesFailure, store_fetchCategoriesSuccess } from "@/redux/manage-store/manageStore/manageStore_actions";
 import SelectBox from "@/common/admin/SelectBox";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
@@ -47,12 +47,7 @@ const ManageStores = () => {
     
     useEffect(()=> {
         window.scroll({top : 0 , behavior : 'smooth'})
-        const {page , brand,category,name,barcode,order} = router.query;
-        const payload = {page,limit,paramsBrand :  brand,barcode, paramsCategory :  category ,name}
-
-        dispatch(fetchBaseProducts(payload))
-     //    dispatch(fetchBrands())
-     //    dispatch(fetchCategories()) 
+        dispatch(fetchBaseProducts(router.query))
     },[router.query])
 
     const onSubmit = ({ product_title ,barcode,order}) => {
@@ -281,6 +276,9 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
 
      if(ErrorCode === 403){return{notFound : true}}
           
+     dispatch(fetchBaseProductsRequest())
+
+     
      // Fetch Navbar Categories
      await http.get(`public/categories`)
      .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
