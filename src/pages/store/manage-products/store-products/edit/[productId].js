@@ -407,10 +407,10 @@ export default InsertStoreProduct;
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async(ctx) => {
 
      // Check Permission
-     const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie , key : "userToken"});
+     const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie});
           
      let ErrorCode = 0;
-     if(!token) return {notFound : true}
+     if(token.includes("undefined")) return {notFound : true}
 
      // Fetch User Data     
      await http.get("user", {headers : {authorization : token}})
