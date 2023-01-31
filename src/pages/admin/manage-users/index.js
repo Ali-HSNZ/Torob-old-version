@@ -10,7 +10,7 @@ import * as Yup from 'yup'
 import { useFormik } from "formik";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
-import { fetchUsers, fetchUsersFailure, fetchUsersSuccess } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
+import { fetchUsers, fetchUsersFailure, fetchUsersRequest, fetchUsersSuccess } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
 import FormikInput from "@/common/admin/FormikInput";
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
 import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
@@ -39,9 +39,7 @@ const ManageStores = () => {
      useEffect(()=> {
           setStatus(router.query.state ? returnState(router.query.state) : allState[0])
           window.scroll({top : 0 , behavior : 'smooth'})
-          const {state , page , national_code,full_name,number,order} = router.query;
-          const payload = {state,page,limit,order,national_code,number,full_name}
-          dispatch(fetchUsers(payload))
+          dispatch(fetchUsers(router.query))
      },[router.query])
 
      const onSubmit = ({ full_name ,national_code,number,order}) => {
@@ -290,8 +288,11 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      }
      
      if(ErrorCode === 403){return{notFound : true}}
+     
+     // Dispatch This For Showing Loading
+     dispatch(fetchUsersRequest())
            
-
+     // 
      // Fetch Categories
      await http.get(`public/categories`)
      .then(({data}) => dispatch(fetchCategoriesSuccess(data)))

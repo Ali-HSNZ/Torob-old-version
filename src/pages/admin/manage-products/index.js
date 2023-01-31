@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { admin_fetchCategoriesFailure, admin_fetchCategoriesSuccess, fetchBrandsFailure, fetchBrandsSuccess, fetchProducts } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
+import { admin_fetchCategoriesFailure, admin_fetchCategoriesSuccess, fetchBrandsFailure, fetchBrandsSuccess, fetchProducts, fetchProductsRequest } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 import ReactLoading from "react-loading";
@@ -60,9 +60,7 @@ const ManageProduct = () => {
      useEffect(()=> {
           window.scroll({top : 0 , behavior : 'smooth'})
           setStatus(router.query.state ? returnState(router.query.state) : allState[0])
-          const {state , page , brand,category,name,barcode,order} = router.query;
-          const payload = {state,page,limit,order,paramsBrand :  brand,barcode, paramsCategory :  category ,name}
-          dispatch(fetchProducts(payload))
+          dispatch(fetchProducts(router.query))
      },[router.query])
 
      const onSubmit = ({ product_title ,barcode,order}) => {
@@ -299,6 +297,9 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      })
 
      if(ErrorCode === 403){return{notFound : true}}
+
+     // Dispatch This For Showing Loading
+     dispatch(fetchProductsRequest())
 
      // Fetch Navbar Categories
      await http.get(`public/categories`)

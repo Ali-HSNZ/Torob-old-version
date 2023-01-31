@@ -10,7 +10,7 @@ import {
     STORE_FETCH_COMPANY_ONE_PRODUCT_FAILURE, 
 } from "./companyProducts_Types"
 
-const fetchCompanyProductsRequest = () => {return {type : STORE_FETCH_COMPANY_PRODUCTS_REQUEST}}
+export const fetchCompanyProductsRequest = () => {return {type : STORE_FETCH_COMPANY_PRODUCTS_REQUEST}}
 const fetchCompanyProductsSuccess = (payload) => {return {type : STORE_FETCH_COMPANY_PRODUCTS_SUCCESS , payload}}
 const fetchCompanyProductsFailure = (payload) => {return {type : STORE_FETCH_COMPANY_PRODUCTS_FAILURE , payload}}
 
@@ -18,9 +18,9 @@ const fetchCompanyOneProductRequest = () => {return {type : STORE_FETCH_COMPANY_
 export const fetchCompanyOneProductSuccess = (payload) => {return {type : STORE_FETCH_COMPANY_ONE_PRODUCT_SUCCESS , payload}}
 export const fetchCompanyOneProductFailure = (payload) => {return {type : STORE_FETCH_COMPANY_ONE_PRODUCT_FAILURE , payload}}
 
-export const fetchCompanyProducts = ({state, page, limit,order, paramsBrand,barcode, paramsCategory, name}) => dispatch => {
+export const fetchCompanyProducts = ({state,page,limit,order, brand,barcode,  category ,name}) => dispatch => {
      dispatch(fetchCompanyProductsRequest())
-     http.get(encodeURI(`store/products?state=${state || "all"}&order=${order || "desc"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : token}})
+     http.get(encodeURI(`store/products?state=${state || "all"}&order=${order || "desc"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${category || ""}&brand_id=${brand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchCompanyProductsSuccess(data)))
      .catch(error => {
           requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش گرفتن لیست کالاها"})

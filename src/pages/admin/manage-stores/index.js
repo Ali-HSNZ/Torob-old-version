@@ -10,7 +10,7 @@ import * as Yup from 'yup'
 import { useFormik } from "formik";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
-import { fetchStores } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
+import { fetchStoreRequest, fetchStores } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
 import FormikInput from "@/common/admin/FormikInput";
 import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 import { wrapper } from "@/redux/store";
@@ -347,6 +347,9 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      })
 
      if(ErrorCode === 403){return{notFound : true}}
+
+     // Dispatch This For Showing Loading
+     dispatch(fetchStoreRequest())
 
      // Fetch Navbar Categories
      await http.get(`public/categories`)

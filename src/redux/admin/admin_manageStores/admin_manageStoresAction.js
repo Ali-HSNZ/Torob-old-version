@@ -18,7 +18,7 @@ const insertStoreRequest = () => {return {type : ADMIN_INSERT_STORE_REQUEST}}
 const insertStoreSuccess = (payload) => {return {type : ADMIN_INSERT_STORE_SUCCESS , payload}}
 const insertStoreFailure = (payload) => {return {type : ADMIN_INSERT_STORE_FAILURE , payload}}
 
-const fetchStoreRequest = () => {return {type : ADMIN_FETCH_STORE_REQUEST}}
+export const fetchStoreRequest = () => {return {type : ADMIN_FETCH_STORE_REQUEST}}
 const fetchStoreSuccess = (payload) => {return {type : ADMIN_FETCH_STORE_SUCCESS , payload}}
 const fetchStoreFailure = (payload) => {return {type : ADMIN_FETCH_STORE_FAILURE , payload}}
 

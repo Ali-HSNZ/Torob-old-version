@@ -1,6 +1,6 @@
 import AdminPageAside from "@/components/adminPage/Aside";
 import Layout from "@/layout/Layout";
-import {fetchCategories} from "@/redux/admin/admin_manageCategory/admin_manageCategoryActions";
+import {admin_fetchCategoriesRequest, fetchCategories} from "@/redux/admin/admin_manageCategory/admin_manageCategoryActions";
 import { Modal, Pagination } from "@mui/material";
 import { useEffect } from "react";
 import { useState  } from "react";
@@ -68,9 +68,7 @@ const ManageCategory = () => {
     useEffect(()=>{
         setStatus(router.query.state ? returnState(router.query.state) : allState[0])
         window.scroll({top : 0,behavior:'smooth'})
-        const {state , page , limit,order} = router.query;
-        const payload = {state ,page,limit,order,paramsName : router.query.name || ""}
-        dispatch(fetchCategories(payload))
+        dispatch(fetchCategories( router.query))
     },[router.query])
 
     const onSubmit = ({name,order}) => {
@@ -308,6 +306,9 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           ErrorCode = 403
           dispatch(authFailure("خطا در بخش احراز هویت"))    
      })
+
+     // Dispatch This For Showing Loading
+     dispatch(admin_fetchCategoriesRequest())
 
      if(ErrorCode === 403){return{notFound : true}}
 

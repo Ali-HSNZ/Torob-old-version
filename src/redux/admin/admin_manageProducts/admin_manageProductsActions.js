@@ -34,7 +34,7 @@ import {
      ADMIN_FETCH_CATEGORIES_FAILURE,
 } from "./admin_manageProductsTypes";
 
-const fetchProductsRequest = () => {return {type : ADMIN_FETCH_PRODUCTS_REQUEST}}
+export const fetchProductsRequest = () => {return {type : ADMIN_FETCH_PRODUCTS_REQUEST}}
 const fetchProductsSuccess = (payload) => { return {type : ADMIN_FETCH_PRODUCTS_SUCCESS , payload}}
 const fetchProductsFailure = (payload) => {return {type : ADMIN_FETCH_PRODUCTS_FAILURE , payload}}
 
@@ -143,9 +143,9 @@ export const fetchSub3 = (id) => dispatch => {
     })
 } 
 
-export const fetchProducts = ({state, page, limit,order, paramsBrand,barcode, paramsCategory, name}) => dispatch => {
+export const fetchProducts = ({state , page , brand,category,name,barcode,order , limit}) => dispatch => {
      dispatch(fetchProductsRequest())
-     http.get(encodeURI(`admin/products?state=${state || "all"}&order=${order || "desc"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) ,
+     http.get(encodeURI(`admin/products?state=${state || "all"}&order=${order || "desc"}&title=${name || ""}&barcode=${barcode || ""}&category_id=${category || ""}&brand_id=${brand ||""}&page=${page || 1}&limit=${limit || 12}`) ,
           {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchProductsSuccess(data)))
      .catch(error => {

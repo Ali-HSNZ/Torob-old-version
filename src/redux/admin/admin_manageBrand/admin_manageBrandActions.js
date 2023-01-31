@@ -5,7 +5,7 @@ import {
      ADMIN_FETCH_BRANDS_FAILURE 
 } from "./admin_manageBrandTypes";
 
-const admin_fetchBrandsRequest = () => {return {type : ADMIN_FETCH_BRANDS_REQUEST}}
+export const admin_fetchBrandsRequest = () => {return {type : ADMIN_FETCH_BRANDS_REQUEST}}
 const admin_fetchBrandsSuccess = (payload) => {return {type : ADMIN_FETCH_BRANDS_SUCCESS , payload}}
 const admin_fetchBrandsFailure = (payload) => {return {type : ADMIN_FETCH_BRANDS_FAILURE , payload}}
 

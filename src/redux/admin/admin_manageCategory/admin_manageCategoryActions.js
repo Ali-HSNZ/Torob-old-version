@@ -5,13 +5,13 @@ import {
     ADMIN_FETCH_CATEGORIES_FAILUE ,
 } from "./admin_manageCategoryTypes";
 
-const admin_fetchCategoriesRequest = () => {return {type : ADMIN_FETCH_CATEGORIES_REQUEST}}
+export const admin_fetchCategoriesRequest = () => {return {type : ADMIN_FETCH_CATEGORIES_REQUEST}}
 const admin_fetchCategoriesSuccess = (payload) => {return {type : ADMIN_FETCH_CATEGORIES_SUCCESS , payload}}
 const admin_fetchCategoriesFailure = (payload) => {return {type : ADMIN_FETCH_CATEGORIES_FAILUE , payload}}
 
-export const fetchCategories = ({state , page , limit , paramsName , order}) => dispatch => {
+export const fetchCategories = ({state , page , limit , name , order}) => dispatch => {
      dispatch(admin_fetchCategoriesRequest())
-     http.get(`admin/categories?state=${state || 'all'}&order=${order || 'desc'}&name=${paramsName || ""}&page=${page || 1}&limit=${limit || 12}` , {headers : {authorization : token}})
+     http.get(`admin/categories?state=${state || 'all'}&order=${order || 'desc'}&name=${name || ""}&page=${page || 1}&limit=${limit || 12}` , {headers : {authorization : token}})
      .then(({data}) => dispatch(admin_fetchCategoriesSuccess(data)))
      .catch(error => {
           requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش گرفتن لیست دسته‌بندی ها"})        

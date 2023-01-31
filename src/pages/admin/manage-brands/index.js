@@ -1,7 +1,7 @@
 import AdminPageAside from "@/components/adminPage/Aside";
 import DialogAlert_deleteBrand from "@/components/adminPage/manage-brand/DialogAlert_deleteBrand";
 import Layout from "@/layout/Layout";
-import { fetchBrands } from "@/redux/admin/admin_manageBrand/admin_manageBrandActions";
+import { admin_fetchBrandsRequest, fetchBrands } from "@/redux/admin/admin_manageBrand/admin_manageBrandActions";
 import { Modal, Pagination } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -274,6 +274,9 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           ErrorCode = 403
           dispatch(authFailure("خطا در بخش احراز هویت"))    
      })
+     
+     // Dispatch This For Showing Loading
+     dispatch(admin_fetchBrandsRequest())
 
      if(ErrorCode === 403){return{notFound : true}}
 

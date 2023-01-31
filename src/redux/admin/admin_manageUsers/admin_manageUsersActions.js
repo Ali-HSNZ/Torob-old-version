@@ -21,12 +21,12 @@ const fetchOneUserRequest = () => {return {type : ADMIN_FETCH_ONE_USER_REQUEST}}
 export const fetchOneUserSuccess = (payload) => {return {type : ADMIN_FETCH_ONE_USER_SUCCESS , payload }}
 export const fetchOneUserFailure = (payload) => {return {type : ADMIN_FETCH_ONE_USER_FAILURE , payload }}
 
-const fetchUsersRequest = () => {return {type : ADMIN_FETCH_USERS_REQUEST}}
+export const fetchUsersRequest = () => {return {type : ADMIN_FETCH_USERS_REQUEST}}
 export const fetchUsersSuccess = (payload) => {return {type : ADMIN_FETCH_USERS_SUCCESS , payload }}
 export const fetchUsersFailure = (payload) => {return {type : ADMIN_FETCH_USERS_FAILURE , payload }}
 
 
-export const fetchUsers = ({state,page,limit,order,full_name,number,national_code}) => dispatch => {
+export const fetchUsers = ({state,page,limit,order,national_code,number,full_name}) => dispatch => {
      dispatch(fetchUsersRequest())
      http.get(encodeURI(`admin/users?state=${state || "all"}&national_code=${national_code || ""}&full_name=${full_name || ""}&number=${number || ""}&order=${order || "desc"}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchUsersSuccess(data)))
