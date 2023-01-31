@@ -17,118 +17,129 @@ import ReactLoading from 'react-loading';
 import FormikInput from "@/common/admin/FormikInput";
 import { signupUserAction } from "@/redux/signup/signupActions";
 import { ONLY_DIGIT_REGIX, PASSWORD_REGIX, PHONE_NUMBER_REGIX, POSTAL_CODE_REGIX } from "@/utils/Regex";
-import { returnTokenInServerSide } from "src/services/http";
+import http, { returnTokenInServerSide } from "src/services/http";
+import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { authFailure, authSuccess } from "@/redux/user/userActions";
+import { wrapper } from "@/redux/store";
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
+import { buttonClassName } from "@/utils/global";
 
 
-const UserSignup = () => {
-    const { loading} = useSelector(state => state.signupReducer)
-    const dispatch = useDispatch()
-    const [provienceQuery,setProvienceQuery] = useState('')
-    const [cities,setCities] = useState(null)    
-    const [cityQuery , setCityQuery] = useState("")
-    const [selectedProvience,setSelectedProvience] = useState("")
-    const [selectedCity,setSelectedCity] = useState("")
+const UserSignup = ({numbers}) => {
+     const { loading} = useSelector(state => state.signupReducer)
+     const dispatch = useDispatch()
+     const [provienceQuery,setProvienceQuery] = useState('')
+     const [cities,setCities] = useState(null)    
+     const [cityQuery , setCityQuery] = useState("")
+     const [selectedProvience,setSelectedProvience] = useState("")
+     const [selectedCity,setSelectedCity] = useState("")
 
-    const filteredProvinces = provienceQuery === '' ? provinces : provinces && provinces.filter((province) => province.name.toLowerCase().replace(/\s+/g, '').includes(provienceQuery.toLocaleLowerCase().replace(/\s+/g, '')))
-    const filteredCities = cityQuery === '' ? cities : cities && cities.filter((city) => city.name.toLowerCase().replace(/\s+/g, '').includes(cityQuery.toLocaleLowerCase().replace(/\s+/g, '')))
+     const filteredProvinces = provienceQuery === '' ? provinces : provinces && provinces.filter((province) => province.name.toLowerCase().replace(/\s+/g, '').includes(provienceQuery.toLocaleLowerCase().replace(/\s+/g, '')))
+     const filteredCities = cityQuery === '' ? cities : cities && cities.filter((city) => city.name.toLowerCase().replace(/\s+/g, '').includes(cityQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
-    const [isImage_Modal,setIsImage_Modal] = useState(false)
-    const [onChangeFile , setOnChangeFile] = useState(null)
+     const [isImage_Modal,setIsImage_Modal] = useState(false)
+     const [onChangeFile , setOnChangeFile] = useState(null)
 
-    const image_input_ref = useRef()
+     const image_input_ref = useRef()
 
-    const checkImageFormat = (fileName) => {
-        const type =  fileName.split('.').pop();
-        const valid = ['png','jpg','jpeg','webp']
-        if(!valid.includes(type.toLocaleLowerCase())){
-            return false
-        }
-        return true
-    }
+     const checkImageFormat = (fileName) => {
+          const type =  fileName.split('.').pop();
+          const valid = ['png','jpg','jpeg','webp']
+          if(!valid.includes(type.toLocaleLowerCase())){
+               return false
+          }
+          return true
+     }
 
-    const changeFIleAction_input = (input,min,max,setOnChangeFile,title,minTitle,maxTitle,ref) => {
-        const image = input.target.files[0]
-        if(input.target.files && image){
-            if(!checkImageFormat(image.name)){
-                toast.error(`تصویر ${title} معتبر نیست`)
-                ref.current.value = null
-                return false
-            }
-            if(Number(image.size) < (min*1000)){
-                toast.error(`تصویر ${title} نمی تواند کمتر از ${toPersianDigits(minTitle)} باشد`)
-                ref.current.value = null
-                return false
-            } 
-            if(Number(image.size) > (max*1000)){
-                toast.error(`تصویر ${title} نمی تواند بیشتر از ${toPersianDigits(maxTitle)}  باشد`)
-                ref.current.value = null
-                return false
-            }
-            setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
-        }
-    }
+     const changeFIleAction_input = (input,min,max,setOnChangeFile,title,minTitle,maxTitle,ref) => {
+          const image = input.target.files[0]
+          if(input.target.files && image){
+               if(!checkImageFormat(image.name)){
+                    toast.error(`تصویر ${title} معتبر نیست`)
+                    ref.current.value = null
+                    return false
+               }
+               if(Number(image.size) < (min*1000)){
+                    toast.error(`تصویر ${title} نمی تواند کمتر از ${toPersianDigits(minTitle)} باشد`)
+                    ref.current.value = null
+                    return false
+               } 
+               if(Number(image.size) > (max*1000)){
+                    toast.error(`تصویر ${title} نمی تواند بیشتر از ${toPersianDigits(maxTitle)}  باشد`)
+                    ref.current.value = null
+                    return false
+               }
+               setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
+          }
+     }
 
-    useEffect(()=>{
-        setSelectedCity('')
-        const id = selectedProvience && selectedProvience.id || null;
-        if(id){
-            const cities = allCities.filter(city => city.province_id === selectedProvience.id)
-            setCities(cities)
-        }else{
-            setCities(null)
-        }
-    },[selectedProvience])
-    
-    
-    const onSubmit = (values) => {
-        const profileImage = onChangeFile && onChangeFile.selectedFile || null;
-        const city = selectedCity && selectedCity.name || null
-        const province = selectedProvience && selectedProvience.name || null
-        dispatch(signupUserAction({values,profileImage,city,province}))
-    }
+     useEffect(()=>{
+          setSelectedCity('')
+          const id = selectedProvience && selectedProvience.id || null;
+          if(id){
+               const cities = allCities.filter(city => city.province_id === selectedProvience.id)
+               setCities(cities)
+          }else{
+               setCities(null)
+          }
+     },[selectedProvience])
+     
+     
+     const onSubmit = (values) => {
+          const profileImage = onChangeFile && onChangeFile.selectedFile || null;
+          const city = selectedCity && selectedCity.name || null
+          const province = selectedProvience && selectedProvience.name || null
+          dispatch(signupUserAction({values,profileImage,city,province}))
+     }
 
-    const validationSchema = Yup.object({
-        house_number : Yup.string()
-        .test('house_number_checkLength' , "شماره تلفن ثابت  معتبر نیست." , (value = "") => {
-            const staticPhoneNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
-            if(staticPhoneNumber.length > 0){
-                if(staticPhoneNumber.length < 11) return false;
-                return true
-            }
-            return true
-        }),
-        full_name : Yup.string()
-            .required('نام و نام خانوادگی الزامی است')
-            .min(3, "نام و نام خانوادگی نمی تواند کم تر از ۳ نویسه باشد")
-            .max(50,"نام و نام خانوادگی نمی تواند بیشتر از ۵۰ نویسه باشد")
-            .trim(),
-        password : Yup.string()
-            .min(6 , "رمز عبور نمی تواند کمتر از ۶ کاراکتر باشد")
-            .max(24 , "رمز عبور نمی تواند بیشتر از ۲۴ نویسه باشد")
-            .required("رمز عبور الزامی است.")
-            .matches(PASSWORD_REGIX,"رمز عبور معتبر نیست | رمز عبور میتواند ترکیبی از عدد و حروف انگلیسی باشد"),
-        national_code : Yup.string()
-            .required("کد ملی الزامی است")
-            .length(10 , "کد ملی نامعتبر است")
-            .matches(ONLY_DIGIT_REGIX , "کد ملی نامعتبر است")
-            .trim(),
-        phone_number_primary : Yup.string()
-            .required('شماره همراه الزامی است')
-            .matches(PHONE_NUMBER_REGIX,"شماره همراه معتبر نیست")
-            .trim(),
-        phone_number_secondary : Yup.string()
-            .matches(PHONE_NUMBER_REGIX,"شماره همراه معتبر نیست")
-            .trim(),
-        address_detail : Yup.string()
-            .required('آدرس الزامی است')
-            .min(3,'آدرس نمی تواند کم تر از ۳ نویسه باشد')
-            .max(2000,'آدرس نمی تواند بیشتر از ۲۰۰۰ نویسه باشد')
-            .trim(),
-        address_postcode : Yup.string()
-            .matches(POSTAL_CODE_REGIX , "کد پستی معتبر نیست")
-            .trim(),
-    })
-    
+     const validationSchema = Yup.object({
+          house_number : Yup.string()
+          .test('house_number_checkLength' , "شماره تلفن ثابت  معتبر نیست." , (value = "") => {
+               const staticPhoneNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+               if(staticPhoneNumber.length > 0){
+                    if(staticPhoneNumber.length < 11) return false;
+                    return true
+               }
+               return true
+          })
+          .test("check Availability" , "این شماره توسط شخص دیگری به ثبت رسیده است." , (value="") => {
+               const staticPhoneNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+               return !numbers.numbers.includes(staticPhoneNumber)
+          }),
+          full_name : Yup.string()
+               .required('نام و نام خانوادگی الزامی است.')
+               .min(3, "نام و نام خانوادگی نمی تواند کم تر از ۳ نویسه باشد.")
+               .max(50,"نام و نام خانوادگی نمی تواند بیشتر از ۵۰ نویسه باشد.")
+               .trim(),
+          password : Yup.string()
+               .min(6 , "رمز عبور نمی تواند کمتر از ۶ کاراکتر باشد.")
+               .max(24 , "رمز عبور نمی تواند بیشتر از ۲۴ نویسه باشد.")
+               .required("رمز عبور الزامی است.")
+               .matches(PASSWORD_REGIX,"رمز عبور معتبر نیست | رمز عبور میتواند ترکیبی از عدد و حروف انگلیسی باشد."),
+          national_code : Yup.string()
+               .required("کد ملی الزامی است.")
+               .length(10 , "کد ملی نامعتبر است.")
+               .matches(ONLY_DIGIT_REGIX , "کد ملی نامعتبر است.")
+               .trim(),
+          phone_number_primary : Yup.string()
+               .required('شماره همراه الزامی است.')
+               .matches(PHONE_NUMBER_REGIX,"شماره همراه معتبر نیست.")
+               .trim()
+               .test("check Availability" , "این شماره توسط شخص دیگری به ثبت رسیده است." , value => !numbers.numbers.includes(value)),
+          phone_number_secondary : Yup.string()
+               .matches(PHONE_NUMBER_REGIX,"شماره همراه معتبر نیست.")
+               .test("check Availability" , "این شماره توسط شخص دیگری به ثبت رسیده است." , value => !numbers.numbers.includes(value))
+               .trim(),
+          address_detail : Yup.string()
+               .required('آدرس الزامی است')
+               .min(3,'آدرس نمی تواند کم تر از ۳ نویسه باشد')
+               .max(2000,'آدرس نمی تواند بیشتر از ۲۰۰۰ نویسه باشد')
+               .trim(),
+          address_postcode : Yup.string()
+               .matches(POSTAL_CODE_REGIX , "کد پستی معتبر نیست.")
+               .trim(),
+     })
+     
     const formik = useFormik({
         onSubmit,
         validateOnMount : true,
@@ -194,7 +205,7 @@ const UserSignup = () => {
                                 </div>
 
                                 <div className="flex flex-col relative ">
-                                    <p className="font-sans text-[13px] ">استان :</p>
+                                    <p className="font-sans text-[13px] before:content-['*'] before:text-red-600 ">استان :</p>
                                     <div className="mt-2">
                                         <SelectBox 
                                             notFoundTitle="استان مورد نظر یافت نشد." 
@@ -208,7 +219,7 @@ const UserSignup = () => {
                                 </div>
     
                                 <div className="flex flex-col relative ">
-                                    <p className="font-sans text-[13px] ">شهر :</p>
+                                    <p className="font-sans text-[13px] before:content-['*'] before:text-red-600 ">شهر :</p>
                                     <div className="mt-2">
                                         <SelectBox 
                                             isDisabled={selectedProvience ? false : true}
@@ -259,7 +270,7 @@ const UserSignup = () => {
 
                         <section className="w-full flex justify-end my-4 gap-x-2 items-center ">
                             {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
-                            <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-[13px] rounded-md`}>
+                            <button disabled={loading} type={"submit"} className={buttonClassName({bgColor : 'blue' , isValid : formik.isValid , isOutline : false})}>
                                 ثبت نام 
                             </button>
                         </section>
@@ -272,3 +283,33 @@ const UserSignup = () => {
 }
  
 export default UserSignup;
+
+export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async({req}) => {
+
+     const token = returnTokenInServerSide({cookie : req.headers.cookie})
+     
+       
+     if(!token.includes("undefined")){ 
+          // Fetch User Data     
+          await http.get("user", {headers : {authorization : token}})
+          .then(({data}) =>  {
+               dispatch(addToCartSuccess(data))
+               dispatch(authSuccess(data.user))
+          })  
+          .catch(() => {
+               dispatch(authFailure("خطا در بخش احراز هویت"))    
+          })
+     }
+
+     // Fetch Navbar Categories
+     await http.get(`public/categories`)
+     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+
+     const data = await http.get('numbers').then(res => res.data)
+     return {
+          props : {
+               numbers : data
+          }
+     }
+})
