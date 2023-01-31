@@ -15,7 +15,6 @@ const Header = () => {
                document.addEventListener('click', function handleClickOutsideBox(event) {
                     const userPhoneNumber_btn = document.querySelectorAll('.userPhoneNumber_btn')[0];
                     const panel = document.querySelectorAll('.userPanel')[0];
-
                     if(userPhoneNumber_btn && panel){
                          if(userPhoneNumber_btn.contains(event.target)) {
                               panel.style.display = "block"
@@ -84,7 +83,17 @@ const Header = () => {
                               </button>
                               <div className={`bg-white rounded-b-md   border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute  top-[32px] left-[0px]  whitespace-nowrap `}>
                                    {user.is_pending ? (
-                                        <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[120px] max-w-[120px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">در حال بررسی</button>
+                                        <>
+                                             <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[120px] max-w-[120px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</button>
+                                             <nav>
+                                                  <Link href={'/user/favorites'} >
+                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                  </Link>
+                                                  <Link href={'/user/history'} >
+                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                  </Link>
+                                             </nav>
+                                        </>
                                    ) : (
                                         <nav>
                                              <Link href={`/${user.account_type}`} >
