@@ -31,7 +31,7 @@ const changeStorePassword_request = () => {return {type : STORE_CHANGE_PASSWORD_
 const changeStorePassword_success = (payload) => {return {type : STORE_CHANGE_PASSWORD_SUCCESS , payload}}
 const changeStorePassword_failure = (payload) => {return {type : STORE_CHANGE_PASSWORD_FAILURE , payload}}
 
-const fetchBaseProductsRequest = () => {return {type : STORE_FETCH_PRODUCTS_BASES_REQUEST}}
+export const fetchBaseProductsRequest = () => {return {type : STORE_FETCH_PRODUCTS_BASES_REQUEST}}
 const fetchBaseProductsSuccess = (payload) => {return {type : STORE_FETCH_PRODUCTS_BASES_SUCCESS , payload}}
 const fetchBaseProductsFailure = (payload) => {return {type : STORE_FETCH_PRODUCTS_BASES_FAILURE , payload}}
 
@@ -76,9 +76,9 @@ export const fetchStoreCount = () => dispatch => {
     })
   }
 
-export const fetchBaseProducts = ({ page, limit, paramsBrand,barcode, paramsCategory, name}) => dispatch => {
+export const fetchBaseProducts = ( {page,limit, brand,barcode, category ,name}) => dispatch => {
      dispatch(fetchBaseProductsRequest())
-     http.get(encodeURI(`products/bases?title=${name || ""}&barcode=${barcode || ""}&category_id=${paramsCategory || ""}&brand_id=${paramsBrand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : token}})
+     http.get(encodeURI(`products/bases?title=${name || ""}&barcode=${barcode || ""}&category_id=${category || ""}&brand_id=${brand ||""}&page=${page || 1}&limit=${limit || 12}`) , {headers : {authorization : token}})
      .then(({data}) =>  dispatch(fetchBaseProductsSuccess(data)))
      .catch(error => {
           requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش گرفتن لیست کالاها"})
