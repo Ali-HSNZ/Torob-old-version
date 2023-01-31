@@ -190,26 +190,26 @@ const ManageStores = () => {
                                                        <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
                                                             <p className="font-sans leading-6 text-sm flex">
                                                                  <b className="whitespace-nowrap pl-1">نام و نام خانوادگی : </b>
-                                                                 {user.full_name.length >0 ?  user.full_name : "نامشخص"} </p>
+                                                                 {user?.full_name||"-"} 
+                                                            </p>
                                                             <p className="font-sans leading-6 text-sm flex ">
                                                                  <b className="whitespace-nowrap pl-1">کد ملی : </b> 
-                                                                 {user.national_code.length > 0 ? user.national_code : "نامشخص"}</p>
+                                                                 {user?.national_code|| "-"}
+                                                            </p>
                                                             <div className="font-sans leading-6 text-sm flex pl-1">
                                                                  <b className="whitespace-nowrap pl-1">کد پستی : </b>
-                                                                 {user.address.post_code&& user.address.post_code.length > 0 ? user.address.post_code : "نامشخص"}
+                                                                 {user?.address.post_code || "-"}
                                                             </div>
                                                        </div>
                                                        <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                             <div className=" flex items-center">
-                                                                 {!user.is_active && (
-                                                                 <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>
-                                                                 )}
+                                                                 {!user.is_active && <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>}
                                                             </div>
                                                             <div className="flex items-center ">
                                                                  <label htmlFor={`detail_${user.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                                 </svg>
+                                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                      </svg>
                                                                  </label>
                                                             </div>
                                                        </div>
@@ -217,24 +217,24 @@ const ManageStores = () => {
                                                   {/* Description */}
                                                   <section className="mt-4 rounded-md bg-gray-50 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
                                                        <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                                            <p className="font-sans text-sm"><b>نام و نام خانوادگی : </b>{user.full_name}</p>
-                                                            <p className="font-sans text-sm"><b>کد ملی : </b>{user.national_code.length > 0 ? user.national_code : "نامشخص"}</p>
-                                                            <p className="font-sans text-sm"><b>شماره موبایل : </b>{user.phone_number_primary}</p>
-                                                            <p className="font-sans text-sm"><b>شماره همراه دوم : </b>{user.phone_number_secondary.length > 0 ? user.phone_number_secondary : "نامشخص"}</p>
-                                                            <p className="font-sans text-sm"><b>تلفن ثابت : </b>{user.house_number.length > 0 ? user.house_number : "نامشخص"  }</p>
-                                                            <p className="font-sans text-sm"><b>استان : </b>{user.address.province && user.address.province.length > 0 ? user.address.province : "نامشخص"}</p>
-                                                            <p className="font-sans text-sm"><b>شهر : </b>{user.address.city && user.address.city.length > 0 ? user.address.city : "نامشخص"}</p>
-                                                            <p className="font-sans text-sm"><b>کد پستی : </b>{user.address.post_code && user.address.post_code.length > 0 ? user.address.post_code : "نامشخص"}</p>
+                                                            <p className="font-sans text-sm"><b>نام و نام خانوادگی : </b>{user?.full_name || "-"}</p>
+                                                            <p className="font-sans text-sm"><b>کد ملی : </b>{user?.national_code || "-"}</p>
+                                                            <p className="font-sans text-sm"><b>شماره موبایل : </b>{user?.phone_number_primary || "-"}</p>
+                                                            <p className="font-sans text-sm"><b>شماره همراه دوم : </b>{user?.phone_number_secondary || "-"}</p>
+                                                            <p className="font-sans text-sm"><b>تلفن ثابت : </b>{user?.house_number || "-"  }</p>
+                                                            <p className="font-sans text-sm"><b>استان : </b>{user?.address?.province  || "-"}</p>
+                                                            <p className="font-sans text-sm"><b>شهر : </b>{user?.address?.city  ||  "-"}</p>
+                                                            <p className="font-sans text-sm"><b>کد پستی : </b>{user?.address?.post_code || "-"}</p>
                                                             {/* User Profile Image */}
                                                             <div className="flex">
                                                                  <b className="font-sans text-sm">عکس کاربر : </b>
                                                                  {user.is_profile_image ? (
                                                                  <button onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                 ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
+                                                                 ) : <p className="font-sans text-sm mr-1">-</p>}
                                                             </div>
                                                        </div>
 
-                                                       <p className="font-sans text-sm mt-2"><b>آدرس : </b>{user.address.detail && user.address.detail.length > 0 ? user.address.detail : "نامشخص"}</p>
+                                                       <p className="font-sans text-sm mt-2"><b>آدرس : </b>{user?.address?.detail || "-"}</p>
                                                        <div className="flex justify-end w-full mt-4 mb-4">
                                                             <Link href={`/admin/manage-users/edit/${user.id}`} >
                                                                  <a className={linkClassName({bgColor : "blue" , isOutline : true})}>ویرایش</a>

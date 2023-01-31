@@ -241,22 +241,22 @@ const StoreManageProducts = () => {
                                                 <section className="w-full bg-gray-50 shadow-inner rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4">
                                                     
                                                     <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تاریخ تولید : </b>{product.production_date && product.production_date.length ===0 ? "نامشخص" : product.production_date}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تاریخ انقضا : </b>{product.expire_date && product.expire_date.length ===0 ? "نامشخص" : product.expire_date}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت تولید : </b>{product.production_price && product.production_price.length === 0 ? "نامشخص" : toPersianPrice(product.production_price)+" تومان "}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت مصرف کننده : </b>{product.consumer_price && product.consumer_price.length === 0 ? "نامشخص" : toPersianPrice(product.consumer_price)+" تومان "}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت فروش : </b>{product.store_price && product.store_price.length === 0 ? "نامشخص" : toPersianPrice(product.store_price)+" تومان "}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تعداد در واحد : </b>{product.per_unit && product.per_unit.length === 0 ? "نامشخص" : toPersianPrice(product.per_unit)}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">موجودی انبار : </b>{product.warehouse_count && product.warehouse_count.length === 0 ? "نامشخص" : toPersianPrice(product.warehouse_count)}</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">پورسانت بازاریابی محصول : </b>{product.commission && product.commission.length === 0 ? "نامشخص" : toPersianPrice(product.commission)}%</p>
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">آخرین تاریخ بروزرسانی قیمت : </b>{product.price_update_time && product.price_update_time.length === 0 ? "نامشخص" : timeStampToPersianDate(product.price_update_time*1000)}</p>                
-                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">درصد تخفیف نقدی : </b>{product.cash_payment_discount && product.cash_payment_discount.length === 0 ? "نامشخص" : toPersianDigits(product.cash_payment_discount)}%</p>                
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تاریخ تولید : </b>{product.production_date && product.production_date.length ===0 ? "-" : product.production_date}</p>
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تاریخ انقضا : </b>{product.expire_date && product.expire_date.length ===0 ? "-" : product.expire_date}</p>
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت تولید : </b>{product.production_price && product.production_price.length === 0 ? "-" : toPersianPrice(product.production_price)+" تومان "}</p>
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت مصرف کننده : </b>{product.consumer_price && product.consumer_price.length === 0 ? "-" : toPersianPrice(product.consumer_price)+" تومان "}</p>
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت فروش : </b>{product.store_price && product.store_price.length === 0 ? "-" : toPersianPrice(product.store_price)+" تومان "}</p>
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تعداد در واحد : </b>{product.per_unit && product.per_unit.length === 0 ? "-" : toPersianPrice(product.per_unit)}</p>
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">موجودی انبار : </b>{product.warehouse_count && product.warehouse_count.length === 0 ? "-" : toPersianPrice(product.warehouse_count)}</p>
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">پورسانت بازاریابی محصول : </b>{product.commission && product.commission.length === 0 ? "-" : toPersianPrice(product.commission)}%</p>
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">آخرین تاریخ بروزرسانی قیمت : </b>{product.price_update_time && product.price_update_time.length === 0 ? "-" : timeStampToPersianDate(product.price_update_time*1000)}</p>                
+                                                        <p className="font-sans text-sm flex"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">درصد تخفیف نقدی : </b>{product.cash_payment_discount && product.cash_payment_discount.length === 0 ? "-" : toPersianDigits(product.cash_payment_discount)}%</p>                
                                                     </div>
                                                     <section >
                                                         <div className="flex flex-col mt-2">
                                                             <div className="flex flex-row test-sm font-sans">
                                                                 <b className="font-sans text-sm">تخفیف پله‌ایی : </b>
-                                                                {product.discounts.length === 0 && <p className="mr-1 font-sans text-sm">نامشخص</p>}
+                                                                {product.discounts.length === 0 && <p className="mr-1 font-sans text-sm">-</p>}
                                                             </div>
                                                             {product.discounts.length > 0 && <div className="w-full mt-2 border border-gray-400 rounded-lg py-4">
                                                                 <div className="w-full grid grid-cols-3 px-4 mb-2">
@@ -273,8 +273,8 @@ const StoreManageProducts = () => {
                                                                     ))}
                                                             </div>}
                                                         </div>
-                                                        <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات ارسال کالا : </b>{product.delivery_description.length === 0 ? "نامشخص" : product.delivery_description}</p>
-                                                        <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات فروشنده : </b>{product.store_note.length === 0 ? "نامشخص" : product.store_note}</p>
+                                                        <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات ارسال کالا : </b>{product?.delivery_description ||  "-"}</p>
+                                                        <p className="font-sans text-sm flex mt-4"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات فروشنده : </b>{product?.store_note || "-"}</p>
                                                     </section>
 
                                                     <hr className="border-gray-300 mt-4"/>
@@ -286,17 +286,17 @@ const StoreManageProducts = () => {
                                                             <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
                                                             <div>{product.base_product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
                                                         </div>
-                                                        <p className="font-sans text-sm  flex  "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.base_product.brand.name && product.base_product.brand.name.length ===0 ? "نامشخص" : product.base_product.brand.name}</p>
-                                                        <p className="font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.base_product.barcode}</p>
+                                                        <p className="font-sans text-sm  flex  "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product?.base_product?.brand?.name || "-"}</p>
+                                                        <p className="font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product?.base_product?.barcode || "-"}</p>
                                                         {/* Logo */}
                                                         <div className="flex">
                                                             <b className="font-sans text-sm pl-1">تصویر کالا : </b>
                                                             {product.base_product.is_image_url ? (
                                                                 <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.base_product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                            ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
+                                                            ) : <p className="font-sans text-sm mr-1">-</p>}
                                                         </div>
                                                     </div>
-                                                    <p className="mt-2 font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.base_product.description.length === 0 ? "نامشخص" : product.base_product.description}</p>
+                                                    <p className="mt-2 font-sans text-sm flex "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product?.base_product?.description || "-"}</p>
 
                                                     <div className="flex justify-end w-full mt-4 ">
                                                         <Link href={`/store/manage-products/store-products/edit/${product.id}`} >

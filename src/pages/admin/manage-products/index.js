@@ -205,8 +205,7 @@ const ManageProduct = () => {
                                                             <img onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
                                                        </div>
                                                        <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                            <p className="font-sans leading-6 text-sm ">
-                                                                 <b className="whitespace-nowrap">عنوان کالا : </b>
+                                                            <p className="font-sans leading-6 text-sm "><b className="whitespace-nowrap">عنوان کالا : </b>
                                                                  {product.title.length > 35 ? product.title.substring(0,35)+'...' : product.title} </p>
                                                             <p className="font-sans leading-6 text-sm  ">
                                                                  <b className="whitespace-nowrap">برند : </b> 
@@ -232,22 +231,22 @@ const ManageProduct = () => {
                                                   {/* Description */}
                                                   <section className="w-full bg-gray-50 rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
                                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                                            <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.title}</p>
+                                                            <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.title || "-"}</p>
                                                             <div className="font-sans text-sm   flex flex-col sm:flex-row">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
                                                                  <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
                                                             </div>
-                                                            <p className="font-sans text-sm  flex flex-col sm:flex-row "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.brand.name && product.brand.name.length ===0 ? "نامشخص" : product.brand.name}</p>
-                                                            <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.barcode}</p>
+                                                            <p className="font-sans text-sm  flex flex-col sm:flex-row "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.brand.name || "-" }</p>
+                                                            <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.barcode || "-"}</p>
                                                             {/* Logo */}
                                                             <div className="flex">
                                                                  <b className="font-sans text-sm pl-1">تصویر اصلی کالا : </b>
                                                                  {product.is_image_url ? (
                                                                  <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
-                                                                 ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
+                                                                 ) : <p className="font-sans text-sm mr-1">-</p>}
                                                             </div>
                                                        </div>
-                                                            <p className="font-sans w-full mt-2 text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description.length === 0 ? "نامشخص" : product.description}</p>
+                                                            <p className="font-sans w-full mt-2 text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description || "-"}</p>
 
                                                        <div className="flex justify-end w-full mt-4 mb-4">
                                                             <Link href={`/admin/manage-products/edit/${product.id}`} >
