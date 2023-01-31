@@ -95,7 +95,7 @@ const CartStore = () => {
                                                        </div>
                                                   </section>
                                              </article>
-                                             {item.state.is_show && <Error text={item.state.message}/>}
+                                             {item.state.is_show && item.state.message.map((message,index) => <Error key={index} text={message}/>)}
                                         </Fragment>
                                    ))}
                               </section>
