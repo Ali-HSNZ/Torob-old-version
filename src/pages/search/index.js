@@ -94,7 +94,6 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
                                                                                                               ${price_from ? "&price_from="+price_from : ""}
                                                                                                               ${price_to ? "&price_to="+price_to : ""}`))
                                                                                                               .then(res =>res.data)
-                                                                                                              .catch(err => console.log(err))
      return {     
           props: {
                brands : brands && brands.data ||null,
