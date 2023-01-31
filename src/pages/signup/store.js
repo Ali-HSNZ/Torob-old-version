@@ -17,9 +17,14 @@ import ReactLoading from 'react-loading';
 import FormikInput from "@/common/admin/FormikInput";
 import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PASSWORD_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
 import { insertStoreAction } from "@/redux/signup/signupActions";
-import { returnTokenInServerSide } from "src/services/http";
+import http, { returnTokenInServerSide } from "src/services/http";
+import { wrapper } from "@/redux/store";
+import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { authFailure, authSuccess } from "@/redux/user/userActions";
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
+import { buttonClassName } from "@/utils/global";
 
-const InsertStorePage = () => {
+const InsertStorePage = ({numbers}) => {
 
     const dispatch = useDispatch()
     const {loading} = useSelector(state => state.signupReducer)
@@ -105,99 +110,96 @@ const InsertStorePage = () => {
     }
     
     const validationSchema = Yup.object({
-        warehouse_number : Yup.string()
-            .required('شماره تلفن ثابت انبار مرکزی الزامی است.')
-            .test('warehouse_number_checkRequire' , "شماره تلفن ثابت انبار مرکزی الزامی است." , (value = "") => {
-                const warehouseNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '')
-                if(warehouseNumber.length === 0) return false;
-                return true
-            })
-            .test('warehouse_number_checkLength' , "شماره تلفن ثابت انبار مرکزی معتبر نیست." , (value = "") => {
-                const warehouseNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '')
-                if(warehouseNumber.length < 11) return false;
-                return true
-            }),
-        bank_card_number : Yup.string()
-            .required("شماره کارت الزامی می باشد.")
-            .trim()
-            .test('bank_card_number_checkRequire' , "شماره کارت الزامی است." , (value = "") => {
-                const cartNumber = value.replace(/\s/g, '').replace(/-/g, '')
-                if(cartNumber.length === 0) return false;
-                return true
-            })
-            .test('bank_card_number_checkLength' , "شماره کارت معتبر نیست." , (value = "") => {
-                const cartNumber = value.replace(/\s/g, '').replace(/-/g, '')
-                if(cartNumber.length < 16) return false;
-                return true
-            }),
-        office_number : Yup.string()
-            .required("شماره تلفن ثابت دفتر مرکزی الزامی است.") 
-            .test('office_number_checkRequire' , "شماره تلفن ثابت دفتر مرکزی الزامی است." , (value = "") => {
-                const phoneNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
-                if(phoneNumber.length === 0) return false;
-                return true
-            })
-            .test('office_number_checkLength' , "شماره تلفن ثابت دفتر مرکزی معتبر نیست." , (value = "") => {
-                const phoneNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
-                if(phoneNumber.length < 11) return false;
-                return true
-            }),
-        owner_password : Yup.string()
-            .min(6 , "رمز عبور نمی تواند کمتر از 6 کاراکتر باشد.")
-            .max(24 , "رمز عبور نمی تواند بیشتر از 24 نویسه باشد.")
-            .required("رمز عبور الزامی است.")
-            .matches(PASSWORD_REGIX,"رمز عبور معتبر نیست | رمز عبور میتواند ترکیبی از عدد و حروف انگلیسی باشد."),
-        name : Yup.string()
-            .required('نام فروشگاه الزامی است.')
-            .min(3, "نام فروشگاه نمی تواند کم تر از ۳ نویسه باشد.")
-            .max(50,"نام فروشگاه نمی تواند بیشتر از ۵۰ نویسه باشد.")
-            .trim(),
-        economic_code : Yup.string()
-            .length(12,"کد اقتصادی باید ۱۲ رقم باشد.")
-            .required("کد اقتصادی الزامی است.")
-            .matches(ONLY_DIGIT_REGIX,"کد اقتصادی باید از نوع عدد باشد.")
-            .trim(),
-        owner_full_name : Yup.string()
-            .required('نام و نام خانوادگی مالک فروشگاه الزامی است.')
-            .matches(ONLY_PERSIAN_ALPHABET , "نام و نام خانوادگی را به فارسی وارد کنید.")
-            .min(3,"نام و نام خانوادگی نمی تواند کم تر از ۳ نویسه باشد.")
-            .max(50,"نام و نام خانوادگی نمی تواند بیشتر از ۵۰ نویسه باشد.")
-            .trim(),
-        owner_phone_number : Yup.string()
-            .required('شماره همراه مالک فروشگاه الزامی است.')
-            .matches(PHONE_NUMBER_REGIX,"شماره همراه مالک فروشگاه معتبر نیست.")
-            .trim(),
-        secend_phone_number : Yup.string()
-            .matches(PHONE_NUMBER_REGIX,"شماره همراه دوم مالک فروشگاه معتبر نیست.")
-            .trim(),
-        office_address : Yup.string()
-            .required('آدرس دفتر مرکزی الزامی است.')
-            .trim(),
-        warehouse_address : Yup.string()
-            .required('آدرس انبار مرکزی الزامی است.')
-            .trim(),
-        bank_name: Yup.string()
-            .required("نام بانک الزامی است.")
-            .min(3,"نام بانک نمی تواند کم تر از ۳ نویسه باشد.")
-            .max(50 , "نام بانک نمی تواند بیتر از ۵۰ نویسه باشد.")
-            .matches(ONLY_PERSIAN_ALPHABET , "نام بانک را به فارسی وارد کنید.")
-            .trim(),
-        bank_code : Yup.string()
-            .required("کد شعبه الزامی است.")
-            .length(4,'کد شعبه بانک باید ۴ رقمی باشد.')
-            .matches(ONLY_DIGIT_REGIX,"کد شعبه باید از نوع  عدد باشد.")
-            .trim(),
-        bank_sheba_number : Yup.string()
-            .required("شماره شبا الزامی است.")
-            .length(24,"شماره شبا باید ۲۴ رقم باشد.")
-            .matches(ONLY_DIGIT_REGIX,"شماره شبا باید از نوع عدد باشد.")
-            .trim(),
-        owner_national_code : Yup.string()
-            .required("کد ملی مالک فروشگاه الزامی است.")
-            .length(10 , "کد ملی نامعتبر است.")
-            .matches(ONLY_DIGIT_REGIX , "کد ملی نامعتبر است.")
-            .trim()
-    })
+     warehouse_number : Yup.string()
+          .test('warehouse_number_checkLength' , "شماره تلفن ثابت انبار مرکزی معتبر نیست." , (value = "") => {
+               const warehouseNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '')
+               if(warehouseNumber.length > 0){
+                    if(warehouseNumber.length < 11) return false
+               };
+               return true
+          })
+          .test("check Availability" , "این شماره توسط شخص دیگری به ثبت رسیده است" ,  (value = "") => {
+               const warehouseNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '')
+               return !numbers.numbers.includes(warehouseNumber)
+          })
+          ,
+     bank_card_number : Yup.string()
+          .trim()
+          .test('bank_card_number_checkLength' , "شماره کارت معتبر نیست." , (value = "") => {
+               const cartNumber = value.replace(/\s/g, '').replace(/-/g, '')
+               if(cartNumber.length > 0){
+                    if(cartNumber.length < 16) return false
+               };
+               return true
+          }),
+     office_number : Yup.string()
+          .required("شماره تلفن ثابت دفتر مرکزی الزامی است.") 
+          .test('office_number_checkRequire' , "شماره تلفن ثابت دفتر مرکزی الزامی است." , (value = "") => {
+               const phoneNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+               if(phoneNumber.length === 0) return false;
+               return true
+          })
+          .test('office_number_checkLength' , "شماره تلفن ثابت دفتر مرکزی معتبر نیست." , (value = "") => {
+               const phoneNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+               if(phoneNumber.length < 11) return false;
+               return true
+          })
+          .test("check Availability" , "این شماره توسط شخص دیگری به ثبت رسیده است" ,  (value = "") => {
+               const phoneNumber = value.replace(/["'()]/g,"").replace(/\s/g, '').replace(/-/g, '');
+               return !numbers.numbers.includes(phoneNumber)
+          }),
+     owner_password : Yup.string()
+          .required('رمز عبور الزامی است.')
+          .min(6 , "رمز عبور نمی تواند کمتر از 6 کاراکتر باشد.")
+          .max(24 , "رمز عبور نمی تواند بیشتر از 24 نویسه باشد.")
+          .matches(PASSWORD_REGIX,"رمز عبور معتبر نیست | رمز عبور میتواند ترکیبی از عدد و حروف انگلیسی باشد."),
+     name : Yup.string()
+          .required('نام فروشگاه الزامی است.')
+          .min(3, "نام فروشگاه نمی تواند کم تر از ۳ نویسه باشد.")
+          .max(50,"نام فروشگاه نمی تواند بیشتر از ۵۰ نویسه باشد.")
+          .trim(),
+     economic_code : Yup.string()
+          .length(12,"کد اقتصادی ۱۲ رقم است.")
+          .matches(ONLY_DIGIT_REGIX,"کد اقتصادی باید از نوع عدد باشد.")
+          .trim(),
+     owner_full_name : Yup.string()
+          .required('نام و نام خانوادگی مالک فروشگاه الزامی است.')
+          .matches(ONLY_PERSIAN_ALPHABET , "نام و نام خانوادگی را به فارسی وارد کنید.")
+          .min(3,"نام و نام خانوادگی نمی تواند کم تر از ۳ نویسه باشد.")
+          .max(50,"نام و نام خانوادگی نمی تواند بیشتر از ۵۰ نویسه باشد.")
+          .trim(),
+     owner_phone_number : Yup.string()
+          .required('شماره همراه مالک فروشگاه الزامی است.')
+          .matches(PHONE_NUMBER_REGIX,"شماره همراه مالک فروشگاه معتبر نیست.")
+          .test("check Availability" , "این شماره توسط شخص دیگری به ثبت رسیده است" ,  (value = "") => !numbers.numbers.includes(value))
+          .trim(),
+     secend_phone_number : Yup.string()
+          .matches(PHONE_NUMBER_REGIX,"شماره همراه دوم مالک فروشگاه معتبر نیست.")
+          .test("check Availability" , "این شماره توسط شخص دیگری به ثبت رسیده است" ,  (value = "") => !numbers.numbers.includes(value))
+          .trim(),
+     office_address : Yup.string()
+          .required('آدرس دفتر مرکزی الزامی است.')
+          .trim(),
+     warehouse_address : Yup.string().trim(),
+     bank_name: Yup.string()
+          .min(3,"نام بانک نمی تواند کم تر از ۳ نویسه باشد.")
+          .max(50 , "نام بانک نمی تواند بیتر از ۵۰ نویسه باشد.")
+          .matches(ONLY_PERSIAN_ALPHABET , "نام بانک را به فارسی وارد کنید.")
+          .trim(),
+     bank_code : Yup.string()
+          .length(4,'کد شعبه بانک ۴ رقم است.')
+          .matches(ONLY_DIGIT_REGIX,"کد شعبه باید از نوع  عدد باشد.")
+          .trim(),
+     bank_sheba_number : Yup.string()
+          .length(24,"شماره شبا باید ۲۴ رقم باشد.")
+          .matches(ONLY_DIGIT_REGIX,"شماره شبا باید از نوع عدد باشد.")
+          .trim(),
+     owner_national_code : Yup.string()
+          .required("کد ملی مالک فروشگاه الزامی است.")
+          .length(10 , "کد ملی نامعتبر است.")
+          .matches(ONLY_DIGIT_REGIX , "کد ملی نامعتبر است.")
+          .trim()
+     })
     
     const formik = useFormik({
         onSubmit,
@@ -293,20 +295,20 @@ const InsertStorePage = () => {
                             <p className="font-sans font-bold"> فروشگاه | شرکت</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                                 <FormikInput isRequired={true} name={"name"} title={"نام فروشگاه"} formik={formik}/>
-                                <FormikInput isRequired={true} name={"office_address"} title={"آدرس دفتر مرکزی شرکت"} formik={formik}/>
+                                <FormikInput isRequired={true} name={"office_address"} title={"آدرس دفتر مرکزی فروشگاه"} formik={formik}/>
                                 <div className="flex flex-col relative ">
                                     <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">شماره تلفن ثابت دفتر مرکزی:</p>
                                     <InputMask dir="ltr"  type={"text"} value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="office_number"  maskPlaceholder="-" className={`${formik.errors.office_number && formik.touched.office_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.office_number && formik.touched.office_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.office_number}</p>}
                                 </div>
-                                <FormikInput isRequired={true} name={"warehouse_address"} title={"آدرس انبار مرکزی شرکت"} formik={formik}/>
+                                <FormikInput isRequired={false} name={"warehouse_address"} title={"آدرس انبار مرکزی شرکت"} formik={formik}/>
                                 <div className="flex flex-col relative ">
-                                    <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">شماره تلفن ثابت انبار مرکزی شرکت:</p>
+                                    <p className="font-sans text-[13px] text-gray-800 ">شماره تلفن ثابت انبار مرکزی شرکت:</p>
                                     <InputMask dir="ltr"  type={"text"} value={formik.values.warehouse_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="warehouse_number"  maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.warehouse_number && formik.touched.warehouse_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.warehouse_number}</p>}
                                 </div>
                                 
-                                <FormikInput maxLength={12} isRequired={true} name={"economic_code"} title={"کد اقتصادی"} formik={formik}/>
+                                <FormikInput maxLength={12}  name={"economic_code"} title={"کد اقتصادی"} formik={formik}/>
                                 
                                 <div className="flex flex-col relative ">
                                     <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">حوضه فعالیت شرکت - استان :</p>
@@ -343,13 +345,13 @@ const InsertStorePage = () => {
                             <p className="font-sans font-bold"> حساب بانکی</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                                 <div className="flex flex-col relative ">
-                                    <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">شماره کارت :</p>
+                                    <p className="font-sans text-[13px] text-gray-800 ">شماره کارت :</p>
                                     <InputMask dir="ltr"  type={"text"} value={formik.values.bank_card_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="9999 9999 9999 9999" name="bank_card_number" maskPlaceholder="-" className={`${formik.errors.bank_card_number && formik.touched.bank_card_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.bank_card_number && formik.touched.bank_card_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.bank_card_number}</p>}
                                 </div>
-                                <FormikInput maxLength={24} isRequired={true} name={"bank_sheba_number"} title={"شماره شبا"} formik={formik}/>
-                                <FormikInput isRequired={true} name={"bank_name"} title={"نام بانک"} formik={formik}/>
-                                <FormikInput maxLength={4} isRequired={true} name={"bank_code"} title={"کد شعبه"} formik={formik}/>
+                                <FormikInput maxLength={24}  name={"bank_sheba_number"} title={"شماره شبا"} formik={formik}/>
+                                <FormikInput  name={"bank_name"} title={"نام بانک"} formik={formik}/>
+                                <FormikInput maxLength={4}  name={"bank_code"} title={"کد شعبه"} formik={formik}/>
                             </section>
                         </div>
                         {/* تصاویر و فایل ها */}
@@ -384,7 +386,7 @@ const InsertStorePage = () => {
 
                                 {/* Logo Image */}
                                 <div className="flex flex-col relative ">
-                                    <p className="font-sans text-[13px] text-gray-800">تصویر لوگو :</p>
+                                    <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">تصویر لوگو :</p>
                                     <input type={'file'} id="chooseImage_logo"  ref={image_logo_Input_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" onChange={event => changeFIleAction_input(event,32,2048,setOnChangeFile_logo,"سر در فروشگاه","32 کیلوبایت","2 مگابایت",image_logo_Input_ref)}/>
                                     {onChangeFile_logo.imageUrl ?  (
                                         <section className="flex justify-between items-center mt-2 h-[38px] ">
@@ -437,7 +439,7 @@ const InsertStorePage = () => {
                         </div>
                         <section className="w-full flex justify-end my-4 gap-x-2 items-center ">
                             {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
-                            <button disabled={loading} type={"submit"} className={`flex items-center ${formik.isValid ? " hover:bg-blue-200 bg-blue-100 border border-blue-600 text-blue-800 cursor-pointer " : "cursor-not-allowed hover:bg-gray-800 bg-gray-700 border border-gray-600 text-gray-100"}  py-[6px] px-6 font-sans  text-[13px] rounded-md`}>
+                            <button disabled={loading} type={"submit"} className={buttonClassName({bgColor : 'blue' , isValid : formik.isValid , isOutline : false})}>
                                 ثبت فروشگاه
                             </button>
                         </section>
@@ -451,3 +453,33 @@ const InsertStorePage = () => {
 }
  
 export default InsertStorePage;
+
+export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async({req}) => {
+
+     const token = returnTokenInServerSide({cookie : req.headers.cookie})
+     
+       
+     if(!token.includes("undefined")){ 
+          // Fetch User Data     
+          await http.get("user", {headers : {authorization : token}})
+          .then(({data}) =>  {
+               dispatch(addToCartSuccess(data))
+               dispatch(authSuccess(data.user))
+          })  
+          .catch(() => {
+               dispatch(authFailure("خطا در بخش احراز هویت"))    
+          })
+     }
+
+     // Fetch Navbar Categories
+     await http.get(`public/categories`)
+     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+
+     const data = await http.get('numbers').then(res => res.data)
+     return {
+          props : {
+               numbers : data
+          }
+     }
+})
