@@ -109,7 +109,7 @@ const Store = ({product}) => {
                 </section>
 
                 {/* //? Store */}
-                {product.stores.map((store,index) => <StoreCommon key={index} store={store} index={index}/>)}
+                {product.stores.map((store,index) => <StoreCommon key={store.id} store={store} index={index}/>)}
             </div>
 
         </div>
