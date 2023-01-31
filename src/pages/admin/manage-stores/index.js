@@ -223,13 +223,15 @@ const ManageStores = () => {
                                                                  <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
                                                                       <p className="font-sans leading-6 text-sm  flex">
                                                                            <b className="whitespace-nowrap pl-1">نام فروشگاه : </b>
-                                                                           {store.name.length >0 ?  store.name : "نامشخص"} </p>
+                                                                           {store.name || "-"} 
+                                                                      </p>
                                                                       <p className="font-sans leading-6 text-sm  flex ">
                                                                            <b className="whitespace-nowrap pl-1">نام صاحب فروشگاه : </b> 
-                                                                           {store.owner_full_name.length > 0 ? store.owner_full_name : "نامشخص"}</p>
+                                                                           {store.owner_full_name || "-"}
+                                                                      </p>
                                                                       <p className="font-sans leading-6 text-sm flex  pl-3">
                                                                            <b className="whitespace-nowrap pl-1">استان : </b>
-                                                                           {store.province&& store.province.length > 0 ? store.province : "نامشخص"}
+                                                                           {store.province || "-"}
                                                                       </p>
                                                                  </div>
                                                                  <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
@@ -252,42 +254,42 @@ const ManageStores = () => {
                                                             {/* Description */}
                                                             <section className="bg-gray-50 rounded-md mt-4 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
                                                                  <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                                                      <p className="font-sans text-sm"><b>نام فروشگاه : </b>{store.name}</p>
-                                                                      <p className="font-sans text-sm"><b>نام صاحب فروشگاه : </b>{store.owner_full_name}</p>
-                                                                      <p className="font-sans text-sm"><b>کد ملی صاحب فروشگاه : </b>{store.owner_national_code}</p>
-                                                                      <p className="font-sans text-sm"><b>شماره همراه صاحب فروشگاه : </b>{store.owner_phone_number}</p>
-                                                                      <p className="font-sans text-sm"><b>شماره همراه دوم صاحب فروشگاه : </b>{store.second_phone_number.length <= 0 ? "نامشخص" : store.second_phone_number}</p>
-                                                                      <p className="font-sans text-sm"><b>استان : </b>{store.province}</p>
-                                                                      <p className="font-sans text-sm"><b>شهر : </b>{store.city}</p>
-                                                                      <p className="font-sans text-sm"><b>کد اقتصادی : </b>{store.economic_code}</p>
-                                                                      <p className="font-sans text-sm"><b>آدرس دفتر مرکزی : </b>{store.office_address}</p>
-                                                                      <p className="font-sans text-sm"><b>تلفن دفتر مرکزی : </b>{store.office_number}</p>
-                                                                      <p className="font-sans text-sm"><b>آدرس انبار مرکزی : </b>{store.warehouse_address}</p>
-                                                                      <p className="font-sans text-sm"><b>تلفن انبار مرکزی : </b>{store.warehouse_number}</p>
-                                                                      <p className="font-sans text-sm"><b>بانک : </b>{store.bank_name}</p>
-                                                                      <p className="font-sans text-sm"><b>شعبه بانک : </b>{store.bank_code}</p>
-                                                                      <p className="font-sans text-sm"><b>شماره کارت : </b>{store.bank_card_number}</p>
-                                                                      <p className="font-sans text-sm"><b>شماره شبا : </b>{store.bank_sheba_number}</p>
+                                                                      <p className="font-sans text-sm"><b>نام فروشگاه : </b>{store.name || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>نام صاحب فروشگاه : </b>{store.owner_full_name || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>کد ملی صاحب فروشگاه : </b>{store.owner_national_code || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>شماره همراه صاحب فروشگاه : </b>{store.owner_phone_number || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>شماره همراه دوم صاحب فروشگاه : </b>{store.second_phone_number|| "-" }</p>
+                                                                      <p className="font-sans text-sm"><b>استان : </b>{store.province || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>شهر : </b>{store.city || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>کد اقتصادی : </b>{store.economic_code || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>آدرس دفتر مرکزی : </b>{store.office_address || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>تلفن دفتر مرکزی : </b>{store.office_number || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>آدرس انبار مرکزی : </b>{store.warehouse_address || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>تلفن انبار مرکزی : </b>{store.warehouse_number || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>بانک : </b>{store.bank_name || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>شعبه بانک : </b>{store.bank_code || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>شماره کارت : </b>{store.bank_card_number || "-"}</p>
+                                                                      <p className="font-sans text-sm"><b>شماره شبا : </b>{store.bank_sheba_number || "-"}</p>
                                                                       {/* Logo */}
                                                                       <div className="flex">
                                                                            <b className="font-sans text-sm">تصویر لوگو : </b>
                                                                            {store.is_logo_image ? (
                                                                            <button onClick={()=> {setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                           ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
+                                                                           ) : <p className="font-sans text-sm mr-1">-</p>}
                                                                       </div>
                                                                       {/* StoreBanner */}
                                                                       <div className="flex">
                                                                            <b className="font-sans text-sm">تصویر عکس سر در فروشگاه : </b>
                                                                            {store.is_store_banner_image ? (
                                                                            <button onClick={()=>{setIsStoreBannerImage_Modal(true)  ; setModal_imageSrc(store.banner_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                           ) : <p className="font-sans text-sm mr-1">نامشخص</p>}
+                                                                           ) : <p className="font-sans text-sm mr-1">-</p>}
                                                                       </div>
                                                                       {/* License */}
                                                                       <div className=" flex">
                                                                            <b className="font-sans text-sm">تصویر مجوز : </b>
                                                                       {store.is_license_image ? (
                                                                            <button onClick={()=>{setIsLicenseImage_Modal(true) ; setModal_imageSrc(store.license_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                      ) : <p className="font-sans text-sm mr-1"> نامشخص </p>}
+                                                                      ) : <p className="font-sans text-sm mr-1"> - </p>}
                                                                       </div>
                                                                  </div>
 
