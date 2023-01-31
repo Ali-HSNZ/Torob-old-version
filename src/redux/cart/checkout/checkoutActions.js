@@ -80,7 +80,7 @@ export const fetchMainCheckout = ({store_id}) => dispatch => {
 }
 
 export const confirmFactor = ({store_id}) => dispatch => {
-     http.post(`user/factor/${store_id}` , {} ,{headers : {authorization : token}})
+     http.post(`user/invoice/${store_id}` , {} ,{headers : {authorization : token}})
      .then(({data}) => {
           if(data.factor_state){
                if(window) window.location.href = '/cart'
