@@ -11,7 +11,7 @@ const StoreCommon = ({store , index}) => {
      const {user} = useSelector(state => state.auth)
      
      const availableStoreInCart = () => {
-          if(cart.data.length > 0){
+          if(cart?.data?.length > 0){
                return cart.data.find(state => state.product_id=== store.product_id)
           }else return false
      }
