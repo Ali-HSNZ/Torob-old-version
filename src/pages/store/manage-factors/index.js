@@ -6,7 +6,7 @@ import Link from "next/link";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { useFormik } from "formik";
-import * as YUP from 'yup'
+import * as Yup from 'yup'
 import FormikInput from "@/common/admin/FormikInput";
 import { buttonClassName } from "@/utils/global";
 import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
@@ -62,12 +62,6 @@ const ManageFactors = () => {
      const filteredCategories = categoryQuery === '' ? categories : categories && categories.filter((category) => category.name.toLowerCase().replace(/\s+/g, '').includes(categoryQuery.toLocaleLowerCase().replace(/\s+/g, '')))
      const filteredBrands = brandQuery === '' ? brands : brands.filter((brand) => brand.name.toLowerCase().replace(/\s+/g, '').includes(brandQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
-     
-     // const loading = false;
-     const validationSchema = YUP.object({
-          
-     })
-
          
     useEffect(()=> {
           window.scroll({top : 0 , behavior : 'smooth'})
@@ -79,6 +73,22 @@ const ManageFactors = () => {
      const onSubmit = ({title , name , number , order}) => {
           router.push(encodeURI(`/store/manage-factors?page=1&state=${status.type || "all"}&title=${title || ""}&order=${order || 'desc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${name || ""}&number=${number || ""}&limit=${limit}` ))
      } 
+
+     const validationSchema = Yup.object({
+          title : Yup.string()
+               .min(2 , 'نام کالا نمی تواند کمتر از ۲ نویسه باشد')
+               .max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد')
+               .trim(),
+          name : Yup.string()
+               .min(2 , 'نام  نمی تواند کمتر از ۲ نویسه باشد')
+               .max(250 , 'نام  نمی تواند بیشتر از ۲۵۰ نویسه باشد')
+               .trim(),
+          number : Yup.string()
+               .min(3,"شماره موبایل  نمی تواند کم تر از ۳ رقم باشد")
+               .max(11 , "شماره موبایل  نمی تواند بیشر از ۱۱ رقم باشد")
+               .matches(/^[0-9]{3,}\d*$/,"شماره موبایل  معتبر نیست")
+               .trim(),
+     })
 
      const formik = useFormik({
           initialValues : {
