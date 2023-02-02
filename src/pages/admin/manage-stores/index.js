@@ -19,6 +19,7 @@ import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName, linkClassName } from "@/utils/global";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { ONLY_PERSIAN_ALPHABET } from "@/utils/Regex";
 
 
 const ManageStores = () => {
@@ -79,9 +80,9 @@ const ManageStores = () => {
      const validationSchema = Yup.object({
           name : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
           economic_code : Yup.string().min(2,"کد اقتصادی نمی تواند کم تر  ۲ رقم باشد").max(12,"کد اقتصادی نمی تواند بیشتر از ۱۲ رقم باشد").matches(/^[0-9]{2,}\d*$/,"کد اقتصادی باید عدد باشد").trim(),
-          number : Yup.string().min(3,"شماره تلفن نمی تواند کم تر از ۳ رقم باشد").max(11 , "شماره تلفن نمی تواند بیشر از ۱۱ رقم باشد").matches(/^[0-9]{3,}\d*$/,"شماره تلفن باید عدد باشد").trim(),
-          province : Yup.string().min(2 , "نام استان نمی تواند کم تر از ۲ نویسه باشد").max(50,"نام استان نمی تواند بیشتر از ۵۰ نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام استان را به فارسی وارد کنید").trim(),
-          city :  Yup.string().min(2 , "نام شهر نمی تواند کم تر از ۲ نویسه باشد").max(50,"نام شهر نمی تواند بیشتر از ۵۰ نویسه باشد").matches(/^[\u0600-\u06FF\s]+$/,"نام شهر را به فارسی وارد کنید").trim(),
+          number : Yup.string().min(3,"شماره تلفن نمی تواند کم تر از ۳ رقم باشد").max(11 , "شماره تلفن نمی تواند بیشر از ۱۱ رقم باشد").matches(/^[0-9]{3,}\d*$/,"شماره تلفن معتبر نیست").trim(),
+          province : Yup.string().min(2 , "نام استان نمی تواند کم تر از ۲ نویسه باشد").max(50,"نام استان نمی تواند بیشتر از ۵۰ نویسه باشد").matches(ONLY_PERSIAN_ALPHABET,"نام استان را به فارسی وارد کنید").trim(),
+          city :  Yup.string().min(2 , "نام شهر نمی تواند کم تر از ۲ نویسه باشد").max(50,"نام شهر نمی تواند بیشتر از ۵۰ نویسه باشد").matches(ONLY_PERSIAN_ALPHABET,"نام شهر را به فارسی وارد کنید").trim(),
      })
 
 
