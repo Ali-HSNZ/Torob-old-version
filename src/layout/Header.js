@@ -14,10 +14,8 @@ import images from "/public/torob_logo.svg"
 const Header = () => {
 
      const router = useRouter();
-     const { query } = useRouter();
      const { user, loading } = useSelector((state) => state.auth);
      const dispatch = useDispatch();
-     const [inputValue, setInputValue] = useState(query.query);
      const {cart_count} = useSelector(state => state.cart)
      
      const [isSmallScreenModal , setIsSmallScreenModal] = useState(false)
@@ -94,7 +92,7 @@ const Header = () => {
                          <Link href={'/cart'}>
                               <a className="py-2 px-4 bg-white border relative border-gray-300 rounded-md ml-4 flex items-center ">
                               {/* cart Count */}
-                              {cart_count > 0 && <span className="absolute top-[-6px] right-[-6px] bg-red-600 font-sans text-xs px-[10px] py-1 rounded-full text-white">{toPersianDigits(cart_count)}</span>}
+                              {cart_count > 0 && <span className="absolute top-[-6px] right-[-6px] bg-red-600 font-sans text-xs  w-6 h-6 text-center flex items-center justify-center rounded-full text-white">{toPersianDigits(cart_count)}</span>}
                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                    </svg>
@@ -111,6 +109,9 @@ const Header = () => {
                                    </Link>
                                    <Link href={'/user/history'} >
                                         <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                   </Link>
+                                   <Link href={'/user/invoices'} >
+                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
                                    </Link>
                                    <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-2 text-center font-sans ">
                                         خروج
@@ -131,6 +132,9 @@ const Header = () => {
                                                   <Link href={'/user/history'} >
                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
                                                   </Link>
+                                                  <Link href={'/user/invoices'} >
+                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                  </Link>
                                              </nav>
                                              </>
                                         ) : (
@@ -143,6 +147,9 @@ const Header = () => {
                                                   </Link>
                                                   <Link href={'/user/history'} >
                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                  </Link>
+                                                  <Link href={'/user/invoices'} >
+                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
                                                   </Link>
                                              </nav>
                                    )}
