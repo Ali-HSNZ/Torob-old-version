@@ -4,9 +4,6 @@ import {
      STORE_FETCH_FACTORES_SUCCESS, 
      STORE_FETCH_FACTORES_FAILURE,
 
-     STORE_FETCH_INVOICE_ITEMS_REQUEST,
-     STORE_FETCH_INVOICE_ITEMS_SUCCESS,
-     STORE_FETCH_INVOICE_ITEMS_FAILURE,
      STORE_ACTION_LOADING_REQUEST,
      STORE_ACTION_LOADING_SUCCESS,
      STORE_ACTION_LOADING_FAILURE,
@@ -16,9 +13,6 @@ export const store_fetchFactorsRequest = () => {return {type : STORE_FETCH_FACTO
 export const store_fetchFactorsSuccess = payload => {return {type : STORE_FETCH_FACTORES_SUCCESS , payload}}
 export const store_fetchFactorsFailure = payload => { return {type : STORE_FETCH_FACTORES_FAILURE , payload}}
 
-export const store_fetchInvoiceItemsRequest = () => {return {type : STORE_FETCH_INVOICE_ITEMS_REQUEST}}
-export const store_fetchInvoiceItemsSuccess = payload => {return {type : STORE_FETCH_INVOICE_ITEMS_SUCCESS , payload}}
-export const store_fetchInvoiceItemsFailure = payload => { return {type : STORE_FETCH_INVOICE_ITEMS_FAILURE , payload}}
 
 const store_changeInvoiceStateLoadingRequest = (payload) => {return {type : STORE_ACTION_LOADING_REQUEST , payload}}
 const store_changeInvoiceStateLoadingSuccess = (payload) => {return {type : STORE_ACTION_LOADING_SUCCESS , payload}}
@@ -37,10 +31,9 @@ export const store_fetchFactors = ({state , brand,category,name,number,order , t
 
 
 export const store_changeInvoiceState = ({invoiceId,state,comment}) => dispatch => {
-     const currentComment = Object.keys(comment).find(state => Number(state) ===invoiceId) 
+     const currentComment = comment && comment?.[Object.keys(comment).find(state => Number(state) ===invoiceId)] || "";
      dispatch(store_changeInvoiceStateLoadingRequest(invoiceId))
-     dispatch(store_fetchFactorsRequest())
-     http.put(`store/invoices/${invoiceId}/state`, {state,comment : comment[currentComment]  || ""} , {headers : {authorization : token}})
+     http.put(`store/invoices/${invoiceId}/state`, {state,comment : currentComment} , {headers : {authorization : token}})
      .then(({data}) =>{
           dispatch(store_changeInvoiceStateLoadingSuccess(invoiceId))
           dispatch(store_fetchFactorsSuccess(data))
