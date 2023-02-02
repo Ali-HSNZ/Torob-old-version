@@ -18,7 +18,7 @@ const Favorites = () => {
      const {likes , loading} = useSelector(state => state.likes)
      
      return (
-          <Layout isFooter={true}>
+          <Layout isFooter={true} pageTitle="ترب | محبوب ها">
                <div className="w-full flex flex-col lg:flex-row  justify-between ">
                     <UserPageAside />
 
