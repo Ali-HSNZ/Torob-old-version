@@ -45,6 +45,19 @@ const ManageStores = () => {
      const page = Number(useRouter().query.page || 1);
      const limit = 5
      
+     const rotateChevron = (button) => {
+          const svg = button.children[0];
+          if(document){
+               if(svg.classList.contains('rotate-90')){
+                    svg.classList.remove("rotate-90")
+                    svg.classList.add("rotate-0")
+               }else{
+                    svg.classList.remove("rotate-0")
+                    svg.classList.add("rotate-90")
+               }
+          }
+     }
+
      useEffect(()=> {
           window.scroll({top : 0 , behavior : 'smooth'})
           dispatch(fetchBaseProducts(router.query))
@@ -201,8 +214,8 @@ const ManageStores = () => {
                                                             </Link>
                                                        )}
                                                        <div className="flex items-center ">
-                                                            <label htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
+                                                            <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
                                                                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                                  </svg>
                                                             </label>

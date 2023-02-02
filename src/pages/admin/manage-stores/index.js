@@ -62,6 +62,19 @@ const ManageStores = () => {
           router.push(`/admin/manage-stores?page=1&state=${status.type || "all"}&economic_code=${economic_code || ""}&province=${province}&city=${city || ""}&number=${number || ""}&order=${order || 'asc'}&name=${name || ""}&limit=${limit}`)
      }
 
+     const rotateChevron = (button) => {
+          const svg = button.children[0];
+          if(document){
+               if(svg.classList.contains('rotate-90')){
+                    svg.classList.remove("rotate-90")
+                    svg.classList.add("rotate-0")
+               }else{
+                    svg.classList.remove("rotate-0")
+                    svg.classList.add("rotate-90")
+               }
+          }
+     }
+
      const validationSchema = Yup.object({
           name : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
           economic_code : Yup.string().min(2,"کد اقتصادی نمی تواند کم تر  ۲ رقم باشد").max(12,"کد اقتصادی نمی تواند بیشتر از ۱۲ رقم باشد").matches(/^[0-9]{2,}\d*$/,"کد اقتصادی باید عدد باشد").trim(),
@@ -243,10 +256,10 @@ const ManageStores = () => {
                                                                            )}
                                                                       </div>
                                                                       <div className="flex items-center ">
-                                                                           <label htmlFor={`detail_${store.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                                           </svg>
+                                                                           <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${store.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                                </svg>
                                                                            </label>
                                                                       </div>
                                                                  </div>

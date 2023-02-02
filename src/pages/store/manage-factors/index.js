@@ -92,9 +92,21 @@ const ManageFactors = () => {
           validationSchema
      })
 
+     const rotateChevron = (button) => {
+          const svg = button.children[0];
+          if(document){
+               if(svg.classList.contains('rotate-90')){
+                    svg.classList.remove("rotate-90")
+                    svg.classList.add("rotate-0")
+               }else{
+                    svg.classList.remove("rotate-0")
+                    svg.classList.add("rotate-90")
+               }
+          }
+     }
      
      return (  
-          <Layout isFooter={true} pageTitle="پنل فروشگاه | مدیریت فاکتور">
+          <Layout isFooter={true} pageTitle="پنل فروشگاه | مدیریت سفارشات">
                <div className="w-full flex flex-col lg:flex-row  justify-between ">
                     <ManageStoreAside/>
                          
@@ -138,14 +150,14 @@ const ManageFactors = () => {
                                         <FormikInput formik={formik} title={"شماره موبایل خریدار"} name={"number"}/>
 
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800"> برند :</p>
+                                             <p className="font-sans text-xs md:text-sm text-gray-800"> برند :</p>
                                              <div className="w-full mt-2">
                                                   <SelectBox notFoundTitle="برند مورد نظر یافت نشد." query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                              </div>
                                         </div>
 
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
+                                             <p className="font-sans text-xs md:text-sm text-gray-800"> دسته‌بندی :</p>
                                              <div className="w-full mt-2">
                                                   <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
                                              </div>
@@ -153,21 +165,21 @@ const ManageFactors = () => {
 
 
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
+                                             <p className="font-sans text-xs md:text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                              <section className="flex justify-between mt-2 gap-x-2">
                                                   <div className="flex w-1/2">
                                                        <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                                       <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                                       <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-xs md:text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
                                                   </div>
                                                   <div className="flex w-1/2">
                                                        <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                                       <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                                       <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-xs md:text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
                                                   </div>
                                              </section>
                                         </div>
                                         
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800">وضعیت :</p>
+                                             <p className="font-sans text-xs md:text-sm text-gray-800">وضعیت :</p>
                                              <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>                                 
                                         </div>
 
@@ -191,40 +203,40 @@ const ManageFactors = () => {
                                    <section key={index}>
                                         <div className="p-4 bg-white w-full">
                                              <input  type={"checkbox"}  id={`mainDetail_${index}`} className="peer hidden"/>
-                                             <section className=" flex flex-col md:flex-row items-center  justify-between">
+                                             <section className=" flex  flex-col md:flex-row items-center  justify-between">
                                                   <div className="w-full  mr-4  mt-4 sm:mt-0">
                                                        <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-y-3">
-                                                            <p className="font-sans leading-6 text-sm ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm ">
                                                                  <b className="whitespace-nowrap">نام و نام خانوادگی : </b>
                                                                  {factor.full_name}
                                                             </p>
-                                                            <p className="font-sans leading-6 text-sm  ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm  ">
                                                                  <b className="whitespace-nowrap">شماره موبایل : </b> 
                                                                  {factor.phone_number_primary}    
                                                             </p>
-                                                            <p className="font-sans leading-6 text-sm  ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm  ">
                                                                  <b className="whitespace-nowrap">استان : </b> 
                                                                  {factor.address.province || "-"}    
                                                             </p>
-                                                            <p className="font-sans leading-6 text-sm  ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm  ">
                                                                  <b className="whitespace-nowrap">شهر : </b> 
                                                                  {factor.address.city || "-"}    
                                                             </p>
-                                                            <p className="font-sans leading-6 text-sm  ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm  ">
                                                                  <b className="whitespace-nowrap">کد پستی : </b> 
                                                                  {factor.address.post_code || "-"}    
                                                             </p>
                                                        </div> 
-                                                       <p className="font-sans leading-6 text-sm  mt-2">
+                                                       <p className="font-sans leading-6 text-xs md:text-sm  mt-2">
                                                             <b className="whitespace-nowrap">آدرس دقیق : </b> 
                                                             {factor.address.detail || "-"}    
                                                        </p>
                                                   </div>
                                                   
-                                                  <div className="w-full md:w-fit flex items-center mt-4 md:mt-0 justify-between md:justify-end">
-                                                       <p className="whitespace-nowrap font-sans text-sm bg-gray-50 text-gray-600 rounded-md px-3 py-1">{toPersianPrice(factor.invoices.length)} فاکتور</p>
-                                                       <label htmlFor={`mainDetail_${index}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
+                                                  <div className="w-full gap-x-4 md:w-fit flex items-center mt-4 md:mt-0 justify-between md:justify-end">
+                                                       <p className="whitespace-nowrap font-sans text-xs md:text-sm bg-gray-50 text-gray-600 rounded-md px-3 py-1">{toPersianPrice(factor.invoices.length)} فاکتور</p>
+                                                       <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`mainDetail_${index}`} className=" p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
                                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                             </svg>
                                                        </label>
@@ -242,43 +254,43 @@ const ManageFactors = () => {
                                                                  <section className=" flex flex-col md:flex-row  justify-between">
 
                                                                       <div className="w-full  grid sm:grid-cols-2 xl:grid-cols-3 mr-4 gap-y-3 mt-4 sm:mt-0">
-                                                                           <p className="font-sans leading-6 text-sm ">
+                                                                           <p className="font-sans leading-6 text-xs md:text-sm ">
                                                                                 <b className="whitespace-nowrap">شماره فاکتور : </b>
                                                                                 {toPersianDigits(factor?.bill_number)}
                                                                            </p>
-                                                                           <p className="font-sans leading-6 text-sm  ">
+                                                                           <p className="font-sans leading-6 text-xs md:text-sm  ">
                                                                                 <b className="whitespace-nowrap">قیمت کل فاکتور : </b> 
                                                                                 {toPersianPrice(factor?.total_price)}
                                                                            </p>
-                                                                           <div className="font-sans leading-6 flex text-sm w-full">
+                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
                                                                                 <b className="whitespace-nowrap pl-1">مالیات کل فاکتور : </b>
                                                                                 {toPersianDigits(factor?.total_tax)}
                                                                            </div>
-                                                                           <div className="font-sans leading-6 flex text-sm w-full">
+                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
                                                                                 <b className="whitespace-nowrap pl-1">تخفیف کل فاکتور : </b>
                                                                                 {toPersianDigits(factor?.total_discount ) || "-"}
                                                                            </div>
-                                                                           <div className="font-sans leading-6 flex text-sm w-full">
+                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
                                                                                 <b className="whitespace-nowrap pl-1">شماره پیگیری : </b>
                                                                                 {toPersianDigits(factor?.tracking_number ) || "-"}
                                                                            </div>
-                                                                           <div className="font-sans leading-6 flex text-sm w-full">
+                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
                                                                                 <b className="whitespace-nowrap pl-1">تعداد محصولات : </b>
                                                                                 {toPersianPrice(factor?.items_count) || "-"}
                                                                            </div>
-                                                                           <div className="font-sans leading-6 flex text-sm w-full">
+                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
                                                                                 <b className="whitespace-nowrap pl-1">زمان تحویل : </b>
                                                                                 {toPersianPrice(factor.delivery_time) || "-"}
                                                                            </div>
-                                                                           <div className="font-sans leading-6 flex text-sm w-full">
+                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
                                                                                 <b className="whitespace-nowrap pl-1">نوع پرداخت : </b>
                                                                                 {factor.payment_type || "-"}
                                                                            </div>
                                                                       </div>
-                                                                      <div className="flex justify-between md:justify-end mt-4 md:mt-0 items-center gap-x-4">
-                                                                           <p className="whitespace-nowrap inline-block h-fit w-fit font-sans text-sm bg-gray-50 text-gray-600 rounded-md px-3 py-1">{factor.state_persian}</p>
-                                                                           <label htmlFor={`itemDetail_${factor.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                      <div className="flex justify-between md:max-w-[217px] md:min-w-[217px]  md:justify-end mt-4 md:mt-0 items-center gap-x-4">
+                                                                           <p className="whitespace-nowrap inline-block h-fit w-fit font-sans text-xs md:text-sm bg-gray-50 text-gray-600 rounded-md px-3 py-1">{factor.state_persian}</p>
+                                                                           <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`itemDetail_${factor.id}`} className=" p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
                                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                                                 </svg>
                                                                            </label>
@@ -294,31 +306,31 @@ const ManageFactors = () => {
                                                                                                <img  className="w-full h-auto" src={item.product.image_url || ""}/>
                                                                                           </div>
                                                                                           <div className="w-full flex justify-start flex-col mr-4 gap-y-3 mt-4 sm:mt-0">
-                                                                                               <p className="font-sans leading-6 text-sm ">
+                                                                                               <p className="font-sans leading-6 text-xs md:text-sm ">
                                                                                                     <b className="whitespace-nowrap">عنوان کالا : </b>
                                                                                                     {item.product.title}
                                                                                                </p>
-                                                                                               <p className="font-sans leading-6 text-sm  ">
+                                                                                               <p className="font-sans leading-6 text-xs md:text-sm  ">
                                                                                                     <b className="whitespace-nowrap">برند : </b> 
                                                                                                     {item.product.brand.name}
                                                                                                </p>
-                                                                                               <div className="font-sans flex leading-6 text-sm  ">
+                                                                                               <div className="font-sans flex leading-6 text-xs md:text-sm  ">
                                                                                                     <b className="whitespace-nowrap">دسته بندی : </b> 
-                                                                                                    <div>{item.product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                                                    <div>{item.product.categories.map((category,index) => <span key={index} className=" font-sans text-xs md:text-sm">{index >0 && " / "}{category.name}</span>)}</div>
                                                                                                </div>
                                                                                           </div>
                                                                                      </article>
                                                                                      <hr className="mt-4 bg-red-300"/>
                                                                                      <div className="mt-2 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                                                                                          <p className="font-sans leading-6 text-sm ">
+                                                                                          <p className="font-sans leading-6 text-xs md:text-sm ">
                                                                                                <b className="whitespace-nowrap">قیمت : </b>
                                                                                                {toPersianPrice(item.price) || "-"}
                                                                                           </p>
-                                                                                          <p className="font-sans leading-6 text-sm ">
+                                                                                          <p className="font-sans leading-6 text-xs md:text-sm ">
                                                                                                <b className="whitespace-nowrap">تعداد : </b>
                                                                                                {toPersianPrice(item.count) || "-"}
                                                                                           </p>
-                                                                                          <p className="font-sans leading-6 text-sm ">
+                                                                                          <p className="font-sans leading-6 text-xs md:text-sm ">
                                                                                                <b className="whitespace-nowrap">تخفیف : </b>
                                                                                                {toPersianPrice(item.discount) || "-"}
                                                                                           </p>
@@ -326,23 +338,43 @@ const ManageFactors = () => {
                                                                                 </div>
                                                                            ))}
                                                                       </section> 
-                                                                      <p className="font-sans text-sm mt-4">توضیحات : </p>
-                                                                      <textarea name={factor.id} disabled={factor.state === "finished" || factor.state === "rejected"} defaultValue={factor.store_comment || ""}  onChange={input => handleInputChange(input)} className={`disabled:cursor-default disabled:hover:border-gray-300 border-gray-300 hover:border-gray-600  focus:border-gray-600 mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-8`}/>
+
+                                                                      {factor.state === "canceled" ? (
+                                                                           <div className="mt-4">
+                                                                                <b className="font-sans text-xs md:text-sm">توضیحات خریدار : </b>
+                                                                                <span className="font-sans text-xs md:text-sm">{factor.message || "-"}</span>
+                                                                           </div>
+                                                                      ) : factor.message.length > 0 ?(
+                                                                           <div className="mt-4">
+                                                                                <b className="font-sans text-xs md:text-sm">توضیحات فروشگاه : </b>
+                                                                                <span className="font-sans text-xs md:text-sm">{factor.message || "-"}</span>
+                                                                           </div>
+                                                                      ) : null}
+
+                                                                       {factor.state === "sending" || factor.state === "accepted"  || factor.state === "pending" ? (
+                                                                           <textarea 
+                                                                                name={factor.id} 
+                                                                                disabled={factor.state === "finished" || factor.state === "rejected" || factor.state === "canceled"} 
+                                                                                onChange={input => handleInputChange(input)} 
+                                                                                className={`disabled:cursor-default disabled:hover:border-gray-300 border-gray-300 hover:border-gray-600  focus:border-gray-600 mt-4 w-full  focus:ring-0 text-xs md:text-sm  font-sans bg-white text-gray-800 rounded-md leading-8`}
+                                                                           />
+                                                                       ) : null}
                                                                  
                                                                       <section className="flex w-full items-center  justify-end gap-x-4 mt-4">
-                                                                           <p className="font-sans text-sm">تغییر وضعیت : </p>
                                                                            {isActionLoading(factor.id) ? (
                                                                                      <ReactLoading type="spinningBubbles" height={26} width={26} color="red" />
                                                                            ) : (
                                                                                 <>
-                                                                                     {factor.state === "rejected" ? (
-                                                                                          <p className="font-sans text-sm text-red-600">رد شده</p>
+                                                                                     {factor.state === "canceled" ? (
+                                                                                          <p className="font-sans text-xs md:text-sm text-red-600">{factor.state_persian}</p>
+                                                                                     ) : factor.state === "rejected" ? (
+                                                                                          <p className="font-sans text-xs md:text-sm text-red-600">رد شده</p>
                                                                                      ) : factor.state === "accepted" ? (
                                                                                           <button onClick={() => dispatch(store_changeInvoiceState({comment , invoiceId : factor.id , state : "sending"}))} className={buttonClassName({bgColor : 'blue' , isValid : true , isOutline : true})}>در حال ارسال</button> 
                                                                                      ) :  factor.state === "sending" ? (
                                                                                           <button onClick={() => dispatch(store_changeInvoiceState({comment , invoiceId : factor.id , state : "finished"}))} className={buttonClassName({bgColor : 'blue' , isValid : true , isOutline : true})}>ارسال شده</button>
                                                                                      ) : factor.state === "finished" ?  (
-                                                                                          <p className="font-sans text-sm text-green-600">ارسال شده</p>
+                                                                                          <p className="font-sans text-xs md:text-sm text-green-600">ارسال شده</p>
                                                                                      ) : (
                                                                                           <>
                                                                                                <button onClick={() => dispatch(store_changeInvoiceState({comment , invoiceId : factor.id , state : "reject"}))} className={buttonClassName({bgColor : 'red' , isValid : true , isOutline : true})}>رد کردن</button>

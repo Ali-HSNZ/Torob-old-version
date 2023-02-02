@@ -57,6 +57,19 @@ const ManageProduct = () => {
 
      const returnState = type => allState.find(state => state.type === type);
 
+     const rotateChevron = (button) => {
+          const svg = button.children[0];
+          if(document){
+               if(svg.classList.contains('rotate-90')){
+                    svg.classList.remove("rotate-90")
+                    svg.classList.add("rotate-0")
+               }else{
+                    svg.classList.remove("rotate-0")
+                    svg.classList.add("rotate-90")
+               }
+          }
+     }
+     
      useEffect(()=> {
           window.scroll({top : 0 , behavior : 'smooth'})
           setStatus(router.query.state ? returnState(router.query.state) : allState[0])
@@ -218,10 +231,10 @@ const ManageProduct = () => {
                                                                  {!product.is_show &&<p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-md px-3 py-1">حذف شده</p>}
                                                             </div>
                                                             <div className="flex items-center ">
-                                                                 <label htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                                 </svg>
+                                                                 <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                      </svg>
                                                                  </label>
                                                             </div>
                                                        </div>

@@ -57,8 +57,21 @@ const StoreManageProducts = () => {
      
      const dispatch = useDispatch()
      const page = Number(useRouter().query.page || 1);
-     const limit = 5
+     const limit = 12
      
+     const rotateChevron = (button) => {
+          const svg = button.children[0];
+          if(document){
+               if(svg.classList.contains('rotate-90')){
+                    svg.classList.remove("rotate-90")
+                    svg.classList.add("rotate-0")
+               }else{
+                    svg.classList.remove("rotate-0")
+                    svg.classList.add("rotate-90")
+               }
+          }
+     }
+
      useEffect(()=> {
           setStatus(router.query.state ? returnState(router.query.state) : allState[0])
           window.scroll({top : 0 , behavior : 'smooth'})
@@ -132,50 +145,50 @@ const StoreManageProducts = () => {
                          </nav>
                          </div>
                          <form className="w-full " onSubmit={formik.handleSubmit}>
-                         <section className="w-full p-4 bg-white mt-4 rounded-lg shadow-md">
-                              <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                   <FormikInput formik={formik} title={"نام کالا"} name={"product_title"}/>
+                              <section className="w-full p-4 bg-white mt-4 rounded-lg shadow-md">
+                                   <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                                        <FormikInput formik={formik} title={"نام کالا"} name={"product_title"}/>
 
-                                   <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800"> برند :</p>
-                                        <div className="w-full mt-2">
-                                             <SelectBox notFoundTitle="برند مورد نظر یافت نشد." query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
-                                        </div>
-                                   </div>
-
-                                   <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
-                                        <div className="w-full mt-2">
-                                             <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
-                                        </div>
-                                   </div>
-
-                                   <FormikInput formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
-
-                                   <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
-                                        <section className="flex justify-between mt-2 gap-x-2">
-                                             <div className="flex w-1/2">
-                                             <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                             <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                        <div className="flex flex-col relative">
+                                             <p className="font-sans text-sm text-gray-800"> برند :</p>
+                                             <div className="w-full mt-2">
+                                                  <SelectBox notFoundTitle="برند مورد نظر یافت نشد." query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                              </div>
-                                             <div className="flex w-1/2">
-                                             <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                             <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
-                                             </div>
-                                        </section>
-                                   </div>
-                                   
-                                   <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800">وضعیت :</p>
-                                        <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>                                 
-                                   </div>
+                                        </div>
 
+                                        <div className="flex flex-col relative">
+                                             <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
+                                             <div className="w-full mt-2">
+                                                  <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
+                                             </div>
+                                        </div>
+
+                                        <FormikInput formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
+
+                                        <div className="flex flex-col relative">
+                                             <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
+                                             <section className="flex justify-between mt-2 gap-x-2">
+                                                  <div className="flex w-1/2">
+                                                  <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
+                                                  <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                                  </div>
+                                                  <div className="flex w-1/2">
+                                                  <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
+                                                  <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                                  </div>
+                                             </section>
+                                        </div>
+                                        
+                                        <div className="flex flex-col relative">
+                                             <p className="font-sans text-sm text-gray-800">وضعیت :</p>
+                                             <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>                                 
+                                        </div>
+
+                                   </section>
+                                   <div className="w-full flex items-center justify-end mt-4">
+                                        <button type={"submit"} className={buttonClassName({bgColor : "blue" , isValid : formik.isValid , isOutline : false})}>جستجو</button>
+                                   </div>
                               </section>
-                              <div className="w-full flex items-center justify-end mt-4">
-                                   <button type={"submit"} className={buttonClassName({bgColor : "blue" , isValid : formik.isValid , isOutline : false})}>جستجو</button>
-                              </div>
-                         </section>
                          </form>
 
                          {loading && (
@@ -226,10 +239,10 @@ const StoreManageProducts = () => {
                                                                  </p>  
                                                             ) : <></>}
                                                             <div className="flex w-full items-center justify-end ">
-                                                                 <label htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                                 </svg>
+                                                                 <label onClick={button=>rotateChevron(button.currentTarget)} htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-100 rotate-90  w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                      </svg>
                                                                  </label>
                                                             </div>
                                                        </div>
