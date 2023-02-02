@@ -19,6 +19,7 @@ import { cartReducer } from "./cart/cart/cartReducer";
 import { checkoutReducer } from "./cart/checkout/checkoutReducer";
 import { categoriesReducer } from "./categories/categoriesReducer";
 import { store_factorReducer } from "./manage-store/manageFactors/manageFactors_reducer";
+import { user_factorReducer } from "./user-factor/userFactor_reducer";
 
 const rootReducer = combineReducers({
      // User
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
      history: historyReducer,
      likes: likesReducer,
      analytics: analyticsReducer,
+     user_factor : user_factorReducer,
      store: storeReducer,
 
      // Admin Panel Reducers
