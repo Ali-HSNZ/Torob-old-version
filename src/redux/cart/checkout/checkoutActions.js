@@ -83,9 +83,8 @@ export const confirmFactor = ({store_id}) => dispatch => {
      http.post(`user/invoice/${store_id}` , {} ,{headers : {authorization : token}})
      .then(({data}) => {
           if(data.factor_state){
-               if(window) window.location.href = '/cart'
+               if(window) window.location.href = '/user/invoices'
           }else{
-
                dispatch(checkoutMainFetchSuccess(data))
           }
      })
