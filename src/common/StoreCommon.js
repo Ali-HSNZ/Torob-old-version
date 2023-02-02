@@ -35,7 +35,6 @@ const StoreCommon = ({store , index}) => {
                }
           }
      }
-
      const limitHandler = () => {
           const limit = availableStoreInCart()?.limit || 0
           const count = availableStoreInCart()?.count || 0
@@ -57,7 +56,7 @@ const StoreCommon = ({store , index}) => {
                                    <p className='font-sans text-xs text-gray-500 mr-1'>({store.province})</p>
                               </div>
                          </div>
-                         {store.discounts.length > 0 && <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`discount_${store.store_id}`} className="py-2 px-4 bg-gray-50 hover:border-red-600 group-hover:bg-white rounded-lg flex items-center  border cursor-pointer">
+                         {store.discounts.length > 0 && <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`discount_${store.store_id}`} className="select-none py-2 px-4 bg-gray-50 hover:border-red-600 group-hover:bg-white rounded-lg flex items-center  border cursor-pointer">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700">
                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                               </svg>
@@ -107,10 +106,14 @@ const StoreCommon = ({store , index}) => {
                          <p className="font-sans text-sm font-bold">قیمت نهایی</p>
                          </div>
                          {store.discounts.map((discount,index) => (
-                              <div key={index} className="px-4 w-full grid grid-cols-3 py-2 odd:bg-gray-200 even:bg-gray-100">
-                                   <p className="font-sans text-sm px-1 sm:p-0">{discount.discount_type === 'count' ? "تعداد" : 'قیمت'}</p>
-                                   <p className="font-sans text-sm px-1 sm:p-0">{toPersianPrice(discount.discount_value)} {discount.discount_type === 'price' ? "تومان" : ''} </p>
-                                   <p className="font-sans text-sm px-1 sm:p-0">{toPersianPrice(discount.final_price)} تومان</p>
+                              <div key={index} className="px-4 w-full grid grid-cols-3 self-center py-2 odd:bg-gray-200 even:bg-gray-100">
+                                   <p className="font-sans text-sm px-1 flex items-center sm:p-0">{discount.discount_type === 'count' ? "تعداد" : "قیمت"}</p>
+                                   <p className="font-sans text-sm px-1 sm:p-0 flex items-center">{toPersianPrice(discount.discount_value)} {discount.discount_type === 'price' ? "تومان" : ''} </p>
+                                   
+                                   <div>
+                                        {discount.discount_type == 'count' && <p className="flex items-center font-sans text-sm px-1 sm:p-0 line-through text-red-600">{toPersianPrice(store.price * discount.discount_value)}</p>}
+                                        <p className="font-sans text-sm px-1 flex items-center sm:p-0">{toPersianPrice(discount.final_price)} تومان</p>
+                                   </div>
                               </div>
                          ))}
                     </div>}
