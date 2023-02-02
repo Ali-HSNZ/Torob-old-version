@@ -12,10 +12,10 @@ import ReactLoading from 'react-loading';
 import { changeStorePasswordAction } from "@/redux/manage-store/manageStore/manageStore_actions";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const ChangePasswordPage = () => {
      const [isAsideModal , setIsAsideModal] = useState(false)
@@ -121,7 +121,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
                if(data.user.account_type !== 'store') ErrorCode = 403
                if(data.user.is_pending === true ) ErrorCode = 403;
                else {
-                    dispatch(addToCartSuccess(data))
+                    dispatch(cartDetails(data))
                     dispatch(authSuccess(data.user))
                }
           })  

@@ -18,11 +18,11 @@ import { deleteProduct, fetchCompanyOneProductFailure, fetchCompanyOneProductSuc
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
 import { toPersianPrice } from "@/utils/toPersianPrice";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const InsertStoreProduct = () => {
     const dispatch = useDispatch();
@@ -418,7 +418,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           if(data.user.account_type !== 'store') ErrorCode = 403
           if(data.user.is_pending === true ) ErrorCode = 403;
           else {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           }
      })  
@@ -438,5 +438,5 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      // Fetch One Product Data
      await http.get(`store/products?id=${ctx.query.productId}` , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchCompanyOneProductSuccess(data.product)))
-     .catch(error => dispatch(fetchCompanyOneProductFailure("خطای سرور در بخش گرفتن اطلاعات کالا")))
+     .catch(error => dispatch(fetchCompanyOneProductFailure("خطا در بخش گرفتن اطلاعات کالا")))
 })

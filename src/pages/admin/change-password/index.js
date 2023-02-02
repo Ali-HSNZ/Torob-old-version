@@ -12,10 +12,11 @@ import ReactLoading from 'react-loading';
 import { changeAdminPasswordAction } from "@/redux/admin/admin_changePassword.js/admin_changePasswordActions";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const ChangeAdminPassword = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
@@ -120,7 +121,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      .then(({data}) =>  {
           if(data.user.account_type !== 'admin') ErrorCode = 403; 
           else {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           }
      })  

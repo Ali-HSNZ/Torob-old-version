@@ -18,11 +18,11 @@ import FormikInput from "@/common/admin/FormikInput";
 import { signupUserAction } from "@/redux/signup/signupActions";
 import { ONLY_DIGIT_REGIX, PASSWORD_REGIX, PHONE_NUMBER_REGIX, POSTAL_CODE_REGIX } from "@/utils/Regex";
 import http, { returnTokenInServerSide } from "src/services/http";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { wrapper } from "@/redux/store";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 
 const UserSignup = ({numbers}) => {
@@ -293,7 +293,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           })  
           .catch(() => {

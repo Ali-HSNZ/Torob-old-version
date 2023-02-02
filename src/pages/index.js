@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { addToCartSuccess } from '@/redux/cart/cart/cartActions'
+import { cartDetails } from '@/redux/cart/cart/cartActions'
 import { fetchCategoriesFailure, fetchCategoriesRequest, fetchCategoriesSuccess } from '@/redux/categories/categoriesActions'
 import { wrapper } from '@/redux/store'
 import { authFailure, authRequest, authSuccess } from '@/redux/user/userActions'
@@ -50,12 +50,12 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch User Data
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) => {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           })
           .catch(error => dispatch(authFailure("خطا در بخش احراز هویت")))
      }
-     // Fetch Categories
+     // Fetch Navbar Categories
      await http.get(`public/categories`)
      .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
      .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))

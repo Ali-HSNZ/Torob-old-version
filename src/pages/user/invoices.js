@@ -1,21 +1,17 @@
 import Layout from "@/layout/Layout";
 import { Modal , Pagination} from "@mui/material";
 import { useEffect, useState } from "react";
-import ManageStoreAside from "@/components/manageStore/storeAside";
 import Link from "next/link";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { useFormik } from "formik";
-import * as YUP from 'yup'
 import FormikInput from "@/common/admin/FormikInput";
 import { buttonClassName } from "@/utils/global";
 import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 import SelectBox from "@/common/admin/SelectBox";
-import { store_changeInvoiceState, store_fetchFactors, store_fetchFactorsFailure, store_fetchFactorsRequest, store_fetchFactorsSuccess } from "@/redux/manage-store/manageFactors/manageFactors_actions";
 import { useSelector , useDispatch} from "react-redux";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { toPersianPrice } from "@/utils/toPersianPrice";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { fetchBrandsFailure, fetchBrandsSuccess, store_fetchCategoriesFailure, store_fetchCategoriesSuccess } from "@/redux/manage-store/manageStore/manageStore_actions";
@@ -24,9 +20,11 @@ import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
 import { user_changeInvoiceState, user_fetchFactors, user_fetchFactorsRequest } from "@/redux/user-factor/userFactor_actions";
 import UserPageAside from "@/components/userPage/Aside";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 
 const ManageFactors = () => {
+
      const [isAsideModal , setIsAsideModal] = useState(false)
      const {brands} = useSelector(state => state.manage_store.brands)
      const {categories} = useSelector(state => state.manage_store.categories)
@@ -395,7 +393,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           })  
           .catch(() => {

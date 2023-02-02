@@ -15,10 +15,10 @@ import { fetchBaseProducts, fetchBaseProductsRequest, fetchBrands, fetchBrandsFa
 import SelectBox from "@/common/admin/SelectBox";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName, substringHandler } from "@/utils/global";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const ManageStores = () => {
      const router = useRouter()
@@ -279,7 +279,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
                if(data.user.account_type !== 'store') ErrorCode = 403
                if(data.user.is_pending === true ) ErrorCode = 403;
                else {
-                    dispatch(addToCartSuccess(data))
+                    dispatch(cartDetails(data))
                     dispatch(authSuccess(data.user))
                }
           })  
@@ -301,10 +301,10 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      // Fetch Categories
      await http.get(`products/categories?list=1` , {headers : {authorization : token}})
      .then(({data}) => dispatch(store_fetchCategoriesSuccess(data)))
-     .catch(error => dispatch(store_fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته‌بندی ها")))
+     .catch(error => dispatch(store_fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته‌بندی ها")))
 
      // Fetch Brands
      await http.get(`products/brands?list=1` , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchBrandsSuccess(data)))
-     .catch(error => dispatch(fetchBrandsFailure("خطای سرور در بخش گرفتن لیست برندها")))
+     .catch(error => dispatch(fetchBrandsFailure("خطا در بخش گرفتن لیست برندها")))
 })

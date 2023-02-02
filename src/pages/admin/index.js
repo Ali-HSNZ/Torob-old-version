@@ -13,7 +13,7 @@ import http, { returnTokenInServerSide } from "src/services/http";
 import { wrapper } from "@/redux/store";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const AdminPage = () => {
      const [isAsideModal , setIsAsideModal] = useState(false)
@@ -145,7 +145,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      .then(({data}) =>  {
           if(data.user.account_type !== 'admin') ErrorCode = 403; 
           else {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           }
      })  
@@ -159,7 +159,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
     // Fetch Data Count
      await http.get(`admin/counter` , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchAdminCountSuccess(data.count)))
-     .catch(() => dispatch(fetchAdminCountFailure("خطای سرور در بخش گرفتن تعداد داده ها")))
+     .catch(() => dispatch(fetchAdminCountFailure("خطا در بخش گرفتن تعداد داده ها")))
 
      // Fetch Categories
      await http.get(`public/categories`)

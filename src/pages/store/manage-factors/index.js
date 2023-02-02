@@ -15,13 +15,13 @@ import { store_changeInvoiceState, store_fetchFactors, store_fetchFactorsFailure
 import { useSelector , useDispatch} from "react-redux";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { toPersianPrice } from "@/utils/toPersianPrice";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { fetchBrandsFailure, fetchBrandsSuccess, store_fetchCategoriesFailure, store_fetchCategoriesSuccess } from "@/redux/manage-store/manageStore/manageStore_actions";
 import { useRouter } from "next/router";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 
 const ManageFactors = () => {
@@ -423,7 +423,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
                if(data.user.account_type !== 'store') ErrorCode = 403
                if(data.user.is_pending === true ) ErrorCode = 403;
                else {
-                    dispatch(addToCartSuccess(data))
+                    dispatch(cartDetails(data))
                     dispatch(authSuccess(data.user))
                }
           })  
@@ -446,10 +446,10 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      // Fetch Categories
      await http.get(`products/categories?list=1` , {headers : {authorization : token}})
      .then(({data}) => dispatch(store_fetchCategoriesSuccess(data)))
-     .catch(error => dispatch(store_fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته‌بندی ها")))
+     .catch(error => dispatch(store_fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته‌بندی ها")))
 
      // Fetch Brands
      await http.get(`products/brands?list=1` , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchBrandsSuccess(data)))
-     .catch(error => dispatch(fetchBrandsFailure("خطای سرور در بخش گرفتن لیست برندها")))
+     .catch(error => dispatch(fetchBrandsFailure("خطا در بخش گرفتن لیست برندها")))
 })

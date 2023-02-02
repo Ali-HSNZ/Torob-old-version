@@ -16,6 +16,8 @@ const {
     CART_INCREASE_OR_DECREASE_PRODUCT_LOADING_REQUEST,
     CART_INCREASE_OR_DECREASE_PRODUCT_LOADING_SUCCESS,
     CART_INCREASE_OR_DECREASE_PRODUCT_LOADING_FAILURE,
+    
+    CART_DETAIL,
 } = require("./cartTypes")
 
 const initialState = {
@@ -33,7 +35,11 @@ export const cartReducer = (state = initialState , action) => {
           // Add To Cart State 
           case CART_ADD_TO_CART_REQUEST : { return {...state , cart : {data : state.cart.data , error : null , loading : true } , cart_count : state.cart_count}}
           case CART_ADD_TO_CART_SUCCESS : { return {...state , cart : {data : action.payload.cart , error : null , loading : false}  ,cart_count : action.payload.cart_count}}
-          case CART_ADD_TO_CART_FAILURE : { return {...state , cart : {data : state.cart.data , error : null , loading : true } , cart_count : state.cart_count}}
+          case CART_ADD_TO_CART_FAILURE : { return {...state , cart : {data : state.cart.data , error : null , loading : false } , cart_count : state.cart_count}}
+
+          // Load Cart Detail
+          case CART_DETAIL : { return {...state , cart : {data : action.payload.cart , error : null , loading : false}  ,cart_count : action.payload.cart_count}}
+
 
           // State Loading For Adding Product To Cart 
           case CART_ADD_TO_CART_LOADING_REQUEST : { return {...state , addToCartLoading : [...state.addToCartLoading ,{store_id : action.store_id}]}}

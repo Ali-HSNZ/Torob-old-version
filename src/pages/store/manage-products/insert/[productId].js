@@ -19,11 +19,11 @@ import { setComma } from "@/utils/setComma";
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
 import { toPersianPrice } from "@/utils/toPersianPrice";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const InsertStoreProduct = () => {
      const dispatch = useDispatch();
@@ -412,7 +412,7 @@ const InsertStoreProduct = () => {
                     if(data.user.account_type !== 'store') ErrorCode = 403
                     if(data.user.is_pending === true ) ErrorCode = 403;
                     else {
-                         dispatch(addToCartSuccess(data))
+                         dispatch(cartDetails(data))
                          dispatch(authSuccess(data.user))
                     }
                })  

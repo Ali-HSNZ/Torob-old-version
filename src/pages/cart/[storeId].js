@@ -11,9 +11,9 @@ import Link from "next/link";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import Error from "@/common/alert/Error";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const CartStore = () => {
      const {data , loading , increaseOrDecreaseLoading} = useSelector(state => state.checkout)
@@ -163,7 +163,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           })  
           .catch(() => {

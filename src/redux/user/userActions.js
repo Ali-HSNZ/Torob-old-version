@@ -1,5 +1,5 @@
 import http, { removeCookies, requestError, requestSuccess, setCookies, token } from "src/services/http";
-import { addToCartSuccess } from "../cart/cart/cartActions";
+import { cartDetails } from "../cart/cart/cartActions";
 import { 
     AUTH_FAILURE, 
     AUTH_REQUEST, 
@@ -41,7 +41,7 @@ export const loadUserInfo = () => dispatch => {
      http.get("user", {headers : {authorization : token}})
      .then(({data}) => {
           dispatch(authSuccess(data.user))
-          dispatch(addToCartSuccess(data))
+          dispatch(cartDetails(data))
      }).catch(error => {
           // requestError({error : error?.response?.data?.errors , defaultMessage : "خطا در بخش احراز هویت"})
           dispatch(authFailure("خطا در بخش احراز هویت"))

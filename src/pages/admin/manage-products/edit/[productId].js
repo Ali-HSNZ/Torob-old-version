@@ -33,9 +33,9 @@ import { wrapper } from "@/redux/store";
 import http, { requestError, returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { fetchBrands } from "@/redux/admin/admin_manageBrand/admin_manageBrandActions";
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const EditProduct = () => {
      const dispatch = useDispatch()
@@ -359,7 +359,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      .then(({data}) =>  {
           if(data.user.account_type !== 'admin') ErrorCode = 403; 
           else {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           }
      })  
@@ -373,7 +373,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      // Fetch One Product
      await http.get(`admin/products?id=${ctx.query.productId}` , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchOneProductSuccess(data.product)))
-     .catch(error => dispatch(fetchOneProductFailure("خطای سرور در بخش گرفتن اطلاعات کالا")))
+     .catch(error => dispatch(fetchOneProductFailure("خطا در بخش گرفتن اطلاعات کالا")))
 
 
      // Fetch Navbar Categories
@@ -384,11 +384,11 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      // Fetch  Categories
      await http.get(`admin/categories` , {headers : {authorization : token}})
      .then(({data}) => dispatch(admin_fetchCategoriesSuccess(data)))
-     .catch(error => dispatch(admin_fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته‌بندی")))
+     .catch(error => dispatch(admin_fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته‌بندی")))
 
      // Fetch Brands
      await http.get(`admin/brands` , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchBrandsSuccess(data)))
-     .catch(error => dispatch(fetchBrandsFailure("خطای سرور در بخش گرفتن لیست برندها")))
+     .catch(error => dispatch(fetchBrandsFailure("خطا در بخش گرفتن لیست برندها")))
 
 })

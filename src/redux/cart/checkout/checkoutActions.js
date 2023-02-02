@@ -1,5 +1,5 @@
 import http, { requestError, token } from "src/services/http";
-import { addToCartSuccess } from "../cart/cartActions";
+import { cartDetails } from "../cart/cartActions";
 import { 
     CHECKOUT_DECREASE_PRODUCT_REQUEST, 
     CHECKOUT_DECREASE_PRODUCT_SUCCESS, 
@@ -43,7 +43,7 @@ export const increaseProductInCheckout = ({product_id , store_id}) => dispatch =
      http.put(`user/cart/store/${store_id}/product/${product_id}/up/factor`,{}, {headers : {Authorization : token}})
      .then(({data}) => {
           dispatch(checkoutIncreaseOrDecreaseLoadingSuccess(store_id))
-          dispatch(addToCartSuccess(data))
+          dispatch(cartDetails(data))
           dispatch(checkoutIncreaseSuccess(data))
      })
      .catch(error => {
@@ -59,7 +59,7 @@ export const decreaseProductInCheckout = ({product_id , store_id}) => dispatch =
      http.put(`user/cart/store/${store_id}/product/${product_id}/down/factor`,{}, {headers : {authorization : token}})
      .then(({data}) => {
           dispatch(checkoutIncreaseOrDecreaseLoadingSuccess(store_id))
-          dispatch(addToCartSuccess(data))
+          dispatch(cartDetails(data))
           dispatch(checkoutDecreaseSuccess(data))
      })
      .catch(error => {

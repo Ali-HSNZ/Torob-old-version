@@ -21,8 +21,8 @@ import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { buttonClassName } from "@/utils/global";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const ManageCategory = () => {
 
@@ -299,7 +299,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           if(data.user.account_type !== 'admin') ErrorCode = 403; 
           else {
                dispatch(authSuccess(data.user))
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
           }
      })  
      .catch(() => {

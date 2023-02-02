@@ -9,9 +9,9 @@ import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import {fetchLikeFailure , fetchLikeSuccess} from '@/redux/like/likeActions'
 import { authFailure, authSuccess } from "@/redux/user/userActions";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import empty_image from '@/images/empty_likes.png'
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const Favorites = () => {
      const [isAsideModal, setIsAsideModal] = useState(false);
@@ -69,7 +69,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           })  
           .catch(() => {

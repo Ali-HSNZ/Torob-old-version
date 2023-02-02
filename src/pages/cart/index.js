@@ -2,7 +2,7 @@ import Layout from "@/layout/Layout";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCartSuccess, deleteStoreInCart, fetchMainCartFailure, fetchMainCartSuccess } from "@/redux/cart/cart/cartActions";
+import { cartDetails, deleteStoreInCart, fetchMainCartFailure, fetchMainCartSuccess } from "@/redux/cart/cart/cartActions";
 import Link from "next/link";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
@@ -101,7 +101,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           })  
           .catch(() => {
@@ -112,7 +112,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch Main Cart Data
           await http.get(`user/cart`,{headers : {authorization : token}})
           .then(({data}) => dispatch(fetchMainCartSuccess(data.stores)))
-          .catch(() => dispatch(fetchMainCartFailure("خطای سرور در بخش اطلاعات فروشگاه در سبد خرید ")))
+          .catch(() => dispatch(fetchMainCartFailure("خطا در بخش اطلاعات فروشگاه در سبد خرید ")))
      }
      
      

@@ -10,10 +10,10 @@ import empty_history from "@/images/empty_history1.png";
 import ReactLoading from "react-loading";
 import { wrapper } from "@/redux/store";
 import http, { requestError, returnTokenInServerSide } from "src/services/http";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const History = () => {
      const [isAsideModal, setIsAsideModal] = useState(false);
@@ -84,7 +84,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           })  
           .catch(() => {
@@ -96,8 +96,8 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           await http.get(`user/history`, {headers : {authorization: token}})
           .then( ({data}) => dispatch(historySuccess(data.products)))
           .catch(error => {
-               requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش گرفتن لیست محصولات بازدیدشده"})
-               dispatch(historyFailure("خطای سرور در بخش گرفتن لیست محصولات بازدیدشده"))
+               requestError({error : error?.response?.data?.errors , defaultMessage : "خطا در بخش گرفتن لیست محصولات بازدیدشده"})
+               dispatch(historyFailure("خطا در بخش گرفتن لیست محصولات بازدیدشده"))
           })
      }
      if(ErrorCode === 403){ return{notFound : true} }

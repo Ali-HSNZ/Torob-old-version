@@ -19,7 +19,8 @@ import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
+
 
 const ManageProduct = () => {
      const router = useRouter()
@@ -300,7 +301,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      .then(({data}) =>  {
           if(data.user.account_type !== 'admin') ErrorCode = 403; 
           else {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           }
      })  
@@ -322,11 +323,11 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      // Fetch Brands
      await http.get(`admin/brands` , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchBrandsSuccess(data)))
-     .catch(error => dispatch(fetchBrandsFailure("خطای سرور در بخش گرفتن لیست برندها")))
+     .catch(error => dispatch(fetchBrandsFailure("خطا در بخش گرفتن لیست برندها")))
 
      // Fetch Categories
      await http.get(`admin/categories?list=1` , {headers : {authorization : token}})
      .then(({data}) => dispatch(admin_fetchCategoriesSuccess(data)))
-     .catch(error => dispatch(admin_fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته‌بندی")))
+     .catch(error => dispatch(admin_fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته‌بندی")))
 
 })

@@ -7,7 +7,7 @@ import { wrapper } from '@/redux/store';
 import http, { returnTokenInServerSide } from 'src/services/http';
 import { authFailure, authRequest, authSuccess } from '@/redux/user/userActions';
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from '@/redux/categories/categoriesActions';
-import { addToCartSuccess } from '@/redux/cart/cart/cartActions';
+import { cartDetails } from '@/redux/cart/cart/cartActions';
 import { fetchLikeFailure, fetchLikeSuccess } from '@/redux/like/likeActions';
 
 const ProductPage = ({product , productSimilars}) => {
@@ -41,7 +41,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) =>  as
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) => {
                dispatch(authSuccess(data.user))
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
           })
           .catch(error => dispatch(authFailure("خطا در بخش احراز هویت")))
 
@@ -51,14 +51,14 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) =>  as
           // Fetch Likes
           await http.get(`user/favorites`, {headers : {authorization : token}})
           .then(({data}) => dispatch(fetchLikeSuccess(data.products)))
-          .catch(error => dispatch(fetchLikeFailure("خطای سرور در بخش گرفتن محصولات پسندیده شده")))
+          .catch(error => dispatch(fetchLikeFailure("خطا در بخش گرفتن محصولات پسندیده شده")))
      }
 
 
      // Fetch Categories
      await http.get(`public/categories`)
      .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
-     .catch(error => dispatch(fetchCategoriesFailure("خطای سرور در بخش گرفتن لیست دسته بندی‌ها ")))
+     .catch(error => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
      
      const {data : product} = await http.get(encodeURI(`public/product/${slug}`)).then(res => res.data)
      const {data : productSimilars} = await http.get(encodeURI(`public/product/${slug}/similars?limit=9&page=1`)).then(res => res.data)

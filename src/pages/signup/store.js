@@ -19,10 +19,10 @@ import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PASSWORD_REGIX, PHONE_NUMBER_R
 import { insertStoreAction } from "@/redux/signup/signupActions";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { wrapper } from "@/redux/store";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const InsertStorePage = ({numbers}) => {
 
@@ -463,7 +463,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           // Fetch User Data     
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) =>  {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           })  
           .catch(() => {

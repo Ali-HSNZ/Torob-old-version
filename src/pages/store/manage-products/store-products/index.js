@@ -20,10 +20,10 @@ import { toPersianDigits } from "@/utils/toPersianDigits";
 import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName, linkClassName } from "@/utils/global";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const StoreManageProducts = () => {
      
@@ -350,7 +350,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           if(data.user.account_type !== 'store') ErrorCode = 403
           if(data.user.is_pending === true ) ErrorCode = 403;
           else {
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
                dispatch(authSuccess(data.user))
           }
      })  

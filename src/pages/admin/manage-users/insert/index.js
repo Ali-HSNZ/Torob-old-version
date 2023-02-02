@@ -23,7 +23,7 @@ import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { wrapper } from "@/redux/store";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 
 const InsertStore = () => {
@@ -305,7 +305,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           .then(({data}) =>  {
                if(data.user.account_type !== 'admin') ErrorCode = 403
                else {
-                    dispatch(addToCartSuccess(data))
+                    dispatch(cartDetails(data))
                     dispatch(authSuccess(data.user))
                }
           })  

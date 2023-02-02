@@ -13,7 +13,7 @@ import { wrapper } from "@/redux/store";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
-import { addToCartSuccess } from "@/redux/cart/cart/cartActions";
+import { cartDetails } from "@/redux/cart/cart/cartActions";
 
 const SearchQuery = ({similarCategories , brands , mainSearch}) => {
     const [isFilterTaggle , setIsFilterTaggle] = useState(false)    
@@ -67,7 +67,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           await http.get("user", {headers : {authorization : token}})
           .then(({data}) => {
                dispatch(authSuccess(data.user))
-               dispatch(addToCartSuccess(data))
+               dispatch(cartDetails(data))
           })
           .catch(error => dispatch(authFailure("خطا در بخش احراز هویت")))
      }
@@ -84,16 +84,8 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      const similarCategories  = category &&  await http.get(encodeURI(`public/categories/${category}/sub`)).then(res => res.data)
      
      // Fetch Products By Filters 
-     const mainSearch =  await http.get(encodeURI(`public/search?${productName?"q="+productName:""}
-                                                                                                              &limit=10
-                                                                                                              &page=1
-                                                                                                              ${brand ? "&brand="+brand : ""}
-                                                                                                              ${available ? "&available="+available : ""}
-                                                                                                              ${category ? "&category="+category : ""}
-                                                                                                              ${sort ? `&sort=${sort}` : "" }
-                                                                                                              ${price_from ? "&price_from="+price_from : ""}
-                                                                                                              ${price_to ? "&price_to="+price_to : ""}`))
-                                                                                                              .then(res =>res.data)
+     const mainSearch =  await http.get(encodeURI(`public/search?${productName?"q="+productName:""}&limit=10&page=1${brand ? "&brand="+brand : ""}${available ? "&available="+available : ""}${category ? "&category="+category : ""}${sort ? `&sort=${sort}` : "" }${price_from ? "&price_from="+price_from : ""}${price_to ? "&price_to="+price_to : ""}`)).then(res =>res.data)
+     
      return {     
           props: {
                brands : brands && brands.data ||null,
