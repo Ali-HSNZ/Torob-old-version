@@ -50,7 +50,7 @@ const Analytics = () => {
       });
 
   return (
-    <Layout isFooter={true}>
+    <Layout isFooter={true} pageTitle="ترب | تغییرات قیمت">
       <div className="w-full flex flex-col lg:flex-row  justify-between ">
         <UserPageAside />
         <section className="w-full lg:w-4/5 flex-0 h-max px-4 ">
