@@ -217,7 +217,7 @@ const EditProduct = () => {
                          </Modal>
                          <Modal open={isImage_modal} onClose={() => setIsImage_modal(false)} className="outline-none p-4 h-full w-full flex justify-center items-center">
                          <section className=" bg-white outline-none sm:w-1/2 h-1/2 rounded-md  flex flex-col justify-center items-center p-4 relative">
-                              <img className="max-h-full w-auto" src={imageSrc_modal && imageSrc_modal.url || ""}/>
+                              <img alt="تصویر کالا" className="max-h-full w-auto" src={imageSrc_modal && imageSrc_modal.url || ""}/>
                               <button onClick={() => setIsImage_modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
                                         <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
@@ -313,7 +313,7 @@ const EditProduct = () => {
                                                   {productImages.map(image => {
                                                   return(
                                                        <div key={image.id} onClick={()=>{setImageSrc_modal(image) , setIsImage_modal(true)}} className="z-10 cursor-pointer group h-28 p-1 relative border-gray-500 border w-auto flex   rounded-md overflow-hidden items-center justify-center">
-                                                            <img src={image.url} className="h-full w-auto"/> 
+                                                            <img alt="تصویر کالا" src={image.url} className="h-full w-auto"/> 
                                                             <button type={"button"} className="absolute  top-2 right-2 p-1 rounded-full shadow-lg group-hover:bg-gray-800 bg-white">
                                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 group-hover:text-gray-50 text-gray-800">
                                                                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />

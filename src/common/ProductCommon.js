@@ -12,7 +12,7 @@ const ProductCommon = ({product}) => {
                          <a  className="bg-white rounded-md w-full h-full min-w-[200px] p-4 flex flex-col sm:items-center">
                               <div className="flex flex-row sm:flex-col sm:items-center">
                                    <section className="w-40 lg:w-36 flex justify-center pt-4 relative  ">
-                                        <img src={product.image_url} className="w-full h-auto"/>
+                                        <img src={product.image_url} alt={`تصویر ${product.title}`} className="w-full h-auto font-sans text-sm"/>
                                    </section>
                                    {/* Product Title */}
                                    <p className="font-sans text-xs text-right w-full sm:mt-4 text-gray-700  leading-7">{product.title}</p>
@@ -29,7 +29,7 @@ const ProductCommon = ({product}) => {
                     <section  className="bg-white rounded-md w-full h-full min-w-[200px] p-4 flex flex-col sm:items-center">
                          <div className="flex flex-row sm:flex-col sm:items-center">
                               <section className="w-40 lg:w-36 flex justify-center pt-4 relative  ">
-                                   <img src={product.image_url} className="w-full h-auto"/>
+                                   <img src={product.image_url}  alt={`تصویر ${product.title}`} className="w-full h-auto font-sans text-sm"/>
                               </section>
                               {/* Product Title */}
                               <p className="font-sans text-xs text-right w-full sm:mt-4 text-gray-700  leading-7">{product.title}</p>

@@ -43,20 +43,20 @@ const Footer = () => {
                     </div>
                 </section>
                 <section className="w-full lg:w-1/2 flex  justify-center lg:justify-end gap-x-5 px-3 pb-10 lg:p-10">
-                    {/* //? E-namad */}
+                    {/* // E-namad */}
                     <Link href={"https://trustseal.enamad.ir/?id=138365&amp;Code=2OsRoKxZQ7hUgxPQJnPc"}>
                         <a className="p-4 bg-white rounded-md  hover:opacity-80 cursor-pointer">
-                            <img className="w-24" src="https://bsma.ir/wp-content/uploads/2017/08/enamad_icon__text_color_blue_1024-768x768-180x180.png"/> 
+                            <img className="w-24 font-sans text-sm" alt="لوگو E-namd" src="https://bsma.ir/wp-content/uploads/2017/08/enamad_icon__text_color_blue_1024-768x768-180x180.png"/> 
                         </a>
                     </Link>
                     <Link href={"https://trustseal.enamad.ir/?id=138365&amp;amp;Code=2OsRoKxZQ7hUgxPQJnPc"}>
                         <a className="p-4 bg-white rounded-md  hover:opacity-80 cursor-pointer">
-                            <img className="w-24" src="https://www.p30web.org/wp-content/uploads/2017/02/p30web-samandehi.png"/> 
+                            <img className="w-24 font-sans text-sm" alt="لوگو ساماندهی پایگاه های اینترنتی" src="https://www.p30web.org/wp-content/uploads/2017/02/p30web-samandehi.png"/> 
                         </a>
                     </Link>
                     <Link href={"https://ecunion.ir/verify/torob.com?token=25505395eb0f464137f1"}>
                         <a className="p-4 bg-white rounded-md  hover:opacity-80 cursor-pointer">
-                            <img className="w-24" src="https://torob.com/static/images/etehadiye.png"/>
+                            <img className="w-24 font-sans text-sm" alt="لوگو اتحادیه کشوری کسب و کارهای مجاز" src="https://torob.com/static/images/etehadiye.png"/>
                         </a>
                     </Link>
                 </section>
@@ -89,19 +89,24 @@ const Footer = () => {
 
                 </div>
                 <div className="flex w-full h-auto lg:w-1/2 justify-center lg:justify-end gap-x-2  sm:gap-x-5 mt-5 lg:m-0">
+                    {/* Google Play */}
                     <Link href={"https://play.google.com/store/apps/details?id=ir.torob"}>
                         <a className=" hover:opacity-80 w-1/3 h-auto  sm:w-40 sm:h-12">
-                            <img className="h-full cursor-pointer" src="https://lh3.googleusercontent.com/RyLoNcOmb91IxHIP9NWfC82chbsCsT-5R25efns1FmuM8xz6znE4CRjIEBosZ1FH2xG1UqH6Axyp-vPFnm4sazbrsaB-S0QT_cN9uWU9UKoSQYCjYQ=s0"/>
+                            <img className="h-full cursor-pointer font-sans text-sm" alt="لوگو گوگل پلی" src="https://lh3.googleusercontent.com/RyLoNcOmb91IxHIP9NWfC82chbsCsT-5R25efns1FmuM8xz6znE4CRjIEBosZ1FH2xG1UqH6Axyp-vPFnm4sazbrsaB-S0QT_cN9uWU9UKoSQYCjYQ=s0"/>
                         </a>
                     </Link>
+
+                    {/* Cafe Bazzar */}
                     <Link href={"https://cafebazaar.ir/app/ir.torob"}>
                         <a className="hover:opacity-80 w-1/3 h-auto  sm:w-40 sm:h-12">
-                            <img className=" cursor-pointer" src="https://cdn.developers.cafebazaar.ir/2021/05/bazaar-badge2.png" alt="" />
+                            <img className=" cursor-pointer font-sans text-sm" src="https://cdn.developers.cafebazaar.ir/2021/05/bazaar-badge2.png" alt="لوگو کافه بازار" />
                         </a>
                     </Link>
+
+                    {/* Myket */}
                     <Link href={"https://myket.ir/app/ir.torob"}>
                         <a className=" hover:opacity-80 w-1/3 h-auto  sm:w-40 sm:h-12  ">
-                            <img className="cursor-pointer" src={myket_Logo.src} alt="" />
+                            <img className="cursor-pointer font-sans text-sm" src={myket_Logo.src} alt="لوگو مایکت" />
                         </a>
                     </Link>
                 </div>

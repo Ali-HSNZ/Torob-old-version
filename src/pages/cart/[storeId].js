@@ -53,7 +53,7 @@ const CartStore = () => {
                                              {index > 0 && <hr/>}
                                              <article className="flex">
                                                   <div className="w-16  flex items-center">
-                                                       <img className="w-full h-auto" src={item.product.image_url}/>
+                                                       <img className="w-full h-auto" alt="تصویر کالا" src={item.product.image_url}/>
                                                   </div>
                                                   <section className="w-full mr-4">
                                                        <div className="flex justify-between">
@@ -136,7 +136,7 @@ const CartStore = () => {
                     <section className="bg-white w-full rounded-lg p-4  h-fit">
                          <section className="w-full">
                          <div className="w-full flex flex-col items-center">
-                                   <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg" alt="empty cart image" className="w-72 h-auto" />
+                                   <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg"  alt="تصویر سبد کالا" className="w-72 h-auto" />
                               <h3 className="font-sans font-bold text-center">سبد خرید شما در این فروشگاه خالی است!</h3>
                               <Link href={'/cart'}>
                                    <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-sans text-sm underline underline-offset-4">بازگشت به سبد خرید</a>

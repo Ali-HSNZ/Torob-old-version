@@ -303,7 +303,7 @@ const ManageFactors = () => {
                                                                                 <div key={index} className="w-full p-4 rounded-md border border-gray-300 bg-white  flex-col sm:flex-row items-center  justify-between">
                                                                                      <article htmlFor={`item_checkbox_${factor.id}`} className="w-full  flex  flex-col sm:flex-row items-center  justify-between">
                                                                                           <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
-                                                                                               <img  className="w-full h-auto" src={item.product.image_url || ""}/>
+                                                                                               <img alt="تصویر کالا" className="w-full h-auto" src={item.product.image_url || ""}/>
                                                                                           </div>
                                                                                           <div className="w-full flex justify-start flex-col mr-4 gap-y-3 mt-4 sm:mt-0">
                                                                                                <p className="font-sans leading-6 text-xs md:text-sm ">

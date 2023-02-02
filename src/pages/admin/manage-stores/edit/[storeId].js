@@ -257,7 +257,7 @@ const InsertStore = () => {
                          </Modal>
                          <Modal open={isImage_license_Modal} onClose={() => setIsImage_license_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
                          <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                              <img className="max-h-full w-auto" src={onChangeFile_license && onChangeFile_license.imageUrl || ""}/>
+                              <img alt="تصویر مجوز" className="max-h-full w-auto" src={onChangeFile_license && onChangeFile_license.imageUrl || ""}/>
                               <button onClick={() => setIsImage_license_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
                                         <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
@@ -267,7 +267,7 @@ const InsertStore = () => {
                          </Modal>
                          <Modal open={isImage_logo_Modal} onClose={() => setIsImage_logo_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
                          <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                              <img className="max-h-full w-auto" src={onChangeFile_logo && onChangeFile_logo.imageUrl || ""}/>
+                              <img alt="تصویر لوگو" className="max-h-full w-auto" src={onChangeFile_logo && onChangeFile_logo.imageUrl || ""}/>
                               <button onClick={() => setIsImage_logo_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
                                         <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
@@ -277,7 +277,7 @@ const InsertStore = () => {
                          </Modal>
                          <Modal open={isImage_storeBanner_Modal} onClose={() => setIsImage_storeBanner_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
                          <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                              <img className="max-h-full w-auto" src={onChangeFile_storeBanner && onChangeFile_storeBanner.imageUrl || ""}/>
+                              <img alt="تصویر سر در فروشگاه" className="max-h-full w-auto" src={onChangeFile_storeBanner && onChangeFile_storeBanner.imageUrl || ""}/>
                               <button onClick={() => setIsImage_storeBanner_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
                                         <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />

@@ -199,75 +199,75 @@ const ManageProduct = () => {
                               {/* Product Image Modal */}
                               <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
                                         <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                                             <img className="max-h-full w-auto" src={modal_imageSrc}/>
+                                             <img alt="تصویر کالا" className="max-h-full w-auto" src={modal_imageSrc}/>
                                              <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
-                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
-                                                  <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
-                                             </svg>
+                                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
+                                                       <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                                                  </svg>
                                              </button>
                                         </section>
                                    </Modal>
                                    {products && products.map(product => {
                                         return(
                                              <section key={product.id}>
-                                             <div className="p-4 bg-white w-full">
-                                                  <input  type={"checkbox"}  id={`detail_${product.id}`} className="peer hidden"/>
-                                                  <section className=" flex flex-col sm:flex-row items-center  justify-between">
-                                                       <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
-                                                            <img onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
-                                                       </div>
-                                                       <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                            <p className="font-sans leading-6 text-sm "><b className="whitespace-nowrap">عنوان کالا : </b>
-                                                                 {product.title.length > 35 ? product.title.substring(0,35)+'...' : product.title} </p>
-                                                            <p className="font-sans leading-6 text-sm  ">
-                                                                 <b className="whitespace-nowrap">برند : </b> 
-                                                                 {product.brand.name && product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
-                                                            <div className="font-sans leading-6 flex text-sm w-full">
-                                                                 <b className="whitespace-nowrap pl-1">دسته‌بندی : </b>
-                                                                 <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                  <div className="p-4 bg-white w-full">
+                                                       <input  type={"checkbox"}  id={`detail_${product.id}`} className="peer hidden"/>
+                                                       <section className=" flex flex-col sm:flex-row items-center  justify-between">
+                                                            <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
+                                                                 <img alt="تصویر کالا" onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
                                                             </div>
-                                                       </div>
-                                                       <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
-                                                            <div className=" flex items-center">
-                                                                 {!product.is_show &&<p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-md px-3 py-1">حذف شده</p>}
+                                                            <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
+                                                                 <p className="font-sans leading-6 text-sm "><b className="whitespace-nowrap">عنوان کالا : </b>
+                                                                      {product.title.length > 35 ? product.title.substring(0,35)+'...' : product.title} </p>
+                                                                 <p className="font-sans leading-6 text-sm  ">
+                                                                      <b className="whitespace-nowrap">برند : </b> 
+                                                                      {product.brand.name && product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
+                                                                 <div className="font-sans leading-6 flex text-sm w-full">
+                                                                      <b className="whitespace-nowrap pl-1">دسته‌بندی : </b>
+                                                                      <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                 </div>
                                                             </div>
-                                                            <div className="flex items-center ">
-                                                                 <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                                      </svg>
-                                                                 </label>
+                                                            <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
+                                                                 <div className=" flex items-center">
+                                                                      {!product.is_show &&<p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-md px-3 py-1">حذف شده</p>}
+                                                                 </div>
+                                                                 <div className="flex items-center ">
+                                                                      <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                           </svg>
+                                                                      </label>
+                                                                 </div>
                                                             </div>
-                                                       </div>
-                                                  </section>
-                                                  {/* Description */}
-                                                  <section className="w-full bg-gray-50 rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                                            <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.title || "-"}</p>
-                                                            <div className="font-sans text-sm   flex flex-col sm:flex-row">
-                                                                 <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
-                                                                 <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                       </section>
+                                                       {/* Description */}
+                                                       <section className="w-full bg-gray-50 rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
+                                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                                                 <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.title || "-"}</p>
+                                                                 <div className="font-sans text-sm   flex flex-col sm:flex-row">
+                                                                      <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
+                                                                      <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                 </div>
+                                                                 <p className="font-sans text-sm  flex flex-col sm:flex-row "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.brand.name || "-" }</p>
+                                                                 <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.barcode || "-"}</p>
+                                                                 {/* Logo */}
+                                                                 <div className="flex">
+                                                                      <b className="font-sans text-sm pl-1">تصویر اصلی کالا : </b>
+                                                                      {product.is_image_url ? (
+                                                                      <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
+                                                                      ) : <p className="font-sans text-sm mr-1">-</p>}
+                                                                 </div>
                                                             </div>
-                                                            <p className="font-sans text-sm  flex flex-col sm:flex-row "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.brand.name || "-" }</p>
-                                                            <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.barcode || "-"}</p>
-                                                            {/* Logo */}
-                                                            <div className="flex">
-                                                                 <b className="font-sans text-sm pl-1">تصویر اصلی کالا : </b>
-                                                                 {product.is_image_url ? (
-                                                                 <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
-                                                                 ) : <p className="font-sans text-sm mr-1">-</p>}
-                                                            </div>
-                                                       </div>
-                                                            <p className="font-sans w-full mt-2 text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description || "-"}</p>
+                                                                 <p className="font-sans w-full mt-2 text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description || "-"}</p>
 
-                                                       <div className="flex justify-end w-full mt-4 mb-4">
-                                                            <Link href={`/admin/manage-products/edit/${product.id}`} >
-                                                                 <a className={linkClassName({bgColor : "blue" , isOutline : true})}>ویرایش</a>
-                                                            </Link>
-                                                       </div>
-                                                  </section>
-                                             </div>
-                                             <hr/>
+                                                            <div className="flex justify-end w-full mt-4 mb-4">
+                                                                 <Link href={`/admin/manage-products/edit/${product.id}`} >
+                                                                      <a className={linkClassName({bgColor : "blue" , isOutline : true})}>ویرایش</a>
+                                                                 </Link>
+                                                            </div>
+                                                       </section>
+                                                  </div>
+                                                  <hr/>
                                              </section>
                                         )
                                    })}

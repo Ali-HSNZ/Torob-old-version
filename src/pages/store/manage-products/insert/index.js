@@ -167,7 +167,7 @@ const ManageStores = () => {
                          {/* isImage_Modal */}
                          <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
                               <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                                   <img className="max-h-full w-auto" src={modal_imageSrc}/>
+                                   <img alt="تصویر کالا" className="max-h-full w-auto" src={modal_imageSrc}/>
                                    <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
                                              <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
@@ -182,7 +182,7 @@ const ManageStores = () => {
                                              <input  type={"checkbox"} id={`detail_${product.id}`} className="peer hidden"/>
                                              <section className=" flex flex-col sm:flex-row items-center  justify-between">
                                                   <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
-                                                       <img onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
+                                                       <img alt="تصویر کالا" onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
                                                   </div>
                                                   <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
                                                        <p className="font-sans leading-6 text-sm flex-row flex">

@@ -70,7 +70,7 @@ const Header = () => {
                          <Link href={"/"}>
                               <a className="flex items-center justify-center z-20">
                                    <div className="w-11 md:w-12">
-                                        <img className="w-full h-auto" src={images.src}/>
+                                        <img className="w-full h-auto" src={images.src} alt="لوگو ترب"/>
                                    </div>
                                    <span className="text-[#d73948] font-bold text-[24px] font-sans mr-1">ترب</span>
                               </a>

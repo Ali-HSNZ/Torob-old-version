@@ -39,7 +39,7 @@ const Favorites = () => {
                          {!loading && likes.length === 0 && (
                               <div className="w-full flex justify-center my-7">
                                    <div className="w-full sm:w-1/2 flex flex-col items-center">
-                                        <img className="w-full h-auto" src={empty_image.src} />
+                                        <img alt="تصویر لیست محبوب ها" className="w-full h-auto" src={empty_image.src} />
                                         <p className=" text-center leading-5 font-sans relative text-gray-500 sm:left-6 sm:w-4/6 text-xs">
                                              آخرین محصولاتی که دیده‌اید را می‌توانید اینجا پیدا کنید.
                                         </p>

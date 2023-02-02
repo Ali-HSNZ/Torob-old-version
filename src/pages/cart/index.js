@@ -38,7 +38,7 @@ const CartPage = () => {
                                                   <div className="flex justify-between w-full">
                                                        <div className="flex items-center">
                                                             <div className="border border-gray-300 p-1 rounded-md relative w-16 h-10 overflow-hidden">
-                                                                 <Image unoptimized layout="fill" objectFit="cover" loader={()=>data.logo_image} src={data.logo_image} alt="" className="w-16 h-auto cursor-pointer" />
+                                                                 <Image unoptimized layout="fill" objectFit="cover" loader={()=>data.logo_image} src={data.logo_image} alt="تصویر فروشگاه" className="w-16 h-auto cursor-pointer" />
                                                             </div>
                                                             <span className="font-sans text-sm font-bold text-gray-700 mr-4">{data.title}</span>
                                                        </div>
@@ -52,7 +52,7 @@ const CartPage = () => {
                                                   <section className="flex gap-4 flex-wrap mt-4">
                                                        {data.products.map((product,index) => (
                                                             <div key={index} className="w-16">
-                                                                 <img src={product.image_url} alt="" className="w-full h-auto cursor-pointer" />
+                                                                 <img src={product.image_url} alt="تصویر کالا" className="w-full h-auto cursor-pointer" />
                                                             </div>
                                                        ))}
                                                   </section>
@@ -77,7 +77,7 @@ const CartPage = () => {
                          ) : (
                               <section className="w-full">
                                    <div className="w-full flex flex-col items-center">
-                                        <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg" alt="empty cart image" className="w-72 h-auto" />
+                                        <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg" alt="تصویر سبد خرید" className="w-72 h-auto" />
                                    <h3 className="font-sans font-bold text-center">سبد خرید شما خالی است!</h3>
                                    <Link href={'/'}>
                                         <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-sans text-sm underline underline-offset-4">بازگشت به فروشگاه</a>

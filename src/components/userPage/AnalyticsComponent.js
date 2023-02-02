@@ -15,7 +15,7 @@ const AnalyticsComponent = ({product , isLikeLoading , isLiked , isAnalyzeLoadin
             <article className=" w-full py-2 bg-white  px-2 flex flex-col  sm:flex-row items-center relative">
                 <Link href={`/product/${product.hash_id}/${product.title.replace(/\s+/g, '-')}`}>
                     <a className="w-[120px] h-full flex justify-center items-center  ">
-                        <img  className="w-full h-auto" src={product.image_url}/>
+                        <img  className="w-full h-auto font-sans text-sm" src={product.image_url} alt={`تصویر ${product.title}`}/>
                     </a>
                 </Link>
                 <div className="w-full flex flex-col justify-between gap-y-7 px-3 sm:mt-0 mt-4 ">
