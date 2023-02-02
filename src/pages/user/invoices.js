@@ -21,7 +21,7 @@ import Warning from "@/common/alert/Warning";
 import { user_changeInvoiceState, user_fetchFactors, user_fetchFactorsRequest } from "@/redux/user-factor/userFactor_actions";
 import UserPageAside from "@/components/userPage/Aside";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
-
+import * as Yup from 'yup'
 
 const ManageFactors = () => {
 
@@ -87,6 +87,12 @@ const ManageFactors = () => {
           router.push(encodeURI(`/user/invoices?page=1&state=${status.type || "all"}&title=${title || ""}&order=${order || 'desc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${name || ""}&limit=${limit}` ))
      } 
 
+     
+     const validationSchema = Yup.object({
+          title : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
+          name : Yup.string().min(2 , 'نام فروشگاه نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'نام فروشگاه نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
+     })
+
      const formik = useFormik({
           initialValues : {
                order : "desc",
@@ -95,6 +101,7 @@ const ManageFactors = () => {
           },
           onSubmit,
           validateOnMount : true,
+          validationSchema
      })
 
      
