@@ -27,6 +27,8 @@ const Header = () => {
      }
 
      const { user, loading } = useSelector((state) => state.auth);
+     const {cart_count} = useSelector(state => state.cart)
+
      const dispatch = useDispatch();
      const [userPanel, setUserPanel] = useState(false);
      const [isSmallScreenModal , setIsSmallScreenModal] = useState(false)
@@ -57,11 +59,13 @@ const Header = () => {
                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                               </svg>
                               سبد خرید
+                              {cart_count > 0 && <span className="absolute top-[-6px] right-[-6px] bg-red-600 font-sans text-xs w-6 h-6 text-center flex items-center justify-center rounded-full text-white">{toPersianDigits(cart_count)}</span>}
+
                          </a>
                     </Link>
                     {user && user.account_type === 'normal' ? (
                          <>
-                              <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn bg-white px-6 py-2 border border-gray-300 rounded-md text-xs font-sans text-gray-500 min-w-[121] max-w-[121]" >
+                              <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn bg-white px-6 py-2 border border-gray-300 rounded-md text-xs font-sans text-gray-500 min-w-[121px] max-w-[121px]" >
                                    {toPersianDigits(user.phone_number_primary)}
                               </button>
                               <nav className={`bg-gray-50 rounded-b-md userPanel hidden absolute  top-[37px] left-0  whitespace-nowrap `} >
@@ -71,6 +75,9 @@ const Header = () => {
                                    <Link href={'/user/history'} >
                                         <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
                                    </Link>
+                                   <Link href={'/user/invoices'} >
+                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                   </Link>
                                    <button onClick={() => { dispatch(userLogout())}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-2 text-center font-sans ">
                                         خروج
                                    </button>
@@ -78,7 +85,7 @@ const Header = () => {
                          </>
                     ) : user ? (
                          <>
-                              <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn bg-white px-6 py-2 border border-gray-300 rounded-md text-xs font-sans text-gray-500 min-w-[121] max-w-[121]" >
+                              <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn bg-white px-6 py-2 border border-gray-300 rounded-md text-xs font-sans text-gray-500 min-w-[121px] max-w-[121px]" >
                                    {toPersianDigits(user.phone_number_primary)}
                               </button>
                               <div className={`bg-white rounded-b-md   border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute  top-[32px] left-[0px]  whitespace-nowrap `}>
@@ -92,6 +99,9 @@ const Header = () => {
                                                   <Link href={'/user/history'} >
                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
                                                   </Link>
+                                                  <Link href={'/user/invoices'} >
+                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                  </Link>
                                              </nav>
                                         </>
                                    ) : (
@@ -104,6 +114,9 @@ const Header = () => {
                                              </Link>
                                              <Link href={'/user/history'} >
                                                   <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                             </Link>
+                                             <Link href={'/user/invoices'} >
+                                                  <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
                                              </Link>
                                         </nav>
                                    )}
