@@ -37,7 +37,7 @@ const StoreSettingsPage = () => {
             .required("مقدار حداقل خرید الزامی است")
             .trim()
             .test("check-value-typeof","مقدار حداقل خرید باید عدد باشد", value => ONLY_DIGIT_REGIX.test(value && value.replace(/,/g, '') || 0))
-            .test("check-equal-value","مقدار حداقل خرید از فروشگاه نباید یکسان با مقدار  فعلی باشد.", (value = 0) => data ? data?.store?.minimum_shopping_count != value : user?.min_shopping_count != value),
+            .test("check-equal-value","مقدار حداقل خرید از فروشگاه نمی‌تواند یکسان با مقدار  فعلی باشد.", (value = 0) => data ? data?.store?.minimum_shopping_count != value : user?.min_shopping_count != value),
      })
 
      const formik = useFormik({
