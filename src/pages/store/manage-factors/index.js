@@ -131,7 +131,7 @@ const ManageFactors = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg">مدیریت فاکتور</h1>
+                                   <h1 className="font-sans font-bold text-lg">مدیریت سفارشات</h1>
                               </div>
                               <nav className="flex gap-x-2 my-2 sm:m-0 justify-end  sm:items-center">
                                    {/* Refresh */}
@@ -206,7 +206,7 @@ const ManageFactors = () => {
                               </div>
                          )}
 
-                         {factors?.users?.length === 0 && !loading && <Warning text={'فاکتوری یافت نشد!'}/>}
+                         {factors?.users?.length === 0 && !loading && <Warning text={'سفارشی یافت نشد!'}/>}
 
                          <section className="rounded-md overflow-hidden w-full mt-3  shadow-md flex flex-col">
                               {factors && factors.users.length > 0 &&  factors.users.map((factor,index) => (
