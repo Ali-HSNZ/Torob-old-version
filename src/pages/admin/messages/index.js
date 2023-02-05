@@ -90,7 +90,7 @@ const formik = useFormik({
     }
 })
 return (  
-    <Layout isFooter={true} pageTitle="پنل مدیریت | اطلاعیه">
+    <Layout isFooter={true} pageTitle="پنل مدیریت | اطلاعیه ها">
         <div className="w-full flex flex-col lg:flex-row  justify-between ">
             <AdminAside/>
                 
