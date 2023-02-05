@@ -20,41 +20,46 @@ import { checkoutReducer } from "./cart/checkout/checkoutReducer";
 import { categoriesReducer } from "./categories/categoriesReducer";
 import { store_factorReducer } from "./manage-store/manageFactors/manageFactors_reducer";
 import { user_factorReducer } from "./user-factor/userFactor_reducer";
+import { storeSettingReducer } from "./manage-store/settings/storeSettings.reducer";
+import { admin_notificationsReducer } from "./admin/admin_notifications/adminNotifications_reducer";
 
 const rootReducer = combineReducers({
-     // User
-     auth: authReduser,
-     history: historyReducer,
-     likes: likesReducer,
-     analytics: analyticsReducer,
-     user_factor : user_factorReducer,
-     store: storeReducer,
+    
+    //! User
+    auth: authReduser,
+    history: historyReducer,
+    likes: likesReducer,
+    analytics: analyticsReducer,
+    user_factor : user_factorReducer,
+    store: storeReducer,
 
-     // Admin Panel Reducers
-     admin_brands: admin_brandsReducer,
-     admin_categories: admin_categoriesReducer,
-     admin_products: admin_productsReducer,
-     admin_stores: admin_storesReducer,
-     admin_users: admin_manageUsersReducer,
-     admin_dataCount: admin_dataCountReducer,
-     admin_changePassword : admin_changePasswordReducer,
+    //! Admin Panel Reducers
+    admin_brands: admin_brandsReducer,
+    admin_categories: admin_categoriesReducer,
+    admin_products: admin_productsReducer,
+    admin_stores: admin_storesReducer,
+    admin_users: admin_manageUsersReducer,
+    admin_dataCount: admin_dataCountReducer,
+    admin_changePassword : admin_changePasswordReducer,
+    admin_notifications : admin_notificationsReducer,
+    
+    //! Store Panel Reducers
+    manage_store: manageStoreReducer,
+    store_companyProducts: store_companyProductsReducer,
+    store_factor : store_factorReducer,
+    storeSetting : storeSettingReducer,
+    
+    //! Signup User And Store
+    signupReducer: signupReducer,
 
-     // Store Panel Reducers
-     manage_store: manageStoreReducer,
-     store_companyProducts: store_companyProductsReducer,
-     store_factor : store_factorReducer,
+    //! Cart
+    cart : cartReducer,
 
-     // Signup User And Store
-     signupReducer: signupReducer,
+    //! Checkout
+    checkout : checkoutReducer,
 
-     // Cart
-     cart : cartReducer,
-
-     // Checkout
-     checkout : checkoutReducer,
-
-     // Categories
-     categories : categoriesReducer
+    //! Categories
+    categories : categoriesReducer
 });
 
 export default rootReducer;
