@@ -1,14 +1,18 @@
+import { toPersianDigits } from "@/utils/toPersianDigits";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BiCategory } from 'react-icons/bi';
 import { TbBrandAsana } from 'react-icons/tb';
+import { useSelector } from "react-redux";
 
 const AdminPageAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenClassName }) => {
 
     const router = useRouter()
+    const {user} = useSelector(state => state.auth)
+
 
      return (  
-          <aside className={`${mobileScreenClassName ? mobileScreenClassName : "w-1/5"}   h-screen bg-white ${isMobileScreen ? "lg:hidden" : "hidden"} sticky top-0 lg:flex flex-col overflow-y-auto`}>
+          <aside className={`${mobileScreenClassName ?? "w-1/5"}   h-screen bg-white ${isMobileScreen ? "lg:hidden" : "hidden"} sticky top-0 lg:flex flex-col overflow-y-auto`}>
                
                {isMobileScreen && (
                     <section>
@@ -87,8 +91,21 @@ const AdminPageAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenClass
                               <span className="font-sans mr-2 font-bold text-sm text-gray-900">تغییر رمز عبور</span>
                          </a>
                     </Link>
-               </nav>
 
+                    <Link href={'/admin/messages'}>
+                         <a className={` ${router.asPath.startsWith('/admin/messages') ? "bg-red-200 hover:bg-red-300" : "hover:bg-gray-100"} flex items-center pr-8 py-3 hover:bg-gray-100`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-900">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
+                            </svg>
+
+                            <span className="font-sans mr-2 font-bold text-sm text-gray-900">اطلاعیه ها</span>
+                            <span className="font-sans text-xs relative bottom-1 right-[2px] text-gray-900">({toPersianDigits(user?.notifications_count || 0)})</span>
+                            
+                         </a>
+                    </Link>
+
+
+               </nav>
           </aside>
      );
 }
