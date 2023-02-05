@@ -71,7 +71,7 @@ const ChangeAdminPassword = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-sans font-bold text-lg">تغییر رمز عبور مدیریت</h1>
+                            <h1 className="font-sans font-bold text-lg">تغییر رمز عبور</h1>
                         </div>
                         <div className="flex gap-x-2 items-center">
                             {/* Home SVG */}
