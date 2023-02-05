@@ -18,6 +18,7 @@ import { cartDetails } from "@/redux/cart/cart/cartActions";
 const AdminPage = () => {
      const [isAsideModal , setIsAsideModal] = useState(false)
      const {data , loading} = useSelector(state => state.admin_dataCount)
+    const {user} = useSelector(state => state.auth)
 
      return (  
           <Layout isFooter={true} pageTitle="پنل مدیریت ترب">
@@ -30,8 +31,8 @@ const AdminPage = () => {
                          </Modal>
                          <section className="w-full ">
 
-                         <nav className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pb-4">
-                              <Link  href={'/admin/manage-users'}>
+                              <nav className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pb-4">
+                              <Link href={'/admin/manage-users'}>
                                    <a className="cursor-pointer py-4 hover:bg-orange-50 flex items-center justify-between rounded-xl bg-white shadow-md overflow-hidden">
                                         <div className="flex h-12 mr-4 w-[67px] items-center justify-center rounded-full border border-orange-200 bg-orange-50">
                                              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -95,7 +96,7 @@ const AdminPage = () => {
                                    <a className="cursor-pointer py-4 hover:bg-red-50 flex items-center justify-between rounded-xl bg-white shadow-md overflow-hidden">
                                         <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-red-200 bg-red-50">
                                              <svg   className="h-6 w-6 text-red-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
                                              </svg>
                                         </div>
                                         <div className="mr-4 w-full">
@@ -111,7 +112,7 @@ const AdminPage = () => {
                                    <a className="cursor-pointer py-4 hover:bg-yellow-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
                                         <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-yellow-200 bg-yellow-50">
                                              <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6  text-yellow-600">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
                                              </svg>
                                         </div>
                                         <div className="mr-4 w-full">
@@ -123,7 +124,24 @@ const AdminPage = () => {
                                         </div>
                                    </a>
                               </Link>
-                         </nav>
+                              <Link href={'/admin/messages'}>
+                                <a className="cursor-pointer py-4 hover:bg-pink-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
+                                    <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-pink-200 bg-pink-50">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-pink-700">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
+                                        </svg>
+                                    </div>
+                                    <div className="mr-4 w-full">
+                                             <h2 className="font-sans font-bold">{loading ? "..." : toPersianDigits(user?.notifications_count || 0)} اطلاعیه</h2>
+                                        <span className="font-sans text-xs text-gray-500">حذف | جستجو</span>
+                                    </div>
+                                    <div className="h-full flex items-center ml-1">
+                                        <BsFillCaretLeftFill className="text-pink-400 "/>
+                                    </div>
+                                </a>
+                            </Link>
+
+                              </nav>
                          </section>
                     </section>
                </div>
