@@ -25,7 +25,6 @@ const StoreSettingsPage = () => {
      const {loading} = useSelector(state => state.storeSetting)
     const {user} = useSelector(state => state.auth)
      const {data} = useSelector(state => state.storeSetting)
-     console.log("data : ",data)
      const dispatch = useDispatch()
      
      const onSubmit = (values) => {

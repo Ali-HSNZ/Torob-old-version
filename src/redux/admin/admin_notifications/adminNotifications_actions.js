@@ -39,7 +39,6 @@ export const deleteAdminNotificationsViaId = (items) => dispatch => {
 
     })
     .catch(error => {
-        console.error(error)
         requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش گرفتن تعداد داده ها"})
         dispatch(admin_deleteNofifcationFailure("خطای سرور در بخش گرفتن تعداد داده ها"))
 
