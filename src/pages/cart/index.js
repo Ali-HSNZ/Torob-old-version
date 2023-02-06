@@ -23,13 +23,13 @@ const CartPage = () => {
                <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading || false}>
                     <CircularProgress color="error" />
                </Backdrop>
-               <section className="my-4 px-4 md:px-8">
+               <section className="my-4 px-4">
                     <div  className="bg-white my-4 p-4 rounded-lg">
                          {cart_count > 0 ? (
                               <>
                                    <div className="flex">
                                         <h1 className="font-sans text-right">سبدهای خرید شما</h1>
-                                        <span className="font-sans text-xs text-gray-600 mr-1">({toPersianDigits(cart_count)} عدد)</span>
+                                        <span className="font-sans text-xs text-gray-600 mr-1">({toPersianDigits(cart_count)} کالا)</span>
                                    </div>
                                    <section className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mt-4">
                                         {data && data.length > 0 && data.map(data => (
