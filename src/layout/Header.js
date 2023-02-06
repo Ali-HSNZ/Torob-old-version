@@ -55,7 +55,7 @@ const Header = () => {
                {!user && <Login />}
 
                {/* Header   */}
-               <div className="flex justify-between items-center px-4 md:px-8">
+               <div className="flex justify-between items-center px-4 ">
 
                     {/* //? Logo =>  */}
                     <section className="flex items-center justify-end">
