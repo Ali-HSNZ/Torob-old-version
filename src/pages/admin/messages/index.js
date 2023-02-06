@@ -156,8 +156,8 @@ return (
                         <section className="sticky top-0 z-20 rounded-md mt-4 bg-white p-4 overflow-hidden  w-full shadow-md flex flex-row justify-end gap-x-4">
                             {deleteLoading && <ReactLoading type="spinningBubbles" height={30} width={30} color="red" />}
                             {isSelectedAll() ? (
-                                <button onClick={() => setSelectedId([])} className={`${buttonClassName({bgColor : "yellow" , isValid : true , isOutline : true})}`} >لغو انتخاب همه</button>
-                            ) : (
+                                <button onClick={() => setSelectedId([])} className={`${buttonClassName({bgColor : "yellow" , isValid : true , isOutline : true})}`} >لغو انتخاب شده‌ها</button>
+                                ) : (
                                 <button onClick={() => selectedAllId()} className={`${buttonClassName({bgColor : "blue" , isValid : true , isOutline : true})}`} >انتخاب همه</button>
                             )}
                             <button disabled={selectedId.length > 0 ? false : true || loading || deleteLoading} onClick={() => dispatch(deleteAdminNotificationsViaId(selectedId)) & setSelectedId([])} className={`${buttonClassName({bgColor : "red" , isValid : selectedId.length > 0 ? true : false , isOutline : true})}`} >حذف</button>
@@ -170,7 +170,7 @@ return (
                                     <label  htmlFor={`notificate_${notificate.id}`} className="peer-checked:border-red-500 peer-checked:bg-red-50 relative rounded-md cursor-pointer border-2 border-gray-200 select-none p-4 bg-[#fcfcfc] w-full">
                                         <div className="w-full flex justify-between">
                                             <p className="font-sans text-xs">{notificate.store}</p>
-                                            <p className="font-sans text-xs">زمان : {timeStampToPersianDate(notificate.time)} | {timeStampToPersianTime(notificate.time)}</p>
+                                            <p className="font-sans text-xs">{timeStampToPersianDate(notificate.time)} | {timeStampToPersianTime(notificate.time)}</p>
                                         </div>
                                         <p className="font-sans text-xs leading-7 sm:text-sm  text-gray-700 mt-4">{notificate.message}</p>
                                         {notificate.is_new && <div className=" animate-ping absolute top-0 right-0 block w-1 h-1 rounded-full ring-2 ring-red-400 bg-red-600"></div>}
