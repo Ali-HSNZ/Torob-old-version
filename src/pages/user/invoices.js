@@ -83,24 +83,41 @@ const ManageFactors = () => {
       },[router])
 
      
-     const onSubmit = ({title , name , order}) => {
-          router.push(encodeURI(`/user/invoices?page=1&state=${status.type || "all"}&title=${title || ""}&order=${order || 'desc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${name || ""}&limit=${limit}` ))
+     const onSubmit = ({title , name , order , tracking_number , bill_number}) => {
+          router.push(encodeURI(`/user/invoices?page=1&state=${status.type || "all"}&title=${title || ""}&order=${order || 'desc'}&bill_number=${bill_number || ""}&tracking_number=${tracking_number || ""}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${name || ""}&limit=${limit}` ))
      } 
 
      
-     const validationSchema = Yup.object({
-          title : Yup.string().min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
-          name : Yup.string().min(2 , 'نام فروشگاه نمی تواند کمتر از ۲ نویسه باشد').max(250 , 'نام فروشگاه نمی تواند بیشتر از ۲۵۰ نویسه باشد').trim(),
-     })
+    const validationSchema = Yup.object({
+        title : Yup.string()
+            .min(2 , 'عنوان کالا نمی تواند کمتر از ۲ نویسه باشد')
+            .max(250 , 'عنوان کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد')
+            .trim(),
+        name : Yup.string()
+            .min(2 , 'نام فروشگاه نمی تواند کمتر از ۲ نویسه باشد')
+            .max(250 , 'نام فروشگاه نمی تواند بیشتر از ۲۵۰ نویسه باشد')
+            .trim(),
+        tracking_number : Yup.string()
+          .min(2,"کد رهگیری نمی تواند کم تر از ۲ رقم باشد")
+          .matches(/^[0-9]{2,}\d*$/,"کد رهگیری معتبر نیست")
+          .trim(),
+        bill_number : Yup.string()
+          .min(2,"شماره فاکتور  نمی تواند کم تر از ۲ رقم باشد")
+          .matches(/^[0-9]{2,}\d*$/,"شماره فاکتور  معتبر نیست")
+          .trim(),
+    })
 
      const formik = useFormik({
           initialValues : {
                order : "desc",
-               title : "",
-               name : "",
+               title : router.query.title || "",
+               name : router.query.name || "",
+               tracking_number :router.query.tracking_number ||  "",
+               bill_number :router.query.bill_number ||  "",
           },
           onSubmit,
           validateOnMount : true,
+          enableReinitialize : true,
           validationSchema
      })
 
@@ -139,6 +156,8 @@ const ManageFactors = () => {
                               <section className="w-full p-4 bg-white mt-4 rounded-lg shadow-md">
                                    <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                                         <FormikInput  formik={formik} title={"نام کالا"} name={"title"}/>
+                                        <FormikInput  formik={formik} title={"کد رهگیری"} name={"tracking_number"}/>
+                                        <FormikInput  formik={formik} title={"شماره فاکتور"} name={"bill_number"}/>
 
                                         <div className="flex flex-col relative">
                                              <p className="font-sans text-sm text-gray-800"> برند :</p>
