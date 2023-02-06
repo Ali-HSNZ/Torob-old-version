@@ -70,35 +70,46 @@ const ManageFactors = () => {
       },[router])
 
      
-     const onSubmit = ({title , name , number , order}) => {
-          router.push(encodeURI(`/store/manage-factors?page=1&state=${status.type || "all"}&title=${title || ""}&order=${order || 'desc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${name || ""}&number=${number || ""}&limit=${limit}` ))
+     const onSubmit = ({title , name , number , order , tracking_number , bill_number}) => {
+        router.push(encodeURI(`/store/manage-factors?page=1&state=${status.type || "all"}&title=${title || ""}&order=${order || 'desc'}&category=${selectedCategory && selectedCategory.id || ""}&brand=${selectedBrand && selectedBrand.id || ""}&name=${name || ""}&tracking_number=${tracking_number || ""}&bill_number=${bill_number || ""}&number=${number || ""}&limit=${limit}` ))
      } 
 
-     const validationSchema = Yup.object({
-          title : Yup.string()
-               .min(2 , 'نام کالا نمی تواند کمتر از ۲ نویسه باشد')
-               .max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد')
-               .trim(),
-          name : Yup.string()
-               .min(2 , 'نام  نمی تواند کمتر از ۲ نویسه باشد')
-               .max(250 , 'نام  نمی تواند بیشتر از ۲۵۰ نویسه باشد')
-               .trim(),
-          number : Yup.string()
-               .min(3,"شماره موبایل  نمی تواند کم تر از ۳ رقم باشد")
-               .max(11 , "شماره موبایل  نمی تواند بیشر از ۱۱ رقم باشد")
-               .matches(/^[0-9]{3,}\d*$/,"شماره موبایل  معتبر نیست")
-               .trim(),
-     })
+    const validationSchema = Yup.object({
+        title : Yup.string()
+            .min(2 , 'نام کالا نمی تواند کمتر از ۲ نویسه باشد')
+            .max(250 , 'نام کالا نمی تواند بیشتر از ۲۵۰ نویسه باشد')
+            .trim(),
+        name : Yup.string()
+            .min(2 , 'نام  نمی تواند کمتر از ۲ نویسه باشد')
+            .max(250 , 'نام  نمی تواند بیشتر از ۲۵۰ نویسه باشد')
+            .trim(),
+        number : Yup.string()
+            .min(3,"شماره موبایل  نمی تواند کم تر از ۳ رقم باشد")
+            .max(11 , "شماره موبایل  نمی تواند بیشر از ۱۱ رقم باشد")
+            .matches(/^[0-9]{3,}\d*$/,"شماره موبایل  معتبر نیست")
+            .trim(),
+        tracking_number : Yup.string()
+            .min(2,"کد رهگیری نمی تواند کم تر از ۲ رقم باشد")
+            .matches(/^[0-9]{2,}\d*$/,"کد رهگیری معتبر نیست")
+            .trim(),
+        bill_number : Yup.string()
+            .min(2,"شماره فاکتور  نمی تواند کم تر از ۲ رقم باشد")
+            .matches(/^[0-9]{2,}\d*$/,"شماره فاکتور  معتبر نیست")
+            .trim(),
+    })
 
      const formik = useFormik({
           initialValues : {
                order : "desc",
-               title : "",
-               name : "",
-               number : "",
+               title : router.query.title || "",
+               name : router.query.name || "",
+               number : router.query.number || "",
+               tracking_number : router.query.tracking_number || '',
+               bill_number : router.query.bill_number || '',
           },
           onSubmit,
           validateOnMount : true,
+          enableReinitialize : true,
           validationSchema
      })
 
@@ -158,6 +169,8 @@ const ManageFactors = () => {
                                         <FormikInput  formik={formik} title={"نام کالا"} name={"title"}/>
                                         <FormikInput formik={formik} title={"نام خریدار"} name={"name"}/>
                                         <FormikInput formik={formik} title={"شماره موبایل خریدار"} name={"number"}/>
+                                        <FormikInput formik={formik} title={"کد رهگیری"} name={"tracking_number"}/>
+                                        <FormikInput formik={formik} title={"شماره فاکتور"} name={"bill_number"}/>
 
                                         <div className="flex flex-col relative">
                                              <p className="font-sans text-xs md:text-sm text-gray-800"> برند :</p>
@@ -281,7 +294,7 @@ const ManageFactors = () => {
                                                                                 {toPersianDigits(factor?.total_discount ) || "-"}
                                                                            </div>
                                                                            <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
-                                                                                <b className="whitespace-nowrap pl-1">شماره پیگیری : </b>
+                                                                                <b className="whitespace-nowrap pl-1">کد رهگیری : </b>
                                                                                 {toPersianDigits(factor?.tracking_number ) || "-"}
                                                                            </div>
                                                                            <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
