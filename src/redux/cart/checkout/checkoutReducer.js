@@ -38,13 +38,13 @@ export const checkoutReducer = (state = initialState , action) => {
         case CHECKOUT_DECREASE_PRODUCT_FAILURE : { return {...state , data : null , error : action.payload , loading : false}}
 
         // State Loading For increase Or Decrease Product
-        case CHECKOUT_INCREASE_OR_DECREASE_PRODUCT_LOADING_REQUEST : { return {...state , increaseOrDecreaseLoading : [...state.increaseOrDecreaseLoading ,{store_id : action.payload}]}}
+        case CHECKOUT_INCREASE_OR_DECREASE_PRODUCT_LOADING_REQUEST : { return {...state , increaseOrDecreaseLoading : [...state.increaseOrDecreaseLoading ,{product_id : action.payload}]}}
         case CHECKOUT_INCREASE_OR_DECREASE_PRODUCT_LOADING_SUCCESS : { 
-            const loadingList = state.increaseOrDecreaseLoading.filter(store => store.store_id !== action.payload)
+            const loadingList = state.increaseOrDecreaseLoading.filter(state => state.product_id !== action.payload)
             return {...state , increaseOrDecreaseLoading : loadingList}
         }
         case CHECKOUT_INCREASE_OR_DECREASE_PRODUCT_LOADING_FAILURE : { 
-            const loadingList = state.increaseOrDecreaseLoading.filter(store => store.store_id !== action.payload)
+            const loadingList = state.increaseOrDecreaseLoading.filter(state => state.product_id !== action.payload)
             return {...state , increaseOrDecreaseLoading : loadingList}
         }
             
