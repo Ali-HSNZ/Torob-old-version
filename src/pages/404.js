@@ -1,17 +1,23 @@
 import Layout from "@/layout/Layout";
+import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { loadUserInfo } from "@/redux/user/userActions";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { token } from "src/services/http";
+import http, { token } from "src/services/http";
 
 const NotFoundPage = () => {
 
      const dispatch = useDispatch()
      useEffect(()=>{
-          if(!token.includes("undefined")){
-               dispatch(loadUserInfo())
-          }
+        const fetchData = async() => {
+            if(!token.includes("undefined")) { dispatch(loadUserInfo())}
+            // Fetch Navbar Categories
+            await http.get(`public/categories`)
+            .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+            .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+        }
+        fetchData()
      },[dispatch])
 
      return ( 
