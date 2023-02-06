@@ -78,7 +78,7 @@ const Header = () => {
                     </section>
 
                     {/* //? Input Search =>  */}
-                    <form onSubmit={formik.handleSubmit}method="get" className="w-full hidden lg:pr-6 sm:flex sm:justify-center lg:justify-start items-center z-10">
+                    <form onSubmit={formik.handleSubmit} method="get" className="w-full hidden lg:pr-6 sm:flex sm:justify-center lg:justify-start items-center z-10">
                          <input onBlur={formik.handleBlur} onChange={formik.handleChange } name="title" className="bg-white outline-none rounded-r-md text-gray-800 w-1/2 py-2 lg:py-3 sm:w-9/12 font-sans border lg:w-[420px] border-gray-300 px-4" value={formik.values.title} placeholder="نام کالا را وارد کنید" />
                          <button type={"submit"} className="bg-[#d73948] py-2 lg:py-3 px-5 rounded-l-md">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
@@ -86,7 +86,7 @@ const Header = () => {
                               </svg>
                          </button>
                     </form>
-
+                    {/* //? Cart & Login Button */}
                     <section className="w-full sm:w-fit flex justify-end relative z-10">
                          {/* Cart Page */}
                          <Link href={'/cart'}>
@@ -98,79 +98,80 @@ const Header = () => {
                                    </svg>
                               </a>
                          </Link>
-                         {user && user.account_type === 'normal' ? (
-                         <>
-                              <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm min-w-[121px] max-w-[121px]">
-                                   {toPersianDigits(user.phone_number_primary)}
-                              </button>
-                              <nav className={`userPanel overflow-hidden bg-white border border-gray-300 border-t-0 rounded-b-md hidden absolute z-50  top-[42px] left-[0px]  whitespace-nowrap `}>
-                                   <Link href={'/user/favorites'} >
-                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
-                                   </Link>
-                                   <Link href={'/user/history'} >
-                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
-                                   </Link>
-                                   <Link href={'/user/invoices'} >
-                                        <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
-                                   </Link>
-                                   <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 px-6 font-bold text-red-600 w-full py-2 text-center font-sans ">
-                                        خروج
-                                   </button>
-                              </nav>
-                         </>
-                         ) : user && user.account_type !== 'normal' ? (
-                         <>
-                              <button onClick={() => handleUserPanel_btn()} className="userPhoneNumber_btn whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 py-3  font-sans text-sm min-w-[121px] max-w-[121px]">{toPersianDigits(user.phone_number_primary)}</button>
-                              <div className={`userPanel bg-white border hidden overflow-hidden border-gray-300 border-t-0 rounded-b-md  absolute  top-[42px] left-[0px]  whitespace-nowrap `}>
-                                   {user.is_pending ? (
-                                        <>
-                                             <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[120px] max-w-[120px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</button>
-                                             <nav>
-                                                  <Link href={'/user/favorites'} >
-                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
-                                                  </Link>
-                                                  <Link href={'/user/history'} >
-                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
-                                                  </Link>
-                                                  <Link href={'/user/invoices'} >
-                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
-                                                  </Link>
-                                             </nav>
-                                             </>
-                                        ) : (
-                                             <nav>
-                                                  <Link href={`/${user.account_type}`} >
-                                                       <a className="text-xs cursor-pointer min-w-[119.2px] max-w-[119.2px] hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</a>
-                                                  </Link>
-                                                  <Link href={'/user/favorites'} >
-                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
-                                                  </Link>
-                                                  <Link href={'/user/history'} >
-                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
-                                                  </Link>
-                                                  <Link href={'/user/invoices'} >
-                                                       <a className="text-xs cursor-pointer hover:bg-gray-200 px-[22px] font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
-                                                  </Link>
-                                             </nav>
-                                   )}
-                                   <button onClick={()=> {dispatch(userLogout())}} className="min-w-[119.2px] max-w-[119.2px] text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 w-full py-2 text-center font-sans ">خروج</button>
-                              </div>
-                         </>
-                         ) : (
-                              <>
-                                   {loading ? (
-                                        <button className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2  text-sm">...</button>
-                                   ) : (
-                                        <button onClick={() => handleUserPanel_btn() & dispatch(authPanel({isOpen : true,type : "normal"}))} className="whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2 font-sans text-sm">ورود / ثبت نام</button>
-                                   )}
-                              </>
-                         )}
+                         <section className="relative w-[123px]">
+                            {/* Login Button => 0936... */}
+                            {user?.phone_number_primary && <button onClick={() => handleUserPanel_btn()} className="w-full userPhoneNumber_btn whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white md:py-3 py-2 font-sans text-sm ">
+                                {toPersianDigits(user.phone_number_primary)}
+                            </button>}
+                            {user ? (
+                                <>
+                                    {user?.account_type === 'normal' ? (
+                                        <nav className={`w-full userPanel overflow-hidden bg-white border border-gray-300 border-t-0 rounded-b-md hidden absolute z-50 top-[34px] md:top-[42px] left-[0px]  whitespace-nowrap `}>
+                                            <Link href={'/user/favorites'} >
+                                                <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                            </Link>
+                                            <Link href={'/user/history'} >
+                                                <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                            </Link>
+                                            <Link href={'/user/invoices'} >
+                                                <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                            </Link>
+                                            <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 font-bold text-red-600 w-full py-2 text-center font-sans ">
+                                                خروج
+                                            </button>
+                                        </nav>
+                                    ) : (
+                                        <div className={`bg-white rounded-b-md   border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute top-[34px] md:top-[42px] w-full left-[0px]  whitespace-nowrap `}>
+                                            {user.is_pending ? (
+                                                <nav className="w-ful">
+                                                    <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[120px] max-w-[120px] cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</button>
+                                                    <Link href={'/user/favorites'} >
+                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                    </Link>
+                                                    <Link href={'/user/history'} >
+                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                    </Link>
+                                                    <Link href={'/user/invoices'} >
+                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                    </Link>
+                                                </nav>
+                                            ) : (
+                                                <nav className="w-ful">
+                                                    <Link href={`/${user.account_type}`} >
+                                                        <a className="text-xs cursor-pointer  hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</a>
+                                                    </Link>
+                                                    <Link href={'/user/favorites'} >
+                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                    </Link>
+                                                    <Link href={'/user/history'} >
+                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                    </Link>
+                                                    <Link href={'/user/invoices'} >
+                                                        <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                    </Link>
+                                                </nav>
+                                            )}
+                                            <button onClick={()=> {dispatch(userLogout())}} className="text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 w-full py-2 text-center font-sans ">خروج</button>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <>
+                                    {loading ? (
+                                        <button className="w-full whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 md:py-3 py-2  text-sm">...</button>
+                                    ) : (
+                                        <button onClick={() => handleUserPanel_btn() & dispatch(authPanel({isOpen : true,type : "normal"}))} className="w-full whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white  md:py-3 py-2 font-sans text-sm">ورود / ثبت نام</button>
+                                    )}
+                                </>
+                            )}
+
+                         </section>
                     </section>
                </div>
 
                {/*  Mobile Search Input For Medium With =>  */}
                <form onSubmit={formik.handleSubmit} method="get" className="w-full flex sm:hidden px-4 sm:px-8 mt-4 sm:justify-center items-center">
-                    <input onBlur={formik.handleBlur} onChange={formik.handleChange } className="bg-white text-gray-700 rounded-r-md outline-none w-full py-2  font-sans border  border-gray-300 px-4" value={formik.values.title}  placeholder="نام کالا را وارد کنید"/>
+                    <input onBlur={formik.handleBlur} onChange={formik.handleChange } name="title" className="bg-white text-gray-700 rounded-r-md outline-none w-full py-2  font-sans border  border-gray-300 px-4" value={formik.values.title}  placeholder="نام کالا را وارد کنید"/>
                     <button type="submit" className="bg-[#d73948] py-2 px-5 rounded-l-md  ">
                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
