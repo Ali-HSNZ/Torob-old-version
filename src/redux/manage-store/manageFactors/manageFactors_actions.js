@@ -19,9 +19,9 @@ const store_changeInvoiceStateLoadingSuccess = (payload) => {return {type : STOR
 const store_changeInvoiceStateLoadingFailure = (payload) => {return {type : STORE_ACTION_LOADING_FAILURE , payload}}
 
 
-export const store_fetchFactors = ({state , brand,category,name,number,order , title , limit , page}) => dispatch => {
+export const store_fetchFactors = ({state ,tracking_number , bill_number , brand,category,name,number,order , title , limit , page}) => dispatch => {
      dispatch(store_fetchFactorsRequest())
-     http.get(`store/invoices?page=${page || 1}&state=${state || "all"}&number=${number || ""}&name=${name || ""}&title=${title || ""}&order=${order || "desc"}&category_id=${category || ""}&brand_id=${brand ||""}&limit=${limit || 12}` , {headers : {authorization : token}})
+     http.get(`store/invoices?page=${page || 1}&state=${state || "all"}&bill_number=${bill_number || ""}&tracking_number=${tracking_number || ""}&number=${number || ""}&name=${name || ""}&title=${title || ""}&order=${order || "desc"}&category_id=${category || ""}&brand_id=${brand ||""}&limit=${limit || 12}` , {headers : {authorization : token}})
      .then(({data}) => dispatch(store_fetchFactorsSuccess(data)))
      .catch(error => {
           requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش گرفتن لیست فاکتورها"})
