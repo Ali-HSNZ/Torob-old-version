@@ -423,7 +423,7 @@ const InsertStore = () => {
                                         {/* Logo Image */}
                                         <div className="flex flex-col relative ">
                                              <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">تصویر لوگو :</p>
-                                             <input type={'file'} id="chooseImage_logo"  ref={image_logo_Input_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" onChange={event => changeFIleAction_input(event,32,2048,setOnChangeFile_logo,"سر در فروشگاه","32 کیلوبایت","2 مگابایت",image_logo_Input_ref)}/>
+                                             <input type={'file'} id="chooseImage_logo"  ref={image_logo_Input_ref} accept=".jpg,.png,.jpeg,.webp" className="hidden" onChange={event => changeFIleAction_input(event,32,2048,setOnChangeFile_logo,"لوگو","32 کیلوبایت","2 مگابایت",image_logo_Input_ref)}/>
                                              {onChangeFile_logo.imageUrl ?  (
                                                   <section className="flex justify-between items-center mt-2 h-[38px] ">
                                                   <button type={"button"} onClick={()=>setIsImage_logo_Modal(true)} className="flex justify-between items-center pr-2 w-full h-full rounded-r-md bg-green-50  border-l-0 hover:bg-green-100 hover:border-green-600 border border-green-500">
