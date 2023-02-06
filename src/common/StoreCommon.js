@@ -7,14 +7,21 @@ import ReactLoading from "react-loading";
 
 const StoreCommon = ({store , index}) => {
      const dispatch = useDispatch()
-     const {cart , increaseOrDecreaseProductCartLoading} = useSelector(state => state.cart)
+     const {cart , increaseOrDecreaseProductCartLoading , addToCartLoading} = useSelector(state => state.cart)
      const {user} = useSelector(state => state.auth)
      
-     const availableStoreInCart = () => {
+     const availableProductInCart = () => {
           if(cart?.data?.length > 0){
                return cart.data.find(state => state.product_id=== store.product_id)
           }else return false
      }
+
+     const isAddToCartLoading = () => {
+        if(addToCartLoading.length > 0){
+             const availableStore = addToCartLoading.find(state => state.store_id === store.store_id)
+             if(availableStore) return true ; else return false
+        }else return false
+   }
 
      const isIncreaseProductLoading = () => {
           if(increaseOrDecreaseProductCartLoading.length > 0){
@@ -36,8 +43,8 @@ const StoreCommon = ({store , index}) => {
           }
      }
      const limitHandler = () => {
-          const limit = availableStoreInCart()?.limit || 0
-          const count = availableStoreInCart()?.count || 0
+          const limit = availableProductInCart()?.limit || 0
+          const count = availableProductInCart()?.count || 0
           return count >= limit;
      }
 
@@ -65,7 +72,7 @@ const StoreCommon = ({store , index}) => {
                     </section>
                     <section className="flex flex-col-reverse  sm:flex-row items-center gap-x-5 justify-between    sm:mr-4">
                          <p className={`text-red-600   font-bold whitespace-nowrap font-sans `}>{toPersianPrice(store.price) +" تومان " }</p>
-                         {availableStoreInCart() ? (
+                         {availableProductInCart() ? (
                               <div className="flex bg-white  border-2 border-red-500 rounded-md items-center mb-4 sm:m-0 overflow-hidden">
                                    {/* increase */}
                                    <button disabled={limitHandler()} onClick={()=>dispatch(increaseProductToCart({product_id : store.product_id , store_id : store.store_id}))} className="font-sans text-sm p-2 disabled:cursor-not-allowed  text-gray-800 disabled:bg-red-100">
@@ -76,11 +83,11 @@ const StoreCommon = ({store , index}) => {
                                    {isIncreaseProductLoading({store_id : store.store_id}) ? (
                                         <ReactLoading type="spinningBubbles" height={20} width={20} color="red" className="mr-2"/>
                                    ) : (
-                                        <span className="font-sans text-sm px-3">{toPersianDigits(availableStoreInCart().count)}</span>
+                                        <span className="font-sans text-sm px-3">{toPersianDigits(availableProductInCart().count)}</span>
                                    )}
                                    {/* Decrease */}
                                    <button onClick={()=>dispatch(decreaseProductToCart({product_id : store.product_id , store_id : store.store_id}))} className="font-sans text-sm p-2">
-                                        {availableStoreInCart().count <= 1 ? (
+                                        {availableProductInCart().count <= 1 ? (
                                              // Trash Icon
                                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
@@ -94,8 +101,14 @@ const StoreCommon = ({store , index}) => {
                                    </button>
                               </div> 
                          ) : (
-                              <button onClick={()=> user ? dispatch(addProductToCart({product_id : store.product_id , store_id : store.store_id})) : dispatch(authPanel({type : 'userPath' , isOpen : true}))} className={`mb-4 sm:m-0 whitespace-nowrap  bg-red-600 border-red-600  py-1.5 text-white   border  font-sans rounded-md font-bold  text-sm px-4 `}>افزودن به سبد</button>
-                         )}
+                            <button disabled={isAddToCartLoading()} onClick={()=> user ? dispatch(addProductToCart({product_id : store.product_id , store_id : store.store_id})) : dispatch(authPanel({type : 'userPath' , isOpen : true}))} className={`mb-4 sm:m-0 whitespace-nowrap  bg-red-600 border-red-600  py-1.5 text-white   border  font-sans rounded-md font-bold  text-sm px-4 `}>
+                                {isAddToCartLoading() ? (
+                                    <ReactLoading type="spinningBubbles" height={20} width={20} color="white" className="mr-2"/>
+                                ) : "افزودن به سبد"}
+                                
+                            </button>
+                        )}
+                         
                     </section>
                </section>
                <section className="peer-checked:inline-block  hidden w-full px-4 ">
