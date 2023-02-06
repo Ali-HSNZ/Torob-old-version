@@ -38,33 +38,33 @@ const checkoutIncreaseOrDecreaseLoadingSuccess = (payload) => {return {type : CH
 const checkoutIncreaseOrDecreaseLoadingFailure = (payload) => {return {type : CHECKOUT_INCREASE_OR_DECREASE_PRODUCT_LOADING_FAILURE, payload}}
 
 export const increaseProductInCheckout = ({product_id , store_id}) => dispatch => {
-     dispatch(checkoutIncreaseOrDecreaseLoadingRequest(store_id))
+     dispatch(checkoutIncreaseOrDecreaseLoadingRequest(product_id))
      dispatch(checkoutIncreaseRequest())
      http.put(`user/cart/store/${store_id}/product/${product_id}/up/factor`,{}, {headers : {Authorization : token}})
      .then(({data}) => {
-          dispatch(checkoutIncreaseOrDecreaseLoadingSuccess(store_id))
+          dispatch(checkoutIncreaseOrDecreaseLoadingSuccess(product_id))
           dispatch(cartDetails(data))
           dispatch(checkoutIncreaseSuccess(data))
      })
      .catch(error => {
           requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش افزایش تعداد کالا"})
-          dispatch(checkoutIncreaseOrDecreaseLoadingFailure(store_id))
+          dispatch(checkoutIncreaseOrDecreaseLoadingFailure(product_id))
           dispatch(checkoutIncreaseFailure("خطای سرور در بخش افزایش تعداد کالا"))
      })
 }
 
 export const decreaseProductInCheckout = ({product_id , store_id}) => dispatch => {
-     dispatch(checkoutIncreaseOrDecreaseLoadingRequest(store_id))
+     dispatch(checkoutIncreaseOrDecreaseLoadingRequest(product_id))
      dispatch(checkoutDecreaseRequest())
      http.put(`user/cart/store/${store_id}/product/${product_id}/down/factor`,{}, {headers : {authorization : token}})
      .then(({data}) => {
-          dispatch(checkoutIncreaseOrDecreaseLoadingSuccess(store_id))
+          dispatch(checkoutIncreaseOrDecreaseLoadingSuccess(product_id))
           dispatch(cartDetails(data))
           dispatch(checkoutDecreaseSuccess(data))
      })
      .catch(error => {
           requestError({error : error?.response?.data?.errors , defaultMessage : "خطای سرور در بخش کاهش تعداد کالا"})
-          dispatch(checkoutIncreaseOrDecreaseLoadingFailure(store_id))
+          dispatch(checkoutIncreaseOrDecreaseLoadingFailure(product_id))
           dispatch(checkoutDecreaseFailure("خطای سرور در بخش کاهش تعداد کالا"))
      })
 }
