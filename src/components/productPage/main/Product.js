@@ -26,7 +26,7 @@ const Product = ({ product }) => {
      return (
           <article className={`relative overflow-hidden bg-white flex lg:w-[300px] lg:max-w-[300px] lg:min-w-[300px] rounded-lg flex-col  sm:flex-row lg:flex-col h-fit lg:sticky top-4 p-2`}>
                <div className=" flex justify-center items-center relative">
-                    <Swiper pagination={{dynamicBullets: true}} modules={[ Pagination]} className={"mySwiper max-w-[300px] sm:max-w-[230px] lg:max-w-none  "}>
+                    <Swiper pagination={{dynamicBullets: true}} modules={[ Pagination]} className={"swiper_productPage max-w-[300px] sm:max-w-[230px] lg:max-w-none  "}>
                          {product.product.images.map(image => (
                               <SwiperSlide key={image.id}>
                                    <div  className="flex items-center justify-center w-30 ">
