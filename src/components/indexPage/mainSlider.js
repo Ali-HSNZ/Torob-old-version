@@ -17,8 +17,8 @@ import Image from "next/image";
 
 const MainSlider_indexPage = () => {
     return(
-        <section className="w-full py-0 my-0 bg-red-500 max-w-[1700px]">
-            <Swiper navigation={true}  pagination={{dynamicBullets: true}} modules={[ Pagination , Navigation]} className={"mainSlider_indexPage_swiper lg:max-w-none  "}>
+        <section className="w-full py-0 my-0 max-w-[1700px]">
+            <Swiper navigation={true} loop={true} pagination={{dynamicBullets: true}} modules={[ Pagination , Navigation]} className={"mainSlider_indexPage_swiper lg:max-w-none  "}>
                 <SwiperSlide >
                     <div  className="w-full  flex items-center relative justify-center ">
                         <img className="w-full object-cover h-auto min-h-[130px] max-h-[400px]" src={image.src} />
