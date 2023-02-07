@@ -89,8 +89,23 @@
 		 url('/fonts/woff2/IRANYekanWebExtraBlack.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('/fonts/ttf/IRANYekanWebExtraBlack.ttf') format('truetype');
 }
-.swiper-slide{
-     overflow: auto;
+.mainSlider_indexPage_swiper > .swiper-pagination-bullets {
+    margin-bottom: 10px;
+}
+.mainSlider_indexPage_swiper > .swiper-pagination-bullets > .swiper-pagination-bullet-active-main {
+    background-color: #000000;
+}
+/*! Navigation Responsive */
+.mainSlider_indexPage_swiper > .swiper-button-prev , .mainSlider_indexPage_swiper > .swiper-button-next{
+    display: none;
+}
+@media only screen and (min-width : 720px){
+    .mainSlider_indexPage_swiper > .swiper-button-prev , .mainSlider_indexPage_swiper > .swiper-button-next{
+        display: flex;
+    }
+}
+
+.swiper_productPage .swiper-wrapper{
      padding: 20px 0;
 }
 .swiper-button-next {
@@ -99,6 +114,7 @@
      background-color: rgba(0, 0, 0, 0.377);
      padding: 20px 20px; 
      border-radius: 100%;
+     margin: 0 10px;
 }
 .swiper-button-next:hover {
      background-color: rgba(0, 0, 0, 0.445);
@@ -110,6 +126,7 @@
      background-color: rgba(0, 0, 0, 0.377);
      padding: 20px 20px; 
      border-radius: 100%;
+     margin: 0 10px;
 }
 .swiper-button-prev:hover {
      background-color: rgba(0, 0, 0, 0.445);
