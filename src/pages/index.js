@@ -3,6 +3,7 @@ import Header from '@/components/Header'
 import Category from '@/components/indexPage/category'
 import MainSlider_indexPage from '@/components/indexPage/mainSlider'
 import OffersSlider_indexPage from '@/components/indexPage/offersSldier'
+import TorobOffer_categories from '@/components/indexPage/offer_torob_category'
 import Layout from '@/layout/Layout'
 import { cartDetails } from '@/redux/cart/cart/cartActions'
 import { fetchCategoriesFailure, fetchCategoriesRequest, fetchCategoriesSuccess } from '@/redux/categories/categoriesActions'
@@ -20,6 +21,7 @@ export default function Home(){
             <MainSlider_indexPage/>
             <OffersSlider_indexPage/>
             <Category/>
+            <TorobOffer_categories/>
           </Layout>
      )
 }
