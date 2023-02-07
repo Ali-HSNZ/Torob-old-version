@@ -50,7 +50,8 @@ const Header = () => {
      })
 
      return (
-          <header className=" py-4 bg-gray-50">
+          <header className=" py-4 bg-gray-50  border-b border-gray-300 left-0 flex justify-center right-0 z-50 shadow-sm">
+            <main className="w-full max-w-[1700px]   ">
                {/* Login is Modal */}
                {!user && <Login />}
 
@@ -181,12 +182,11 @@ const Header = () => {
 
 
                {/* //?  Menu For Big Screen  ==> */}
-               <section className="hidden lg:flex px-5 gap-x-6 font-sans text-sm mt-6">
-                    <BigScreenMenu customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}/>
-               </section>
+                <BigScreenMenu customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}/>
 
                {/* //?  Menu For Small Width - Responsive  ==> */}
                {isSmallScreenModal && <SmallScreenMenu customClassname="lg:hidden" isSmallScreenModal={isSmallScreenModal} setIsSmallScreenModal={setIsSmallScreenModal} />} 
+            </main>
           </header>
      );
 };
