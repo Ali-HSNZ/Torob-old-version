@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import Category from '@/components/indexPage/category'
 import MainSlider_indexPage from '@/components/indexPage/mainSlider'
 import OffersSlider_indexPage from '@/components/indexPage/offersSldier'
 import Layout from '@/layout/Layout'
@@ -18,6 +19,7 @@ export default function Home(){
           <Layout pageTitle={"ترب | بهترین قیمت بازار"} isFooter={true}>
             <MainSlider_indexPage/>
             <OffersSlider_indexPage/>
+            <Category/>
           </Layout>
      )
 }
