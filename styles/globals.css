@@ -89,13 +89,16 @@
 		 url('/fonts/woff2/IRANYekanWebExtraBlack.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
 		 url('/fonts/ttf/IRANYekanWebExtraBlack.ttf') format('truetype');
 }
+
+/*! ----------------mainSlider_indexPage_swiper----------------------- */
+
 .mainSlider_indexPage_swiper > .swiper-pagination-bullets {
     margin-bottom: 10px;
 }
+
 .mainSlider_indexPage_swiper > .swiper-pagination-bullets > .swiper-pagination-bullet-active-main {
     background-color: #000000;
 }
-/*! Navigation Responsive */
 .mainSlider_indexPage_swiper > .swiper-button-prev , .mainSlider_indexPage_swiper > .swiper-button-next{
     display: none;
 }
@@ -104,33 +107,66 @@
         display: flex;
     }
 }
+/*! ----------------offersSlider_indexPage_swiper----------------------- */
+
+.swiper-button-disabled{
+    display: none !important;
+    opacity: 0;
+}
+.offersSlider_indexPage_swiper .swiper-slide{
+    width: auto !important;
+}
+.offersSlider_indexPage_swiper > .swiper-button-prev , .offersSlider_indexPage_swiper > .swiper-button-next{
+    display: none;
+}
+@media only screen and (min-width : 720px){
+    .offersSlider_indexPage_swiper > .swiper-button-prev , .offersSlider_indexPage_swiper > .swiper-button-next{
+        display: flex;
+    }
+}
+
+/*! ----------------swiper_productPage----------------------- */
 
 .swiper_productPage .swiper-wrapper{
      padding: 20px 0;
 }
+
+/*! ----------------All Swiper----------------------- */
+
 .swiper-button-next {
-     --swiper-navigation-color:white;
      --swiper-navigation-size : 20px;
-     background-color: rgba(0, 0, 0, 0.377);
+     background-color: rgb(255, 255, 255);
      padding: 20px 20px; 
      border-radius: 100%;
      margin: 0 10px;
+
+    /*! Change Icon */
+    background-image: url(../src/images/left-arrow.png);
+    background-repeat: no-repeat;
+    background-size: 40% auto;
+    background-position: center;
 }
-.swiper-button-next:hover {
-     background-color: rgba(0, 0, 0, 0.445);
+.swiper-button-next::after {
+    display: none;
 }
 
 .swiper-button-prev {
-     --swiper-navigation-color:white;
-     --swiper-navigation-size : 20px;
-     background-color: rgba(0, 0, 0, 0.377);
-     padding: 20px 20px; 
-     border-radius: 100%;
-     margin: 0 10px;
+    --swiper-navigation-size : 20px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px 20px; 
+    border-radius: 100%;
+    margin: 0 10px;
+    /*! Change Icon */
+    background-image: url(../src/images/right-arrow.png);
+    background-repeat: no-repeat;
+    background-size: 40% auto;
+    background-position: center;
+    
 }
-.swiper-button-prev:hover {
-     background-color: rgba(0, 0, 0, 0.445);
+.swiper-button-prev::after {
+    display: none;
 }
+
 .swiper-pagination{
      margin: 20px 0 0 0;
      position: absolute;
@@ -142,9 +178,9 @@
 }
 :root {
     --toastify-font-family: 'iranyekan';
-  }
-  .Toastify__toast-body { font-family: 'iranyekan'; font-size: 14px;}
-  .Toastify {
+}
+.Toastify__toast-body { font-family: 'iranyekan'; font-size: 14px;}
+.Toastify {
     position: absolute;
     z-index: 10000000;
 }
