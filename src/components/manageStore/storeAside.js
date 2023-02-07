@@ -9,7 +9,7 @@ const ManageStoreAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenCla
      const {user} = useSelector(state => state.auth)
 
      return (  
-          <aside className={`${mobileScreenClassName ? mobileScreenClassName : "w-1/5"}   h-screen bg-white ${isMobileScreen ? "lg:hidden" : "hidden"} sticky top-0 lg:flex flex-col overflow-y-auto`}>
+        <aside className={`${mobileScreenClassName ? mobileScreenClassName : "w-1/5"}   h-screen bg-white ${isMobileScreen ? "lg:hidden" : "hidden"} sticky top-[120px] lg:flex flex-col overflow-y-auto`}>
                
                {isMobileScreen && (
                     <section>
@@ -25,7 +25,7 @@ const ManageStoreAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenCla
                     </section>
                )}
 
-               <nav className="py-3">
+               <nav className="pb-4">
 
                     <Link href={'/store'}>
                          <a  className={` ${router.pathname === '/store' ? "bg-red-200 hover:bg-red-300" : "hover:bg-gray-100"} flex items-center pr-4 py-3 hover:bg-gray-100`}>
