@@ -15,7 +15,7 @@ export const checkImageFormat = ({fileName}) => {
      return true
 }
 
-// --------------Class Name----------------------
+//! --------------Class Name----------------------------
 
 export const buttonClassName = ({ bgColor , isValid , isOutline}) => {
      if(isOutline){
@@ -33,7 +33,7 @@ export const linkClassName =  ({ bgColor , isOutline}) => {
      }
 }
 
-// -----------------Title Substring---------------------
+//! -----------------Title Substring---------------------
 
 export const substringHandler = ({title , count}) => title.length > count ? title.substring( 0 , count) + "..." : title 
 
@@ -42,3 +42,28 @@ export const substringHandler = ({title , count}) => title.length > count ? titl
 export const removeNullInArray = array => array.filter(element => {return element !== null});
 
 export const removeHyphen = text => text.replace(/-/g, ' ');
+
+
+
+//! -----------------Disable Scroll---------------------
+
+export function disableScroll() {
+    if(typeof window !== "undefined" && typeof document !== "undefined"){
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        window.onscroll = function() {
+            window.scrollTo(scrollLeft, scrollTop);
+        };
+        document.body.classList.add("stop-scrolling");
+    }
+}
+
+//! -----------------Enable Scroll---------------------
+
+export function enableScroll() {
+    if(typeof window !== "undefined" && typeof document !== "undefined"){
+        window.onscroll = function() {};
+        document.body.classList.remove("stop-scrolling");
+    }
+
+}

@@ -188,6 +188,12 @@
 ::selection {
   background: #f7afaf;
 }
+  
+.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+}
+
 html,
 body {
   font-family: "iranyekan";

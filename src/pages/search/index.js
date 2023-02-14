@@ -42,7 +42,7 @@ const SearchQuery = ({similarCategories , brands , mainSearch}) => {
                          <MainTags priceMin={priceMin} priceMax={priceMax}/>                               
                          {/* {!query.query && query.category && <p className="font-sans font-bold text-md lg:text-lg  text-gray-800"> قیمت انواع {removeHyphen(query.category)} </p>} */}
                          <article>
-                         {mainSearch && mainSearch.products && <Product data={mainSearch.products} query={query}/>}
+                         {mainSearch && <Product data={mainSearch.products} query={query}/>}
                          {!mainSearch && <p className="mt-4 text-center font-sans text-sm text-gray-600">کالایی با این مشخصات یافت نشد.</p>}
                          </article>
                     </section>
@@ -84,7 +84,10 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      const similarCategories  = category &&  await http.get(encodeURI(`public/categories/${category}/sub`)).then(res => res.data)
      
      // Fetch Products By Filters 
-     const mainSearch =  await http.get(encodeURI(`public/search?${productName?"q="+productName:""}&limit=10&page=1${brand ? "&brand="+brand : ""}${available ? "&available="+available : ""}${category ? "&category="+category : ""}${sort ? `&sort=${sort}` : "" }${price_from ? "&price_from="+price_from : ""}${price_to ? "&price_to="+price_to : ""}`)).then(res =>res.data)
+     const mainSearch =  await http.get(encodeURI(`public/search?q=${productName || ""}
+                                                                &limit=10
+                                                                &page=1
+                                                                &brand=${brand || ""}&available=${available} : ""}${category ? "&category="+category : ""}${sort ? `&sort=${sort}` : "" }${price_from ? "&price_from="+price_from : ""}${price_to ? "&price_to="+price_to : ""}`)).then(res =>res.data)
      
      return {     
           props: {

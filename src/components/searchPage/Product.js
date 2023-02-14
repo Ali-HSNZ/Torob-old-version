@@ -4,26 +4,14 @@ import Styles from "@/common/productsParent_grid.module.css";
 import ReactLoading from "react-loading";
 import { useRouter } from "next/router";
 import ProductCommon from "@/common/ProductCommon";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchLikes } from "@/redux/like/likeActions";
 import http from "src/services/http";
-// import { fetchAnalytics } from "@/redux/analytics/analyticsActions";
 
 const Product = ({ data }) => {
      const [products, setProducts] = useState(data);
      const [pageCount, setPageCount] = useState(2);
      const [isProducts, setIsProducts] = useState(false);
      const { query } = useRouter();
-     // const dispatch = useDispatch();
-     // const { likes, likesLoading } = useSelector((state) => state.likes);
-     // const { analytics, analyticsLoading } = useSelector(state => state.analytics);
      const { query: productName,fromPrice,toPrice,category,available,sort,brand,} = query;
-     //   const { user } = useSelector((state) => state.auth);
-
-     // useEffect(() => {
-     //   dispatch(fetchLikes());
-     //   dispatch(fetchAnalytics());
-     // }, []);
 
      useEffect(() => {
           setIsProducts(true);
@@ -60,37 +48,7 @@ const Product = ({ data }) => {
                }
           >
                <article className={Styles.productsParent}>
-                    {products &&products.map((product, index) => {
-                         // const isLiked = () => {
-                         //   const likedProduct = likes && likes.find((item) => item.hash_id === product.hash_id);
-                         //   if (likedProduct) return true; else return false;
-                         // };
-                         // const isAnalyze = () => {
-                         //   const analyticsProduct = analytics && analytics.find((item) => item.hash_id === product.hash_id);
-                         //   if (analyticsProduct) return true;
-                         //   return false;
-                         // };
-                         // const isLikeLoading = () => {
-                         //   const loadingProduct = likesLoading && likesLoading.length > 0 && likesLoading.find((item) => item.hash_id === product.hash_id); 
-                         //   if (loadingProduct) return true;
-                         // };
-                         // const isAnalyzeLoading = () => {
-                         //   const loadingProduct = analyticsLoading && analyticsLoading.length > 0 && analyticsLoading.find((item) => item.hash_id === product.hash_id);
-                         //   if(loadingProduct) return true;
-                         // };
-                         return (
-                         <ProductCommon
-                              // user={user ? true : false}
-                              // isLikeLoading={isLikeLoading()}
-                              // isAnalyzeLoading={isAnalyzeLoading()}
-                              // isLiked={isLiked()}
-                              // isAnalyze={isAnalyze()}
-                              // likes={likes}
-                              key={index}
-                              product={product}
-                         />
-                         );
-                    })}
+                    {products &&products.map((product, index) => <ProductCommon key={index} product={product}/>)}
                </article>
           </InfiniteScroll>
      );
