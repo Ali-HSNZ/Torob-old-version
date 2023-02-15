@@ -7,6 +7,7 @@ import TorobOffer_categories from '@/components/indexPage/offer_torob_category'
 import Layout from '@/layout/Layout'
 import { cartDetails } from '@/redux/cart/cart/cartActions'
 import { fetchCategoriesFailure, fetchCategoriesRequest, fetchCategoriesSuccess } from '@/redux/categories/categoriesActions'
+import { home_fetchDataFailure, home_fetchDataRequest, home_fetchDataSuccess } from '@/redux/home/home_actions'
 import { wrapper } from '@/redux/store'
 import { authFailure, authRequest, authSuccess } from '@/redux/user/userActions'
 import Head from 'next/head'
@@ -36,9 +37,20 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
             dispatch(authSuccess(data.user))
         })
         .catch(error => dispatch(authFailure("خطا در بخش احراز هویت")))
+
+        dispatch(home_fetchDataRequest())
+        await http.get("public/home" , {headers : {authorization : token}})
+        .then(res => dispatch(home_fetchDataSuccess(res.data))) 
+        .catch(error => dispatch(home_fetchDataFailure("خطا در بخش گرفتن اطلاعات صفحه اصلی")))
     }
     // Fetch Navbar Categories
     await http.get(`public/categories`)
     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+
+    // Fetch Home Page Data
+    dispatch(home_fetchDataRequest())
+    await http.get("public/home")
+    .then(res => dispatch(home_fetchDataSuccess(res.data))) 
+    .catch(error => dispatch(home_fetchDataFailure("خطا در بخش گرفتن اطلاعات صفحه اصلی")))
 });
