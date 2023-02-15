@@ -84,10 +84,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      const similarCategories  = category &&  await http.get(encodeURI(`public/categories/${category}/sub`)).then(res => res.data)
      
      // Fetch Products By Filters 
-     const mainSearch =  await http.get(encodeURI(`public/search?q=${productName || ""}
-                                                                &limit=10
-                                                                &page=1
-                                                                &brand=${brand || ""}&available=${available} : ""}${category ? "&category="+category : ""}${sort ? `&sort=${sort}` : "" }${price_from ? "&price_from="+price_from : ""}${price_to ? "&price_to="+price_to : ""}`)).then(res =>res.data)
+     const mainSearch =  await http.get(encodeURI(`public/search?q=${productName ?? ""}&limit=10&page=1&brand=${brand ?? ""}&available=${available ?? ""}${category ? "&category="+category : ""}${sort ? `&sort=${sort}` : "" }${price_from ? "&price_from="+price_from : ""}${price_to ? "&price_to="+price_to : ""}`)).then(res =>res.data)
      
      return {     
           props: {
