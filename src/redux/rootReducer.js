@@ -22,9 +22,13 @@ import { store_factorReducer } from "./manage-store/manageFactors/manageFactors_
 import { user_factorReducer } from "./user-factor/userFactor_reducer";
 import { storeSettingReducer } from "./manage-store/settings/storeSettings.reducer";
 import { admin_notificationsReducer } from "./admin/admin_notifications/adminNotifications_reducer";
+import { home_stateReducer } from "./home/home_reducer";
 
 const rootReducer = combineReducers({
     
+    //! Home
+    home_state : home_stateReducer,
+
     //! User
     auth: authReduser,
     history: historyReducer,
