@@ -55,9 +55,11 @@ const Header = () => {
                     if(searchInput.contains(event.target) | searchPanel.contains(event.target)) {
                          disableScroll()
                          searchPanel.style.display = 'block'
+                         searchInput.classList.add('rounded-b-none')
                     }else{
                          enableScroll()
                          searchPanel.style.display = 'none'
+                         searchInput.classList.remove('rounded-b-none')
                     }
                }
 
@@ -114,9 +116,9 @@ const Header = () => {
                                    <svg className="w-6 h-6 text-gray-500 absolute top-[9px] right-3 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                    </svg>
-                                   {/* //? Search Panel */}
-                                   <section id="searchPanel" className="hidden pb-4 bg-white rounded-md absolute w-full">
-                                        {/* //! Popular Search Section */}
+                                   {/* //! Search Panel */}
+                                   <section id="searchPanel" className="hidden pb-4 bg-white shadow-md border border-gray-300 border-t-0 rounded-md rounded-t-sm absolute w-full">
+                                        {/* //? Popular Search Section */}
                                         <div className="mt-4 mx-4 w-full flex flex-row items-center">
                                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-4 text-gray-500">
                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -125,7 +127,7 @@ const Header = () => {
                                         </div>
                                         {/* //? Slider For Popular Search */}
                                         <div className="pr-4 mt-2">
-                                             <Swiper className={"popularSearchSlider_header_swiper"} freeMode={true} navigation={true} spaceBetween={3} modules={[ Navigation , FreeMode]}  slidesPerView={'auto'}>
+                                             <Swiper className={"searchSlider_header"} freeMode={true} navigation={true} spaceBetween={3} modules={[ Navigation , FreeMode]}  slidesPerView={'auto'}>
                                                  {data && data?.search_bar.popular.map(item => (
                                                        <SwiperSlide key={item.id}>
                                                             <Link href={`/search?query=${item.text}`}>
@@ -141,7 +143,7 @@ const Header = () => {
                                              </Swiper>
                                         </div>
                                         
-                                        {/* //! Popular Search Section */}
+                                        {/* //? Popular Search Section */}
                                         <div className="mt-4 mx-4 w-full flex flex-row items-center">
                                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-4 text-gray-500">
                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
@@ -151,7 +153,7 @@ const Header = () => {
                                         </div>
                                         {/* //? Slider For Popular Search */}
                                         <div className="pr-4 mt-2">
-                                             <Swiper className={"popularSearchSlider_header_swiper"} freeMode={true} navigation={true} spaceBetween={3} modules={[ Navigation , FreeMode]}  slidesPerView={'auto'}>
+                                             <Swiper className={"searchSlider_header"} freeMode={true} navigation={true} spaceBetween={3} modules={[ Navigation , FreeMode]}  slidesPerView={'auto'}>
                                                   <SwiperSlide>
                                                        <a href="#" className="w-fit px-4 py-2 flex font-sans font-bold text-gray-700 text-sm rounded-full border border-gray-200">
                                                             <p>جستجوهای پرطرفدار</p>
