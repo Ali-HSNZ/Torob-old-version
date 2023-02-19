@@ -67,11 +67,13 @@ export const admin_fetchCategoriesSuccess = (payload) => { return {type : ADMIN_
 export const admin_fetchCategoriesFailure = (payload) => {return {type : ADMIN_FETCH_CATEGORIES_FAILURE , payload}}
 
 
-export const insertProduct = ({categoryId ,barcode, brandId , product_title , product_description , productImages}) => dispatch => {
+export const insertProduct = ({tags,categoryId ,barcode, brandId , product_title , product_description , productImages}) => dispatch => {
      dispatch(insertProductRequest())
      http.post(`admin/products` ,{
           title : product_title,
           barcode,
+          tags,
+          tags_count : tags.length,
           description : product_description,
           brand_id : brandId,
           category_id : categoryId,
@@ -85,11 +87,13 @@ export const insertProduct = ({categoryId ,barcode, brandId , product_title , pr
      })
 }
 
-export const editProductAction = ({categoryId ,barcode, brandId , product_title , product_description , productImages , id}) => dispatch => {
+export const editProductAction = ({tags,categoryId ,barcode, brandId , product_title , product_description , productImages , id}) => dispatch => {
      dispatch(fetchOneProductRequest())
      http.post(`admin/products/${id}/update` ,{
           title : product_title,
           barcode,
+          tags,
+          tags_count : tags.length,
           description : product_description,
           brand_id : brandId,
           category_id : categoryId,
