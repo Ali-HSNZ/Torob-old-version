@@ -20,7 +20,8 @@ import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
-
+//! ====tag in input===> 
+import { TagsInput } from "react-tag-input-component";
 
 const InsertProduct = () => {
      const productData = useSelector(state => state.admin_products)
@@ -33,7 +34,11 @@ const InsertProduct = () => {
      const sub3 = useSelector(state => state.admin_products.sub3)
      const dispatch = useDispatch();
 
+
      const [isAsideModal,setIsAsideModal] = useState(false)
+     
+     //! State For Input Tags
+     const [tags, setTags] = useState([]);
 
      const [selectedCategory_main, setSelectedCategory_main] = useState("")
      const [categoryQuery_main, setCategoryQuery_main] = useState("")
@@ -161,7 +166,7 @@ const InsertProduct = () => {
                toast.error('مقدار دسته‌بندی الزامی می باشد.')
                return false
           }
-          const payload = {categoryId,brandId,product_title,barcode,product_description,productImages}
+          const payload = {tags , categoryId,brandId,product_title,barcode,product_description,productImages}
           dispatch(insertProduct(payload))
      }
      
@@ -183,7 +188,7 @@ const InsertProduct = () => {
                
                     <section  className=" w-full lg:w-4/5 flex-0 h-max p-4">
                          <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
-                         <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
+                              <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                          </Modal>
                          {/* Image Modal */}
                          <Modal open={isImage_modal} onClose={() => setIsImage_modal(false)} className="outline-none p-4 h-full w-full flex justify-center items-center">
@@ -201,30 +206,30 @@ const InsertProduct = () => {
                          </section>
                          </Modal>
                          <div className="flex justify-between w-full items-center">
-                         <div className="flex items-center">
-                              <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
-                                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                                   </svg>
-                              </button>
-                              <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
-                         </div>
-                         <div className="flex gap-x-2">
-                              <Link href={'/admin/manage-products'}>
-                                   <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                              <div className="flex items-center">
+                                   <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
-                                   </a>
-                              </Link>
-                              <Link href={'/admin'}>
-                                   <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                        </svg>
-                                   </a>
-                              </Link>
-                         </div>
+                                   </button>
+                                   <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
+                              </div>
+                              <div className="flex gap-x-2">
+                                   <Link href={'/admin/manage-products'}>
+                                        <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                             </svg>
+                                        </a>
+                                   </Link>
+                                   <Link href={'/admin'}>
+                                        <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                             </svg>
+                                        </a>
+                                   </Link>
+                              </div>
                          </div>
                          <form onSubmit={formik.handleSubmit}>
                          {/* Product Title - Brand - Barcode */}
@@ -240,7 +245,8 @@ const InsertProduct = () => {
                                    </div>
                                    <FormikInput maxLength={12} title={"بارکد"} formik={formik} isRequired={true} name={"barcode"} parentClassName={"flex flex-col relative"}/>
                               </section>
-                                   {/* دسته بندی */}
+
+                              {/* دسته بندی */}
                               <div className="w-full mt-4 flex flex-col  gap-x-4">
                                    <section className="flex items-center">
                                         <p className="font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600">دسته‌بندی :</p>
@@ -254,6 +260,36 @@ const InsertProduct = () => {
                                    </section>
                               </div>
                          </div>
+                         {/* کلیدواژه */}
+                         <section className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                              
+                              <div className=" mb-6">
+                                   <span className="font-sans font-bold">کلیدواژه</span>
+                                   <span className="font-sans text-gray-600 text-xs relative bottom-1 mr-1">(برای جستجو این کالا توسط کاربر)</span>
+                              </div>
+                              <TagsInput 
+                                   value={tags} 
+                                   onChange={setTags} 
+                                   name="کلیدواژه جدید..."
+                                   placeHolder="کلیدواژه جدید..."
+                                   separators={["." , '-' , ","]}     
+                              />
+                              <div className="mt-2 font-sans text-xs">
+                                   <span className="text-gray-600">برای افزودن کلیدواژه جدید، کلید</span>
+                                   <b className="text-gray-800 mx-2">نقطه ( . )</b>
+                                   <span className="text-gray-600">یا</span>
+                                   <b className="text-gray-800 mx-2">کاما ( - )</b>
+                                   <span className="text-gray-600">یا</span>
+                                   <b className="text-gray-800 mx-2">و ( , )</b>
+                                   <span className="text-gray-600">را فشار دهید.</span>
+                              </div>
+                              <div className="mt-2 font-sans text-xs">
+                                   <span className="text-gray-600">برای حذف کلیدواژه، کلید</span>
+                                   <b className="text-gray-800 mx-2">حذف (Backspace)</b>
+                                   <span className="text-gray-600">را فشار دهید.</span>
+                              </div>
+                         </section>
+                         
                          {/* توضیحات */}
                          <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
                               <p className="font-sans font-bold "> توضیحات</p>
