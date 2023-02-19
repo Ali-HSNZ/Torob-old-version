@@ -3,6 +3,8 @@ import Layout from "@/layout/Layout";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import * as Yup from 'yup'
+//! ====tag in input===> 
+import { TagsInput } from "react-tag-input-component";
 import ReactLoading from 'react-loading';
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +48,7 @@ const EditProduct = () => {
      
      const [isEditCategory , setIsEditCategory] = useState(false)
      const {brands} = useSelector(state => state.admin_products.brands)
-     const {categories , error} = useSelector(state => state.admin_products.categories)
+     const {categories} = useSelector(state => state.admin_products.categories)
      const sub1 = useSelector(state => state.admin_products.sub1)
      const sub2 = useSelector(state => state.admin_products.sub2)
      const sub3 = useSelector(state => state.admin_products.sub3)
@@ -55,6 +57,9 @@ const EditProduct = () => {
      const id = Number(router.query.productId)
      
      const imageInput_ref = useRef()
+
+     //! State For Input Tags
+     const [tags, setTags] = useState([]);
 
      const [isAsideModal,setIsAsideModal] = useState(false)
      
@@ -91,7 +96,6 @@ const EditProduct = () => {
           return true
      }
 
-
      useEffect(()=>{
           setProductImages([])
      },[router])
@@ -99,6 +103,7 @@ const EditProduct = () => {
      useEffect(()=>{
           setSelectedBrand(product && product.brand || "") 
           setProductImages(product && product.images || [])
+          setTags(product && product.tags || [])
      },[product])
 
      useEffect(()=>{
@@ -192,7 +197,7 @@ const EditProduct = () => {
           if(!categoryId){
                requestError({error : null , defaultMessage : 'مقدار دسته‌بندی الزامی می باشد'}); return false
           }
-          const payload = {categoryId,barcode,brandId,product_title,product_description,productImages,id}
+          const payload = {tags,categoryId,barcode,brandId,product_title,product_description,productImages,id}
           dispatch(editProductAction(payload))
      }
 
@@ -286,6 +291,34 @@ const EditProduct = () => {
                                         </section>
                                    </div>
                               </div>
+                              {/* کلیدواژه */}
+                              <section className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                                   <div className=" mb-6">
+                                        <span className="font-sans font-bold">کلیدواژه</span>
+                                        <span className="font-sans text-gray-600 text-xs relative bottom-1 mr-1">(برای جستجو این کالا توسط کاربر)</span>
+                                   </div>
+                                   <TagsInput 
+                                        value={tags} 
+                                        onChange={setTags} 
+                                        name="کلیدواژه جدید..."
+                                        placeHolder="کلیدواژه جدید..."
+                                        separators={["." , '-' , ","]}     
+                                   />
+                                   <div className="mt-2 font-sans text-xs leading-8">
+                                        <span className="text-gray-600">برای افزودن کلیدواژه جدید، کلید</span>
+                                        <b className="text-gray-800 mx-2">نقطه ( . )</b>
+                                        <span className="text-gray-600">یا</span>
+                                        <b className="text-gray-800 mx-2">کاما ( - )</b>
+                                        <span className="text-gray-600">یا</span>
+                                        <b className="text-gray-800 mx-2">و ( , )</b>
+                                        <span className="text-gray-600">را فشار دهید.</span>
+                                   </div>
+                                   <div className="mt-2 font-sans text-xs">
+                                        <span className="text-gray-600">برای حذف کلیدواژه، کلید</span>
+                                        <b className="text-gray-800 mx-2">حذف (Backspace)</b>
+                                        <span className="text-gray-600">را فشار دهید.</span>
+                                   </div>
+                              </section>
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
                                    <p className="font-sans font-bold"> توضیحات</p>
                                    <p className="font-sans text-sm mt-4 text-gray-800">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
@@ -293,6 +326,8 @@ const EditProduct = () => {
                                    {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
                               
                               </div>
+
+
 
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
                                    <p className="font-sans font-bold"> تصاویر و فایل ها</p>
