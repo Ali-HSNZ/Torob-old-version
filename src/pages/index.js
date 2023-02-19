@@ -1,5 +1,3 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
 import Category from '@/components/indexPage/category'
 import MainSlider_indexPage from '@/components/indexPage/mainSlider'
 import OffersSlider_indexPage from '@/components/indexPage/offersSldier'
@@ -10,10 +8,7 @@ import { fetchCategoriesFailure, fetchCategoriesRequest, fetchCategoriesSuccess 
 import { home_fetchDataFailure, home_fetchDataRequest, home_fetchDataSuccess } from '@/redux/home/home_actions'
 import { wrapper } from '@/redux/store'
 import { authFailure, authRequest, authSuccess } from '@/redux/user/userActions'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import http, { requestError, returnTokenInServerSide } from 'src/services/http'
+import http, { returnTokenInServerSide } from 'src/services/http'
 
 export default function Home(){
 
@@ -42,15 +37,16 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
         await http.get("public/home" , {headers : {authorization : token}})
         .then(res => dispatch(home_fetchDataSuccess(res.data))) 
         .catch(error => dispatch(home_fetchDataFailure("خطا در بخش گرفتن اطلاعات صفحه اصلی")))
+    }else{
+        // Fetch Home Page Data
+        dispatch(home_fetchDataRequest())
+        await http.get("public/home")
+        .then(res => dispatch(home_fetchDataSuccess(res.data))) 
+        .catch(error => dispatch(home_fetchDataFailure("خطا در بخش گرفتن اطلاعات صفحه اصلی")))
     }
     // Fetch Navbar Categories
     await http.get(`public/categories`)
     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
 
-    // Fetch Home Page Data
-    dispatch(home_fetchDataRequest())
-    await http.get("public/home")
-    .then(res => dispatch(home_fetchDataSuccess(res.data))) 
-    .catch(error => dispatch(home_fetchDataFailure("خطا در بخش گرفتن اطلاعات صفحه اصلی")))
 });
