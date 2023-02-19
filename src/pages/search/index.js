@@ -62,6 +62,8 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      }
      const {query : productName , price_from , price_to , category , available , sort , brand } = query;
      
+     let mainSearch = null;
+
      if(!token.includes("undefined")){
           // Fetch User Data
           await http.get("user", {headers : {authorization : token}})
@@ -70,8 +72,12 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
                dispatch(cartDetails(data))
           })
           .catch(error => dispatch(authFailure("خطا در بخش احراز هویت")))
-     }
 
+          mainSearch =  await http.get(encodeURI(`public/search?q=${productName ?? ""}&limit=10&page=1&brand=${brand ?? ""}&available=${available ?? ""}&category=${category ?? ""}&sort=${sort ?? ""}&price_from=${price_from ?? ""}&price_to=${price_to ?? ""}`),{headers : {authorization : token}}).then(res =>res.data)
+     }else{
+          mainSearch =  await http.get(encodeURI(`public/search?q=${productName ?? ""}&limit=10&page=1&brand=${brand ?? ""}&available=${available ?? ""}&category=${category ?? ""}&sort=${sort ?? ""}&price_from=${price_from ?? ""}&price_to=${price_to ?? ""}`)).then(res =>res.data)
+     }
+     
      // Fetch Categories
      await http.get(`public/categories`)
      .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
@@ -84,8 +90,6 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      const similarCategories  = category &&  await http.get(encodeURI(`public/categories/${category}/sub`)).then(res => res.data)
      
      // Fetch Products By Filters 
-     const mainSearch =  await http.get(encodeURI(`public/search?q=${productName ?? ""}&limit=10&page=1&brand=${brand ?? ""}&available=${available ?? ""}${category ? "&category="+category : ""}${sort ? `&sort=${sort}` : "" }${price_from ? "&price_from="+price_from : ""}${price_to ? "&price_to="+price_to : ""}`)).then(res =>res.data)
-     
      return {     
           props: {
                brands : brands && brands.data ||null,
