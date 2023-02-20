@@ -27,7 +27,6 @@ const Header = () => {
 
      const searchSuggestion = useSelector(state => state.userSearch.suggested)
      const searchData = useSelector(state => state.userSearch.searchData)
-     console.log("searchData : ",searchData);
      const { user, loading } = useSelector((state) => state.auth);
      const dispatch = useDispatch();
      const {cart_count} = useSelector(state => state.cart)
