@@ -24,12 +24,13 @@ const Header = () => {
 
      const router = useRouter();
      // Suggestion Search Resualt - State
-     const searchState = useSelector(state => state.userSearch)
+
+     const searchSuggestion = useSelector(state => state.userSearch.suggested)
+     const searchData = useSelector(state => state.userSearch.searchData)
+     console.log("searchData : ",searchData);
      const { user, loading } = useSelector((state) => state.auth);
      const dispatch = useDispatch();
      const {cart_count} = useSelector(state => state.cart)
-     const {data} = useSelector(state => state.home_state)
-     // Search Input Value
      const [inputValue , setInputValue] = useState('')
 
      const [isSmallScreenModal , setIsSmallScreenModal] = useState(false)
@@ -56,11 +57,9 @@ const Header = () => {
                //! Search Panel
                if(searchPanel && searchInput){
                     if(searchInput.contains(event.target) | searchPanel.contains(event.target)) {
-                         // disableScroll()
                          searchPanel.style.display = 'block'
                          searchInput.classList.add('rounded-b-none')
                     }else{
-                         // enableScroll()
                          searchPanel.style.display = 'none'
                          searchInput.classList.remove('rounded-b-none')
                     }
@@ -75,6 +74,14 @@ const Header = () => {
      }
 
      useEffect(()=>{
+          //! Search
+          const searchPanel = document.getElementById("searchPanel");
+          const searchInput = document.getElementById("searchInput");
+          if(searchPanel && searchInput){
+               searchPanel.style.display = 'none'
+               searchInput.classList.remove('rounded-b-none')
+               searchInput.blur()
+          }
           setInputValue(router?.query?.query ?? "")
      },[router])
 
@@ -119,7 +126,7 @@ const Header = () => {
                          <form onSubmit={ form => onSubmitForm(form)} method="get" className="w-full mt-4 md:mt-0 md:ml-4 md:mr-6  flex sm:justify-center lg:justify-start items-center z-10">
                               <div className="relative w-full lg:w-fit h-auto">
                                    <input autoComplete={"off"} value={inputValue} onChange={input => searchInputHandler(input.target.value)} id="searchInput" className="pr-12 bg-gray-200 outline-none rounded-md placeholder:text-sm text-sm text-gray-700 py-3 w-full font-sans lg:w-[420px] shadow-sm px-4"  placeholder="جستجو" />
-                                   {searchState.loading &&  <ReactLoading className="absolute top-2 left-2" type="spinningBubbles" height={23} width={23} color="red" />}
+                                   {searchSuggestion.loading &&  <ReactLoading className="absolute top-2 left-2" type="spinningBubbles" height={23} width={23} color="red" />}
                                    
                                    <svg className="w-6 h-6 text-gray-500 absolute top-[9px] right-3 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -129,9 +136,9 @@ const Header = () => {
                                         {/* //? User History Search */}
                                         {inputValue.length > 1  ? (
                                              <>
-                                                  {searchState?.data?.suggestions?.length > 0 && (
+                                                  {searchSuggestion?.data?.suggestions?.length > 0 && (
                                                        <nav className="flex flex-col ">
-                                                            {searchState.data.suggestions.map((title,index) => (
+                                                            {searchSuggestion.data.suggestions.map((title,index) => (
                                                                  <Link key={index} href={{pathname: "/search", query: { query: title }}}>
                                                                       <a className="flex w-full justify-between p-4 hover:bg-gray-50">
                                                                            <div className="flex items-center">
@@ -151,7 +158,7 @@ const Header = () => {
                                              </>
                                         ) : (
                                              <>                                      
-                                                  {data?.search_bar?.user?.length > 0 && (
+                                                  {searchData?.data?.search_bar?.user?.length > 0 && (
                                                        <>
                                                             <div className="mt-4 mx-4 w-full flex flex-row items-center">
                                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-4 text-gray-500">
@@ -161,7 +168,7 @@ const Header = () => {
                                                             </div>
                                                             <div className="pr-4 mt-2">
                                                                  <Swiper className={"searchSlider_header"} freeMode={true} navigation={true} spaceBetween={3} modules={[ Navigation , FreeMode]}  slidesPerView={'auto'}>
-                                                                      {data.search_bar.user.map((item,index) => (
+                                                                      {searchData.data.search_bar.user.map((item,index) => (
                                                                            <SwiperSlide key={index}>
                                                                                 <Link href={{pathname: "/search", query: { query: item }}}>
                                                                                      <a className="w-fit px-4 py-2 flex  rounded-full border border-gray-200">
@@ -181,7 +188,7 @@ const Header = () => {
                                         )}
 
                                         {/* //? Popular Search Section */}
-                                        {data?.search_bar?.popular?.length > 0 && (
+                                        {searchData?.data?.search_bar?.popular?.length > 0 && (
                                              <>
                                                   {/* //? Title */}
                                                   <div className="mt-4 mx-4 w-full flex flex-row items-center">
@@ -194,7 +201,7 @@ const Header = () => {
                                                   {/* //? Slider For Popular Search */}
                                                   <div className="pr-4 mt-2">
                                                        <Swiper className={"searchSlider_header"} freeMode={true} navigation={true} spaceBetween={3} modules={[ Navigation , FreeMode]}  slidesPerView={'auto'}>
-                                                       {data.search_bar.popular.map((item,index) => (
+                                                       {searchData.data.search_bar.popular.map((item,index) => (
                                                                  <SwiperSlide key={index}>
                                                                       <Link href={{pathname: "/search", query: { query: item }}}>
                                                                            <a className="w-fit px-4 py-2 flex font-sans font-bold text-gray-700 text-sm rounded-full border border-gray-200">
