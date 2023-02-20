@@ -131,8 +131,8 @@ const Header = () => {
                                              <>
                                                   {searchState?.data?.suggestions?.length > 0 && (
                                                        <nav className="flex flex-col ">
-                                                            {searchState.data.suggestions.map(title => (
-                                                                 <Link href={{pathname: "/search", query: { query: title }}}>
+                                                            {searchState.data.suggestions.map((title,index) => (
+                                                                 <Link key={index} href={{pathname: "/search", query: { query: title }}}>
                                                                       <a className="flex w-full justify-between p-4 hover:bg-gray-50">
                                                                            <div className="flex items-center">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
