@@ -11,11 +11,19 @@ const NotFoundPage = () => {
      const dispatch = useDispatch()
      useEffect(()=>{
         const fetchData = async() => {
-            if(!token.includes("undefined")) { dispatch(loadUserInfo())}
+            if(!token.includes("undefined")) { 
+               dispatch(loadUserInfo())
+          
+               // Fetch SearchBar Data With User Token
+               await http.get(`public/searchbar`,{headers : {authorization : token}})
+               .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+               .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+          }
             // Fetch Navbar Categories
             await http.get(`public/categories`)
             .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
             .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+
         }
         fetchData()
      },[dispatch])

@@ -16,14 +16,14 @@ import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categori
 import { buttonClassName } from "@/utils/global";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
 import { changeMinShoppingCount } from "@/redux/manage-store/settings/storeSettings.actions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 const StoreSettingsPage = () => {
 
-     
 
      const [isAsideModal , setIsAsideModal] = useState(false)
      const {loading} = useSelector(state => state.storeSetting)
-    const {user} = useSelector(state => state.auth)
+     const {user} = useSelector(state => state.auth)
      const {data} = useSelector(state => state.storeSetting)
      const dispatch = useDispatch()
      
@@ -122,7 +122,11 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           })
      }
      if(ErrorCode === 403){return{notFound : true}}
-          
+
+     // Fetch SearchBar Data With User Token
+     await http.get(`public/searchbar`,{headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+     .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
 
      // Fetch Nav Categories
      await http.get(`public/categories`)

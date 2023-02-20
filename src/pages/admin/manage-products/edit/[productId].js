@@ -38,6 +38,7 @@ import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categori
 import { fetchBrands } from "@/redux/admin/admin_manageBrand/admin_manageBrandActions";
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 const EditProduct = () => {
      const dispatch = useDispatch()
@@ -404,6 +405,10 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      })
      if(ErrorCode === 403){return{notFound : true}}
 
+     // Fetch SearchBar Data With User Token
+     await http.get(`public/searchbar`,{headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+     .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
      
      // Fetch One Product
      await http.get(`admin/products?id=${ctx.query.productId}` , {headers : {authorization : token}})

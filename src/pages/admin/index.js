@@ -14,6 +14,7 @@ import { wrapper } from "@/redux/store";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 const AdminPage = () => {
      const [isAsideModal , setIsAsideModal] = useState(false)
@@ -158,7 +159,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
     let ErrorCode = 0;
     if(token.includes("undefined")) return {notFound : true}
 
-    // Fetch User Data     
+     // Fetch User Data     
      await http.get("user", {headers : {authorization : token}})
      .then(({data}) =>  {
           if(data.user.account_type !== 'admin') ErrorCode = 403; 
@@ -171,18 +172,23 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           ErrorCode = 403
           dispatch(authFailure("خطا در بخش احراز هویت"))    
      })
+     if(ErrorCode === 403){return{notFound : true}}
 
-    if(ErrorCode === 403){return{notFound : true}}
      
-    // Fetch Data Count
+     // Fetch Data Count
      await http.get(`admin/counter` , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchAdminCountSuccess(data.count)))
      .catch(() => dispatch(fetchAdminCountFailure("خطا در بخش گرفتن تعداد داده ها")))
+
+     // Fetch SearchBar Data With User Token
+     await http.get(`public/searchbar`,{headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+     .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+
 
      // Fetch Categories
      await http.get(`public/categories`)
      .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
      .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
     
-     return { props : {}}
 })

@@ -14,6 +14,7 @@ import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categori
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 const SearchQuery = ({similarCategories , brands , mainSearch}) => {
     const [isFilterTaggle , setIsFilterTaggle] = useState(false)    
@@ -74,8 +75,19 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           .catch(error => dispatch(authFailure("خطا در بخش احراز هویت")))
 
           mainSearch =  await http.get(encodeURI(`public/search?q=${productName ?? ""}&limit=10&page=1&brand=${brand ?? ""}&available=${available ?? ""}&category=${category ?? ""}&sort=${sort ?? ""}&price_from=${price_from ?? ""}&price_to=${price_to ?? ""}`),{headers : {authorization : token}}).then(res =>res.data)
+     
+          // Fetch SearchBar Data With User Token
+          await http.get(`public/searchbar`,{headers : {authorization : token}})
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+
      }else{
           mainSearch =  await http.get(encodeURI(`public/search?q=${productName ?? ""}&limit=10&page=1&brand=${brand ?? ""}&available=${available ?? ""}&category=${category ?? ""}&sort=${sort ?? ""}&price_from=${price_from ?? ""}&price_to=${price_to ?? ""}`)).then(res =>res.data)
+
+          // Fetch SearchBar Data Without User Token
+          await http.get(`public/searchbar`)
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
      }
      
      // Fetch Categories

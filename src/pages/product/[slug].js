@@ -9,6 +9,7 @@ import { authFailure, authRequest, authSuccess } from '@/redux/user/userActions'
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from '@/redux/categories/categoriesActions';
 import { cartDetails } from '@/redux/cart/cart/cartActions';
 import { fetchLikeFailure, fetchLikeSuccess } from '@/redux/like/likeActions';
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from '@/redux/userSearch/userSaerch_actions';
 
 const ProductPage = ({product , productSimilars}) => {
      return (  
@@ -52,6 +53,16 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) =>  as
           await http.get(`user/favorites`, {headers : {authorization : token}})
           .then(({data}) => dispatch(fetchLikeSuccess(data.products)))
           .catch(error => dispatch(fetchLikeFailure("خطا در بخش گرفتن محصولات پسندیده شده")))
+
+          // Fetch SearchBar Data With User Token
+          await http.get(`public/searchbar`,{headers : {authorization : token}})
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+     }else{
+          // Fetch SearchBar Data With User Token
+          await http.get(`public/searchbar`)
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
      }
 
 
@@ -62,7 +73,6 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) =>  as
      
      const {data : product} = await http.get(encodeURI(`public/product/${slug}`)).then(res => res.data)
      const {data : productSimilars} = await http.get(encodeURI(`public/product/${slug}/similars?limit=9&page=1`)).then(res => res.data)
-     
      return{
           props : {
                product ,

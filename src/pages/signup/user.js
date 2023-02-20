@@ -23,6 +23,7 @@ import { wrapper } from "@/redux/store";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 
 const UserSignup = ({numbers}) => {
@@ -286,30 +287,39 @@ export default UserSignup;
 
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async({req}) => {
 
-     const token = returnTokenInServerSide({cookie : req.headers.cookie})
-     
-       
-     if(!token.includes("undefined")){ 
-          // Fetch User Data     
-          await http.get("user", {headers : {authorization : token}})
-          .then(({data}) =>  {
-               dispatch(cartDetails(data))
-               dispatch(authSuccess(data.user))
-          })  
-          .catch(() => {
-               dispatch(authFailure("خطا در بخش احراز هویت"))    
-          })
-     }
+    const token = returnTokenInServerSide({cookie : req.headers.cookie})
+    
+    
+    if(!token.includes("undefined")){ 
+        // Fetch User Data     
+        await http.get("user", {headers : {authorization : token}})
+        .then(({data}) =>  {
+            dispatch(cartDetails(data))
+            dispatch(authSuccess(data.user))
+        })  
+        .catch(() => {
+            dispatch(authFailure("خطا در بخش احراز هویت"))    
+        })
+        // Fetch SearchBar Data With User Token
+        await http.get(`public/searchbar`,{headers : {authorization : token}})
+        .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+        .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+    }else{
+        // Fetch SearchBar Data With User Token
+        await http.get(`public/searchbar`)
+        .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+        .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+    }
 
-     // Fetch Navbar Categories
-     await http.get(`public/categories`)
-     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
-     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+    // Fetch Navbar Categories
+    await http.get(`public/categories`)
+    .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+    .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
 
-     const data = await http.get('numbers').then(res => res.data)
-     return {
-          props : {
-               numbers : data
-          }
-     }
+    const data = await http.get('numbers').then(res => res.data)
+    return {
+        props : {
+            numbers : data
+        }
+    }
 })

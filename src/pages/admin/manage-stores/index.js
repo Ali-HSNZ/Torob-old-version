@@ -20,6 +20,7 @@ import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categori
 import { buttonClassName, linkClassName } from "@/utils/global";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
 import { ONLY_PERSIAN_ALPHABET } from "@/utils/Regex";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 
 const ManageStores = () => {
@@ -363,6 +364,11 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
 
      if(ErrorCode === 403){return{notFound : true}}
 
+     // Fetch SearchBar Data With User Token
+     await http.get(`public/searchbar`,{headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+     .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+     
      // Dispatch This For Showing Loading
      dispatch(fetchStoreRequest())
 

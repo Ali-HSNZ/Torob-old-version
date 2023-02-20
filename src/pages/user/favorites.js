@@ -12,6 +12,7 @@ import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import empty_image from '@/images/empty_likes.png'
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 const Favorites = () => {
      const [isAsideModal, setIsAsideModal] = useState(false);
@@ -65,23 +66,28 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
 
      let ErrorCode = 0;
      
-     if(!token.includes("undefined")){
-          // Fetch User Data     
-          await http.get("user", {headers : {authorization : token}})
-          .then(({data}) =>  {
-               dispatch(cartDetails(data))
-               dispatch(authSuccess(data.user))
-          })  
-          .catch(() => {
-               ErrorCode = 403
-               dispatch(authFailure("خطا در بخش احراز هویت"))    
-          })
-          // Fetch Likes Products
-          await http.get(`user/favorites`, {headers : {authorization : token}})
-          .then(({data}) => dispatch(fetchLikeSuccess(data.products)))
-          .catch(error => dispatch(fetchLikeFailure("خطا در بخش گرفتن محصولات پسندیده شده")))
-     }
+     // Fetch User Data     
+     await http.get("user", {headers : {authorization : token}})
+     .then(({data}) =>  {
+          dispatch(cartDetails(data))
+          dispatch(authSuccess(data.user))
+     })  
+     .catch(() => {
+          ErrorCode = 403
+          dispatch(authFailure("خطا در بخش احراز هویت"))    
+     })
+     // Fetch Likes Products
+     await http.get(`user/favorites`, {headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchLikeSuccess(data.products)))
+     .catch(error => dispatch(fetchLikeFailure("خطا در بخش گرفتن محصولات پسندیده شده")))
+     
      if(ErrorCode === 403){ return{notFound : true} }
+     
+     // Fetch SearchBar Data With User Token
+     await http.get(`public/searchbar`,{headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+     .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+          
 
      // Fetch Navbar Categories
      await http.get(`public/categories`)

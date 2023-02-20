@@ -14,6 +14,7 @@ import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import Error from "@/common/alert/Error";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 const CartStore = () => {
      const {data , loading , increaseOrDecreaseLoading} = useSelector(state => state.checkout)
@@ -178,6 +179,15 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
                .then(({data}) => dispatch(checkoutMainFetchSuccess(data)))
                .catch(error => dispatch(checkoutMainFetchFailure("خطای سرور در بخش گرفتن اطلاعات فروشگاه در پیش فاکتور ")))
           }
+          // Fetch SearchBar Data With User Token
+          await http.get(`public/searchbar`,{headers : {authorization : token}})
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+     }else{
+          // Fetch SearchBar Data With User Token
+          await http.get(`public/searchbar`)
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
      }
   
      if(ErrorCode === 403){ return{notFound : true} }

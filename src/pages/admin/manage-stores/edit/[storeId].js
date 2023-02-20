@@ -25,6 +25,7 @@ import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 
 const InsertStore = () => {
@@ -526,9 +527,13 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           ErrorCode = 403
           dispatch(authFailure("خطا در بخش احراز هویت"))    
      })
-
      if(ErrorCode === 403){return{notFound : true}}
      
+     // Fetch SearchBar Data With User Token
+     await http.get(`public/searchbar`,{headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+     .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+
      // Fetch Store Data 
      await http.get(encodeURI(`admin/stores?id=${ctx.query.storeId}`) , {headers : {authorization : token}})
      .then(({data}) => dispatch(fetchOneStoreSuccess(data.store)))

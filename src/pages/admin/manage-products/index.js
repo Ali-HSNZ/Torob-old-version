@@ -20,6 +20,7 @@ import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 
 const ManageProduct = () => {
@@ -312,6 +313,11 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
 
      if(ErrorCode === 403){return{notFound : true}}
 
+     // Fetch SearchBar Data With User Token
+     await http.get(`public/searchbar`,{headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+     .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+     
      // Dispatch This For Showing Loading
      dispatch(fetchProductsRequest())
 

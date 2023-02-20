@@ -22,6 +22,7 @@ import { user_changeInvoiceState, user_fetchFactors, user_fetchFactorsRequest } 
 import UserPageAside from "@/components/userPage/Aside";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
 import * as Yup from 'yup'
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 const ManageFactors = () => {
 
@@ -426,6 +427,10 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
                ErrorCode = 403
                dispatch(authFailure("خطا در بخش احراز هویت"))    
           })
+          // Fetch SearchBar Data With User Token
+          await http.get(`public/searchbar`,{headers : {authorization : token}})
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
      }
      if(ErrorCode === 403){return{notFound : true}}
           

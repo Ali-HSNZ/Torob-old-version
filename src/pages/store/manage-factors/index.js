@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 
 const ManageFactors = () => {
@@ -457,6 +458,11 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
      }
      if(ErrorCode === 403){return{notFound : true}}
           
+     // Fetch SearchBar Data With User Token
+     await http.get(`public/searchbar`,{headers : {authorization : token}})
+     .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+     .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+     
      // dispatch Loading For Fetching Factors Data
      dispatch(store_fetchFactorsRequest())
 

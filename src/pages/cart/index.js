@@ -9,6 +9,7 @@ import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 
 const CartPage = () => {
@@ -113,6 +114,16 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           await http.get(`user/cart`,{headers : {authorization : token}})
           .then(({data}) => dispatch(fetchMainCartSuccess(data.stores)))
           .catch(() => dispatch(fetchMainCartFailure("خطا در بخش اطلاعات فروشگاه در سبد خرید ")))
+
+          // Fetch SearchBar Data With User Token
+          await http.get(`public/searchbar`,{headers : {authorization : token}})
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+     }else{
+          // Fetch SearchBar Data With User Token
+          await http.get(`public/searchbar`)
+          .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+          .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
      }
      
      

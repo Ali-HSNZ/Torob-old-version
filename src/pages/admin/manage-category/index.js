@@ -23,6 +23,7 @@ import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { buttonClassName } from "@/utils/global";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 const ManageCategory = () => {
 
@@ -287,33 +288,39 @@ export default ManageCategory;
 
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async(ctx) => {
 
-     // Check Permission
-     const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie});
-     
-     let ErrorCode = 0;
-     if(token.includes("undefined")) return {notFound : true}
+    // Check Permission
+    const token =  returnTokenInServerSide({cookie : ctx.req.headers.cookie});
+    
+    let ErrorCode = 0;
+    if(token.includes("undefined")) return {notFound : true}
 
-     // Fetch User Data     
-     await http.get("user", {headers : {authorization : token}})
-     .then(({data}) =>  {
-          if(data.user.account_type !== 'admin') ErrorCode = 403; 
-          else {
-               dispatch(authSuccess(data.user))
-               dispatch(cartDetails(data))
-          }
-     })  
-     .catch(() => {
-          ErrorCode = 403
-          dispatch(authFailure("خطا در بخش احراز هویت"))    
-     })
+    // Fetch User Data     
+    await http.get("user", {headers : {authorization : token}})
+    .then(({data}) =>  {
+        if(data.user.account_type !== 'admin') ErrorCode = 403; 
+        else {
+            dispatch(authSuccess(data.user))
+            dispatch(cartDetails(data))
+        }
+    })  
+    .catch(() => {
+        ErrorCode = 403
+        dispatch(authFailure("خطا در بخش احراز هویت"))    
+    })
 
-     // Dispatch This For Showing Loading
-     dispatch(admin_fetchCategoriesRequest())
+    // Fetch SearchBar Data With User Token
+    await http.get(`public/searchbar`,{headers : {authorization : token}})
+    .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+    .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
 
-     if(ErrorCode === 403){return{notFound : true}}
 
-     // Fetch Navbar Categories
-     await http.get(`public/categories`)
-     .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
-     .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+    // Dispatch This For Showing Loading
+    dispatch(admin_fetchCategoriesRequest())
+
+    if(ErrorCode === 403){return{notFound : true}}
+
+    // Fetch Navbar Categories
+    await http.get(`public/categories`)
+    .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+    .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
 })
