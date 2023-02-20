@@ -259,8 +259,18 @@ const ManageProduct = () => {
                                                                       ) : <p className="font-sans text-sm mr-1">-</p>}
                                                                  </div>
                                                             </div>
-                                                                 <p className="font-sans w-full mt-2 text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description || "-"}</p>
-
+                                                            <p className="font-sans w-full mt-2 text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description || "-"}</p>
+                                                            <div className="font-sans w-full mt-2 text-sm flex items-start">
+                                                                 <b className="whitespace-nowrap sm:m-0 pl-1 leading-8">کلیدواژه : </b>
+                                                                 <div className="mr-1 w-full flex flex-wrap gap-x-2 leading-8">
+                                                                      {product.tags.map((item,index) => (
+                                                                           <>
+                                                                                {index > 0 && <span>|</span>}
+                                                                                <span>{item}</span>
+                                                                           </>
+                                                                      ))}
+                                                                 </div>
+                                                            </div>
                                                             <div className="flex justify-end w-full mt-4 mb-4">
                                                                  <Link href={`/admin/manage-products/edit/${product.id}`} >
                                                                       <a className={linkClassName({bgColor : "blue" , isOutline : true})}>ویرایش</a>
