@@ -23,9 +23,13 @@ import { user_factorReducer } from "./user-factor/userFactor_reducer";
 import { storeSettingReducer } from "./manage-store/settings/storeSettings.reducer";
 import { admin_notificationsReducer } from "./admin/admin_notifications/adminNotifications_reducer";
 import { home_stateReducer } from "./home/home_reducer";
+import { userSearchReducer } from "./userSearch/userSearch_reducer";
 
 const rootReducer = combineReducers({
-    
+
+    //! Search Panel or User Search
+    userSearch : userSearchReducer,
+
     //! Home
     home_state : home_stateReducer,
 
