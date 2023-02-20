@@ -8,18 +8,13 @@ import { fetchCategoriesFailure, fetchCategoriesRequest, fetchCategoriesSuccess 
 import { home_fetchDataFailure, home_fetchDataRequest, home_fetchDataSuccess } from '@/redux/home/home_actions'
 import { wrapper } from '@/redux/store'
 import { authFailure, authRequest, authSuccess } from '@/redux/user/userActions'
-import { fetchUserSearchSuggeste } from '@/redux/userSearch/userSaerch_actions'
+import { fetchSearchDataFailure, fetchSearchDataSuccess, fetchUserSearchSuggeste } from '@/redux/userSearch/userSaerch_actions'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import http, { returnTokenInServerSide } from 'src/services/http'
 
 export default function Home(){
-    const router = useRouter()
-    const   dispatch = useDispatch()
-    useEffect(()=>{
-        dispatch(fetchUserSearchSuggeste())
-    },[])
     return (
         <Layout pageTitle={"ترب | بهترین قیمت بازار"} isFooter={true}>
             <MainSlider_indexPage/>
@@ -46,12 +41,22 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
         await http.get("public/home" , {headers : {authorization : token}})
         .then(res => dispatch(home_fetchDataSuccess(res.data))) 
         .catch(error => dispatch(home_fetchDataFailure("خطا در بخش گرفتن اطلاعات صفحه اصلی")))
+
+        // Fetch SearchBar Data With User Token
+        await http.get(`public/searchbar`,{headers : {authorization : token}})
+        .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+        .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
     }else{
-        // Fetch Home Page Data Without User Token
+        // Fetch Home Page Data With  User Token
         dispatch(home_fetchDataRequest())
         await http.get("public/home")
         .then(res => dispatch(home_fetchDataSuccess(res.data))) 
         .catch(error => dispatch(home_fetchDataFailure("خطا در بخش گرفتن اطلاعات صفحه اصلی")))
+
+        // Fetch SearchBar Data Without User Token
+        await http.get(`public/searchbar`)
+        .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+        .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
     }
     // Fetch Navbar Categories
     await http.get(`public/categories`)
