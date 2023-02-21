@@ -1,6 +1,7 @@
 import Layout from "@/layout/Layout";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { loadUserInfo } from "@/redux/user/userActions";
+import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -9,23 +10,28 @@ import http, { token } from "src/services/http";
 const NotFoundPage = () => {
 
      const dispatch = useDispatch()
-     useEffect(()=>{
-        const fetchData = async() => {
-            if(!token.includes("undefined")) { 
-               dispatch(loadUserInfo())
-          
-               // Fetch SearchBar Data With User Token
-               await http.get(`public/searchbar`,{headers : {authorization : token}})
-               .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
-               .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
-          }
-            // Fetch Navbar Categories
-            await http.get(`public/categories`)
-            .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
-            .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
 
-        }
-        fetchData()
+     useEffect(()=>{
+          const fetchData = async() => {
+               if(!token.includes("undefined")) { 
+                    dispatch(loadUserInfo())
+                    // Fetch SearchBar Data With User Token
+                    await http.get(`public/searchbar`,{headers : {authorization : token}})
+                    .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+                    .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+               }else{
+                    // Fetch SearchBar Data Without User Token
+                    await http.get(`public/searchbar`)
+                    .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+                    .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
+               }
+               // Fetch Navbar Categories
+               await http.get(`public/categories`)
+               .then(({data}) => dispatch(fetchCategoriesSuccess(data)))
+               .catch(() => dispatch(fetchCategoriesFailure("خطا در بخش گرفتن لیست دسته بندی‌ها ")))
+
+          }
+          fetchData()
      },[dispatch])
 
      return ( 
