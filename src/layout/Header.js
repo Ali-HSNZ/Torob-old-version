@@ -148,7 +148,7 @@ const Header = () => {
                                                                                      <span className="font-sans text-sm mr-4 text-gray-800 font-bold">{item.query}</span>
                                                                                      <div className="flex gap-x-1 mt-2 mr-4">
                                                                                           <span className="font-sans text-sm  text-gray-800 ">در دسته</span>
-                                                                                          <span className="font-sans text-sm text-red-700 font-bold">{item.query}</span>
+                                                                                          <span className="font-sans text-sm text-red-700 font-bold">{item.category_name}</span>
                                                                                      </div>
                                                                                 </div>
                                                                            </div>
