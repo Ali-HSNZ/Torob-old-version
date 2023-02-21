@@ -132,19 +132,25 @@ const Header = () => {
                                    </svg>
                                    {/* //! Search Panel */}
                                    <section id="searchPanel" className="max-h-[350px] overflow-y-auto overflow-hidden hidden pb-4 bg-white shadow-md border border-gray-300 border-t-0 rounded-md rounded-t-sm absolute w-full">
-                                        {/* //? User History Search */}
                                         {inputValue.length > 1  ? (
                                              <>
+                                                  {/* //? Suggstion Search */}
                                                   {searchSuggestion?.data?.suggestions?.length > 0 && (
                                                        <nav className="flex flex-col ">
-                                                            {searchSuggestion.data.suggestions.map((title,index) => (
-                                                                 <Link key={index} href={{pathname: "/search", query: { query: title }}}>
-                                                                      <a className="flex w-full justify-between p-4 hover:bg-gray-50">
+                                                            {searchSuggestion.data.suggestions.map((item,index) => (
+                                                                 <Link key={index} href={{pathname: "/search", query: { query: item.query , category : item.category_slug }}}>
+                                                                      <a className="flex w-full items-center justify-between p-4 hover:bg-gray-50">
                                                                            <div className="flex items-center">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
                                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                                                                 </svg>
-                                                                                <span className="font-sans text-sm mr-2 text-gray-800 font-bold">{title}</span>
+                                                                                <div>
+                                                                                     <span className="font-sans text-sm mr-4 text-gray-800 font-bold">{item.query}</span>
+                                                                                     <div className="flex gap-x-1 mt-2 mr-4">
+                                                                                          <span className="font-sans text-sm  text-gray-800 ">در دسته</span>
+                                                                                          <span className="font-sans text-sm text-red-700 font-bold">{item.query}</span>
+                                                                                     </div>
+                                                                                </div>
                                                                            </div>
                                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
                                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
@@ -157,6 +163,7 @@ const Header = () => {
                                              </>
                                         ) : (
                                              <>                                      
+                                             {/* //? User History Search */}
                                                   {searchData?.data?.search_bar?.user?.length > 0 && (
                                                        <>
                                                             <div className="mt-4 mx-4 w-full flex flex-row items-center">
