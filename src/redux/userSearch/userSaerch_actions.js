@@ -26,3 +26,10 @@ export const fetchUserSearchSuggested = query => dispatch => {
     .then(({data}) => dispatch(userSearch_suggestedSuccess(data)))
     .catch(error => dispatch(userSearch_suggestedFailure("خطا در بخش گرفتن عنوان های پیشنهادی در جستجو")))
 } 
+
+export const deleteUserSearch = () => dispatch => {
+    dispatch(fetchSearchDataRequest())
+    http.delete(`user/search` , {headers : {authorization : token}})
+    .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
+    .catch(error => dispatch(fetchSearchDataFailure("خطا در بخش گرفتن عنوان های پیشنهادی در جستجو")))
+} 
