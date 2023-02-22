@@ -17,9 +17,9 @@ const ProductPage = ({product , productSimilars}) => {
                <main className="w-full px-4 flex justify-center">
                     <div className='w-full '>
                          <BreadCrump path={product.path}/>
-                         <div className={` mt-4 gap-4 flex flex-col lg:flex-row `}>
-                         <Product product={product}/>
-                         <Store product={product}/>
+                         <div className={` mt-0 gap-4 flex flex-col lg:flex-row `}>
+                              <Product product={product}/>
+                              <Store product={product}/>
                          </div>
                     </div>
                </main>
