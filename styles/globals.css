@@ -190,6 +190,7 @@
 .rti--tag span {
     font-family: iranyekan !important;
     font-size: 14px !important;
+    color: #1F2937 ;
 }
 /* Tag  -> Delete Button */
 .rti--tag button {
