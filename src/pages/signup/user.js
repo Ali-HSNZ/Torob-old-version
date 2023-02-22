@@ -175,7 +175,7 @@ const UserSignup = ({numbers}) => {
                 </Modal>
                     <div className="flex justify-between w-full items-center mt-4">
                         <div className="flex items-center">
-                            <h1 className="font-sans font-bold text-lg">فرم ثبت نام کاربر</h1>
+                            <h1 className="font-sans font-bold text-lg text-gray-800">فرم ثبت نام کاربر</h1>
                         </div>
                         <div className="flex gap-x-2 items-center">
                             <Link href={'/'}>
@@ -190,7 +190,7 @@ const UserSignup = ({numbers}) => {
 
                     <form onSubmit={formik.handleSubmit}>
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                            <p className="font-sans font-bold"> مشخصات کاربر</p>
+                            <p className="font-sans font-bold text-gray-800"> مشخصات کاربر</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
 
                                 <FormikInput maxLength={50} name={"full_name"} title={"نام و نام خانوادگی"} isRequired={true} formik={formik} parentClassName="flex flex-col relative"/>
@@ -200,13 +200,13 @@ const UserSignup = ({numbers}) => {
                                 <FormikInput maxLength={24} name={"password"} title={"رمز عبور"}  isRequired={true} formik={formik} parentClassName="flex flex-col relative"/>
 
                                 <div className="flex flex-col relative ">
-                                    <p className="font-sans text-[13px] ">تلفن ثابت :</p>
+                                    <p className="font-sans text-[13px] text-gray-800">تلفن ثابت :</p>
                                     <InputMask dir="ltr"  type={"text"} value={formik.values.house_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="house_number" maskPlaceholder="-" className={`${formik.errors.house_number && formik.touched.house_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-[13px]  font-sans bg-white text-gray-800 rounded-md`} maskchar={null}/>
                                     {formik.errors.house_number && formik.touched.house_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.house_number}</p>}
                                 </div>
 
                                 <div className="flex flex-col relative ">
-                                    <p className="font-sans text-[13px] before:content-['*'] before:text-red-600 ">استان :</p>
+                                    <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600 ">استان :</p>
                                     <div className="mt-2">
                                         <SelectBox 
                                             notFoundTitle="استان مورد نظر یافت نشد." 
@@ -220,7 +220,7 @@ const UserSignup = ({numbers}) => {
                                 </div>
     
                                 <div className="flex flex-col relative ">
-                                    <p className="font-sans text-[13px] before:content-['*'] before:text-red-600 ">شهر :</p>
+                                    <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600 ">شهر :</p>
                                     <div className="mt-2">
                                         <SelectBox 
                                             isDisabled={selectedProvience ? false : true}
@@ -239,7 +239,7 @@ const UserSignup = ({numbers}) => {
                             </section>
                         </div>
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                            <p className="font-sans font-bold">تصاویر و فایل ها</p>
+                            <p className="font-sans font-bold text-gray-800">تصاویر و فایل ها</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                                 {/* Profile Image */}
                                 <div className="flex flex-col relative ">
