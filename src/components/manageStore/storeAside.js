@@ -9,7 +9,7 @@ const ManageStoreAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenCla
      const {user} = useSelector(state => state.auth)
 
      return (  
-        <aside className={`${mobileScreenClassName ? mobileScreenClassName : "w-1/5"}   h-screen bg-white ${isMobileScreen ? "lg:hidden" : "hidden"} sticky top-[120px] lg:flex flex-col overflow-y-auto`}>
+        <aside className={`${mobileScreenClassName ? mobileScreenClassName : "w-1/5"}   h-screen bg-white ${isMobileScreen ? "lg:hidden" : "hidden"} sticky top-0 lg:flex flex-col overflow-y-auto`}>
                
                {isMobileScreen && (
                     <section>

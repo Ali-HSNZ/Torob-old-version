@@ -91,7 +91,7 @@ const ManageStores = () => {
                     <StorePageAside/>
                     <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 
                          <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
-                         <><StorePageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/2 w-full'}/></>
+                              <><StorePageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/2 w-full'}/></>
                          </Modal>
 
                          <div className="flex flex-col sm:flex-row justify-between w-full  sm:items-center mt-4">
@@ -101,7 +101,7 @@ const ManageStores = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                    </svg>
                               </button>
-                              <h1 className="font-sans font-bold text-lg">مدیریت محصولات | ثبت کالا</h1>
+                              <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت محصولات | ثبت کالا</h1>
                          </div>
                          <nav className="flex gap-x-2 my-2 sm:m-0 justify-end  sm:items-center">
                               <Link href={'/store/manage-products'}>
@@ -129,31 +129,31 @@ const ManageStores = () => {
                          </div>
 
                          <form className="w-full " onSubmit={formik.handleSubmit}>
-                         <section className="w-full p-4 bg-white mt-4 rounded-lg shadow-md">
-                              <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                   <FormikInput maxLength={250} formik={formik} title={"نام کالا"} name={"product_title"} parentClassName={"flex flex-col relative"}/>
+                              <section className="w-full p-4 bg-white mt-4 rounded-lg shadow-md">
+                                   <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                                        <FormikInput maxLength={250} formik={formik} title={"نام کالا"} name={"product_title"} parentClassName={"flex flex-col relative"}/>
 
-                                   <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800"> برند :</p>
-                                        <div className="w-full mt-2">
-                                             <SelectBox notFoundTitle="برند مورد نظر یافت نشد."  query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
+                                        <div className="flex flex-col relative">
+                                             <p className="font-sans text-sm text-gray-800"> برند :</p>
+                                             <div className="w-full mt-2">
+                                                  <SelectBox notFoundTitle="برند مورد نظر یافت نشد."  query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
+                                             </div>
                                         </div>
-                                   </div>
 
-                                   <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
-                                        <div className="w-full mt-2">
-                                             <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
+                                        <div className="flex flex-col relative">
+                                             <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
+                                             <div className="w-full mt-2">
+                                                  <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
+                                             </div>
                                         </div>
+
+                                        <FormikInput maxLength={12} formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
+
+                                   </section>
+                                   <div className="w-full flex items-center justify-end mt-4">
+                                        <button type={"submit"} className={buttonClassName({bgColor : "blue" , isValid : formik.isValid , isOutline : false})}>جستجو</button>
                                    </div>
-
-                                   <FormikInput maxLength={12} formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
-
                               </section>
-                              <div className="w-full flex items-center justify-end mt-4">
-                                   <button type={"submit"} className={buttonClassName({bgColor : "blue" , isValid : formik.isValid , isOutline : false})}>جستجو</button>
-                              </div>
-                         </section>
                          </form>
 
                          {loading && (
@@ -180,69 +180,81 @@ const ManageStores = () => {
                                    return(
                                         <section key={product.id}>
                                              <div className="p-4 bg-white w-full">
-                                             <input  type={"checkbox"} id={`detail_${product.id}`} className="peer hidden"/>
-                                             <section className=" flex flex-col sm:flex-row items-center  justify-between">
-                                                  <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
-                                                       <img alt="تصویر کالا" onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
-                                                  </div>
-                                                  <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                       <p className="font-sans leading-6 text-sm flex-row flex">
-                                                            <b className="whitespace-nowrap pl-1">عنوان کالا : </b>
-                                                            {product.title.length > 35 ? product.title.substring(0,35)+'...' : product.title} 
-                                                       </p>
-                                                       <p className="font-sans leading-6 text-sm flex-row flex ">
-                                                            <b className="whitespace-nowrap pl-1">برند : </b> 
-                                                            {substringHandler({title : product.brand.name , count : 22})}
-                                                       </p>
-                                                       <div className="font-sans leading-6 text-sm flex w-full flex-row">
-                                                            <b className="whitespace-nowrap pl-1">دسته‌بندی : </b>
-                                                            <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                  <input  type={"checkbox"} id={`detail_${product.id}`} className="peer hidden"/>
+                                                  <section className=" flex flex-col sm:flex-row items-center  justify-between">
+                                                       <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
+                                                            <img alt="تصویر کالا" onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
                                                        </div>
-                                                  </div>
-                                                  <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
-                                                       {product.is_created ? (
-                                                            <p className="text-green-800 whitespace-nowrap font-sans text-sm gap-x-1 items-center  bg-green-50 flex rounded-md py-1.5 px-3">
-                                                                 ثبت شده
-                                                            </p>          
-                                                       ) : (
-                                                            <Link href={`/store/manage-products/insert/${product.id}`}>
-                                                                 <a className=" text-green-800 whitespace-nowrap font-sans text-sm gap-x-1 items-center hover:bg-green-100 bg-green-50 flex border border-green-600  rounded-md py-1.5 px-3">
-                                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                                                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                                                       <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
+                                                            <p className="font-sans leading-6 text-sm flex-row flex text-gray-800">
+                                                                 <b className="whitespace-nowrap pl-1">عنوان کالا : </b>
+                                                                 {substringHandler({title : product.title , count : 35})} 
+                                                            </p>
+                                                            <p className="font-sans leading-6 text-sm flex-row flex text-gray-800 ">
+                                                                 <b className="whitespace-nowrap pl-1">برند : </b> 
+                                                                 {substringHandler({title : product.brand.name , count : 35})}
+                                                            </p>
+                                                            <div className="font-sans leading-6 text-sm flex w-full flex-row">
+                                                                 <b className="whitespace-nowrap pl-1 text-gray-800">دسته‌بندی : </b>
+                                                                 <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
+                                                            </div>
+                                                       </div>
+                                                       <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
+                                                            {product.is_created ? (
+                                                                 <p className="text-green-800 whitespace-nowrap font-sans text-sm gap-x-1 items-center  bg-green-50 flex rounded-md py-1.5 px-3">
+                                                                      ثبت شده
+                                                                 </p>          
+                                                            ) : (
+                                                                 <Link href={`/store/manage-products/insert/${product.id}`}>
+                                                                      <a className=" text-green-800 whitespace-nowrap font-sans text-sm gap-x-1 items-center hover:bg-green-100 bg-green-50 flex border border-green-600  rounded-md py-1.5 px-3">
+                                                                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
+                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                                                                           </svg>
+                                                                           ثبت کالا
+                                                                      </a>                                                    
+                                                                 </Link>
+                                                            )}
+                                                            <div className="flex items-center ">
+                                                                 <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                                       </svg>
-                                                                      ثبت کالا
-                                                                 </a>                                                    
-                                                            </Link>
-                                                       )}
-                                                       <div className="flex items-center ">
-                                                            <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                                 </svg>
-                                                            </label>
+                                                                 </label>
+                                                            </div>
                                                        </div>
-                                                  </div>
-                                             </section>
-                                             {/* Description */}
-                                             <section className="w-full bg-gray-50 shadow-inner rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4">
-                                                  <p className="font-sans text-sm flex flex-row leading-6"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.title}</p>
-                                                  <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                       <div className="font-sans text-sm   flex flex-row">
-                                                            <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
-                                                            <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                  </section>
+                                                  {/* Description */}
+                                                  <section className="w-full bg-gray-50 shadow-inner rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4">
+                                                       <p className="font-sans text-sm flex flex-row leading-6 text-gray-800">
+                                                            <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>
+                                                            {product.title}
+                                                       </p>
+                                                       <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                            <div className="font-sans text-sm   flex flex-row">
+                                                                 <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 text-gray-800">دسته‌بندی : </b>
+                                                                 <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
+                                                            </div>
+                                                            <p className="font-sans text-sm text-gray-800  flex flex-row ">
+                                                                 <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>
+                                                                 {product?.brand?.name || "-" }
+                                                            </p>
+                                                            <p className="font-sans text-sm text-gray-800 flex flex-row">
+                                                                 <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>
+                                                                 {product?.barcode || "-"}
+                                                            </p>
+                                                            {/* Logo */}
+                                                            <div className="flex">
+                                                                 <b className="font-sans text-sm pl-1 text-gray-800">تصویر کالا : </b>
+                                                                 {product.is_image_url ? (
+                                                                      <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
+                                                                 ) : <p className="font-sans text-sm mr-1">-</p>}
+                                                            </div>
                                                        </div>
-                                                       <p className="font-sans text-sm  flex flex-row "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product?.brand?.name || "-" }</p>
-                                                       <p className="font-sans text-sm flex flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product?.barcode || "-"}</p>
-                                                       {/* Logo */}
-                                                       <div className="flex">
-                                                            <b className="font-sans text-sm pl-1">تصویر کالا : </b>
-                                                            {product.is_image_url ? (
-                                                                 <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                            ) : <p className="font-sans text-sm mr-1">-</p>}
-                                                       </div>
-                                                  </div>
-                                                  <p className="font-sans text-sm flex flex-row mt-2"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product?.description ||  "-"}</p>
-                                             </section>
+                                                       <p className="font-sans text-sm flex flex-row mt-2 text-gray-800">
+                                                            <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b>
+                                                            {product?.description ||  "-"}
+                                                       </p>
+                                                  </section>
                                              </div>
                                              <hr/>
                                         </section>

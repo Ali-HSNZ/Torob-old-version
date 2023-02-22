@@ -7,7 +7,7 @@ const  SelectBox_withoutSearch = ({selected , setSelected , data}) => {
     <Listbox value={selected} onChange={setSelected} >
       <div className="relative mt-1">
         <Listbox.Button className="relative w-full rounded-md bg-white py-2 border border-gray-300 pr-4 text-right hover:border-gray-500 sm:text-sm cursor-pointer">
-          <span  className="block truncate font-sans">{selected.name || selected}</span>
+          <span  className="block truncate font-sans text-gray-800">{selected.name || selected}</span>
           <span className="pointer-events-none absolute inset-y-0 left-1 flex items-center pr-2 group">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 group-hover:text-gray-700 text-gray-400">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />

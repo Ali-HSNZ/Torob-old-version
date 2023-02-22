@@ -40,11 +40,11 @@ const ManageFactors = () => {
      const limit = 5
 
      const allState = [
-          {type : "all" , name:"نمایش همه وضعیت ها" },
+          {type : "all" , name:"نمایش همه وضعیت ها"},
           {type : "pending" , name:"در حال بررسی"},
           {type : "accepted" , name:"تایید شده‌"},
-          {type : "rejected" , name:"رد شده "},
-          {type : "sending" , name:"در حال ارسال "},
+          {type : "rejected" , name:"رد شده"},
+          {type : "sending" , name:"در حال ارسال"},
           {type : "finished" , name:"ارسال شده"},
           {type : "canceled" , name:"کنسل شده (توسط کاربر)"},
      ]
@@ -143,7 +143,7 @@ const ManageFactors = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg">مدیریت سفارشات</h1>
+                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت سفارشات</h1>
                               </div>
                               <nav className="flex gap-x-2 my-2 sm:m-0 justify-end  sm:items-center">
                                    {/* Refresh */}
@@ -230,28 +230,28 @@ const ManageFactors = () => {
                                              <section className=" flex  flex-col md:flex-row items-center  justify-between">
                                                   <div className="w-full  mr-4  mt-4 sm:mt-0">
                                                        <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-y-3">
-                                                            <p className="font-sans leading-6 text-xs md:text-sm ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm text-gray-800">
                                                                  <b className="whitespace-nowrap">نام و نام خانوادگی : </b>
                                                                  {factor.full_name}
                                                             </p>
-                                                            <p className="font-sans leading-6 text-xs md:text-sm  ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm text-gray-800 ">
                                                                  <b className="whitespace-nowrap">شماره موبایل : </b> 
                                                                  {factor.phone_number_primary}    
                                                             </p>
-                                                            <p className="font-sans leading-6 text-xs md:text-sm  ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm text-gray-800 ">
                                                                  <b className="whitespace-nowrap">استان : </b> 
                                                                  {factor.address.province || "-"}    
                                                             </p>
-                                                            <p className="font-sans leading-6 text-xs md:text-sm  ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm text-gray-800 ">
                                                                  <b className="whitespace-nowrap">شهر : </b> 
                                                                  {factor.address.city || "-"}    
                                                             </p>
-                                                            <p className="font-sans leading-6 text-xs md:text-sm  ">
+                                                            <p className="font-sans leading-6 text-xs md:text-sm text-gray-800 ">
                                                                  <b className="whitespace-nowrap">کد پستی : </b> 
                                                                  {factor.address.post_code || "-"}    
                                                             </p>
                                                        </div> 
-                                                       <p className="font-sans leading-6 text-xs md:text-sm  mt-2">
+                                                       <p className="font-sans leading-6 text-xs md:text-sm text-gray-800 mt-2">
                                                             <b className="whitespace-nowrap">آدرس دقیق : </b> 
                                                             {factor.address.detail || "-"}    
                                                        </p>
@@ -278,38 +278,38 @@ const ManageFactors = () => {
                                                                  <section className=" flex flex-col md:flex-row  justify-between">
 
                                                                       <div className="w-full  grid sm:grid-cols-2 xl:grid-cols-3 mr-4 gap-y-3 mt-4 sm:mt-0">
-                                                                           <p className="font-sans leading-6 text-xs md:text-sm ">
+                                                                           <span className="font-sans leading-6 text-xs md:text-sm text-gray-800">
                                                                                 <b className="whitespace-nowrap">شماره فاکتور : </b>
                                                                                 {toPersianDigits(factor?.bill_number)}
-                                                                           </p>
-                                                                           <p className="font-sans leading-6 text-xs md:text-sm  ">
+                                                                           </span>
+                                                                           <span className="font-sans leading-6 text-xs md:text-sm text-gray-800 ">
                                                                                 <b className="whitespace-nowrap">قیمت کل فاکتور : </b> 
                                                                                 {toPersianPrice(factor?.total_price)}
-                                                                           </p>
-                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
+                                                                           </span>
+                                                                           <span className="font-sans leading-6  text-xs md:text-sm w-full text-gray-800">
                                                                                 <b className="whitespace-nowrap pl-1">مالیات کل فاکتور : </b>
                                                                                 {toPersianDigits(factor?.total_tax)}
-                                                                           </div>
-                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
+                                                                           </span>
+                                                                           <span className="font-sans leading-6  text-xs md:text-sm w-full text-gray-800">
                                                                                 <b className="whitespace-nowrap pl-1">تخفیف کل فاکتور : </b>
                                                                                 {toPersianDigits(factor?.total_discount ) || "-"}
-                                                                           </div>
-                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
+                                                                           </span>
+                                                                           <span className="font-sans leading-6  text-xs md:text-sm w-full text-gray-800">
                                                                                 <b className="whitespace-nowrap pl-1">کد رهگیری : </b>
                                                                                 {toPersianDigits(factor?.tracking_number ) || "-"}
-                                                                           </div>
-                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
+                                                                           </span>
+                                                                           <span className="font-sans leading-6  text-xs md:text-sm w-full text-gray-800">
                                                                                 <b className="whitespace-nowrap pl-1">تعداد محصولات : </b>
                                                                                 {toPersianPrice(factor?.items_count) || "-"}
-                                                                           </div>
-                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
+                                                                           </span>
+                                                                           <span className="font-sans leading-6  text-xs md:text-sm w-full text-gray-800">
                                                                                 <b className="whitespace-nowrap pl-1">زمان تحویل : </b>
                                                                                 {toPersianPrice(factor.delivery_time) || "-"}
-                                                                           </div>
-                                                                           <div className="font-sans leading-6 flex text-xs md:text-sm w-full">
+                                                                           </span>
+                                                                           <span className="font-sans leading-6  text-xs md:text-sm w-full text-gray-800">
                                                                                 <b className="whitespace-nowrap pl-1">نوع پرداخت : </b>
                                                                                 {factor.payment_type || "-"}
-                                                                           </div>
+                                                                           </span>
                                                                       </div>
                                                                       <div className="flex justify-between md:max-w-[217px] md:min-w-[217px]  md:justify-end mt-4 md:mt-0 items-center gap-x-4">
                                                                            <p className="whitespace-nowrap inline-block h-fit w-fit font-sans text-xs md:text-sm bg-gray-50 text-gray-600 rounded-md px-3 py-1">{factor.state_persian}</p>
@@ -330,31 +330,31 @@ const ManageFactors = () => {
                                                                                                <img alt="تصویر کالا" className="w-full h-auto" src={item.product.image_url || ""}/>
                                                                                           </div>
                                                                                           <div className="w-full flex justify-start flex-col mr-4 gap-y-3 mt-4 sm:mt-0">
-                                                                                               <p className="font-sans leading-6 text-xs md:text-sm ">
+                                                                                               <p className="font-sans leading-6 text-xs md:text-sm text-gray-800">
                                                                                                     <b className="whitespace-nowrap">عنوان کالا : </b>
                                                                                                     {item.product.title}
                                                                                                </p>
-                                                                                               <p className="font-sans leading-6 text-xs md:text-sm  ">
+                                                                                               <p className="font-sans leading-6 text-xs md:text-sm  text-gray-800">
                                                                                                     <b className="whitespace-nowrap">برند : </b> 
                                                                                                     {item.product.brand.name}
                                                                                                </p>
                                                                                                <div className="font-sans flex leading-6 text-xs md:text-sm  ">
-                                                                                                    <b className="whitespace-nowrap">دسته بندی : </b> 
-                                                                                                    <div>{item.product.categories.map((category,index) => <span key={index} className=" font-sans text-xs md:text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                                                    <b className="whitespace-nowrap text-gray-800">دسته بندی : </b> 
+                                                                                                    <div>{item.product.categories.map((category,index) => <span key={index} className="text-gray-800 font-sans text-xs md:text-sm">{index >0 && " / "}{category.name}</span>)}</div>
                                                                                                </div>
                                                                                           </div>
                                                                                      </article>
                                                                                      <hr className="mt-4 bg-red-300"/>
                                                                                      <div className="mt-2 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                                                                                          <p className="font-sans leading-6 text-xs md:text-sm ">
+                                                                                          <p className="font-sans leading-6 text-xs text-gray-800 md:text-sm ">
                                                                                                <b className="whitespace-nowrap">قیمت : </b>
                                                                                                {toPersianPrice(item.price) || "-"}
                                                                                           </p>
-                                                                                          <p className="font-sans leading-6 text-xs md:text-sm ">
+                                                                                          <p className="font-sans leading-6 text-xs text-gray-800 md:text-sm ">
                                                                                                <b className="whitespace-nowrap">تعداد : </b>
                                                                                                {toPersianPrice(item.count) || "-"}
                                                                                           </p>
-                                                                                          <p className="font-sans leading-6 text-xs md:text-sm ">
+                                                                                          <p className="font-sans leading-6 text-xs text-gray-800 md:text-sm ">
                                                                                                <b className="whitespace-nowrap">تخفیف : </b>
                                                                                                {toPersianPrice(item.discount) || "-"}
                                                                                           </p>
@@ -365,13 +365,13 @@ const ManageFactors = () => {
 
                                                                       {factor.state === "canceled" ? (
                                                                            <div className="mt-4">
-                                                                                <b className="font-sans text-xs md:text-sm">توضیحات خریدار : </b>
-                                                                                <span className="font-sans text-xs md:text-sm">{factor.message || "-"}</span>
+                                                                                <b className="font-sans text-xs md:text-sm text-gray-800">توضیحات خریدار : </b>
+                                                                                <span className="font-sans text-xs md:text-sm text-gray-800">{factor.message || "-"}</span>
                                                                            </div>
                                                                       ) : factor.message.length > 0 ?(
                                                                            <div className="mt-4">
-                                                                                <b className="font-sans text-xs md:text-sm">توضیحات فروشگاه : </b>
-                                                                                <span className="font-sans text-xs md:text-sm">{factor.message || "-"}</span>
+                                                                                <b className="font-sans text-xs md:text-sm text-gray-800">توضیحات فروشگاه : </b>
+                                                                                <span className="font-sans text-xs md:text-sm text-gray-800">{factor.message || "-"}</span>
                                                                            </div>
                                                                       ) : null}
 

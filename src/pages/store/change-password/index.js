@@ -71,7 +71,7 @@ const ChangePasswordPage = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                    </svg>
                               </button>
-                              <h1 className="font-sans font-bold text-lg">تغییر رمز عبور</h1>
+                              <h1 className="font-sans font-bold text-lg text-gray-800">تغییر رمز عبور</h1>
                          </div>
                          <nav className="flex gap-x-2 items-center">
                               {/* Home SVG */}
@@ -86,9 +86,8 @@ const ChangePasswordPage = () => {
                          </div>
                          <form onSubmit={formik.handleSubmit}>
                          <section className="w-full pb-4 ">
-                              {/*  مالک فروشگاه */}
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-sans font-bold"> رمز عبور</p>
+                                   <p className="font-sans font-bold text-gray-800"> رمز عبور</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         <FormikInput  maxLength={24} isRequired={true} name={"old_password"} title={"رمز عبور فعلی"} formik={formik}  parentClassName="flex flex-col relative"/>
                                         <FormikInput maxLength={24} isRequired={true} name={"new_password"} title={"رمز عبور جدید" } formik={formik}  parentClassName="flex flex-col relative"/>
@@ -96,7 +95,7 @@ const ChangePasswordPage = () => {
                                    </section>
                                    <div className="mt-4 w-full flex justify-end">
                                         {loading && <ReactLoading type="spinningBubbles" className="ml-2" height={30} width={30} color="red" />}
-                                        <button type={"submit"} className={buttonClassName({bgColor : "blue" , isOutline : false , isValid : formik.isValid})}> تغییر رمز عبور</button>
+                                        <button type={"submit"} disabled={loading} className={buttonClassName({bgColor : "blue" , isOutline : false , isValid : loading ? !loading : formik.isValid})}> تغییر رمز عبور</button>
                                    </div>
                               </div>
                          </section>

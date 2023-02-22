@@ -94,7 +94,7 @@ const InsertStoreProduct = () => {
           if(type == "count"){
                if(ONLY_DIGIT_REGIX.test(price_number) && ONLY_DIGIT_REGIX.test(count_number)){
                     const total = count_number * price_number;
-                    return <p className="font-sans text-xs whitespace-nowrap pt-2 font-bold">قیمت {toPersianPrice(count_number)} کالا : {toPersianPrice(total)} تومان</p>
+                    return <p className="text-gray-800 font-sans text-xs whitespace-nowrap pt-2 font-bold">قیمت {toPersianPrice(count_number)} کالا : {toPersianPrice(total)} تومان</p>
                }
           }
           return ""
@@ -116,9 +116,9 @@ const InsertStoreProduct = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-sans font-bold text-lg">ویرایش کالا</h1>
+                            <h1 className="font-sans font-bold text-lg text-gray-800">ویرایش کالا</h1>
                         </div>
-                        <div className="flex gap-x-2">
+                        <nav className="flex gap-x-2">
                             {/* Back Page Link */}
                             <Link href={'/store/manage-products/store-products'}>
                                 <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
@@ -135,7 +135,7 @@ const InsertStoreProduct = () => {
                                     </svg>
                                 </a>
                             </Link>
-                        </div>
+                        </nav>
                     </div>
                     <Formik 
                         onSubmit={onSubmit}
@@ -158,10 +158,10 @@ const InsertStoreProduct = () => {
                                    return (
                                         <Form>
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-sans font-bold"> مشخصات کالا | تعداد</p>
+                                             <p className="font-sans font-bold text-gray-800"> مشخصات کالا | تعداد</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className="flex flex-col ">
-                                                       <p className="font-sans text-sm">تاریخ تولید :</p>
+                                                       <p className="font-sans text-sm text-gray-800">تاریخ تولید :</p>
                                                        <DatePicker
                                                             value={production_date}
                                                             onChange={setProduction_date}
@@ -174,7 +174,7 @@ const InsertStoreProduct = () => {
                                                        />
                                                   </div>
                                                   <div className="flex flex-col ">
-                                                       <p className={`font-sans text-sm  `}>تاریخ انقضا :</p>
+                                                       <p className={`font-sans text-sm text-gray-800`}>تاریخ انقضا :</p>
                                                        <DatePicker
                                                                  value={expire_date}
                                                                  onChange={setExpire_date}
@@ -216,7 +216,7 @@ const InsertStoreProduct = () => {
                                              </div>
 
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-sans font-bold"> قیمت</p>
+                                             <p className="font-sans font-bold text-gray-800"> قیمت</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
@@ -274,7 +274,7 @@ const InsertStoreProduct = () => {
                                              </div>
 
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-sans font-bold"> تخفیف</p>
+                                             <p className="font-sans font-bold text-gray-800"> تخفیف</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
@@ -294,7 +294,7 @@ const InsertStoreProduct = () => {
                                                   name="product_discounts"
                                                   render={arrayHelpers  => (
                                                        <div className="flex flex-col mt-4">
-                                                            <div className="font-sans text-sm before:content-['*'] before:text-red-600">
+                                                            <div className="font-sans text-gray-800 text-sm before:content-['*'] before:text-red-600">
                                                                  تخفیف پله‌ایی :
                                                                  <button onClick={() => arrayHelpers.push({ discount_value: '', final_price: '' , discount_type : 'count' })} type="button" className="mr-2 font-sans text-xs text-blue-700 underline underline-offset-4 hover:text-red-700">(تخفیف جدید)</button>
                                                             </div>
@@ -302,7 +302,7 @@ const InsertStoreProduct = () => {
                                                                  return (
                                                                       <section key={index} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  mt-4 gap-4 bg-[#FCFCFC] border border-gray-200 p-4 rounded-lg">
                                                                            <div className="flex items-start flex-col ">
-                                                                                <p className="font-sans text-sm whitespace-nowrap">نوع تخفیف : </p>
+                                                                                <p className="font-sans text-sm whitespace-nowrap text-gray-800">نوع تخفیف : </p>
                                                                                 <section className="w-full flex justify-between  gap-x-2 mt-2">
                                                                                      <div className="flex w-full">
                                                                                           <Field type="radio"  name={`product_discounts.${index}.discount_type`} id={`discountType_count_${index}`} value="count"  className="peer hidden"/>
@@ -316,7 +316,7 @@ const InsertStoreProduct = () => {
                                                                            </div>
                               
                                                                            <div className="flex items-start flex-col">
-                                                                                <p className="font-sans text-sm whitespace-nowrap">مقدار تخفیف : </p>
+                                                                                <p className="font-sans text-sm whitespace-nowrap text-gray-800">مقدار تخفیف : </p>
                                                                                 <Field 
                                                                                      type="text" 
                                                                                      autoComplete={"off"}
@@ -325,12 +325,18 @@ const InsertStoreProduct = () => {
                                                                                      placeholder={ values.product_discounts[index].discount_type === "price" ? "قیمت (تومان)" : "تعداد"}
                                                                                      className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
                                                                                 />
-                                                                                {calculateTotalPrice({type : values.product_discounts[index].discount_type , price : values.store_price , count : values.product_discounts[index].discount_value || ""})}
+                                                                                {calculateTotalPrice(
+                                                                                     {
+                                                                                          type : values.product_discounts[index].discount_type ,
+                                                                                          price : values.store_price ,
+                                                                                          count : values.product_discounts[index].discount_value || "",
+                                                                                     }
+                                                                                )}
                                                                                 <ErrorMessage  name={`product_discounts.${index}.discount_value`}>{message => <p className={'text-red-600 font-sans text-xs pt-2'}>{message}</p>}</ErrorMessage>
                                                                            </div>
                               
                                                                            <div className="flex flex-col items-start" >
-                                                                                <p className="font-sans text-sm whitespace-nowrap"> مبلغ بعد از تخفیف : </p>
+                                                                                <p className="font-sans text-sm whitespace-nowrap text-gray-800"> مبلغ بعد از تخفیف : </p>
                                                                                 <div className="flex flex-row w-full mt-2">
                                                                                      <Field 
                                                                                           type="text" 
@@ -360,10 +366,10 @@ const InsertStoreProduct = () => {
                                              </FieldArray>
                                              </div>
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-sans font-bold">توضیحات</p>
+                                             <p className="font-sans font-bold text-gray-800">توضیحات</p>
           
                                              <div className="flex flex-col mt-4">
-                                                  <p className="font-sans text-sm">توضیحات ارسال کالا :</p>
+                                                  <p className="font-sans text-sm text-gray-800">توضیحات ارسال کالا :</p>
                                                   <Field as='textarea'
                                                        name="delivery_description"
                                                        className={`${errors.delivery_description &&  touched.delivery_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-8`}
@@ -372,7 +378,7 @@ const InsertStoreProduct = () => {
                                              </div>
                
                                              <div className="flex flex-col mt-4">
-                                                  <p className="font-sans text-sm">توضیحات فروشنده :</p>
+                                                  <p className="font-sans text-sm text-gray-800">توضیحات فروشنده :</p>
                                                   <Field as='textarea'
                                                        name="store_note"
                                                        className={`${errors.store_note &&  touched.store_note ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-8`}

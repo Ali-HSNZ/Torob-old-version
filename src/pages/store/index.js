@@ -27,7 +27,6 @@ const ManageStore = () => {
 
                         <nav className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 
-
                             <Link href={'/store/manage-products'}>
                                 <a className="cursor-pointer py-4 hover:bg-blue-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
                                     <div className="flex h-12 mr-4 w-[67px]  items-center justify-center rounded-full border border-blue-200 bg-blue-50">
@@ -36,7 +35,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold"> مدیریت محصولات</h2>
+                                        <h2 className="font-sans font-bold text-gray-800"> مدیریت محصولات</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -53,7 +52,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold"> سفارشات</h2>
+                                        <h2 className="font-sans font-bold text-gray-800"> سفارشات</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -72,7 +71,7 @@ const ManageStore = () => {
 
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold"> تنظیمات</h2>
+                                        <h2 className="font-sans font-bold text-gray-800"> تنظیمات</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -89,7 +88,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold"> تغییر رمز عبور</h2>
+                                        <h2 className="font-sans font-bold text-gray-800"> تغییر رمز عبور</h2>
                                         <span className="font-sans text-xs text-gray-500">ویرایش</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
