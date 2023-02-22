@@ -47,7 +47,7 @@ const CartStore = () => {
                                    <div className="w-14">
                                         <img className="w-full h-auto" src={data.store.logo_image} alt={`لوگو فروشگاه ${data.store.title}`}/>
                                    </div>
-                                   <span className="font-sans text-sm mr-4">{data.store.title}</span>
+                                   <span className="font-sans text-sm mr-4 text-gray-800">{data.store.title}</span>
                               </div>
                               <section className="mt-4">
                                    {data.cart.items.map((item,index) => (
@@ -55,11 +55,11 @@ const CartStore = () => {
                                              {index > 0 && <hr className="my-4"/>}
                                              <article className="flex">
                                                   <div className="w-16  flex items-center">
-                                                       <img className="w-full h-auto" alt="تصویر کالا" src={item.product.image_url}/>
+                                                       <img className="w-full h-auto text-gray-800" alt="تصویر کالا" src={item.product.image_url}/>
                                                   </div>
                                                   <section className="w-full mr-4">
                                                        <div className="flex justify-between">
-                                                            <span className="font-sans text-sm text-gray-700">{item.product.title}</span>
+                                                            <span className="font-sans text-sm text-gray-800">{item.product.title}</span>
                                                             {item.price.discount_percent !== 0 && <span className="font-sans h-fit mr-2 text-xs text-red-100 bg-red-600 rounded-lg py-2 px-3 font-bold flex items-center">{toPersianDigits(item.price.discount_percent)}%</span>}
                                                        </div>
                                                        <div className="flex justify-between items-center mt-4">
@@ -73,7 +73,7 @@ const CartStore = () => {
                                                                  { isIncreaseOrDecreaseProductLoading({product_id : item.item_id.product}) ? (
                                                                       <ReactLoading type="spinningBubbles" height={20} width={20} color="red" className="mr-2"/>
                                                                  ) : (
-                                                                      <span className="font-sans text-base px-3">{toPersianDigits(item.price.count)}</span>
+                                                                      <span className="font-sans text-base px-3 text-gray-800">{toPersianDigits(item.price.count)}</span>
                                                                  )}
                                                                  {/* Decrease */}
                                                                  <button onClick={()=>dispatch(decreaseProductInCheckout({product_id : item.item_id.product , store_id : item.item_id.store}))} className="font-sans text-sm p-2">

@@ -29,7 +29,7 @@ const CartPage = () => {
                          {cart_count > 0 ? (
                               <>
                                    <div className="flex">
-                                        <h1 className="font-sans text-right">سبدهای خرید شما</h1>
+                                        <h1 className="font-sans text-right text-gray-800">سبدهای خرید شما</h1>
                                         <span className="font-sans text-xs text-gray-600 mr-1">({toPersianDigits(cart_count)} کالا)</span>
                                    </div>
                                    <section className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mt-4">
@@ -79,10 +79,10 @@ const CartPage = () => {
                               <section className="w-full">
                                    <div className="w-full flex flex-col items-center">
                                         <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg" alt="تصویر سبد خرید" className="w-72 h-auto" />
-                                   <h3 className="font-sans font-bold text-center">سبد خرید شما خالی است!</h3>
-                                   <Link href={'/'}>
-                                        <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-sans text-sm underline underline-offset-4">بازگشت به فروشگاه</a>
-                                   </Link>
+                                        <h3 className="font-sans font-bold text-center">سبد خرید شما خالی است!</h3>
+                                        <Link href={'/'}>
+                                             <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-sans text-sm underline underline-offset-4">بازگشت به فروشگاه</a>
+                                        </Link>
                                    </div>
                               </section>
                          )}
@@ -120,7 +120,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => asy
           .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
           .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
      }else{
-          // Fetch SearchBar Data With User Token
+          // Fetch SearchBar Data Without User Token
           await http.get(`public/searchbar`)
           .then(({data}) => dispatch(fetchSearchDataSuccess(data)))
           .catch(error => dispatch(fetchSearchDataFailure("خطای سرور در بخش گرفتن دیتای جستجو ")))
