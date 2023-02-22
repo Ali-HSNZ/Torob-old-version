@@ -131,7 +131,7 @@ const Header = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                    </svg>
                                    {/* //! Search Panel */}
-                                   <section id="searchPanel" className="max-h-[350px] overflow-y-auto overflow-hidden hidden pb-4 bg-white shadow-md border border-gray-300 border-t-0 rounded-md rounded-t-sm absolute w-full">
+                                   <section id="searchPanel" className="z-10 max-h-[350px] overflow-y-auto overflow-hidden hidden pb-4 bg-white shadow-md border border-gray-300 border-t-0 rounded-md rounded-t-sm absolute w-full">
                                         {inputValue.length > 1  ? (
                                              <>
                                                   {/* //? Suggstion Search */}
