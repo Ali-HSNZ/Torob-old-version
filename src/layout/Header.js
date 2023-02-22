@@ -235,7 +235,7 @@ const Header = () => {
                               </div>
                          </form>
                          {/* //? Cart & Login Button */}
-                         <section className="w-full sm:w-fit flex justify-end absolute top-4 left-4 md:relative md:top-0 md:left-0 z-10">
+                         <section className="w-fit flex justify-end absolute top-4 left-4 md:relative md:top-0 md:left-0 z-10">
                               {/* Cart Page */}
                               <Link href={'/cart'}>
                                    <a className="py-2 px-4 bg-white border relative border-gray-300 rounded-md ml-4 flex items-center ">
@@ -324,7 +324,7 @@ const Header = () => {
                 <BigScreenMenu customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}/>
 
                {/* //?  Menu For Small Width - Responsive  ==> */}
-               {isSmallScreenModal && <SmallScreenMenu customClassname="lg:hidden" isSmallScreenModal={isSmallScreenModal} setIsSmallScreenModal={setIsSmallScreenModal} />} 
+               {isSmallScreenModal && <SmallScreenMenu customClassname="lg:hidden" isSmallScreenModal={true} setIsSmallScreenModal={setIsSmallScreenModal} />} 
             </main>
           </header>
      );
