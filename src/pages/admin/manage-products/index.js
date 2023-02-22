@@ -14,7 +14,7 @@ import Warning from "@/common/alert/Warning";
 import SelectBox from "@/common/admin/SelectBox";
 import FormikInput from "@/common/admin/FormikInput";
 import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
-import { buttonClassName, linkClassName } from "@/utils/global";
+import { buttonClassName, linkClassName, substringHandler } from "@/utils/global";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
@@ -105,56 +105,55 @@ const ManageProduct = () => {
 
                     <section className="w-full lg:w-4/5 flex-0 h-max px-3 sm:px-4 "> 
                          <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
-                         <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
+                              <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                          </Modal>
 
                          <div className="flex justify-between w-full items-center mt-4">
-                         <div className="flex items-center">
-                              <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
-                                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                                   </svg>
-                              </button>
-                              <h1 className="font-sans font-bold text-lg">مدیریت کالاها</h1>
+                              <div className="flex items-center">
+                                   <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                        </svg>
+                                   </button>
+                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت کالاها</h1>
+                              </div>
+                              <nav className="flex gap-x-2 items-center">
+                                   <Link href={{pathname:"/admin/manage-products"}}>
+                                        <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                             </svg>
+                                        </a>
+                                   </Link>
+                                   <Link href={'/admin/manage-products/insert'}>
+                                        <a className="gap-x-1 items-center hover:bg-green-200 bg-green-100 flex border border-green-700  rounded-md py-2 px-3">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                                             </svg>
+                                        </a>
+                                   </Link>
+                                   <Link href={'/admin'}>
+                                        <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                             </svg>
+                                        </a>
+                                   </Link>
+                              </nav>
                          </div>
-                         <nav className="flex gap-x-2 items-center">
-                              <Link href={{pathname:"/admin/manage-products"}}>
-                                   <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                                        </svg>
-                                   </a>
-                              </Link>
-                              <Link href={'/admin/manage-products/insert'}>
-                                   <a className="gap-x-1 items-center hover:bg-green-200 bg-green-100 flex border border-green-700  rounded-md py-2 px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-                                        </svg>
-                                   </a>
-                              </Link>
-                              <Link href={'/admin'}>
-                                   <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                        </svg>
-                                   </a>
-                              </Link>
-                         </nav>
-                         </div>
-                         <form className="w-full " onSubmit={formik.handleSubmit}>
-                         <section className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
+                         <form onSubmit={formik.handleSubmit} className="w-full p-4 bg-white mt-3 rounded-lg shadow-md">
                               <section className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                                    <FormikInput formik={formik} placeholder={"بر اساس نام محصول"} title={"نام کالا"} name={"product_title"} parentClassName={"flex flex-col relative"}/>
 
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm"> برند :</p>
+                                        <p className="font-sans text-sm text-gray-800"> برند :</p>
                                         <div className="w-full mt-2">
                                              <SelectBox notFoundTitle="برند مورد نظر یافت نشد."  query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                         </div>
                                    </div>
 
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm"> دسته‌بندی :</p>
+                                        <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
                                         <div className="w-full mt-2">
                                              <SelectBox notFoundTitle="دسته مورد نظر یافت نشد."  query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
                                         </div>
@@ -166,12 +165,12 @@ const ManageProduct = () => {
                                         <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
                                         <section className="flex justify-between mt-2 gap-x-2">
                                              <div className="flex w-1/2">
-                                             <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                             <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                                  <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
+                                                  <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
                                              </div>
                                              <div className="flex w-1/2">
-                                             <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                             <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                                  <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
+                                                  <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
                                              </div>
                                         </section>
                                    </div>
@@ -185,7 +184,6 @@ const ManageProduct = () => {
                               <div className="w-full flex items-center justify-end mt-3">
                                    <button type={"submit"} className={buttonClassName({bgColor : "blue" , isValid : formik.isValid , isOutline : false})}>جستجو</button>
                               </div>
-                         </section>
                          </form>
 
                          {loading && (
@@ -218,14 +216,17 @@ const ManageProduct = () => {
                                                                  <img alt="تصویر کالا" onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
                                                             </div>
                                                             <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                                 <p className="font-sans leading-6 text-sm "><b className="whitespace-nowrap">عنوان کالا : </b>
-                                                                      {product.title.length > 35 ? product.title.substring(0,35)+'...' : product.title} </p>
-                                                                 <p className="font-sans leading-6 text-sm  ">
+                                                                 <p className="font-sans leading-6 text-sm text-gray-800">
+                                                                      <b className="whitespace-nowrap">عنوان کالا : </b>
+                                                                      {substringHandler({title : product.title , count : 35})} 
+                                                                 </p>
+                                                                 <p className="font-sans leading-6 text-sm text-gray-800 ">
                                                                       <b className="whitespace-nowrap">برند : </b> 
-                                                                      {product.brand.name && product.brand.name.length > 22 ? product.brand.name.substring(0,22)+'...' : product.brand.name}</p>
+                                                                      {substringHandler({title : product.brand.name , count : 35})}
+                                                                 </p>
                                                                  <div className="font-sans leading-6 flex text-sm w-full">
-                                                                      <b className="whitespace-nowrap pl-1">دسته‌بندی : </b>
-                                                                      <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                      <b className="whitespace-nowrap pl-1 text-gray-800">دسته‌بندی : </b>
+                                                                      <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
                                                                  </div>
                                                             </div>
                                                             <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
@@ -243,30 +244,43 @@ const ManageProduct = () => {
                                                        </section>
                                                        {/* Description */}
                                                        <section className="w-full bg-gray-50 rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                                                 <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>{product.title || "-"}</p>
-                                                                 <div className="font-sans text-sm   flex flex-col sm:flex-row">
-                                                                      <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">دسته‌بندی : </b>
-                                                                      <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                 <p className="font-sans text-sm flex text-gray-800">
+                                                                      <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 ">عنوان : </b>
+                                                                      {product.title || "-"}
+                                                                 </p>
+                                                            <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                                                 <div className="font-sans text-sm   flex ">
+                                                                      <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 text-gray-800">دسته‌بندی : </b>
+                                                                      <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
                                                                  </div>
-                                                                 <p className="font-sans text-sm  flex flex-col sm:flex-row "><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>{product.brand.name || "-" }</p>
-                                                                 <p className="font-sans text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>{product.barcode || "-"}</p>
+                                                                 <p className="font-sans text-sm flex text-gray-800">
+                                                                      <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 ">برند : </b>
+                                                                      {product.brand.name || "-" }
+                                                                 </p>
+                                                                 <p className="font-sans text-sm flex text-gray-800">
+                                                                      <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>
+                                                                      {product.barcode || "-"}
+                                                                 </p>
                                                                  {/* Logo */}
                                                                  <div className="flex">
-                                                                      <b className="font-sans text-sm pl-1">تصویر اصلی کالا : </b>
+                                                                      <b className="font-sans text-sm pl-1 text-gray-800">تصویر اصلی کالا : </b>
                                                                       {product.is_image_url ? (
-                                                                      <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
-                                                                      ) : <p className="font-sans text-sm mr-1">-</p>}
+                                                                           <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
+                                                                      ) : <p className="font-sans text-sm mr-1 text-gray-800">-</p>}
                                                                  </div>
                                                             </div>
-                                                            <p className="font-sans w-full mt-2 text-sm flex flex-col sm:flex-row"><b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات : </b> {product.description || "-"}</p>
+                                                            <p className="font-sans w-full mt-2 text-sm flex text-gray-800">
+                                                                 <b className="whitespace-nowrap mb-1 sm:m-0  pl-2">توضیحات : </b>
+                                                                 {product.description || "-"}
+                                                            </p>
                                                             <div className="font-sans w-full mt-2 text-sm flex items-start">
-                                                                 <b className="whitespace-nowrap sm:m-0 pl-1 leading-8">کلیدواژه : </b>
-                                                                 <div className="mr-1 w-full flex flex-wrap gap-x-2 leading-8">
+                                                                 <b className="whitespace-nowrap sm:m-0 pl-1 text-gray-800">کلیدواژه : </b>
+                                                                 {product?.tags?.length === 0 && <p className="font-sans text-sm text-gray-800 mr-1">-</p>}
+                                                                 <div className="mr-1 w-full flex flex-wrap gap-x-2 leading-5">
                                                                       {product.tags.map((item,index) => (
                                                                            <>
-                                                                                {index > 0 && <span>|</span>}
-                                                                                <span>{item}</span>
+                                                                                {index > 0 && <span className="font-sans text-sm text-gray-800">|</span>}
+                                                                                <span className="font-sans text-sm text-gray-800">{item}</span>
                                                                            </>
                                                                       ))}
                                                                  </div>

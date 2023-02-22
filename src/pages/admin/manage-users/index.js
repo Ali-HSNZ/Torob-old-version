@@ -103,40 +103,40 @@ const ManageStores = () => {
                     <AdminPageAside/>
                     <section className="w-full lg:w-4/5 flex-0 h-max px-4 "> 
                          <Modal open={isAsideModal} onClose={()=>setIsAsideModal(false)} className="lg:hidden">
-                         <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/2 w-full'}/></>
+                              <><AdminPageAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/2 w-full'}/></>
                          </Modal>
                          <div className="flex justify-between w-full items-center mt-4">
-                         <div className="flex items-center">
-                              <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
-                                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                                   </svg>
-                              </button>
-                              <h1 className="font-sans font-bold text-lg">مدیریت کاربران</h1>
-                         </div>
-                         <div className="flex gap-x-2 items-center">
-                              <Link href={{pathname:"/admin/manage-users"}}>
-                                   <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                              <div className="flex items-center">
+                                   <button onClick={() => setIsAsideModal(!isAsideModal)} className="lg:hidden p-2 bg-white ml-4 rounded-md cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" > 
+                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
-                                   </a>
-                              </Link>
-                              <Link href={'/admin/manage-users/insert'}>
-                                   <a className="gap-x-1 items-center hover:bg-green-200 bg-green-100 flex border border-green-700  rounded-md py-2 px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-                                        </svg>
-                                   </a>
-                              </Link>
-                              <Link href={'/admin'}>
-                                   <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                        </svg>
-                                   </a>
-                              </Link>
-                         </div>
+                                   </button>
+                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت کاربران</h1>
+                              </div>
+                              <nav className="flex gap-x-2 items-center">
+                                   <Link href={{pathname:"/admin/manage-users"}}>
+                                        <a className="items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2  px-3">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                             </svg>
+                                        </a>
+                                   </Link>
+                                   <Link href={'/admin/manage-users/insert'}>
+                                        <a className="gap-x-1 items-center hover:bg-green-200 bg-green-100 flex border border-green-700  rounded-md py-2 px-3">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-800">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                                             </svg>
+                                        </a>
+                                   </Link>
+                                   <Link href={'/admin'}>
+                                        <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                             </svg>
+                                        </a>
+                                   </Link>
+                              </nav>
                          </div>
 
                          <form className="w-full " onSubmit={formik.handleSubmit}>
@@ -171,9 +171,9 @@ const ManageStores = () => {
                          </form>
 
                          {loading && (
-                         <div className="w-full flex justify-center my-8">
-                              <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
-                         </div>
+                              <div className="w-full flex justify-center my-8">
+                                   <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
+                              </div>
                          )}
                          {!users && !loading && <Warning text={'کاربری یافت نشد!'}/>}
                          {users && !loading && (
@@ -190,75 +190,99 @@ const ManageStores = () => {
                                         </button>
                                    </section>
                               </Modal>
-                                   {users && users.map(user => {
-                                        return(
-                                             <section key={user.id}>
-                                             <div className="p-4 bg-white w-full">
-                                                  <input type={"checkbox"} id={`detail_${user.id}`} className="peer hidden"/>
-                                                  <section className=" flex flex-col sm:flex-row items-center  justify-between">
-                                                       <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
-                                                            <img alt="تصویر پروفایل کاربر" onClick={()=> {user.is_profile_image && setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="w-full h-auto" src={user.profile_image}/>
+                              {users && users.map(user => {
+                                   return(
+                                        <section key={user.id}>
+                                        <div className="p-4 bg-white w-full">
+                                             <input type={"checkbox"} id={`detail_${user.id}`} className="peer hidden"/>
+                                             <section className=" flex flex-col sm:flex-row items-center  justify-between">
+                                                  <div className=" h-full min-w-[150px]   max-w-[150px]  sm:max-w-[100px] sm:min-w-[100px]">
+                                                       <img alt="تصویر پروفایل کاربر" onClick={()=> {user.is_profile_image && setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="w-full h-auto" src={user.profile_image}/>
+                                                  </div>
+                                                  <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
+                                                       <p className="font-sans leading-6 text-sm flex text-gray-800">
+                                                            <b className="whitespace-nowrap pl-1">نام و نام خانوادگی : </b>
+                                                            {user?.full_name||"-"} 
+                                                       </p>
+                                                       <p className="font-sans leading-6 text-sm flex text-gray-800">
+                                                            <b className="whitespace-nowrap pl-1">کد ملی : </b> 
+                                                            {user?.national_code|| "-"}
+                                                       </p>
+                                                       <div className="font-sans leading-6 text-sm flex pl-1 text-gray-800">
+                                                            <b className="whitespace-nowrap pl-1">کد پستی : </b>
+                                                            {user?.address.post_code || "-"}
                                                        </div>
-                                                       <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                            <p className="font-sans leading-6 text-sm flex">
-                                                                 <b className="whitespace-nowrap pl-1">نام و نام خانوادگی : </b>
-                                                                 {user?.full_name||"-"} 
-                                                            </p>
-                                                            <p className="font-sans leading-6 text-sm flex ">
-                                                                 <b className="whitespace-nowrap pl-1">کد ملی : </b> 
-                                                                 {user?.national_code|| "-"}
-                                                            </p>
-                                                            <div className="font-sans leading-6 text-sm flex pl-1">
-                                                                 <b className="whitespace-nowrap pl-1">کد پستی : </b>
-                                                                 {user?.address.post_code || "-"}
-                                                            </div>
+                                                  </div>
+                                                  <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
+                                                       <div className=" flex items-center">
+                                                            {!user.is_active && <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>}
                                                        </div>
-                                                       <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
-                                                            <div className=" flex items-center">
-                                                                 {!user.is_active && <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>}
-                                                            </div>
-                                                            <div className="flex items-center ">
-                                                                 <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${user.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
-                                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
-                                                                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                                      </svg>
-                                                                 </label>
-                                                            </div>
+                                                       <div className="flex items-center ">
+                                                            <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${user.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
+                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-90 duration-100 w-5 h-5 text-gray-700 peer-checked:rota">
+                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                 </svg>
+                                                            </label>
                                                        </div>
-                                                  </section>
-                                                  {/* Description */}
-                                                  <section className="mt-4 rounded-md bg-gray-50 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                       <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                                            <p className="font-sans text-sm"><b>نام و نام خانوادگی : </b>{user?.full_name || "-"}</p>
-                                                            <p className="font-sans text-sm"><b>کد ملی : </b>{user?.national_code || "-"}</p>
-                                                            <p className="font-sans text-sm"><b>شماره موبایل : </b>{user?.phone_number_primary || "-"}</p>
-                                                            <p className="font-sans text-sm"><b>شماره همراه دوم : </b>{user?.phone_number_secondary || "-"}</p>
-                                                            <p className="font-sans text-sm"><b>تلفن ثابت : </b>{user?.house_number || "-"  }</p>
-                                                            <p className="font-sans text-sm"><b>استان : </b>{user?.address?.province  || "-"}</p>
-                                                            <p className="font-sans text-sm"><b>شهر : </b>{user?.address?.city  ||  "-"}</p>
-                                                            <p className="font-sans text-sm"><b>کد پستی : </b>{user?.address?.post_code || "-"}</p>
-                                                            {/* User Profile Image */}
-                                                            <div className="flex">
-                                                                 <b className="font-sans text-sm">عکس کاربر : </b>
-                                                                 {user.is_profile_image ? (
-                                                                 <button onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                 ) : <p className="font-sans text-sm mr-1">-</p>}
-                                                            </div>
-                                                       </div>
-
-                                                       <p className="font-sans text-sm mt-2"><b>آدرس : </b>{user?.address?.detail || "-"}</p>
-                                                       <div className="flex justify-end w-full mt-4 mb-4">
-                                                            <Link href={`/admin/manage-users/edit/${user.id}`} >
-                                                                 <a className={linkClassName({bgColor : "blue" , isOutline : true})}>ویرایش</a>
-                                                            </Link>
-                                                       </div>
-                                                  </section>
-
-                                             </div>
-                                             <hr/>
+                                                  </div>
                                              </section>
-                                        )
-                                   })}
+                                             {/* Description */}
+                                             <section className="mt-4 rounded-md bg-gray-50 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
+                                                  <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                                                       <p className="font-sans text-sm text-gray-800">
+                                                            <b>نام و نام خانوادگی : </b>
+                                                            {user?.full_name || "-"}
+                                                       </p>
+                                                       <p className="font-sans text-sm text-gray-800">
+                                                            <b>کد ملی : </b>
+                                                            {user?.national_code || "-"}
+                                                       </p>
+                                                       <p className="font-sans text-sm text-gray-800">
+                                                            <b>شماره موبایل : </b>
+                                                            {user?.phone_number_primary || "-"}
+                                                       </p>
+                                                       <p className="font-sans text-sm text-gray-800">
+                                                            <b>شماره همراه دوم : </b>
+                                                            {user?.phone_number_secondary || "-"}
+                                                       </p>
+                                                       <p className="font-sans text-sm text-gray-800">
+                                                            <b>تلفن ثابت : </b>
+                                                            {user?.house_number || "-"  }
+                                                       </p>
+                                                       <p className="font-sans text-sm text-gray-800">
+                                                            <b>استان : </b>
+                                                            {user?.address?.province  || "-"}
+                                                       </p>
+                                                       <p className="font-sans text-sm text-gray-800">
+                                                            <b>شهر : </b>
+                                                            {user?.address?.city  ||  "-"}
+                                                       </p>
+                                                       <p className="font-sans text-sm text-gray-800">
+                                                            <b>کد پستی : </b>
+                                                            {user?.address?.post_code || "-"}
+                                                       </p>
+                                                       {/* User Profile Image */}
+                                                       <div className="flex">
+                                                            <b className="font-sans text-sm text-gray-800">عکس کاربر : </b>
+                                                            {user.is_profile_image ? (
+                                                                 <button onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
+                                                            ) : <p className="font-sans text-sm mr-1 text-gray-800">-</p>}
+                                                       </div>
+                                                  </div>
+
+                                                  <p className="font-sans text-sm mt-2 text-gray-800"><b>آدرس : </b>{user?.address?.detail || "-"}</p>
+                                                  <div className="flex justify-end w-full mt-4 mb-4">
+                                                       <Link href={`/admin/manage-users/edit/${user.id}`} >
+                                                            <a className={linkClassName({bgColor : "blue" , isOutline : true})}>ویرایش</a>
+                                                       </Link>
+                                                  </div>
+                                             </section>
+
+                                        </div>
+                                        <hr/>
+                                        </section>
+                                   )
+                              })}
                               </section>
 
                               <section dir="ltr" className=" w-full flex justify-center py-4">

@@ -106,7 +106,7 @@ const AdminMessages = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-sans font-bold text-lg">اطلاعیه ها</h1>
+                            <h1 className="font-sans font-bold text-lg text-gray-800">اطلاعیه ها</h1>
                         </div>
                         <div className="flex gap-x-2 items-center">
                             {/* Home SVG */}
@@ -125,20 +125,18 @@ const AdminMessages = () => {
                                 <FormikInput name={"store"} title={"نام فروشگاه"} formik={formik} placeholder={"بر اساس نام فروشگاه"} parentClassName="flex flex-col relative"/>
 
                                 <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
-                                        <section className="flex justify-between mt-2 gap-x-2">
-                                            <div className="flex w-1/2">
-                                                <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                                <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
-                                            </div>
-                                            <div className="flex w-1/2">
-                                                <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                                <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
-                                            </div>
-                                        </section>
+                                    <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
+                                    <section className="flex justify-between mt-2 gap-x-2">
+                                        <div className="flex w-1/2">
+                                            <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
+                                            <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                        </div>
+                                        <div className="flex w-1/2">
+                                            <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
+                                            <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                        </div>
+                                    </section>
                                 </div>
-
-
                             </section>
                             <div className="w-full flex items-center justify-end mt-3">
                                 <button type={"submit"} className={buttonClassName({bgColor : "blue" , isValid : formik.isValid , isOutline : false})}>جستجو</button>
@@ -157,8 +155,8 @@ const AdminMessages = () => {
                             <section className="sticky top-0 z-20 rounded-md mt-4 bg-white p-4 overflow-hidden  w-full shadow-md flex flex-row justify-end gap-x-4">
                                 {deleteLoading && <ReactLoading type="spinningBubbles" height={30} width={30} color="red" />}
                                 {isSelectedAll() ? (
-                                    <button onClick={() => setSelectedId([])} className={`${buttonClassName({bgColor : "yellow" , isValid : true , isOutline : true})}`} >لغو انتخاب شده‌ها</button>
-                                    ) : (
+                                    <button onClick={() => setSelectedId([])} className={`text-yellow-800 font-sans text-sm border border-yellow-600 px-6 py-2 rounded-md bg-yellow-100 hover:bg-yellow-200`} >لغو انتخاب شده‌ها</button>
+                                ) : (
                                     <button onClick={() => selectedAllId()} className={`${buttonClassName({bgColor : "blue" , isValid : true , isOutline : true})}`} >انتخاب همه</button>
                                 )}
                                 <button disabled={selectedId.length > 0 ? false : true || loading || deleteLoading} onClick={() => dispatch(deleteAdminNotificationsViaId(selectedId)) & setSelectedId([])} className={`${buttonClassName({bgColor : "red" , isValid : selectedId.length > 0 ? true : false , isOutline : true})}`} >حذف</button>
@@ -170,8 +168,8 @@ const AdminMessages = () => {
                                         <input type="checkbox" onChange={() => selectNotificate(notificate.id)} checked={selectedId.includes(notificate.id)} id={`notificate_${notificate.id}`} value="option1" className="rounded-full peer  ml-4 appearance-none h-5 w-5 border border-gray-300  bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none ring-current focus:ring-0    mt-1 align-top  cursor-pointer"/>
                                         <label  htmlFor={`notificate_${notificate.id}`} className="peer-checked:border-red-500 peer-checked:bg-red-50 relative rounded-md cursor-pointer border-2 border-gray-200 select-none p-4 bg-[#fcfcfc] w-full">
                                             <div className="w-full flex justify-between">
-                                                <p className="font-sans text-xs">{notificate.store}</p>
-                                                <p className="font-sans text-xs">{timeStampToPersianDate(notificate.time)} | {timeStampToPersianTime(notificate.time)}</p>
+                                                <p className="font-sans text-sm text-gray-800 font-bold">{notificate.store}</p>
+                                                <p className="font-sans text-xs text-gray-800">{timeStampToPersianDate(notificate.time)} | {timeStampToPersianTime(notificate.time)}</p>
                                             </div>
                                             <p className="font-sans text-xs leading-7 sm:text-sm  text-gray-700 mt-4">{notificate.message}</p>
                                             {notificate.is_new && <div className=" animate-ping absolute top-0 right-0 block w-1 h-1 rounded-full ring-2 ring-red-400 bg-red-600"></div>}

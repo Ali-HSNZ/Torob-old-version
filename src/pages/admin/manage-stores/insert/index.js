@@ -271,16 +271,16 @@ const InsertStorePage = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-sans font-bold text-lg">ثبت فروشگاه</h1>
+                            <h1 className="font-sans font-bold text-lg text-gray-800">ثبت فروشگاه</h1>
                         </div>
-                        <div className="flex gap-x-2 items-center">
-                        <Link href={'/admin/manage-stores'}>
-                            <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                                </svg>
-                            </a>
-                        </Link>
+                        <nav className="flex gap-x-2 items-center">
+                            <Link href={'/admin/manage-stores'}>
+                                <a className=" items-center hover:bg-orange-200 bg-orange-100 flex border border-orange-800 text-orange-800 rounded-md py-2 px-7">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                    </svg>
+                                </a>
+                            </Link>
                             <Link href={'/admin'}>
                                 <a className=" items-center hover:bg-blue-200 bg-blue-100 flex border border-[#184e77] text-[#184e77] rounded-md py-2 px-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -288,13 +288,13 @@ const InsertStorePage = () => {
                                     </svg>
                                 </a>
                             </Link>
-                        </div>
+                        </nav>
                     </div>
 
                     <form onSubmit={formik.handleSubmit}>
                         {/*  مالک فروشگاه */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                            <p className="font-sans font-bold"> مالک فروشگاه</p>
+                            <p className="font-sans font-bold text-gray-800"> مالک فروشگاه</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                 <FormikInput  isRequired={true} name={"owner_full_name"} title={"نام و نام خانوادگی مالک فروشگاه"} formik={formik} placeholder={"نام و نام خانوادگی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
                                 <FormikInput maxLength={11} isRequired={true} name={"owner_phone_number"} title={"شماره همراه مالک فروشگاه (رمز عبور)" } formik={formik} placeholder={"شماره همراه مالک فروشگاه"} parentClassName="flex flex-col relative"/>
@@ -304,7 +304,7 @@ const InsertStorePage = () => {
                         </div>
                         {/*  فروشگاه | شرکت */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                            <p className="font-sans font-bold"> فروشگاه | شرکت</p>
+                            <p className="font-sans font-bold text-gray-800"> فروشگاه | شرکت</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                 <FormikInput isRequired={true} name={"name"} title={"نام فروشگاه"} formik={formik} placeholder={"نام فروشگاه"} parentClassName="flex flex-col relative"/>
                                 <FormikInput isRequired={true} name={"office_address"} title={"آدرس دفتر مرکزی شرکت"} formik={formik} placeholder={"آدرس دفتر مرکزی شرکت"} parentClassName="flex flex-col relative"/>
@@ -357,7 +357,7 @@ const InsertStorePage = () => {
                         </div>
                         {/*  حساب بانکی */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                            <p className="font-sans font-bold"> حساب بانکی</p>
+                            <p className="font-sans font-bold text-gray-800"> حساب بانکی</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                 <div className="flex flex-col relative ">
                                     <p className="font-sans text-[13px] text-gray-800 ">شماره کارت :</p>
@@ -371,7 +371,7 @@ const InsertStorePage = () => {
                         </div>
                         {/* تصاویر و فایل ها */}
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                            <p className="font-sans font-bold">تصاویر و فایل ها</p>
+                            <p className="font-sans font-bold text-gray-800">تصاویر و فایل ها</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                 {/* License Image */}
                                 <div className="flex flex-col relative ">

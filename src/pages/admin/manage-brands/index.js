@@ -130,7 +130,7 @@ const ManageBrands = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg">مدیریت برند</h1>
+                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت برند</h1>
                               </div>
                               <nav className="flex gap-x-2 items-center">
                                    <Link href={{pathname:"/admin/manage-brands"}}>
@@ -160,7 +160,7 @@ const ManageBrands = () => {
                                    <FormikInput formik={formik} name={'company'} placeholder="نام شرکت را وارد کنید" title={"نام شرکت"}  parentClassName={"flex flex-col relative"}/>
                                    
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
+                                        <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                         <section className="flex justify-between mt-2 gap-x-2">
                                              <div className="flex w-1/2">
                                                   <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
@@ -173,7 +173,7 @@ const ManageBrands = () => {
                                         </section>
                                    </div>
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm">وضعیت :</p>
+                                        <p className="font-sans text-sm text-gray-800">وضعیت :</p>
                                         <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                                    </div>
                               </section>

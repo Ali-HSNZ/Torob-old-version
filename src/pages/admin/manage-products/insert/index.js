@@ -213,7 +213,7 @@ const InsertProduct = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg">ثبت کالا</h1>
+                                   <h1 className="font-sans font-bold text-lg text-gray-800">ثبت کالا</h1>
                               </div>
                               <div className="flex gap-x-2">
                                    <Link href={'/admin/manage-products'}>
@@ -235,7 +235,7 @@ const InsertProduct = () => {
                          <form onSubmit={formik.handleSubmit}>
                          {/* Product Title - Brand - Barcode */}
                          <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                              <p className="font-sans font-bold"> مشخصات کالا</p>
+                              <p className="font-sans font-bold text-gray-800"> مشخصات کالا</p>
                               <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                    <FormikInput maxLength={250} title={"عنوان کالا"} formik={formik} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
                                    <div className="flex flex-col relative">
@@ -265,7 +265,7 @@ const InsertProduct = () => {
                          <section className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
                               
                               <div className=" mb-6">
-                                   <span className="font-sans font-bold">کلیدواژه</span>
+                                   <span className="font-sans font-bold text-gray-800">کلیدواژه</span>
                                    <span className="font-sans text-gray-600 text-xs relative bottom-1 mr-1">(برای جستجو این کالا توسط کاربر)</span>
                               </div>
                               <TagsInput 
@@ -293,13 +293,13 @@ const InsertProduct = () => {
                          
                          {/* توضیحات */}
                          <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                              <p className="font-sans font-bold "> توضیحات</p>
+                              <p className="font-sans font-bold text-gray-800"> توضیحات</p>
                               <p className="mt-4 font-sans text-sm  text-gray-800">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
                               <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} className={`${formik.errors.product_description && formik.touched.product_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-7`}/>
                               {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
                          </div>
                          <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                              <p className="font-sans font-bold"> تصاویر و فایل ها</p>
+                              <p className="font-sans font-bold text-gray-800"> تصاویر و فایل ها</p>
                               {/* Choose Product Images */} 
                               <section className="sm:mt-4 w-full flex flex-row ">
                                    <div className={`flex sm:flex-row flex-col flex-start w-full`}>
