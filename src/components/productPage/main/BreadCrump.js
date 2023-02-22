@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const BreadCrump = ({path}) => {
     return (  
-        <div className='flex whitespace-nowrap overflow-x-auto  '>
+        <div className='flex whitespace-nowrap overflow-x-auto pb-4 '>
             <Link href="/">
                 <a className='hover:text-red-500 before:hover:text-gray-500 cursor-pointer mt-4 before:content-["›"] before:px-2 first:before:content-none text-xs text-gray-500 font-sans'>ترب</a>
             </Link>                    
