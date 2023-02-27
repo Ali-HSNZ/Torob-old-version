@@ -122,7 +122,7 @@ const Header = () => {
 
                     <section className="w-full flex flex-row justify-between ">
                          {/* //? Search Form */}
-                         <form onSubmit={ form => onSubmitForm(form)} method="get" className="w-full mt-4 md:mt-0 md:ml-4 md:mr-6  flex sm:justify-center lg:justify-start items-center z-10">
+                         <form onSubmit={form => onSubmitForm(form)} method="get" className="w-full mt-4 md:mt-0 md:ml-4 md:mr-6  flex sm:justify-center lg:justify-start items-center z-10">
                               <div className="relative w-full lg:w-fit h-auto">
                                    <input autoComplete={"off"} value={inputValue} onChange={input => searchInputHandler(input.target.value)} id="searchInput" className="pr-12 bg-gray-200 outline-none rounded-md placeholder:text-sm text-sm text-gray-700 py-3 w-full font-sans lg:w-[420px] shadow-sm px-4"  placeholder="جستجو" />
                                    {searchSuggestion.loading &&  <ReactLoading className="absolute top-2 left-2" type="spinningBubbles" height={23} width={23} color="red" />}
@@ -319,9 +319,10 @@ const Header = () => {
                     {/* //? Input Search =>  */}
                </div>
 
-
                {/* //?  Menu For Big Screen  ==> */}
-                <BigScreenMenu customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}/>
+               <section className="mt-4">
+                    <BigScreenMenu customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}/>
+               </section>
 
                {/* //?  Menu For Small Width - Responsive  ==> */}
                {isSmallScreenModal && <SmallScreenMenu customClassname="lg:hidden" isSmallScreenModal={true} setIsSmallScreenModal={setIsSmallScreenModal} />} 
