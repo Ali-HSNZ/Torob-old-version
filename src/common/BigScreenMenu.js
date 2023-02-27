@@ -5,9 +5,6 @@ const BigScreenMenu = ({customClassname}) => {
 
      const {categories} = useSelector(state => state.categories)
 
-
-
-
      const categoryHandler_btn = (button) => {
           const panel = button?.nextElementSibling;
           document.addEventListener('click', event => {
@@ -25,13 +22,13 @@ const BigScreenMenu = ({customClassname}) => {
 
 
      return (  
-        <section  className="w-full  overflow-hidden">
-            <nav id="nav" className="hidden lg:flex px-5 gap-x-6 font-sans text-sm w-full pt-4">
+        <section  className={`w-full overflow-hidden flex items-center`}>
+            <nav id="nav" className="hidden lg:flex px-5 gap-x-6 font-sans text-sm w-full">
                 {categories && categories.length > 0 && categories.map(category => {
                         return (
                             <section key={category.id}>
                                 <button onClick={(event)=>  categoryHandler_btn(event.target)}  className="category_btn hover:text-red-500  cursor-pointer text-sm font-sans text-gray-500 z-20" >{category.title}</button>
-                                <div className={`panel hidden z-40 absolute mx-10 right-0 left-0 rounded-md top-[130px]`}>
+                                <div className={`panel hidden ${customClassname ?? " z-40 absolute mx-10 right-0 left-0 rounded-md top-[130px]"} `}>
                                     <div className="bg-gray-50 pb-4 rounded-md">
                                             <nav className="px-5 py-4"> 
                                                 <Link href={{pathname : '/search' , query : {category:category.slug}}}>
