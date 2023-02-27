@@ -22,7 +22,7 @@ import ReactLoading from "react-loading";
 import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
 
-const AdminMessages = () => {
+const AdminNotifications = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
     const {data , loading , deleteLoading} = useSelector(state => state.admin_notifications)
     const router = useRouter()
@@ -68,7 +68,7 @@ const AdminMessages = () => {
     },[router])
 
     const onSubmit = ({order,store}) => {
-        router.push(`/admin/messages?page=1&order=${order || 'desc'}&store=${store || ""}`)
+        router.push(`/admin/notifications?page=1&order=${order || 'desc'}&store=${store || ""}`)
     }
 
 
@@ -181,7 +181,7 @@ const AdminMessages = () => {
                     )}
                     {data?.notifications?.length > 0 && <section dir="ltr" className=" w-full flex justify-center py-4">
                         <Pagination size="large" color="primary" page={page} count={data?.pagination?.last} onChange={(event , page)=> {
-                            router.push(`/admin/messages?page=${page}&store=${router.query.store || ""}&order=${router.query.order || 'desc'}`)
+                            router.push(`/admin/notifications?page=${page}&store=${router.query.store || ""}&order=${router.query.order || 'desc'}`)
                         }}/>
                     </section>}
                 </section>
@@ -189,7 +189,7 @@ const AdminMessages = () => {
         </Layout>
     );
 }
-export default AdminMessages;
+export default AdminNotifications;
 
 export const getServerSideProps = wrapper.getServerSideProps(({dispatch}) => async(ctx) => {
 
