@@ -55,7 +55,7 @@ const ManageProduct = () => {
      
      const dispatch = useDispatch()
      const page = Number(useRouter().query.page || 1);
-     const limit = 5
+     const limit = 12
 
      const returnState = type => allState.find(state => state.type === type);
 
