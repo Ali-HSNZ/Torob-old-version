@@ -26,7 +26,7 @@ const UserPageAside = ({isMobileScreen,setIsMobileScreen,mobileScreenClassName})
                     </section>
                )}
 
-               <nav className="py-3">
+               <nav className="py-2">
                     <Link href={"/user/favorites"}>
                          <a className={` flex items-center pr-8 py-3 ${ router.pathname === "/user/favorites" ? "bg-red-50 text-red-600 ": "text-gray-800 hover:bg-gray-50 "}`}>
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 " >
@@ -52,9 +52,9 @@ const UserPageAside = ({isMobileScreen,setIsMobileScreen,mobileScreenClassName})
                          </a>
                     </Link>
                </nav>
-               <hr />
+               <hr className="mt-2"/>
 
-               <nav className="flex py-3 flex-col">
+               <nav className="flex py-2 flex-col">
                     <Link href={"/signup/store"}>
                          <a className="text-gray-700 font-sans pr-8 text-sm py-3 hover:bg-gray-50">ثبت نام فروشگاه</a>
                     </Link>
@@ -63,9 +63,8 @@ const UserPageAside = ({isMobileScreen,setIsMobileScreen,mobileScreenClassName})
                <hr />
 
                {user && user.phone_number_primary && (
-                    <button onClick={() => dispatch(userLogout())} className=" mt-3 hover:bg-red-50 flex flex-col  pr-8 py-2">
-                         <p className="font-sans text-sm text-gray-700">خروج از حساب کاربری</p>
-                         <p className="font-sans mt-2 text-sm text-gray-700">{toPersianDigits(user && user.phone_number_primary)}</p>
+                    <button onClick={() => dispatch(userLogout())} className="text-gray-700 text-right font-sans pr-8 text-sm py-3 hover:bg-gray-50 mt-2">
+                         خروج از حساب کاربری      
                     </button>
                )}
           </aside>
