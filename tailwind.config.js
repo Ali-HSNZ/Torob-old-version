@@ -27,7 +27,14 @@ module.exports = {
     },
     extend: {
       fontFamily : {
-        'sans' : ['iranyekan']
+        'iranyekan-regular' : ['iranyekan-regular'],
+        'iranyekan-bold' : ['iranyekan-bold'],
+        'iranyekan-thin' : ['iranyekan-thin'],
+        'iranyekan-light' : ['iranyekan-light'],
+        'iranyekan-medium' : ['iranyekan-medium'],
+        'iranyekan-extraBold' : ['iranyekan-extraBold'],
+        'iranyekan-black' : ['iranyekan-black'],
+        'iranyekan-extraBlack' : ['iranyekan-extraBlack'],
       }
     },
   },
