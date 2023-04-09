@@ -95,7 +95,7 @@ const InsertStoreProduct = () => {
           if(type == "count"){
                if(ONLY_DIGIT_REGIX.test(price && price.replace(/,/g, '')) && ONLY_DIGIT_REGIX.test(count && count.replace(/,/g, ''))){
                     const total = price.replace(/,/g, '') * count.replace(/,/g, '');
-                    return <p className="font-iranyekan-regular text-gray-800 text-xs whitespace-nowrap pt-2 font-iranyekan-bold">قیمت {toPersianPrice(count)} کالا : {toPersianPrice(total)} تومان</p>
+                    return <p className=" text-gray-800 text-xs whitespace-nowrap pt-2 font-iranyekan-bold">قیمت {toPersianPrice(count)} کالا : {toPersianPrice(total)} تومان</p>
                }
           }
           return ``
