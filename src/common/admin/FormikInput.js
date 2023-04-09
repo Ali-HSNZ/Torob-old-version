@@ -4,7 +4,7 @@ const FormikInput = ({isComma , formik,name,maxLength,title,isRequired,parentCla
     return (  
         <div className={parentClassName || ""}>
             <section className="w-auto flex flex-col items-right">
-                <p className={`font-iranyekan-regular text-[13px] text-gray-800 ${isRequired ? "before:content-['*'] before:text-red-600" : ""}`}>{title} :</p>
+                <p className={`font-iranyekan-regular ${title ? "" : "hidden"} text-[13px] text-gray-800 ${isRequired ? "before:content-['*'] before:text-red-600" : ""}`}>{title} :</p>
                 <input 
                     type={type || "text"} 
                     name={name} 
