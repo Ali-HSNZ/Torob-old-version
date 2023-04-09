@@ -1,4 +1,4 @@
-import AdminPageAside from "@/components/adminPage/Aside";
+import AdminPageAside from "@/components/Panel_Menu/AdminPanelMenu";
 import Layout from "@/layout/Layout";
 import {admin_fetchCategoriesRequest, fetchCategories} from "@/redux/admin/admin_manageCategory/admin_manageCategoryActions";
 import { Modal, Pagination } from "@mui/material";
@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useState  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from 'react-loading';
-import InsertCategoryForm from "@/components/adminPage/manage-category/inputCommon";
+import InsertCategoryForm from "@/components/adminPage/manage-category/InsertCategoryForm";
 import Modal_deleteCategory from "@/components/adminPage/manage-category/Modal_deleteCategory";
 import Modal_updateCategory from "@/components/adminPage/manage-category/Modal_updateCategory";
 import Modal_insertMainCategory from "@/components/adminPage/manage-category/Modal_insertMainCategory";

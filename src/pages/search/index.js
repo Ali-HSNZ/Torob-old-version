@@ -5,7 +5,7 @@ import Brands from "@/components/searchPage/aside/desk/Brands";
 import Categories from "@/components/searchPage/aside/desk/Categories";
 import Price from "@/components/searchPage/aside/desk/Price";
 import Available from "@/components/searchPage/aside/desk/Available";
-import Product from "@/components/searchPage/Product";
+import Product from "@/components/searchPage/ProductList_infiniteScroll";
 import MainMenu from "@/components/searchPage/main/Menu";
 import BreadCrumpAndSort from "@/components/searchPage/main/BreadCrumpAndSort";
 import MainTags from "@/components/searchPage/main/Tags";

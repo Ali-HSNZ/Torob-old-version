@@ -16,7 +16,7 @@ import { allCities } from "src/static/cities";
 import ReactLoading from 'react-loading';
 import FormikInput from "@/common/FormikInput";
 import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PASSWORD_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
-import AdminPageAside from "@/components/adminPage/Aside";
+import AdminPageAside from "@/components/Panel_Menu/AdminPanelMenu";
 import { insertStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";

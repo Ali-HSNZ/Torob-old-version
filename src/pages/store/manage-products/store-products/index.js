@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import { Modal, Pagination } from "@mui/material";
 import { useState } from "react";
-import StorePageAside from "@/components/manageStore/storeAside";
+import StorePageAside from "@/components/Panel_Menu/StorePanelMenu";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";

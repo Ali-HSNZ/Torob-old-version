@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import { Modal } from "@mui/material";
 import { useState } from "react";
-import ManageStoreAside from "@/components/manageStore/storeAside";
+import ManageStoreAside from "@/components/Panel_Menu/StorePanelMenu";
 import Link from "next/link";
 import FormikInput from "@/common/FormikInput";
 import { useFormik } from "formik";

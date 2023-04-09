@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authPanel, userLogout } from "src/redux/user/userActions";
-import Login from "./Login";
+import Login from "../components/Login";
 import { requestError } from "src/services/http";
 
 const Header = () => {
@@ -34,7 +34,7 @@ const Header = () => {
      const [isSmallScreenModal , setIsSmallScreenModal] = useState(false)
 
      return (
-          <header className="flex relative  justify-between px-4 py-2 bg-gray-50 items-center z-10">
+          <header className="flex relative  justify-between p-4 bg-gray-50 items-center z-10">
                {!user &&  <Login />}
 
                {/* Big Screen Menu */}

@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import { Modal , Pagination} from "@mui/material";
 import { useEffect, useState } from "react";
-import ManageStoreAside from "@/components/manageStore/storeAside";
+import ManageStoreAside from "@/components/Panel_Menu/StorePanelMenu";
 import Link from "next/link";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";

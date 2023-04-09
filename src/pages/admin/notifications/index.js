@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import { Modal } from "@mui/material";
 import { useEffect, useState } from "react";
-import AdminAside from "@/components/adminPage/Aside";
+import AdminAside from "@/components/Panel_Menu/AdminPanelMenu";
 import Link from "next/link";
 import FormikInput from "@/common/FormikInput";
 import { useFormik } from "formik";
@@ -168,7 +168,7 @@ const AdminNotifications = () => {
                                         <input type="checkbox" onChange={() => selectNotificate(notificate.id)} checked={selectedId.includes(notificate.id)} id={`notificate_${notificate.id}`} value="option1" className="rounded-full peer  ml-4 appearance-none h-5 w-5 border border-gray-300  bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none ring-current focus:ring-0    mt-1 align-top  cursor-pointer"/>
                                         <label  htmlFor={`notificate_${notificate.id}`} className="peer-checked:border-red-500 peer-checked:bg-red-50 relative rounded-md cursor-pointer border-2 border-gray-200 select-none p-4 bg-[#fcfcfc] w-full">
                                             <div className="w-full flex justify-between">
-                                                <p className="font-iranyekan-regular text-sm text-gray-800 font-iranyekan-bold">{notificate.store}</p>
+                                                <p className="text-sm text-gray-800 font-iranyekan-bold">{notificate.store}</p>
                                                 <p className="font-iranyekan-regular text-xs text-gray-800">{timeStampToPersianDate(notificate.time)} | {timeStampToPersianTime(notificate.time)}</p>
                                             </div>
                                             <p className="font-iranyekan-regular text-xs leading-7 sm:text-sm  text-gray-700 mt-4">{notificate.message}</p>

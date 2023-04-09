@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import { Modal } from "@mui/material";
 import { useState } from "react";
-import AdminPageAside from "@/components/adminPage/Aside";
+import AdminPageAside from "@/components/Panel_Menu/AdminPanelMenu";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { BsFillCaretLeftFill } from 'react-icons/bs';
 import { BiCategory } from 'react-icons/bi';

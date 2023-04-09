@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import { Modal } from "@mui/material";
 import { useState } from "react";
-import ManageStoreAside from "@/components/manageStore/storeAside";
+import ManageStoreAside from "@/components/Panel_Menu/StorePanelMenu";
 import { BsFillCaretLeftFill } from 'react-icons/bs';
 import Link from "next/link";
 import { wrapper } from "@/redux/store";

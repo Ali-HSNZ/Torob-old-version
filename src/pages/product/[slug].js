@@ -1,5 +1,5 @@
 import Layout from '@/layout/Layout';
-import SuggestedProducts from '@/components/productPage/SuggestedProducts';
+import SuggestedProducts from '@/components/productPage/SuggestedProducts_infiniteScroll';
 import BreadCrump from '@/components/productPage/main/BreadCrump';
 import Product from '@/components/productPage/main/Product';
 import Store from '@/components/productPage/main/Store';

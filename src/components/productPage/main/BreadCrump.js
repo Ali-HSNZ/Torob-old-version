@@ -13,7 +13,7 @@ const BreadCrump = ({path}) => {
                         <a className='hover:text-red-500 before:hover:text-gray-500 cursor-pointer mt-4 before:content-["›"] before:px-2 first:before:content-none text-xs text-gray-500 font-iranyekan-regular'>{path.title}</a>
                     </Link>
                 )
-        })}
+            })}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import StorePageAside from "@/components/manageStore/storeAside";
+import StorePageAside from "@/components/Panel_Menu/StorePanelMenu";
 import Layout from "@/layout/Layout";
 import Link from "next/link";
 import { useState } from "react";

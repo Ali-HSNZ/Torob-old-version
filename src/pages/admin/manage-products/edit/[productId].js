@@ -1,4 +1,4 @@
-import AdminPageAside from "@/components/adminPage/Aside";
+import AdminPageAside from "@/components/Panel_Menu/AdminPanelMenu";
 import Layout from "@/layout/Layout";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";

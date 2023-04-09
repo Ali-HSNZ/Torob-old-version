@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import { Modal, Pagination } from "@mui/material";
 import { useState } from "react";
-import AdminPageAside from "@/components/adminPage/Aside";
+import AdminPageAside from "@/components/Panel_Menu/AdminPanelMenu";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";

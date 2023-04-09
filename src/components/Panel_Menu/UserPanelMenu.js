@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "src/redux/user/userActions";
 
-const UserPageAside = ({isMobileScreen,setIsMobileScreen,mobileScreenClassName}) => {
+const UserPanelMenu = ({isMobileScreen,setIsMobileScreen,mobileScreenClassName}) => {
      const { user } = useSelector((state) => state.auth);
 
      const router = useRouter();
@@ -70,4 +70,4 @@ const UserPageAside = ({isMobileScreen,setIsMobileScreen,mobileScreenClassName})
           </aside>
      );
 };
-export default UserPageAside;
+export default UserPanelMenu;

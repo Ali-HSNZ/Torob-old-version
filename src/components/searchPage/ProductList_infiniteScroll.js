@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import ProductCommon from "@/common/ProductCommon";
 import http from "src/services/http";
 
-const Product = ({ data }) => {
+const ProductList_infiniteScroll = ({ data }) => {
      const [products, setProducts] = useState(data);
      const [pageCount, setPageCount] = useState(2);
      const [isProducts, setIsProducts] = useState(false);

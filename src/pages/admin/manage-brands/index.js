@@ -1,4 +1,4 @@
-import AdminPageAside from "@/components/adminPage/Aside";
+import AdminPageAside from "@/components/Panel_Menu/AdminPanelMenu";
 import Modal_deleteBrand from "@/components/adminPage/manage-brand/Modal_deleteBrand";
 import Layout from "@/layout/Layout";
 import { admin_fetchBrandsRequest, fetchBrands } from "@/redux/admin/admin_manageBrand/admin_manageBrandActions";

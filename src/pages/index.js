@@ -1,5 +1,4 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
+import Header from '@/layout/HomePage_Header'
 import { cartDetails } from '@/redux/cart/cart/cartActions'
 import { fetchCategoriesFailure, fetchCategoriesRequest, fetchCategoriesSuccess } from '@/redux/categories/categoriesActions'
 import { wrapper } from '@/redux/store'
@@ -80,7 +79,7 @@ export default function Home(){
                          <img src={torob_logo.src} alt="لوگو ترب"/>
                     </div>
                     <div className='mr-4 flex flex-col gap-y-2'>
-                        <p className='text-[#d73948] text-[35px] sm:text-[40px] font-iranyekan-bold'>ترب</p>
+                        <p className='text-[#d73948] text-[35px] sm:text-[40px] font-iranyekan-extraBold'>ترب</p>
                         <p className='text-gray-500 text-sm font-iranyekan-regular'>مقایسه قیمت میلیون ها محصول بین هزاران فروشگاه</p>
                     </div>
                 </article>
@@ -112,10 +111,10 @@ export default function Home(){
                                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                                                                 </svg>
                                                                                 <div>
-                                                                                     <span className="font-iranyekan-regular text-sm mr-4 text-gray-800 font-iranyekan-bold">{item.query}</span>
+                                                                                     <span className="text-sm mr-4 text-gray-800 font-iranyekan-bold">{item.query}</span>
                                                                                      {item.category_slug && <div className="flex gap-x-1 mt-2 mr-4">
-                                                                                          <span className="font-iranyekan-regular text-sm  text-gray-800 ">در دسته</span>
-                                                                                          <span className="font-iranyekan-regular text-sm text-red-700 font-iranyekan-bold">{item.category_name}</span>
+                                                                                          <span className="text-sm  text-gray-800 ">در دسته</span>
+                                                                                          <span className="text-sm text-red-700 font-iranyekan-bold">{item.category_name}</span>
                                                                                      </div>}
                                                                                 </div>
                                                                            </div>
@@ -138,7 +137,7 @@ export default function Home(){
                                                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-4 text-gray-500">
                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                       </svg>
-                                                                      <h5 className="font-iranyekan-regular text-sm text-gray-700  font-iranyekan-bold ">آخرین جستجوهای شما</h5>
+                                                                      <h5 className="text-sm text-gray-700  font-iranyekan-bold ">آخرین جستجوهای شما</h5>
                                                                  </div>
                                                                  <button className="p-1" onClick={() => dispatch(deleteUserSearch())} >
                                                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-500">
@@ -176,7 +175,7 @@ export default function Home(){
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
                                                        </svg>
-                                                       <h5 className="font-iranyekan-regular text-sm text-gray-700  font-iranyekan-bold ">جستجوهای پرطرفدار</h5>
+                                                       <h5 className=" text-sm text-gray-700  font-iranyekan-bold ">جستجوهای پرطرفدار</h5>
                                                   </div>
                                                   {/* //? Slider For Popular Search */}
                                                   <div className="pr-4 mt-2">
@@ -203,7 +202,6 @@ export default function Home(){
                     </form>
                 </main>
             </section>
-            <Footer/>
         </>
     )
 }

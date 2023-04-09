@@ -4,10 +4,11 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import * as Yup from 'yup'
 
-const InsertCategoryForm = ({category , sub_sub , id , sub}) => {
+const InsertCategoryForm = ({id}) => {
     const {query} = useRouter()
     const {limit,page,name : paramsName,state} = query
     const dispatch = useDispatch()
+    
     const onSubmit = ({categoryName}) => {
         dispatch(insertCategories({order :query.order || "desc" ,id , name:categoryName,limit,page,paramsName,state}))
     }
@@ -18,6 +19,7 @@ const InsertCategoryForm = ({category , sub_sub , id , sub}) => {
             .max(50 , "عنوان دسته بندی نمی تواند بیشتر از ۵۰ نویسه باشد.")
             .trim(),
     })
+    
     const formik = useFormik({
         onSubmit,
         initialValues : {categoryName : ""},

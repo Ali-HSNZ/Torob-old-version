@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout";
 import { Modal } from "@mui/material";
 import { useState } from "react";
-import AdminAside from "@/components/adminPage/Aside";
+import AdminAside from "@/components/Panel_Menu/AdminPanelMenu";
 import Link from "next/link";
 import FormikInput from "@/common/FormikInput";
 import { useFormik } from "formik";

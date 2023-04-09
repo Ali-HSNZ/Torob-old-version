@@ -5,7 +5,7 @@ import { BiCategory } from 'react-icons/bi';
 import { TbBrandAsana } from 'react-icons/tb';
 import { useSelector } from "react-redux";
 
-const AdminPageAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenClassName }) => {
+const AdminPanelMenu = ({isMobileScreen , setIsMobileScreen  , mobileScreenClassName }) => {
 
     const router = useRouter()
     const {user} = useSelector(state => state.auth)
@@ -109,4 +109,4 @@ const AdminPageAside = ({isMobileScreen , setIsMobileScreen  , mobileScreenClass
      );
 }
  
-export default AdminPageAside;
+export default AdminPanelMenu;

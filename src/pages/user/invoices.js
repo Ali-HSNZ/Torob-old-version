@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
 import { user_changeInvoiceState, user_fetchFactors, user_fetchFactorsRequest } from "@/redux/user-factor/userFactor_actions";
-import UserPageAside from "@/components/userPage/Aside";
+import UserPageAside from "@/components/Panel_Menu/UserPanelMenu";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
 import * as Yup from 'yup'
 import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";

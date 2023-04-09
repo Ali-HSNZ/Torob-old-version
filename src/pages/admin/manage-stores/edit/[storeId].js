@@ -1,4 +1,4 @@
-import AdminPageAside from "@/components/adminPage/Aside";
+import AdminPageAside from "@/components/Panel_Menu/AdminPanelMenu";
 import Layout from "@/layout/Layout";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { Modal } from "@mui/material";
