@@ -114,7 +114,7 @@ const Header = () => {
                                         <div className="w-11 md:w-12">
                                              <img className="w-full h-auto" src={images.src} alt="لوگو ترب"/>
                                         </div>
-                                        <span className="text-[#d73948] font-iranyekan-bold text-[24px] font-iranyekan-regular mr-1">ترب</span>
+                                        <span className="text-[#d73948] font-iranyekan-bold text-[24px] mr-1">ترب</span>
                                    </a>
                               </Link>
                          </div>
@@ -145,10 +145,10 @@ const Header = () => {
                                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                                                                 </svg>
                                                                                 <div>
-                                                                                     <span className="font-iranyekan-regular text-sm mr-4 text-gray-800 font-iranyekan-bold">{item.query}</span>
+                                                                                     <span className=" text-sm mr-4 text-gray-800 font-iranyekan-bold">{item.query}</span>
                                                                                      {item.category_slug && <div className="flex gap-x-1 mt-2 mr-4">
                                                                                           <span className="font-iranyekan-regular text-sm  text-gray-800 ">در دسته</span>
-                                                                                          <span className="font-iranyekan-regular text-sm text-red-700 font-iranyekan-bold">{item.category_name}</span>
+                                                                                          <span className=" text-sm text-red-700 font-iranyekan-bold">{item.category_name}</span>
                                                                                      </div>}
                                                                                 </div>
                                                                            </div>
@@ -171,7 +171,7 @@ const Header = () => {
                                                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-4 text-gray-500">
                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                       </svg>
-                                                                      <h5 className="font-iranyekan-regular text-sm text-gray-700  font-iranyekan-bold ">آخرین جستجوهای شما</h5>
+                                                                      <h5 className=" text-sm text-gray-700  font-iranyekan-bold ">آخرین جستجوهای شما</h5>
                                                                  </div>
                                                                  <button className="p-1" onClick={() => dispatch(deleteUserSearch())} >
                                                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-500">
@@ -209,7 +209,7 @@ const Header = () => {
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
                                                        </svg>
-                                                       <h5 className="font-iranyekan-regular text-sm text-gray-700  font-iranyekan-bold ">جستجوهای پرطرفدار</h5>
+                                                       <h5 className=" text-sm text-gray-700  font-iranyekan-bold ">جستجوهای پرطرفدار</h5>
                                                   </div>
                                                   {/* //? Slider For Popular Search */}
                                                   <div className="pr-4 mt-2">
@@ -256,15 +256,15 @@ const Header = () => {
                                         {user?.account_type === 'normal' ? (
                                              <nav className={`w-full userPanel overflow-hidden bg-white border border-gray-300 border-t-0 rounded-b-md hidden absolute z-50 top-[34px] md:top-[42px] left-[0px]  whitespace-nowrap `}>
                                              <Link href={'/user/favorites'} >
-                                                  <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
+                                                  <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">محبوب‌ها</a>
                                              </Link>
                                              <Link href={'/user/history'} >
-                                                  <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
+                                                  <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">مشاهدات اخیر</a>
                                              </Link>
                                              <Link href={'/user/invoices'} >
-                                                  <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
+                                                  <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">سفارشات</a>
                                              </Link>
-                                             <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 font-iranyekan-bold text-red-600 w-full py-2 text-center font-iranyekan-regular ">
+                                             <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 font-iranyekan-bold text-red-600 w-full py-2 text-center ">
                                                   خروج
                                              </button>
                                              </nav>
@@ -272,34 +272,34 @@ const Header = () => {
                                              <div className={`bg-white rounded-b-md   border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute top-[34px] md:top-[42px] w-full left-[0px]  whitespace-nowrap `}>
                                              {user.is_pending ? (
                                                   <nav className="w-ful">
-                                                       <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[120px] max-w-[120px] cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">پنل مدیریت</button>
+                                                       <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs min-w-[120px] max-w-[120px] cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">پنل مدیریت</button>
                                                        <Link href={'/user/favorites'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">محبوب‌ها</a>
                                                        </Link>
                                                        <Link href={'/user/history'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">مشاهدات اخیر</a>
                                                        </Link>
                                                        <Link href={'/user/invoices'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">سفارشات</a>
                                                        </Link>
                                                   </nav>
                                              ) : (
                                                   <nav className="w-ful">
                                                        <Link href={`/${user.account_type}`} >
-                                                            <a className="text-xs cursor-pointer  hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">پنل مدیریت</a>
+                                                            <a className="text-xs cursor-pointer  hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">پنل مدیریت</a>
                                                        </Link>
                                                        <Link href={'/user/favorites'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">محبوب‌ها</a>
                                                        </Link>
                                                        <Link href={'/user/history'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">مشاهدات اخیر</a>
                                                        </Link>
                                                        <Link href={'/user/invoices'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">سفارشات</a>
                                                        </Link>
                                                   </nav>
                                              )}
-                                             <button onClick={()=> {dispatch(userLogout())}} className="text-xs cursor-pointer hover:bg-red-100  font-iranyekan-bold text-red-600 w-full py-2 text-center font-iranyekan-regular ">خروج</button>
+                                             <button onClick={()=> {dispatch(userLogout())}} className="text-xs cursor-pointer hover:bg-red-100  font-iranyekan-bold text-red-600 w-full py-2 text-center ">خروج</button>
                                              </div>
                                         )}
                                    </>

@@ -75,15 +75,15 @@ const Header = () => {
                                 {user?.account_type === 'normal' ? (
                                     <nav className={`bg-white rounded-b-md border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute w-full top-[30px] left-[0px]  whitespace-nowrap `} >
                                         <Link href={'/user/favorites'} >
-                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
+                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">محبوب‌ها</a>
                                         </Link>
                                         <Link href={'/user/history'} >
-                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
+                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">مشاهدات اخیر</a>
                                         </Link>
                                         <Link href={'/user/invoices'} >
-                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
+                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">سفارشات</a>
                                         </Link>
-                                        <button onClick={() => {dispatch(userLogout())}} className="text-xs cursor-pointer  hover:bg-red-100 px-6 font-iranyekan-bold text-red-700 w-full py-2 text-center font-iranyekan-regular ">
+                                        <button onClick={() => {dispatch(userLogout())}} className="text-xs cursor-pointer  hover:bg-red-100 px-6 font-iranyekan-bold text-red-700 w-full py-2 text-center ">
                                             خروج
                                         </button>
                                     </nav>
@@ -91,34 +91,34 @@ const Header = () => {
                                     <div className={`bg-white rounded-b-md   border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute  top-[30px] w-full left-[0px]  whitespace-nowrap `}>
                                         {user?.is_pending ? (
                                             <nav className="w-full">
-                                                <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت.'})} className="text-xs w-full cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">پنل مدیریت</button>
+                                                <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت.'})} className="text-xs w-full cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">پنل مدیریت</button>
                                                 <Link href={'/user/favorites'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">محبوب‌ها</a>
                                                 </Link>
                                                 <Link href={'/user/history'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">مشاهدات اخیر</a>
                                                 </Link>
                                                 <Link href={'/user/invoices'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">سفارشات</a>
                                                 </Link>
                                             </nav>
                                         ) : (
                                             <nav className="w-full">
                                                 <Link href={`/${user.account_type}`} >
-                                                    <a className="text-xs cursor-pointer  hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">پنل مدیریت</a>
+                                                    <a className="text-xs cursor-pointer  hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">پنل مدیریت</a>
                                                 </Link>
                                                 <Link href={'/user/favorites'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">محبوب‌ها</a>
                                                 </Link>
                                                 <Link href={'/user/history'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">مشاهدات اخیر</a>
                                                 </Link>
                                                 <Link href={'/user/invoices'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center block">سفارشات</a>
                                                 </Link>
                                             </nav>
                                         )}
-                                        <button onClick={()=> {dispatch(userLogout())}} className="w-full text-xs cursor-pointer hover:bg-red-100  font-iranyekan-bold text-red-600 py-2 text-center font-iranyekan-regular ">خروج</button>
+                                        <button onClick={()=> {dispatch(userLogout())}} className="w-full text-xs cursor-pointer hover:bg-red-100  font-iranyekan-bold text-red-600 py-2 text-center ">خروج</button>
                                     </div>
                                 )}
                             </>

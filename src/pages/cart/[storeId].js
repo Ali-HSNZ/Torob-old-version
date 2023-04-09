@@ -60,7 +60,7 @@ const CartStore = () => {
                                                   <section className="w-full mr-4">
                                                        <div className="flex justify-between">
                                                             <span className="font-iranyekan-regular text-sm text-gray-800">{item.product.title}</span>
-                                                            {item.price.discount_percent !== 0 && <span className="font-iranyekan-regular h-fit mr-2 text-xs text-red-100 bg-red-600 rounded-lg py-2 px-3 font-iranyekan-bold flex items-center">{toPersianDigits(item.price.discount_percent)}%</span>}
+                                                            {item.price.discount_percent !== 0 && <span className="h-fit mr-2 text-xs text-red-100 bg-red-600 rounded-lg py-2 px-3 font-iranyekan-bold flex items-center">{toPersianDigits(item.price.discount_percent)}%</span>}
                                                        </div>
                                                        <div className="flex justify-between items-center mt-4">
                                                             <div className="flex bg-white  border-2 border-red-500 rounded-md items-center overflow-hidden">
@@ -92,7 +92,7 @@ const CartStore = () => {
                                                             </div> 
                                                             <div>
                                                                  {item.price.is_discount && <p className="font-iranyekan-regular text-sm text-gray-500 line-through text-left">{toPersianPrice(item.price.original)}</p>}
-                                                                 <p className="font-iranyekan-regular text-sm font-iranyekan-bold">{toPersianPrice(item.price.final)} تومان</p>
+                                                                 <p className=" text-sm font-iranyekan-bold">{toPersianPrice(item.price.final)} تومان</p>
                                                             </div>
                                                        </div>
                                                   </section>
@@ -128,7 +128,7 @@ const CartStore = () => {
                                    <span className="font-iranyekan-regular text-sm text-gray-600">{toPersianPrice(data.cart.cost.final_price)} تومان</span>
                               </div>
 
-                              <button onClick={()=>dispatch(confirmFactor({store_id : data.store.id}))} disabled={!data.cart.cost.payment_state} className="disabled:cursor-not-allowed font-iranyekan-bold disabled:bg-red-500 bg-red-600 hover:bg-red-700 duration-150 py-3 w-full rounded-lg font-iranyekan-regular text-red-200 mt-6">
+                              <button onClick={()=>dispatch(confirmFactor({store_id : data.store.id}))} disabled={!data.cart.cost.payment_state} className="disabled:cursor-not-allowed font-iranyekan-bold disabled:bg-red-500 bg-red-600 hover:bg-red-700 duration-150 py-3 w-full rounded-lg text-red-200 mt-6">
                                    تایید و ثبت سفارش
                               </button>
 
