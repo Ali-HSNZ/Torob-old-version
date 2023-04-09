@@ -52,8 +52,8 @@ const Login = () => {
                          </svg>
                     </button>
                     <hr className="mt-10 border border-gray-200" />
-                    <div className="mt-[-12px] font-sans w-full flex justify-center">
-                         <span className="bg-white px-3 text-gray-700 text-sm font-bold"> ثبت نام</span>
+                    <div className="mt-[-12px] font-iranyekan-regular w-full flex justify-center">
+                         <span className="bg-white px-3 text-gray-700 text-sm font-iranyekan-bold"> ثبت نام</span>
                     </div>
                     <section className="mt-4 ">
                          <div>
@@ -65,8 +65,8 @@ const Login = () => {
                                         </svg>
                                    </div>
                                    <div className="ml-4">
-                                        <h2 className="font-semibold font-sans text-gray-700 mr-4">کاربر</h2>
-                                        <p className="mt-2 mr-4 text-xs font-sans text-gray-500">خرید کالا | تغیییرات قیمت و ...</p>
+                                        <h2 className="font-semibold font-iranyekan-regular text-gray-700 mr-4">کاربر</h2>
+                                        <p className="mt-2 mr-4 text-xs font-iranyekan-regular text-gray-500">خرید کالا | تغیییرات قیمت و ...</p>
                                    </div>
                               </label>
                          </div>
@@ -79,18 +79,18 @@ const Login = () => {
                                         </svg>
                                    </div>
                                    <div className="ml-4">
-                                        <h2 className="font-semibold font-sans mr-4 text-gray-700">فروشگاه</h2>
-                                        <p className="mt-2 mr-4 text-xs font-sans text-gray-500">ثبت کالا | مدیریت محصولات | مدیریت سفارشات</p>
+                                        <h2 className="font-semibold font-iranyekan-regular mr-4 text-gray-700">فروشگاه</h2>
+                                        <p className="mt-2 mr-4 text-xs font-iranyekan-regular text-gray-500">ثبت کالا | مدیریت محصولات | مدیریت سفارشات</p>
                                    </div>
                               </label>
                          </div>
                          <div className="w-full flex justify-center relative items-center mt-6 ">
-                              <button type={"submit"} onClick={()=> dispatch(authPanel({isOpen : false , type : 'normal'})) & router.push({pathname:formik.values.signupStatus === 'user' ? "/signup/user" : "/signup/store"})}  className="duration-150 text-center w-10/12 py-3 disabled:bg-gray-700 disabled:hover:bg-gray-800 disabled:cursor-not-allowed text-gray-50 rounded-md font-sans bg-red-600 hover:bg-red-700  shadow-md text-sm">
+                              <button type={"submit"} onClick={()=> dispatch(authPanel({isOpen : false , type : 'normal'})) & router.push({pathname:formik.values.signupStatus === 'user' ? "/signup/user" : "/signup/store"})}  className="duration-150 text-center w-10/12 py-3 disabled:bg-gray-700 disabled:hover:bg-gray-800 disabled:cursor-not-allowed text-gray-50 rounded-md font-iranyekan-regular bg-red-600 hover:bg-red-700  shadow-md text-sm">
                                    ثبت نام
                               </button>
                               {loading && <ReactLoading  className="absolute top-1 left-[-13px]" type="spinningBubbles" height={25} width={25} color="red" />}
                          </div>
-                         <button type={"button"} onClick={()=> dispatch(changePanelType('userPass'))} className="text-xs text-center  w-full font-sans mt-4 text-blue-700 hover:underline hover:underline-offset-4 outline-none">ورود به حساب کاربری</button>
+                         <button type={"button"} onClick={()=> dispatch(changePanelType('userPass'))} className="text-xs text-center  w-full font-iranyekan-regular mt-4 text-blue-700 hover:underline hover:underline-offset-4 outline-none">ورود به حساب کاربری</button>
                     </section>
                </form>
         ) : (
@@ -101,19 +101,19 @@ const Login = () => {
                     </svg>
                </a>
                <hr className="mt-10 border border-gray-200" />
-               <div className="mt-[-12px] font-sans w-full flex justify-center">
-                    <span className="bg-white px-3 text-gray-700 font-bold text-sm"> ورود به حساب کاربری</span>
+               <div className="mt-[-12px] font-iranyekan-regular w-full flex justify-center">
+                    <span className="bg-white px-3 text-gray-700 font-iranyekan-bold text-sm"> ورود به حساب کاربری</span>
                </div>
                <section className="mt-4">
                     <FormikInput isLtr={true} name={"national_code"} title={"نام کاربری"} formik={formik}  parentClassName="flex flex-col relative"/>
                     <FormikInput type={"password"} isLtr={true} name={"password"} title={"رمز عبور"} formik={formik}  parentClassName="flex flex-col relative mt-4"/>
                     <div className="w-full flex justify-center relative items-center mt-6 ">
-                         <button type={"submit"} disabled={loading || !formik.isValid} className="duration-150 w-10/12 py-3 disabled:bg-gray-700 disabled:hover:bg-gray-800 disabled:cursor-not-allowed text-gray-200 rounded-md font-sans bg-red-600 hover:bg-red-700 text-sm">
+                         <button type={"submit"} disabled={loading || !formik.isValid} className="duration-150 w-10/12 py-3 disabled:bg-gray-700 disabled:hover:bg-gray-800 disabled:cursor-not-allowed text-gray-200 rounded-md font-iranyekan-regular bg-red-600 hover:bg-red-700 text-sm">
                               ورود به حساب کاربری
                          </button>
                          {loading && <ReactLoading  className="absolute top-1 left-[-5px]" type="spinningBubbles" height={25} width={25} color="red" />}
                     </div>
-                    <button type={"button"} onClick={()=> dispatch(changePanelType('normal'))} className="outline-none text-xs text-center w-full font-sans mt-4 text-blue-700 hover:underline hover:underline-offset-4">ثبت نام به عنوان کاربر / فروشگاه</button>
+                    <button type={"button"} onClick={()=> dispatch(changePanelType('normal'))} className="outline-none text-xs text-center w-full font-iranyekan-regular mt-4 text-blue-700 hover:underline hover:underline-offset-4">ثبت نام به عنوان کاربر / فروشگاه</button>
                </section>
           </form>
         )}

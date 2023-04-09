@@ -16,7 +16,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
             <div className={`w-full h-full fixed bg-[#0000002d] inset-0  z-30  ${isMobileMenu.length > 0 ? "" : "hidden"}`} onClick={()=> setIsMobileMenu('')}></div>
             
             {brands && brands.length > 0 && (
-                <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("brands")}>
+                <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-iranyekan-regular" onClick={()=> setIsMobileMenu("brands")}>
                     برند
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-gray-700">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -25,7 +25,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
             )}
             {isMobileMenu === "brands" && <MobileBrands brands={brands} isMobileMenu={isMobileMenu} closeHandler={()=> setIsMobileMenu("")}/>}
 
-            <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("category")}>
+            <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-iranyekan-regular" onClick={()=> setIsMobileMenu("category")}>
                 دسته‌بندی
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-gray-700">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -33,7 +33,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
             </button>
             { isMobileMenu === "category" && <MobileCategories  isMobileMenu={isMobileMenu} categories={categories} similarCategories={similarCategories} closeHandler={()=> setIsMobileMenu("")}/>}
 
-            <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("price")}>
+            <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-iranyekan-regular" onClick={()=> setIsMobileMenu("price")}>
                 قیمت    
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-gray-700">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -41,7 +41,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
             </button>
             { isMobileMenu === "price" && <MobilePrice price={price} isMobileMenu={isMobileMenu} closeHandler={()=> setIsMobileMenu("")}/>}
 
-            <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("availableProducts")}>
+            <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-iranyekan-regular" onClick={()=> setIsMobileMenu("availableProducts")}>
                 وضعیت کالا    
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-gray-700">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -50,7 +50,7 @@ const [isMobileMenu , setIsMobileMenu] = useState("")
             { isMobileMenu === "availableProducts" && <MobileAvailable  isMobileMenu={isMobileMenu}closeHandler={()=> setIsMobileMenu("")}/>}
 
             <div className="max-w-fit py-2  cursor-pointer flex  md:hidden flex-col justify-end  items-end">
-                <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-sans" onClick={()=> setIsMobileMenu("mobileSort")}>
+                <button className="gap-x-1 flex justify-center text-sm items-center text-gray-700 font-iranyekan-regular" onClick={()=> setIsMobileMenu("mobileSort")}>
                     مرتب سازی     
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-gray-700">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />

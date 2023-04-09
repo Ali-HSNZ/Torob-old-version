@@ -119,7 +119,7 @@ const ManageStores = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت فروشگاه‌ها</h1>
+                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت فروشگاه‌ها</h1>
                               </div>
                               <nav className="flex gap-x-2 items-center">
                                    {/* Reload */}
@@ -159,21 +159,21 @@ const ManageStores = () => {
                                         <FormikInput name={"city"} title={"شهر"} formik={formik} placeholder={"بر اساس شهر"} parentClassName="flex flex-col relative"/>
 
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
+                                             <p className="font-iranyekan-regular text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                              <section className="flex justify-between mt-2 gap-x-2">
                                                   <div className="flex w-1/2">
                                                        <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                                       <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                                       <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
                                                   </div>
                                                   <div className="flex w-1/2">
                                                        <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                                       <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                                       <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
                                                   </div>
                                              </section>
                                         </div>
                                         
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800">وضعیت :</p>
+                                             <p className="font-iranyekan-regular text-sm text-gray-800">وضعیت :</p>
                                              <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                                         </div>
 
@@ -237,15 +237,15 @@ const ManageStores = () => {
                                                                       <img alt="تصویر فروشگاه" onClick={()=> {store.is_logo_image && setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}} className="w-full h-auto" src={store.logo_image}/>
                                                                  </div>
                                                                  <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                                      <p className="font-sans leading-6 text-sm  flex text-gray-800">
+                                                                      <p className="font-iranyekan-regular leading-6 text-sm  flex text-gray-800">
                                                                            <b className="whitespace-nowrap pl-1">نام فروشگاه : </b>
                                                                            {store.name || "-"} 
                                                                       </p>
-                                                                      <p className="font-sans leading-6 text-sm  flex text-gray-800 ">
+                                                                      <p className="font-iranyekan-regular leading-6 text-sm  flex text-gray-800 ">
                                                                            <b className="whitespace-nowrap pl-1">نام صاحب فروشگاه : </b> 
                                                                            {store.owner_full_name || "-"}
                                                                       </p>
-                                                                      <p className="font-sans leading-6 text-sm flex  pl-3 text-gray-800">
+                                                                      <p className="font-iranyekan-regular leading-6 text-sm flex  pl-3 text-gray-800">
                                                                            <b className="whitespace-nowrap pl-1">استان : </b>
                                                                            {store.province || "-"}
                                                                       </p>
@@ -253,9 +253,9 @@ const ManageStores = () => {
                                                                  <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                                       <div className=" flex items-center">
                                                                            {store.is_pending ? (
-                                                                                <p className="whitespace-nowrap font-sans text-sm max-w-min bg-yellow-50 text-yellow-600 rounded-lg px-3 py-1">در حال بررسی</p>
+                                                                                <p className="whitespace-nowrap font-iranyekan-regular text-sm max-w-min bg-yellow-50 text-yellow-600 rounded-lg px-3 py-1">در حال بررسی</p>
                                                                            ) : !store.is_show && (
-                                                                                <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">حذف شده</p>
+                                                                                <p className="whitespace-nowrap font-iranyekan-regular text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">حذف شده</p>
                                                                            )}
                                                                       </div>
                                                                       <div className="flex items-center ">
@@ -270,74 +270,74 @@ const ManageStores = () => {
                                                             {/* Description */}
                                                             <section className="bg-gray-50 rounded-md mt-4 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
                                                                  <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>نام فروشگاه : </b>{store.name || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>نام صاحب فروشگاه : </b>{store.owner_full_name || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>کد ملی صاحب فروشگاه : </b>{store.owner_national_code || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>شماره همراه صاحب فروشگاه : </b>{store.owner_phone_number || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>شماره همراه دوم صاحب فروشگاه : </b>{store.second_phone_number|| "-" }
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>استان : </b>{store.province || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>شهر : </b>{store.city || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>کد اقتصادی : </b>{store.economic_code || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>آدرس دفتر مرکزی : </b>{store.office_address || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>تلفن دفتر مرکزی : </b>{store.office_number || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>آدرس انبار مرکزی : </b>{store.warehouse_address || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>تلفن انبار مرکزی : </b>{store.warehouse_number || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>بانک : </b>{store.bank_name || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>شعبه بانک : </b>{store.bank_code || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>شماره کارت : </b>{store.bank_card_number || "-"}
                                                                       </p>
-                                                                      <p className="font-sans text-sm text-gray-800">
+                                                                      <p className="font-iranyekan-regular text-sm text-gray-800">
                                                                            <b>شماره شبا : </b>{store.bank_sheba_number || "-"}
                                                                       </p>
                                                                       {/* Logo */}
                                                                       <div className="flex">
-                                                                           <b className="font-sans text-sm text-gray-800">تصویر لوگو : </b>
+                                                                           <b className="font-iranyekan-regular text-sm text-gray-800">تصویر لوگو : </b>
                                                                            {store.is_logo_image ? (
-                                                                           <button onClick={()=> {setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                           ) : <p className="font-sans text-sm mr-1 text-gray-800">-</p>}
+                                                                           <button onClick={()=> {setIsLogoImage_Modal(true) ; setModal_imageSrc(store.logo_image)}} className="hover:text-red-600 font-iranyekan-regular text-sm text-blue-600 underline">نمایش تصویر</button>
+                                                                           ) : <p className="font-iranyekan-regular text-sm mr-1 text-gray-800">-</p>}
                                                                       </div>
                                                                       {/* StoreBanner */}
                                                                       <div className="flex">
-                                                                           <b className="font-sans text-sm text-gray-800">تصویر عکس سر در فروشگاه : </b>
+                                                                           <b className="font-iranyekan-regular text-sm text-gray-800">تصویر عکس سر در فروشگاه : </b>
                                                                            {store.is_store_banner_image ? (
-                                                                           <button onClick={()=>{setIsStoreBannerImage_Modal(true)  ; setModal_imageSrc(store.banner_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                           ) : <p className="font-sans text-sm mr-1 text-gray-800">-</p>}
+                                                                           <button onClick={()=>{setIsStoreBannerImage_Modal(true)  ; setModal_imageSrc(store.banner_image)}} className="hover:text-red-600 font-iranyekan-regular text-sm text-blue-600 underline">نمایش تصویر</button>
+                                                                           ) : <p className="font-iranyekan-regular text-sm mr-1 text-gray-800">-</p>}
                                                                       </div>
                                                                       {/* License */}
                                                                       <div className=" flex">
-                                                                           <b className="font-sans text-sm text-gray-800">تصویر مجوز : </b>
+                                                                           <b className="font-iranyekan-regular text-sm text-gray-800">تصویر مجوز : </b>
                                                                       {store.is_license_image ? (
-                                                                           <button onClick={()=>{setIsLicenseImage_Modal(true) ; setModal_imageSrc(store.license_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                                      ) : <p className="font-sans text-sm mr-1 text-gray-800"> - </p>}
+                                                                           <button onClick={()=>{setIsLicenseImage_Modal(true) ; setModal_imageSrc(store.license_image)}} className="hover:text-red-600 font-iranyekan-regular text-sm text-blue-600 underline">نمایش تصویر</button>
+                                                                      ) : <p className="font-iranyekan-regular text-sm mr-1 text-gray-800"> - </p>}
                                                                       </div>
                                                                  </div>
 

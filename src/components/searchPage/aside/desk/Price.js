@@ -49,21 +49,21 @@ const Price = ({price}) => {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-gray-800 rotate-0 mr-4 duration-100 w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
-                <span className="font-sans mr-2 text-gray-800">قیمت (تومان) </span>
+                <span className="font-iranyekan-regular mr-2 text-gray-800">قیمت (تومان) </span>
             </div>
             <div className={`${isPriceTaggle ? "" : "hidden"} flex gap-x-4 px-4 w-full`}>
                 <div className="flex w-full">
-                    <span className="relative right-5 top-[13px] text-xs font-sans  text-gray-800">از</span>
-                    <input dir="ltr" value={setComma(formik.values.price_from)} name="price_from"  onBlur={formik.handleBlur}   onChange={formik.handleChange} className="border text-gray-800 outline-none py-2 pl-2 text-sm w-full font-sans border-gray-400 rounded-md"/>
+                    <span className="relative right-5 top-[13px] text-xs font-iranyekan-regular  text-gray-800">از</span>
+                    <input dir="ltr" value={setComma(formik.values.price_from)} name="price_from"  onBlur={formik.handleBlur}   onChange={formik.handleChange} className="border text-gray-800 outline-none py-2 pl-2 text-sm w-full font-iranyekan-regular border-gray-400 rounded-md"/>
                 </div>
                 <div className="flex w-full">
-                    <span className="relative right-5 top-[13px] text-xs font-sans  text-gray-800">تا</span>
-                    <input dir="ltr" value={setComma(formik.values.price_to)} name="price_to" onBlur={formik.handleBlur}  onChange={formik.handleChange} className="border text-gray-800 font-sans outline-none py-2 pl-2 text-sm w-full border-gray-400 rounded-md"/>
+                    <span className="relative right-5 top-[13px] text-xs font-iranyekan-regular  text-gray-800">تا</span>
+                    <input dir="ltr" value={setComma(formik.values.price_to)} name="price_to" onBlur={formik.handleBlur}  onChange={formik.handleChange} className="border text-gray-800 font-iranyekan-regular outline-none py-2 pl-2 text-sm w-full border-gray-400 rounded-md"/>
                 </div>
             </div>
-            {!formik.isValid && <p className={'text-red-600 font-sans text-xs mt-4'}>قیمت باید عدد باشد</p>}
+            {!formik.isValid && <p className={'text-red-600 font-iranyekan-regular text-xs mt-4'}>قیمت باید عدد باشد</p>}
             <div className="w-full px-4">
-                <button type="submit" className={`w-full ${isPriceTaggle ? "" : "hidden"} ${formik.isValid ? "hover:bg-gray-100 bg-gray-50 text-gray-800 " : "hover:bg-gray-700 bg-gray-600 text-gray-50 cursor-not-allowed"}   text-center  text-sm rounded-md font-sans py-3 my-4 `}>اعمال فیلتر قیمت</button>
+                <button type="submit" className={`w-full ${isPriceTaggle ? "" : "hidden"} ${formik.isValid ? "hover:bg-gray-100 bg-gray-50 text-gray-800 " : "hover:bg-gray-700 bg-gray-600 text-gray-50 cursor-not-allowed"}   text-center  text-sm rounded-md font-iranyekan-regular py-3 my-4 `}>اعمال فیلتر قیمت</button>
             </div>
         </form>
     );

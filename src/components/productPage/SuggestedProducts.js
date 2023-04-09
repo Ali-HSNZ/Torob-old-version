@@ -35,7 +35,7 @@ const Product = ({ data }) => {
      };
      return (
           <div className='w-full '>
-               <p className='font-sans font-bold text-lg w-full text-center  text-gray-800'>محصولات مشابه</p>
+               <p className='font-iranyekan-regular font-iranyekan-bold text-lg w-full text-center  text-gray-800'>محصولات مشابه</p>
                <InfiniteScroll
                     dataLength={products.length}
                     next={getMorePost}
@@ -46,7 +46,7 @@ const Product = ({ data }) => {
                          </div>
                     }
                     endMessage={
-                         <h4 className="w-full text-center font-sans my-4 text-gray-800">محصولات بیشتری یافت نشد.</h4>
+                         <h4 className="w-full text-center font-iranyekan-regular my-4 text-gray-800">محصولات بیشتری یافت نشد.</h4>
                     }>
                     {products && products.length > 0 && <article className={Styles.productsParent}>
                          {products.map((product, index) => <ProductCommon key={index} product={product}/>)}

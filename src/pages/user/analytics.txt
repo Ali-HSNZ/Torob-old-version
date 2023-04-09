@@ -67,7 +67,7 @@
 //                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
 //                                         </svg>
 //                                    </button>
-//                                    <span className="font-sans text-gray-800 font-bold text-xl"> تغییرات قیمت</span>
+//                                    <span className="font-iranyekan-regular text-gray-800 font-iranyekan-bold text-xl"> تغییرات قیمت</span>
 //                               </div>
 //                          </div>
 //                          )}
@@ -75,7 +75,7 @@
 //                               <div className="w-full flex justify-center my-7 lg:mt-7">
 //                                    <div className="w-full sm:w-1/2 flex flex-col items-center">
 //                                         <img alt="تصویر چارت " className="w-full h-auto" src={empty_watched.src} />
-//                                         <p className=" text-center leading-5 font-sans relative text-gray-500 sm:left-0 sm:w-4/6 text-xs">اعلان قیمت را برای محصولات دلخواه خود فعال کنید تا از موجودی و تغییرات قیمت‌شان مطلع شوید.</p>
+//                                         <p className=" text-center leading-5 font-iranyekan-regular relative text-gray-500 sm:left-0 sm:w-4/6 text-xs">اعلان قیمت را برای محصولات دلخواه خود فعال کنید تا از موجودی و تغییرات قیمت‌شان مطلع شوید.</p>
 //                                    </div>
 //                               </div>
 //                          {/* )} */}

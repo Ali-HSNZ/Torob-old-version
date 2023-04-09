@@ -26,7 +26,7 @@ const ManageStore = () => {
                         <><ManageStoreAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
                     <section className="w-full ">
-                        <p className="mt-6 text-1xl font-sans">فروشگاه {auth?.user?.store_name ?? "نامشخص"}</p>
+                        <p className="mt-6 text-1xl font-iranyekan-regular">فروشگاه {auth?.user?.store_name ?? "نامشخص"}</p>
                         <nav className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 
                             <Link href={'/store/manage-products'}>
@@ -37,8 +37,8 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold text-gray-800"> مدیریت محصولات</h2>
-                                        <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
+                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مدیریت محصولات</h2>
+                                        <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
                                         <BsFillCaretLeftFill className="text-blue-400 "/>
@@ -54,8 +54,8 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold text-gray-800"> سفارشات</h2>
-                                        <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
+                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> سفارشات</h2>
+                                        <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
                                         <BsFillCaretLeftFill className="text-green-400 "/>
@@ -73,8 +73,8 @@ const ManageStore = () => {
 
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold text-gray-800"> تنظیمات</h2>
-                                        <span className="font-sans text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
+                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> تنظیمات</h2>
+                                        <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
                                         <BsFillCaretLeftFill className="text-pink-400 "/>
@@ -90,8 +90,8 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-sans font-bold text-gray-800"> تغییر رمز عبور</h2>
-                                        <span className="font-sans text-xs text-gray-500">ویرایش</span>
+                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> تغییر رمز عبور</h2>
+                                        <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
                                         <BsFillCaretLeftFill className="text-yellow-400 "/>

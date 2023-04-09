@@ -230,8 +230,8 @@ const EditProduct = () => {
                                         </svg>
                                    </button>
                                    <div className="w-full flex justify-end gap-x-3 absolute bottom-2 left-0 py-1 px-3  bg-[#fffffff0]">
-                                        <button onClick={() => imageSrc_modal.is_uploaded ? dispatch(deleteImage(imageSrc_modal.id)) & deleteImageViaId(imageSrc_modal.id): deleteImageViaId(imageSrc_modal.id)} className="text-xs font-sans rounded-md hover:underline underline-offset-4 text-red-600">حذف تصویر</button>
-                                        <button onClick={() => setOriginalImageViaId(imageSrc_modal.id)} className="text-xs font-sans rounded-md hover:underline underline-offset-4 text-blue-600">انتخاب به عنوان تصویر اصلی</button>
+                                        <button onClick={() => imageSrc_modal.is_uploaded ? dispatch(deleteImage(imageSrc_modal.id)) & deleteImageViaId(imageSrc_modal.id): deleteImageViaId(imageSrc_modal.id)} className="text-xs font-iranyekan-regular rounded-md hover:underline underline-offset-4 text-red-600">حذف تصویر</button>
+                                        <button onClick={() => setOriginalImageViaId(imageSrc_modal.id)} className="text-xs font-iranyekan-regular rounded-md hover:underline underline-offset-4 text-blue-600">انتخاب به عنوان تصویر اصلی</button>
                                    </div>
                               </section>
                          </Modal>
@@ -242,7 +242,7 @@ const EditProduct = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg text-gray-800">ویرایش کالا</h1>
+                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">ویرایش کالا</h1>
                               </div>
                               <nav className="flex gap-x-2">
                                    <Link href={'/admin/manage-products'}>
@@ -263,11 +263,11 @@ const EditProduct = () => {
                          </div> 
                          <form onSubmit={formik.handleSubmit}>
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-sans font-bold text-gray-800"> مشخصات کالا</p>
+                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مشخصات کالا</p>
                                    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                         <FormikInput maxLength={250} title={"عنوان کالا"} formik={formik} placeholder={"عنوان کالا"} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
                                         <div>
-                                             <p className="font-sans text-sm before:content-['*'] before:text-red-600 text-gray-800">برند :</p>
+                                             <p className="font-iranyekan-regular text-sm before:content-['*'] before:text-red-600 text-gray-800">برند :</p>
                                              <div className="w-full mt-2">
                                                   <SelectBox notFoundTitle="برند مورد نظر یافت نشد."  query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                              </div>
@@ -277,12 +277,12 @@ const EditProduct = () => {
                                    <div className="flex flex-col mt-4 gap-x-4">
                                         <input type="checkbox" className="peer hidden" id="category_section" />
                                         <section className="flex items-center">
-                                             <p className="font-sans text-gray-800 text-sm before:content-['*'] before:text-red-600 ">دسته‌بندی :</p>
-                                             <label onClick={()=> {setSelectedCategory_main("") & setIsEditCategory(!isEditCategory)}} htmlFor="category_section" className="peer-checked:hidden cursor-pointer font-sans text-xs hover:underline underline-offset-4 mr-2 text-blue-600"> (ویرایش)</label>
+                                             <p className="font-iranyekan-regular text-gray-800 text-sm before:content-['*'] before:text-red-600 ">دسته‌بندی :</p>
+                                             <label onClick={()=> {setSelectedCategory_main("") & setIsEditCategory(!isEditCategory)}} htmlFor="category_section" className="peer-checked:hidden cursor-pointer font-iranyekan-regular text-xs hover:underline underline-offset-4 mr-2 text-blue-600"> (ویرایش)</label>
                                              {subCategoryLoading && <ReactLoading className="mr-2" type="spinningBubbles" height={20} width={20} color="red" />}
                                         </section>
                                         <section className=" peer-checked:hidden mt-1">
-                                             {product && product.categories && product.categories.map((category,index) => <span key={index} className="font-sans text-sm text-gray-800">{index>0 && " / "}{category.name}</span>)}
+                                             {product && product.categories && product.categories.map((category,index) => <span key={index} className="font-iranyekan-regular text-sm text-gray-800">{index>0 && " / "}{category.name}</span>)}
                                         </section>
                                         <section className="hidden peer-checked:flex flex-wrap gap-3 mt-2">
                                              <SelectBox isTitle={true} notFoundTitle="دسته مورد نظر یافت نشد." placeholder={"دسته اصلی"} query={categoryQuery_main} setQuery={setCategoryQuery_main} filteredData={filteredCategories} selected={selectedCategory_main} setSelected={setSelectedCategory_main}/>
@@ -295,8 +295,8 @@ const EditProduct = () => {
                               {/* کلیدواژه */}
                               <section className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
                                    <div className=" mb-6">
-                                        <span className="font-sans font-bold text-gray-800">کلیدواژه</span>
-                                        <span className="font-sans text-gray-600 text-xs relative bottom-1 mr-1">(برای جستجو این کالا توسط کاربر)</span>
+                                        <span className="font-iranyekan-regular font-iranyekan-bold text-gray-800">کلیدواژه</span>
+                                        <span className="font-iranyekan-regular text-gray-600 text-xs relative bottom-1 mr-1">(برای جستجو این کالا توسط کاربر)</span>
                                    </div>
                                    <TagsInput 
                                         value={tags} 
@@ -305,7 +305,7 @@ const EditProduct = () => {
                                         placeHolder="کلیدواژه جدید..."
                                         separators={["." , '-' , ","]}     
                                    />
-                                   <div className="mt-2 font-sans text-xs leading-8">
+                                   <div className="mt-2 font-iranyekan-regular text-xs leading-8">
                                         <span className="text-gray-600">برای افزودن کلیدواژه جدید، کلید</span>
                                         <b className="text-gray-800 mx-2">نقطه ( . )</b>
                                         <span className="text-gray-600">یا</span>
@@ -314,24 +314,24 @@ const EditProduct = () => {
                                         <b className="text-gray-800 mx-2">و ( , )</b>
                                         <span className="text-gray-600">را فشار دهید.</span>
                                    </div>
-                                   <div className="mt-2 font-sans text-xs">
+                                   <div className="mt-2 font-iranyekan-regular text-xs">
                                         <span className="text-gray-600">برای حذف کلیدواژه، کلید</span>
                                         <b className="text-gray-800 mx-2">حذف (Backspace)</b>
                                         <span className="text-gray-600">را فشار دهید.</span>
                                    </div>
                               </section>
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-sans font-bold text-gray-800"> توضیحات</p>
-                                   <p className="font-sans text-sm mt-4 text-gray-800">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
-                                   <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} className={`${formik.errors.product_description && formik.touched.product_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-7`}/>
-                                   {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.product_description}</p>}
+                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> توضیحات</p>
+                                   <p className="font-iranyekan-regular text-sm mt-4 text-gray-800">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
+                                   <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} className={`${formik.errors.product_description && formik.touched.product_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-7`}/>
+                                   {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.product_description}</p>}
                               
                               </div>
 
 
 
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-sans font-bold"> تصاویر و فایل ها</p>
+                                   <p className="font-iranyekan-regular font-iranyekan-bold"> تصاویر و فایل ها</p>
                                    {/* select Image Section */}
                                    <section className="sm:mt-4 w-full flex flex-row ">
                                         <div className={`flex sm:flex-row flex-col flex-start w-full`}>
@@ -341,8 +341,8 @@ const EditProduct = () => {
                                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                                   </svg>
-                                                  <p className="font-sans text-sm whitespace-nowrap w-full  font-bold mr-2 sm:mt-2">انتخاب تصویر</p>
-                                                  <p className="font-sans text-sm  font-bold  sm:absolute top-2 left-2">{toPersianDigits(`${productImages.length}/20`)}</p>
+                                                  <p className="font-iranyekan-regular text-sm whitespace-nowrap w-full  font-iranyekan-bold mr-2 sm:mt-2">انتخاب تصویر</p>
+                                                  <p className="font-iranyekan-regular text-sm  font-iranyekan-bold  sm:absolute top-2 left-2">{toPersianDigits(`${productImages.length}/20`)}</p>
                                                   </label> 
                                              </div>
                                              <div className="class_grid_manage_products sm:mr-4">
@@ -355,7 +355,7 @@ const EditProduct = () => {
                                                                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                                                  </svg>
                                                             </button>
-                                                            {image.is_main && <p className="absolute bottom-0 font-sans text-xs text-gray-100 text-center p-1 bg-[#000000b7] w-full">تصویر اصلی</p>}
+                                                            {image.is_main && <p className="absolute bottom-0 font-iranyekan-regular text-xs text-gray-100 text-center p-1 bg-[#000000b7] w-full">تصویر اصلی</p>}
                                                        </div>
                                                   )
                                                   })}

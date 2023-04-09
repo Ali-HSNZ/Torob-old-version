@@ -130,7 +130,7 @@ const ManageBrands = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت برند</h1>
+                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت برند</h1>
                               </div>
                               <nav className="flex gap-x-2 items-center">
                                    <Link href={{pathname:"/admin/manage-brands"}}>
@@ -160,20 +160,20 @@ const ManageBrands = () => {
                                    <FormikInput formik={formik} name={'company'} placeholder="نام شرکت را وارد کنید" title={"نام شرکت"}  parentClassName={"flex flex-col relative"}/>
                                    
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
+                                        <p className="font-iranyekan-regular text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                         <section className="flex justify-between mt-2 gap-x-2">
                                              <div className="flex w-1/2">
                                                   <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                                  <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                                  <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
                                              </div>
                                              <div className="flex w-1/2">
                                                   <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                                  <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                                  <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
                                              </div>
                                         </section>
                                    </div>
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800">وضعیت :</p>
+                                        <p className="font-iranyekan-regular text-sm text-gray-800">وضعیت :</p>
                                         <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                                    </div>
                               </section>
@@ -205,7 +205,7 @@ const ManageBrands = () => {
                                                                            description :  `از تغییر وضعیت برند ${brand.name} مطمئن هستید؟.`,
                                                                            })
                                                                       }} 
-                                                                      className=" font-sans text-xs hover:underline underline-offset-4 text-orange-700 ">
+                                                                      className=" font-iranyekan-regular text-xs hover:underline underline-offset-4 text-orange-700 ">
                                                                       تغییر وضعیت
                                                                  </button>
                                                                  <button onClick={()=>  {
@@ -220,7 +220,7 @@ const ManageBrands = () => {
                                                                            is_brand_image : brand.is_brand_image
                                                                            })
                                                                       }} 
-                                                                      className=" font-sans text-xs hover:underline underline-offset-4 text-blue-700 ">
+                                                                      className=" font-iranyekan-regular text-xs hover:underline underline-offset-4 text-blue-700 ">
                                                                            ویرایش
                                                                  </button>
                                                             </div>
@@ -230,12 +230,12 @@ const ManageBrands = () => {
                                                                  <Image   placeholder="blur" layout={'responsive'} alt={`لوگو`} blurDataURL={brand.logo_url} loader={()=>brand.logo_url } unoptimized src={brand.logo_url} objectFit='cover' width={600} height={500} />
                                                             </div>
                                                             <div className="flex flex-col items-left gap-y-4 justify-between w-full pr-6 min-h-max">
-                                                                 <p className={`text-gray-700 w-full text-right font-sans text-sm ${!brand.is_show &&  "text-red-700"}`}>{brand.name}</p>
-                                                                 <p className={`text-gray-700 w-full text-right font-sans text-sm ${!brand.is_show &&  "text-red-700"}`}>{brand.english_name}</p>
+                                                                 <p className={`text-gray-700 w-full text-right font-iranyekan-regular text-sm ${!brand.is_show &&  "text-red-700"}`}>{brand.name}</p>
+                                                                 <p className={`text-gray-700 w-full text-right font-iranyekan-regular text-sm ${!brand.is_show &&  "text-red-700"}`}>{brand.english_name}</p>
                                                             </div>
                                                        </div>
                                                        <hr className="mt-4"/>
-                                                       <p className={`font-sans text-sm mt-4 w-full text-right px-4 text-gray-700 ${!brand.is_show &&  "text-red-700"}`}>{brand.company}</p>
+                                                       <p className={`font-iranyekan-regular text-sm mt-4 w-full text-right px-4 text-gray-700 ${!brand.is_show &&  "text-red-700"}`}>{brand.company}</p>
                                                   </div>
                                              )
                                         })}

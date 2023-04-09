@@ -55,18 +55,18 @@ const Header = () => {
                <section className="w-full sm:w-fit flex justify-end  ">
                     {/* Cart */}
                     <Link href={'/cart'}>
-                         <a className="relative flex items-center justify-center ml-4 bg-white px-4 py-2 border border-gray-300 rounded-md text-xs font-sans text-gray-700"> 
+                         <a className="relative flex items-center justify-center ml-4 bg-white px-4 py-2 border border-gray-300 rounded-md text-xs font-iranyekan-regular text-gray-700"> 
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ml-1">
                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                               </svg>
                               سبد خرید
-                              {cart_count > 0 && <span className="absolute top-[-6px] right-[-6px] bg-red-600 font-sans text-xs w-6 h-6 text-center flex items-center justify-center rounded-full text-white">{toPersianDigits(cart_count)}</span>}
+                              {cart_count > 0 && <span className="absolute top-[-6px] right-[-6px] bg-red-600 font-iranyekan-regular text-xs w-6 h-6 text-center flex items-center justify-center rounded-full text-white">{toPersianDigits(cart_count)}</span>}
 
                          </a>
                     </Link>
                     <section className="relative w-[123px]">
 
-                        {user?.phone_number_primary && <button onClick={() => handleUserPanel_btn()} className="w-full userPhoneNumber_btn bg-white  py-2 border border-gray-300 rounded-md text-xs font-sans text-gray-700 " >
+                        {user?.phone_number_primary && <button onClick={() => handleUserPanel_btn()} className="w-full userPhoneNumber_btn bg-white  py-2 border border-gray-300 rounded-md text-xs font-iranyekan-regular text-gray-700 " >
                             {toPersianDigits(user?.phone_number_primary)}
                         </button>}
 
@@ -75,15 +75,15 @@ const Header = () => {
                                 {user?.account_type === 'normal' ? (
                                     <nav className={`bg-white rounded-b-md border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute w-full top-[30px] left-[0px]  whitespace-nowrap `} >
                                         <Link href={'/user/favorites'} >
-                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
                                         </Link>
                                         <Link href={'/user/history'} >
-                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
                                         </Link>
                                         <Link href={'/user/invoices'} >
-                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
                                         </Link>
-                                        <button onClick={() => {dispatch(userLogout())}} className="text-xs cursor-pointer  hover:bg-red-100 px-6 font-bold text-red-700 w-full py-2 text-center font-sans ">
+                                        <button onClick={() => {dispatch(userLogout())}} className="text-xs cursor-pointer  hover:bg-red-100 px-6 font-iranyekan-bold text-red-700 w-full py-2 text-center font-iranyekan-regular ">
                                             خروج
                                         </button>
                                     </nav>
@@ -91,43 +91,43 @@ const Header = () => {
                                     <div className={`bg-white rounded-b-md   border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute  top-[30px] w-full left-[0px]  whitespace-nowrap `}>
                                         {user?.is_pending ? (
                                             <nav className="w-full">
-                                                <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت.'})} className="text-xs w-full cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</button>
+                                                <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت.'})} className="text-xs w-full cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">پنل مدیریت</button>
                                                 <Link href={'/user/favorites'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
                                                 </Link>
                                                 <Link href={'/user/history'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
                                                 </Link>
                                                 <Link href={'/user/invoices'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
                                                 </Link>
                                             </nav>
                                         ) : (
                                             <nav className="w-full">
                                                 <Link href={`/${user.account_type}`} >
-                                                    <a className="text-xs cursor-pointer  hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</a>
+                                                    <a className="text-xs cursor-pointer  hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">پنل مدیریت</a>
                                                 </Link>
                                                 <Link href={'/user/favorites'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
                                                 </Link>
                                                 <Link href={'/user/history'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
                                                 </Link>
                                                 <Link href={'/user/invoices'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
                                                 </Link>
                                             </nav>
                                         )}
-                                        <button onClick={()=> {dispatch(userLogout())}} className="w-full text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 py-2 text-center font-sans ">خروج</button>
+                                        <button onClick={()=> {dispatch(userLogout())}} className="w-full text-xs cursor-pointer hover:bg-red-100  font-iranyekan-bold text-red-600 py-2 text-center font-iranyekan-regular ">خروج</button>
                                     </div>
                                 )}
                             </>
                         ) : (
                             <>
                                 {loading ? (
-                                    <button className="cursor-default bg-white px-4 py-2 border border-gray-300 rounded-md text-xs w-full font-sans text-gray-700">...</button>
+                                    <button className="cursor-default bg-white px-4 py-2 border border-gray-300 rounded-md text-xs w-full font-iranyekan-regular text-gray-700">...</button>
                                 ) : ( 
-                                    <button onClick={() => dispatch(authPanel({isOpen : true,type : "normal"}))} className="bg-white px-4 py-2 w-full border border-gray-300 rounded-md text-xs font-sans text-gray-700">ورود / ثبت نام</button>
+                                    <button onClick={() => dispatch(authPanel({isOpen : true,type : "normal"}))} className="bg-white px-4 py-2 w-full border border-gray-300 rounded-md text-xs font-iranyekan-regular text-gray-700">ورود / ثبت نام</button>
                                 )}
                             </>
                         )}

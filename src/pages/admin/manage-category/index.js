@@ -108,7 +108,7 @@ const ManageCategory = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت دسته‌بندی</h1>
+                            <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت دسته‌بندی</h1>
                         </div>
                         <nav className="flex gap-x-2 items-center">
                             <Link href={{pathname:"/admin/manage-category"}}>
@@ -140,20 +140,20 @@ const ManageCategory = () => {
                             <FormikInput formik={formik} name={'name'} placeholder="عنوان دسته‌بندی را وارد کنید" title={"عنوان دسته‌بندی"} parentClassName={"flex flex-col relative"} />
                             
                             <div className="flex flex-col relative">
-                                <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
+                                <p className="font-iranyekan-regular text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                 <section className="flex justify-between mt-2 gap-x-2">
                                     <div className="flex w-1/2">
                                         <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                        <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                        <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
                                     </div>
                                     <div className="flex w-1/2">
                                         <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                        <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                        <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
                                     </div>
                                 </section>
                             </div>
                             <div className="flex flex-col relative ">
-                                <p className="font-sans text-sm text-gray-800">وضعیت :</p>
+                                <p className="font-iranyekan-regular text-sm text-gray-800">وضعیت :</p>
                                 <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                             </div>
                         </section>
@@ -178,15 +178,15 @@ const ManageCategory = () => {
                                             <section className="w-full ">
                                                 <input type="checkbox" className="hidden peer"  id={`mainInput_${category.id}`} />
                                                 <div className="w-full flex flex-row justify-between">
-                                                    <p className={`w-full font-sans font-bold ${!category.is_show ? "text-red-600" : "text-gray-800"}`} title={category.name}>{substringHandler({title : category.name , count : 20})}</p>
+                                                    <p className={`w-full font-iranyekan-regular font-iranyekan-bold ${!category.is_show ? "text-red-600" : "text-gray-800"}`} title={category.name}>{substringHandler({title : category.name , count : 20})}</p>
                                                     <div className="flex items-center gap-x-2">
                                                         {category.is_show ? (
-                                                            <label htmlFor={`mainInput_${category.id}`} className="cursor-pointer whitespace-nowrap font-sans text-xs text-blue-700 hover:underline underline-offset-4"> زیردسته</label>
+                                                            <label htmlFor={`mainInput_${category.id}`} className="cursor-pointer whitespace-nowrap font-iranyekan-regular text-xs text-blue-700 hover:underline underline-offset-4"> زیردسته</label>
                                                         ) : (
-                                                            <p className="cursor-not-allowed whitespace-nowrap font-sans text-xs text-blue-700 line-through"> زیردسته</p>
+                                                            <p className="cursor-not-allowed whitespace-nowrap font-iranyekan-regular text-xs text-blue-700 line-through"> زیردسته</p>
                                                         )}
-                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${category.name}`, category_id : category.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
-                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی  ${category.name}`,categoryName: category.name, category_id : category.id })}} className="  font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
+                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${category.name}`, category_id : category.id })}} className=" font-iranyekan-regular text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی  ${category.name}`,categoryName: category.name, category_id : category.id })}} className="  font-iranyekan-regular text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                     </div>
                                                 </div>
                                                 <section className="peer-checked:flex hidden items-center gap-x-1 mt-3">
@@ -201,18 +201,18 @@ const ManageCategory = () => {
                                                                 <input type={'checkbox'} className=" peer  hidden"  id={`subInput_${sub.id}`} />
                                                                 <section className={`flex justify-between peer-checked:rounded-t-md peer-checked:rounded-none rounded-md peer-checked:bg-gray-200 hover:bg-gray-50  px-2 py-2`}>
                                                                     {sub.is_show ? (
-                                                                        <p className="text-gray-800 before:content-['\2022'] before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub.name}>{sub.name.length > 20 ? sub.name.substring(0,20)+"..." : sub.name } </p>
+                                                                        <p className="text-gray-800 before:content-['\2022'] before:ml-2 before:align-middle  before:text-2xl w-full font-iranyekan-regular text-sm " title={sub.name}>{sub.name.length > 20 ? sub.name.substring(0,20)+"..." : sub.name } </p>
                                                                     ) : (
-                                                                        <p className="text-gray-800 before:content-['\2022'] before:text-red-600 before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub.name}>{sub.name.length > 20 ? sub.name.substring(0,20)+"..." : sub.name } </p>
+                                                                        <p className="text-gray-800 before:content-['\2022'] before:text-red-600 before:ml-2 before:align-middle  before:text-2xl w-full font-iranyekan-regular text-sm " title={sub.name}>{sub.name.length > 20 ? sub.name.substring(0,20)+"..." : sub.name } </p>
                                                                     )}
                                                                     <div className=" items-center gap-x-2 peer-checked:flex group-hover:flex hidden">
                                                                         {category.is_show  &&  sub.is_show ? (
-                                                                            <label htmlFor={`subInput_${sub.id}`} className="cursor-pointer whitespace-nowrap font-sans text-xs text-blue-700 hover:underline underline-offset-4"> زیردسته</label>
+                                                                            <label htmlFor={`subInput_${sub.id}`} className="cursor-pointer whitespace-nowrap font-iranyekan-regular text-xs text-blue-700 hover:underline underline-offset-4"> زیردسته</label>
                                                                         ) : (
-                                                                            <p className="cursor-not-allowed whitespace-nowrap font-sans text-xs text-blue-700 line-through"> زیردسته</p>
+                                                                            <p className="cursor-not-allowed whitespace-nowrap font-iranyekan-regular text-xs text-blue-700 line-through"> زیردسته</p>
                                                                         )}                                                                    
-                                                                        <button onClick={()=>  { setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:` تغییر وضعیت دسته‌بندی ${sub.name}`, category_id : sub.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
-                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub.name}`,categoryName: sub.name, category_id : sub.id })}} className=" font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
+                                                                        <button onClick={()=>  { setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:` تغییر وضعیت دسته‌بندی ${sub.name}`, category_id : sub.id })}} className=" font-iranyekan-regular text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub.name}`,categoryName: sub.name, category_id : sub.id })}} className=" font-iranyekan-regular text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                                     </div>
                                                                 </section>
                                                                 <section className="peer-checked:flex peer-checked:bg-gray-50 hidden items-center p-2 gap-x-1 rounded-b-md mb-2">
@@ -227,18 +227,18 @@ const ManageCategory = () => {
                                                                                 <input type={'checkbox'}  className=" peer hidden"  id={`sub_subInput_${sub_sub.id}`} />
                                                                                 <section className="flex group justify-between peer-checked:rounded-t-md peer-checked:rounded-none rounded-md peer-checked:bg-gray-200 hover:bg-gray-50  pl-2 pr-8 py-2 ">
                                                                                     {sub_sub.is_show ? (
-                                                                                        <p className="text-gray-800 before:content-['\2022'] before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub_sub.name}>{sub_sub.name.length > 15 ? sub_sub.name.substring(0,15)+"..." : sub_sub.name } </p>
+                                                                                        <p className="text-gray-800 before:content-['\2022'] before:ml-2 before:align-middle  before:text-2xl w-full font-iranyekan-regular text-sm " title={sub_sub.name}>{sub_sub.name.length > 15 ? sub_sub.name.substring(0,15)+"..." : sub_sub.name } </p>
                                                                                     ) : (
-                                                                                        <p className="text-gray-800 before:content-['\2022'] before:text-red-600 before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub_sub.name}>{sub_sub.name.length > 15 ? sub_sub.name.substring(0,15)+"..." : sub_sub.name } </p>
+                                                                                        <p className="text-gray-800 before:content-['\2022'] before:text-red-600 before:ml-2 before:align-middle  before:text-2xl w-full font-iranyekan-regular text-sm " title={sub_sub.name}>{sub_sub.name.length > 15 ? sub_sub.name.substring(0,15)+"..." : sub_sub.name } </p>
                                                                                     )}                                                                                
                                                                                     <div className="flex items-center gap-x-2">
                                                                                         {category.is_show  &&  sub.is_show && sub_sub.is_show ? (
-                                                                                            <label htmlFor={`sub_subInput_${sub_sub.id}`} className="group-hover:block hidden cursor-pointer whitespace-nowrap font-sans text-xs text-blue-700 hover:underline underline-offset-4"> زیردسته</label>
+                                                                                            <label htmlFor={`sub_subInput_${sub_sub.id}`} className="group-hover:block hidden cursor-pointer whitespace-nowrap font-iranyekan-regular text-xs text-blue-700 hover:underline underline-offset-4"> زیردسته</label>
                                                                                         ) : (
-                                                                                            <p className="cursor-not-allowed group-hover:block hidden whitespace-nowrap font-sans text-xs text-blue-700 line-through"> زیردسته</p>
+                                                                                            <p className="cursor-not-allowed group-hover:block hidden whitespace-nowrap font-iranyekan-regular text-xs text-blue-700 line-through"> زیردسته</p>
                                                                                         )}
-                                                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${sub_sub.name}`, category_id : sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
-                                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub_sub.name}`,categoryName: sub_sub.name, category_id : sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
+                                                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${sub_sub.name}`, category_id : sub_sub.id })}} className="group-hover:block hidden font-iranyekan-regular text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub_sub.name}`,categoryName: sub_sub.name, category_id : sub_sub.id })}} className="group-hover:block hidden font-iranyekan-regular text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                                                     </div>
                                                                                 </section>
                                                                                 <section className="peer-checked:flex rounded-b-md peer-checked:bg-gray-50 hidden items-center p-2 gap-x-1  mb-2">
@@ -250,12 +250,12 @@ const ManageCategory = () => {
                                                                                 return (
                                                                                     <section key={sub_sub_sub.id} className="flex group gap-x-2 hover:bg-gray-50 rounded-md pl-2 pr-14 py-2 ">
                                                                                         {sub_sub_sub.is_show ? (
-                                                                                            <p className="text-gray-800 before:content-['\2022'] before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub_sub_sub.name}>{sub_sub_sub.name.length > 15 ? sub_sub_sub.name.substring(0,15)+"..." : sub_sub_sub.name } </p>
+                                                                                            <p className="text-gray-800 before:content-['\2022'] before:ml-2 before:align-middle  before:text-2xl w-full font-iranyekan-regular text-sm " title={sub_sub_sub.name}>{sub_sub_sub.name.length > 15 ? sub_sub_sub.name.substring(0,15)+"..." : sub_sub_sub.name } </p>
                                                                                         ) : (
-                                                                                            <p className="text-gray-800 before:content-['\2022'] before:text-red-600 before:ml-2 before:align-middle  before:text-2xl w-full font-sans text-sm " title={sub_sub_sub.name}>{sub_sub_sub.name.length > 15 ? sub_sub_sub.name.substring(0,15)+"..." : sub_sub_sub.name } </p>
+                                                                                            <p className="text-gray-800 before:content-['\2022'] before:text-red-600 before:ml-2 before:align-middle  before:text-2xl w-full font-iranyekan-regular text-sm " title={sub_sub_sub.name}>{sub_sub_sub.name.length > 15 ? sub_sub_sub.name.substring(0,15)+"..." : sub_sub_sub.name } </p>
                                                                                         )}         
-                                                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${sub_sub_sub.name}`, category_id : sub_sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
-                                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub_sub_sub.name}`,categoryName: sub_sub_sub.name, category_id : sub_sub_sub.id })}} className="group-hover:block hidden font-sans text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
+                                                                                        <button onClick={()=>  {setIsModal_deleteCategory(true) & setModalDetail_deleteCategory({title:`تغییر وضعیت دسته‌بندی ${sub_sub_sub.name}`, category_id : sub_sub_sub.id })}} className="group-hover:block hidden font-iranyekan-regular text-xs hover:underline underline-offset-4 text-red-700">وضعیت</button>
+                                                                                        <button onClick={()=>  {setIsModal_updateCategory(true) & setModalDetail_updateCategory({title:`ویرایش دسته‌بندی ${sub_sub_sub.name}`,categoryName: sub_sub_sub.name, category_id : sub_sub_sub.id })}} className="group-hover:block hidden font-iranyekan-regular text-xs hover:underline underline-offset-4 text-green-700">ویرایش</button>
                                                                                     </section>
                                                                                 )
                                                                             })}

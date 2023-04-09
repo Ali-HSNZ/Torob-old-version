@@ -94,7 +94,7 @@ const InsertStoreProduct = () => {
           if(type == "count"){
                if(ONLY_DIGIT_REGIX.test(price_number) && ONLY_DIGIT_REGIX.test(count_number)){
                     const total = count_number * price_number;
-                    return <p className="text-gray-800 font-sans text-xs whitespace-nowrap pt-2 font-bold">قیمت {toPersianPrice(count_number)} کالا : {toPersianPrice(total)} تومان</p>
+                    return <p className="text-gray-800 font-iranyekan-regular text-xs whitespace-nowrap pt-2 font-iranyekan-bold">قیمت {toPersianPrice(count_number)} کالا : {toPersianPrice(total)} تومان</p>
                }
           }
           return ""
@@ -116,7 +116,7 @@ const InsertStoreProduct = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-sans font-bold text-lg text-gray-800">ویرایش کالا</h1>
+                            <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">ویرایش کالا</h1>
                         </div>
                         <nav className="flex gap-x-2">
                             {/* Back Page Link */}
@@ -158,10 +158,10 @@ const InsertStoreProduct = () => {
                                    return (
                                         <Form>
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-sans font-bold text-gray-800"> مشخصات کالا | تعداد</p>
+                                             <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مشخصات کالا | تعداد</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className="flex flex-col ">
-                                                       <p className="font-sans text-sm text-gray-800">تاریخ تولید :</p>
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">تاریخ تولید :</p>
                                                        <DatePicker
                                                             value={production_date}
                                                             onChange={setProduction_date}
@@ -169,12 +169,12 @@ const InsertStoreProduct = () => {
                                                             weekDays={weekDays}
                                                             locale={persian_fa}
                                                             rangeHover={"black"}
-                                                            className=" font-sans w-full"
-                                                            inputClass={"mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md"}
+                                                            className=" font-iranyekan-regular w-full"
+                                                            inputClass={"mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md"}
                                                        />
                                                   </div>
                                                   <div className="flex flex-col ">
-                                                       <p className={`font-sans text-sm text-gray-800`}>تاریخ انقضا :</p>
+                                                       <p className={`font-iranyekan-regular text-sm text-gray-800`}>تاریخ انقضا :</p>
                                                        <DatePicker
                                                                  value={expire_date}
                                                                  onChange={setExpire_date}
@@ -182,148 +182,148 @@ const InsertStoreProduct = () => {
                                                                  weekDays={weekDays}
                                                                  locale={persian_fa}
                                                                  rangeHover={"black"}
-                                                                 className=" font-sans w-full"
-                                                                 inputClass={"mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md"}
+                                                                 className=" font-iranyekan-regular w-full"
+                                                                 inputClass={"mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md"}
                                                        />
                                                   </div>
                                                   <div className={'flex flex-col'}>
                                                        <div className="w-auto flex flex-col items-right gap-x-1">
-                                                            <p className={`font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600`}>تعداد در واحد :</p>
+                                                            <p className={`font-iranyekan-regular text-sm text-gray-800 before:content-['*'] before:text-red-600`}>تعداد در واحد :</p>
                                                             <Field 
                                                                  type="text" 
                                                                  autoComplete={"off"}
                                                                  name={`per_unit`} 
                                                                  value={setComma(values.per_unit)}
-                                                                 className={`${errors.per_unit &&  touched.per_unit ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.per_unit &&  touched.per_unit ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
                                                                  />
                                                        </div>
-                                                       {errors.per_unit && touched.per_unit && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.per_unit}</p>}
+                                                       {errors.per_unit && touched.per_unit && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.per_unit}</p>}
                                                   </div>
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                            <p className={`font-sans text-sm text-gray-800 `}>موجودی انبار :</p>
+                                                            <p className={`font-iranyekan-regular text-sm text-gray-800 `}>موجودی انبار :</p>
                                                             <Field 
                                                                  type="text" 
                                                                  autoComplete={"off"}     
                                                                  name={`warehouse_count`} 
                                                                  value={setComma(values.warehouse_count)}
-                                                                 className={`${errors.warehouse_count &&  touched.warehouse_count ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.warehouse_count &&  touched.warehouse_count ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
                                                             />
                                                        </section>
-                                                       {errors.warehouse_count && touched.warehouse_count && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.warehouse_count}</p>}
+                                                       {errors.warehouse_count && touched.warehouse_count && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.warehouse_count}</p>}
                                                   </div>
                                              </section>
                                              </div>
 
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-sans font-bold text-gray-800"> قیمت</p>
+                                             <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> قیمت</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                            <p className={`font-sans text-sm text-gray-800`}>قیمت تولید :</p>
+                                                            <p className={`font-iranyekan-regular text-sm text-gray-800`}>قیمت تولید :</p>
                                                             <Field 
                                                                  type="text" 
                                                                  autoComplete={"off"}
                                                                  name={`production_price`}
                                                                  value={setComma(values.production_price)}
-                                                                 className={`${errors.production_price &&  touched.production_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.production_price &&  touched.production_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
                                                             />
                                                        </section>
-                                                       {errors.production_price && touched.production_price && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.production_price}</p>}
+                                                       {errors.production_price && touched.production_price && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.production_price}</p>}
                                                   </div>
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                            <p className={`font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600`}>قیمت مصرف کننده :</p>
+                                                            <p className={`font-iranyekan-regular text-sm text-gray-800 before:content-['*'] before:text-red-600`}>قیمت مصرف کننده :</p>
                                                             <Field 
                                                                  type="text" 
                                                                  autoComplete={"off"}
                                                                  name={`consumer_price`} 
                                                                  value={setComma(values.consumer_price)}
-                                                                 className={`${errors.consumer_price &&  touched.consumer_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.consumer_price &&  touched.consumer_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
                                                             />
                                                        </section>
-                                                       {errors.consumer_price && touched.consumer_price && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.consumer_price}</p>}
+                                                       {errors.consumer_price && touched.consumer_price && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.consumer_price}</p>}
                                                   </div>
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                            <p className={`font-sans text-sm text-gray-800 before:content-['*'] before:text-red-600`}>قیمت فروش :</p>
+                                                            <p className={`font-iranyekan-regular text-sm text-gray-800 before:content-['*'] before:text-red-600`}>قیمت فروش :</p>
                                                             <Field 
                                                                  type="text" 
                                                                  autoComplete={"off"}
                                                                  name={`store_price`} 
                                                                  value={setComma(values.store_price)}
-                                                                 className={`${errors.store_price &&  touched.store_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.store_price &&  touched.store_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
                                                             />
                                                        </section>
-                                                       {errors.store_price && touched.store_price && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.store_price}</p>}
+                                                       {errors.store_price && touched.store_price && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.store_price}</p>}
                                                   </div>
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                            <p className={`font-sans text-sm text-gray-800 `}>پورسانت بازاریابی محصول (درصد) :</p>
+                                                            <p className={`font-iranyekan-regular text-sm text-gray-800 `}>پورسانت بازاریابی محصول (درصد) :</p>
                                                             <Field 
                                                                  type="text" 
                                                                  autoComplete={"off"}
                                                                  name={`commission`} 
                                                                  value={values.commission}
-                                                                 className={`${errors.commission &&  touched.commission ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.commission &&  touched.commission ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
                                                             />
                                                        </section>
-                                                       {errors.commission && touched.commission && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.commission}</p>}
+                                                       {errors.commission && touched.commission && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.commission}</p>}
                                                   </div>
                                              </section>
                                              </div>
 
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-sans font-bold text-gray-800"> تخفیف</p>
+                                             <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> تخفیف</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
-                                                            <p className={`font-sans text-sm text-gray-800 `}>تخفیف نقدی (درصد) :</p>
+                                                            <p className={`font-iranyekan-regular text-sm text-gray-800 `}>تخفیف نقدی (درصد) :</p>
                                                             <Field 
                                                                  type="text" 
                                                                  autoComplete={"off"}
                                                                  name={`cash_payment_discount`} 
                                                                  value={values.cash_payment_discount}
-                                                                 className={`${errors.cash_payment_discount &&  touched.cash_payment_discount ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.cash_payment_discount &&  touched.cash_payment_discount ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
                                                             />
                                                        </section>
-                                                       {errors.cash_payment_discount && touched.cash_payment_discount && <p className={'text-red-600 font-sans text-xs pt-2'}>{errors.cash_payment_discount}</p>}
+                                                       {errors.cash_payment_discount && touched.cash_payment_discount && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.cash_payment_discount}</p>}
                                                   </div>
                                              </section>
                                              <FieldArray 
                                                   name="product_discounts"
                                                   render={arrayHelpers  => (
                                                        <div className="flex flex-col mt-4">
-                                                            <div className="font-sans text-gray-800 text-sm before:content-['*'] before:text-red-600">
+                                                            <div className="font-iranyekan-regular text-gray-800 text-sm before:content-['*'] before:text-red-600">
                                                                  تخفیف پله‌ایی :
-                                                                 <button onClick={() => arrayHelpers.push({ discount_value: '', final_price: '' , discount_type : 'count' })} type="button" className="mr-2 font-sans text-xs text-blue-700 underline underline-offset-4 hover:text-red-700">(تخفیف جدید)</button>
+                                                                 <button onClick={() => arrayHelpers.push({ discount_value: '', final_price: '' , discount_type : 'count' })} type="button" className="mr-2 font-iranyekan-regular text-xs text-blue-700 underline underline-offset-4 hover:text-red-700">(تخفیف جدید)</button>
                                                             </div>
                                                             {values.product_discounts && values.product_discounts.length > 0 && (values.product_discounts.map((discount , index) => {
                                                                  return (
                                                                       <section key={index} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  mt-4 gap-4 bg-[#FCFCFC] border border-gray-200 p-4 rounded-lg">
                                                                            <div className="flex items-start flex-col ">
-                                                                                <p className="font-sans text-sm whitespace-nowrap text-gray-800">نوع تخفیف : </p>
+                                                                                <p className="font-iranyekan-regular text-sm whitespace-nowrap text-gray-800">نوع تخفیف : </p>
                                                                                 <section className="w-full flex justify-between  gap-x-2 mt-2">
                                                                                      <div className="flex w-full">
                                                                                           <Field type="radio"  name={`product_discounts.${index}.discount_type`} id={`discountType_count_${index}`} value="count"  className="peer hidden"/>
-                                                                                          <label htmlFor={`discountType_count_${index}`} className=" text-gray-500 whitespace-nowrap bg-white peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 pl-4 pr-4">تعداد کالا</label>
+                                                                                          <label htmlFor={`discountType_count_${index}`} className=" text-gray-500 whitespace-nowrap bg-white peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 pl-4 pr-4">تعداد کالا</label>
                                                                                      </div>
                                                                                      <div className="flex w-full">
                                                                                           <Field type="radio" name={`product_discounts.${index}.discount_type`} id={`discountType_price_${index}`} value="price"  className="peer hidden"/>
-                                                                                          <label htmlFor={`discountType_price_${index}`} className=" text-gray-500  bg-white peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قیمت</label>
+                                                                                          <label htmlFor={`discountType_price_${index}`} className=" text-gray-500  bg-white peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قیمت</label>
                                                                                      </div>
                                                                                 </section>
                                                                            </div>
                               
                                                                            <div className="flex items-start flex-col">
-                                                                                <p className="font-sans text-sm whitespace-nowrap text-gray-800">مقدار تخفیف : </p>
+                                                                                <p className="font-iranyekan-regular text-sm whitespace-nowrap text-gray-800">مقدار تخفیف : </p>
                                                                                 <Field 
                                                                                      type="text" 
                                                                                      autoComplete={"off"}
                                                                                      value={setComma(values.product_discounts[index].discount_value)}
                                                                                      name={`product_discounts.${index}.discount_value`}
                                                                                      placeholder={ values.product_discounts[index].discount_type === "price" ? "قیمت (تومان)" : "تعداد"}
-                                                                                     className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
+                                                                                     className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md "
                                                                                 />
                                                                                 {calculateTotalPrice(
                                                                                      {
@@ -332,11 +332,11 @@ const InsertStoreProduct = () => {
                                                                                           count : values.product_discounts[index].discount_value || "",
                                                                                      }
                                                                                 )}
-                                                                                <ErrorMessage  name={`product_discounts.${index}.discount_value`}>{message => <p className={'text-red-600 font-sans text-xs pt-2'}>{message}</p>}</ErrorMessage>
+                                                                                <ErrorMessage  name={`product_discounts.${index}.discount_value`}>{message => <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{message}</p>}</ErrorMessage>
                                                                            </div>
                               
                                                                            <div className="flex flex-col items-start" >
-                                                                                <p className="font-sans text-sm whitespace-nowrap text-gray-800"> مبلغ بعد از تخفیف : </p>
+                                                                                <p className="font-iranyekan-regular text-sm whitespace-nowrap text-gray-800"> مبلغ بعد از تخفیف : </p>
                                                                                 <div className="flex flex-row w-full mt-2">
                                                                                      <Field 
                                                                                           type="text" 
@@ -344,7 +344,7 @@ const InsertStoreProduct = () => {
                                                                                           name={`product_discounts.${index}.final_price`}
                                                                                           value={setComma(values.product_discounts[index].final_price)}
                                                                                           placeholder={"قیمت (تومان)"}
-                                                                                          className="w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md "
+                                                                                          className="w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md "
                                                                                      />
                                                                                      <div className="flex items-center">
                                                                                           {/* Delete  Discount Button */}
@@ -355,7 +355,7 @@ const InsertStoreProduct = () => {
                                                                                           </button>
                                                                                      </div>
                                                                                 </div>
-                                                                                <ErrorMessage  name={`product_discounts.${index}.final_price`}>{message => <p className={'text-red-600 font-sans text-xs pt-2'}>{message}</p>}</ErrorMessage>
+                                                                                <ErrorMessage  name={`product_discounts.${index}.final_price`}>{message => <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{message}</p>}</ErrorMessage>
 
                                                                            </div>
                                                                       </section>
@@ -366,24 +366,24 @@ const InsertStoreProduct = () => {
                                              </FieldArray>
                                              </div>
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-sans font-bold text-gray-800">توضیحات</p>
+                                             <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800">توضیحات</p>
           
                                              <div className="flex flex-col mt-4">
-                                                  <p className="font-sans text-sm text-gray-800">توضیحات ارسال کالا :</p>
+                                                  <p className="font-iranyekan-regular text-sm text-gray-800">توضیحات ارسال کالا :</p>
                                                   <Field as='textarea'
                                                        name="delivery_description"
-                                                       className={`${errors.delivery_description &&  touched.delivery_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-8`}
+                                                       className={`${errors.delivery_description &&  touched.delivery_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
                                                   />
-                                                  {errors.delivery_description && touched.delivery_description && <p className="mt-2 font-sans text-xs text-red-700">{errors.delivery_description}</p>} 
+                                                  {errors.delivery_description && touched.delivery_description && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{errors.delivery_description}</p>} 
                                              </div>
                
                                              <div className="flex flex-col mt-4">
-                                                  <p className="font-sans text-sm text-gray-800">توضیحات فروشنده :</p>
+                                                  <p className="font-iranyekan-regular text-sm text-gray-800">توضیحات فروشنده :</p>
                                                   <Field as='textarea'
                                                        name="store_note"
-                                                       className={`${errors.store_note &&  touched.store_note ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-sans bg-white text-gray-800 rounded-md leading-8`}
+                                                       className={`${errors.store_note &&  touched.store_note ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
                                                   />
-                                                  {errors.store_note && touched.store_note && <p className="mt-2 font-sans text-xs text-red-700">{errors.store_note}</p>} 
+                                                  {errors.store_note && touched.store_note && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{errors.store_note}</p>} 
                                              </div>
                                              </div>
           

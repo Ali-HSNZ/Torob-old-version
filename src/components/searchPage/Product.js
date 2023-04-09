@@ -44,7 +44,7 @@ const Product = ({ data }) => {
                          <ReactLoading type="spinningBubbles" height={50} width={50} color="red" />
                     </div>
                } endMessage={
-                    <h4 className="w-full text-center text-sm font-sans mt-4 text-gray-700">محصولات بیشتری یافت نشد.</h4>
+                    <h4 className="w-full text-center text-sm font-iranyekan-regular mt-4 text-gray-700">محصولات بیشتری یافت نشد.</h4>
                }
           >
                <article className={Styles.productsParent}>

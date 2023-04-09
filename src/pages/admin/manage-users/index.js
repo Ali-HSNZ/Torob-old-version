@@ -112,7 +112,7 @@ const ManageStores = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت کاربران</h1>
+                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت کاربران</h1>
                               </div>
                               <nav className="flex gap-x-2 items-center">
                                    <Link href={{pathname:"/admin/manage-users"}}>
@@ -147,20 +147,20 @@ const ManageStores = () => {
                                         <FormikInput name={"number"} title={"شماره همراه یا ثابت"} formik={formik} placeholder={"بر اساس شماره همراه یا ثابت"} parentClassName="flex flex-col relative"/>
 
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
+                                             <p className="font-iranyekan-regular text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                              <section className="flex justify-between mt-2 gap-x-2">
                                                   <div className="flex w-1/2">
                                                   <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                                  <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                                  <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
                                                   </div>
                                                   <div className="flex w-1/2">
                                                   <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                                  <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                                  <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
                                                   </div>
                                              </section>
                                         </div>
                                         <div>
-                                             <p className="font-sans text-sm mb-2 text-gray-800">وضعیت :</p>
+                                             <p className="font-iranyekan-regular text-sm mb-2 text-gray-800">وضعیت :</p>
                                              <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                                         </div>
                                    </section>
@@ -200,22 +200,22 @@ const ManageStores = () => {
                                                        <img alt="تصویر پروفایل کاربر" onClick={()=> {user.is_profile_image && setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="w-full h-auto" src={user.profile_image}/>
                                                   </div>
                                                   <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                       <p className="font-sans leading-6 text-sm flex text-gray-800">
+                                                       <p className="font-iranyekan-regular leading-6 text-sm flex text-gray-800">
                                                             <b className="whitespace-nowrap pl-1">نام و نام خانوادگی : </b>
                                                             {user?.full_name||"-"} 
                                                        </p>
-                                                       <p className="font-sans leading-6 text-sm flex text-gray-800">
+                                                       <p className="font-iranyekan-regular leading-6 text-sm flex text-gray-800">
                                                             <b className="whitespace-nowrap pl-1">کد ملی : </b> 
                                                             {user?.national_code|| "-"}
                                                        </p>
-                                                       <div className="font-sans leading-6 text-sm flex pl-1 text-gray-800">
+                                                       <div className="font-iranyekan-regular leading-6 text-sm flex pl-1 text-gray-800">
                                                             <b className="whitespace-nowrap pl-1">کد پستی : </b>
                                                             {user?.address.post_code || "-"}
                                                        </div>
                                                   </div>
                                                   <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                        <div className=" flex items-center">
-                                                            {!user.is_active && <p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>}
+                                                            {!user.is_active && <p className="whitespace-nowrap font-iranyekan-regular text-sm bg-red-50 text-red-600 rounded-lg px-3 py-1">رد شده</p>}
                                                        </div>
                                                        <div className="flex items-center ">
                                                             <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${user.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
@@ -229,48 +229,48 @@ const ManageStores = () => {
                                              {/* Description */}
                                              <section className="mt-4 rounded-md bg-gray-50 w-full peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
                                                   <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                                       <p className="font-sans text-sm text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">
                                                             <b>نام و نام خانوادگی : </b>
                                                             {user?.full_name || "-"}
                                                        </p>
-                                                       <p className="font-sans text-sm text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">
                                                             <b>کد ملی : </b>
                                                             {user?.national_code || "-"}
                                                        </p>
-                                                       <p className="font-sans text-sm text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">
                                                             <b>شماره موبایل : </b>
                                                             {user?.phone_number_primary || "-"}
                                                        </p>
-                                                       <p className="font-sans text-sm text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">
                                                             <b>شماره همراه دوم : </b>
                                                             {user?.phone_number_secondary || "-"}
                                                        </p>
-                                                       <p className="font-sans text-sm text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">
                                                             <b>تلفن ثابت : </b>
                                                             {user?.house_number || "-"  }
                                                        </p>
-                                                       <p className="font-sans text-sm text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">
                                                             <b>استان : </b>
                                                             {user?.address?.province  || "-"}
                                                        </p>
-                                                       <p className="font-sans text-sm text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">
                                                             <b>شهر : </b>
                                                             {user?.address?.city  ||  "-"}
                                                        </p>
-                                                       <p className="font-sans text-sm text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm text-gray-800">
                                                             <b>کد پستی : </b>
                                                             {user?.address?.post_code || "-"}
                                                        </p>
                                                        {/* User Profile Image */}
                                                        <div className="flex">
-                                                            <b className="font-sans text-sm text-gray-800">عکس کاربر : </b>
+                                                            <b className="font-iranyekan-regular text-sm text-gray-800">عکس کاربر : </b>
                                                             {user.is_profile_image ? (
-                                                                 <button onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>
-                                                            ) : <p className="font-sans text-sm mr-1 text-gray-800">-</p>}
+                                                                 <button onClick={()=> {setImage_Modal(true) ; setModal_imageSrc(user.profile_image)}} className="hover:text-red-600 font-iranyekan-regular text-sm text-blue-600 underline">نمایش تصویر</button>
+                                                            ) : <p className="font-iranyekan-regular text-sm mr-1 text-gray-800">-</p>}
                                                        </div>
                                                   </div>
 
-                                                  <p className="font-sans text-sm mt-2 text-gray-800"><b>آدرس : </b>{user?.address?.detail || "-"}</p>
+                                                  <p className="font-iranyekan-regular text-sm mt-2 text-gray-800"><b>آدرس : </b>{user?.address?.detail || "-"}</p>
                                                   <div className="flex justify-end w-full mt-4 mb-4">
                                                        <Link href={`/admin/manage-users/edit/${user.id}`} >
                                                             <a className={linkClassName({bgColor : "blue" , isOutline : true})}>ویرایش</a>

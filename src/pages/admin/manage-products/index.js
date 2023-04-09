@@ -115,7 +115,7 @@ const ManageProduct = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت کالاها</h1>
+                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت کالاها</h1>
                               </div>
                               <nav className="flex gap-x-2 items-center">
                                    <Link href={{pathname:"/admin/manage-products"}}>
@@ -146,14 +146,14 @@ const ManageProduct = () => {
                                    <FormikInput formik={formik} placeholder={"بر اساس نام محصول"} title={"نام کالا"} name={"product_title"} parentClassName={"flex flex-col relative"}/>
 
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800"> برند :</p>
+                                        <p className="font-iranyekan-regular text-sm text-gray-800"> برند :</p>
                                         <div className="w-full mt-2">
                                              <SelectBox notFoundTitle="برند مورد نظر یافت نشد."  query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                         </div>
                                    </div>
 
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
+                                        <p className="font-iranyekan-regular text-sm text-gray-800"> دسته‌بندی :</p>
                                         <div className="w-full mt-2">
                                              <SelectBox notFoundTitle="دسته مورد نظر یافت نشد."  query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
                                         </div>
@@ -162,21 +162,21 @@ const ManageProduct = () => {
                                    <FormikInput formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
 
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
+                                        <p className="font-iranyekan-regular text-sm">ترتیب نمایش (تاریخ ثبت) :</p>
                                         <section className="flex justify-between mt-2 gap-x-2">
                                              <div className="flex w-1/2">
                                                   <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                                  <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                                  <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
                                              </div>
                                              <div className="flex w-1/2">
                                                   <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                                  <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                                  <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
                                              </div>
                                         </section>
                                    </div>
                                    
                                    <div className="flex flex-col relative">
-                                        <p className="font-sans text-sm">وضعیت :</p>
+                                        <p className="font-iranyekan-regular text-sm">وضعیت :</p>
                                         <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>
                                    </div>
 
@@ -216,22 +216,22 @@ const ManageProduct = () => {
                                                                  <img alt="تصویر کالا" onClick={()=> {product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="w-full h-auto" src={product.image_url}/>
                                                             </div>
                                                             <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                                 <p className="font-sans leading-6 text-sm text-gray-800">
+                                                                 <p className="font-iranyekan-regular leading-6 text-sm text-gray-800">
                                                                       <b className="whitespace-nowrap">عنوان کالا : </b>
                                                                       {substringHandler({title : product.title , count : 35})} 
                                                                  </p>
-                                                                 <p className="font-sans leading-6 text-sm text-gray-800 ">
+                                                                 <p className="font-iranyekan-regular leading-6 text-sm text-gray-800 ">
                                                                       <b className="whitespace-nowrap">برند : </b> 
                                                                       {substringHandler({title : product.brand.name , count : 35})}
                                                                  </p>
-                                                                 <div className="font-sans leading-6 flex text-sm w-full">
+                                                                 <div className="font-iranyekan-regular leading-6 flex text-sm w-full">
                                                                       <b className="whitespace-nowrap pl-1 text-gray-800">دسته‌بندی : </b>
-                                                                      <div>{product.categories.map((category,index) => <span key={index} className=" font-sans text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                      <div>{product.categories.map((category,index) => <span key={index} className=" font-iranyekan-regular text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
                                                                  </div>
                                                             </div>
                                                             <div className="flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4">
                                                                  <div className=" flex items-center">
-                                                                      {!product.is_show &&<p className="whitespace-nowrap font-sans text-sm bg-red-50 text-red-600 rounded-md px-3 py-1">حذف شده</p>}
+                                                                      {!product.is_show &&<p className="whitespace-nowrap font-iranyekan-regular text-sm bg-red-50 text-red-600 rounded-md px-3 py-1">حذف شده</p>}
                                                                  </div>
                                                                  <div className="flex items-center ">
                                                                       <label onClick={button => rotateChevron(button.currentTarget)} htmlFor={`detail_${product.id}`} className="p-2 flex  items-center justify-center w-fit h-fit   hover:bg-gray-50 rounded-full cursor-pointer">
@@ -244,43 +244,43 @@ const ManageProduct = () => {
                                                        </section>
                                                        {/* Description */}
                                                        <section className="w-full bg-gray-50 rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4 pb-0">
-                                                                 <p className="font-sans text-sm flex text-gray-800">
+                                                                 <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                       <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 ">عنوان : </b>
                                                                       {product.title || "-"}
                                                                  </p>
                                                             <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                                                 <div className="font-sans text-sm   flex ">
+                                                                 <div className="font-iranyekan-regular text-sm   flex ">
                                                                       <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 text-gray-800">دسته‌بندی : </b>
-                                                                      <div>{product.categories.map((category,index) => <span key={index} className="font-sans text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                      <div>{product.categories.map((category,index) => <span key={index} className="font-iranyekan-regular text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
                                                                  </div>
-                                                                 <p className="font-sans text-sm flex text-gray-800">
+                                                                 <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                       <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 ">برند : </b>
                                                                       {product.brand.name || "-" }
                                                                  </p>
-                                                                 <p className="font-sans text-sm flex text-gray-800">
+                                                                 <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                       <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>
                                                                       {product.barcode || "-"}
                                                                  </p>
                                                                  {/* Logo */}
                                                                  <div className="flex">
-                                                                      <b className="font-sans text-sm pl-1 text-gray-800">تصویر اصلی کالا : </b>
+                                                                      <b className="font-iranyekan-regular text-sm pl-1 text-gray-800">تصویر اصلی کالا : </b>
                                                                       {product.is_image_url ? (
-                                                                           <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-sans text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
-                                                                      ) : <p className="font-sans text-sm mr-1 text-gray-800">-</p>}
+                                                                           <button onClick={()=> {setIsImage_Modal(true) ; setModal_imageSrc(product.image_url)}} className="hover:text-red-600 font-iranyekan-regular text-sm text-blue-600 underline">نمایش تصویر</button>                                                                    
+                                                                      ) : <p className="font-iranyekan-regular text-sm mr-1 text-gray-800">-</p>}
                                                                  </div>
                                                             </div>
-                                                            <p className="font-sans w-full mt-2 text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular w-full mt-2 text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0  pl-2">توضیحات : </b>
                                                                  {product.description || "-"}
                                                             </p>
-                                                            <div className="font-sans w-full mt-2 text-sm flex items-start">
+                                                            <div className="font-iranyekan-regular w-full mt-2 text-sm flex items-start">
                                                                  <b className="whitespace-nowrap sm:m-0 pl-1 text-gray-800">کلیدواژه : </b>
-                                                                 {product?.tags?.length === 0 && <p className="font-sans text-sm text-gray-800 mr-1">-</p>}
+                                                                 {product?.tags?.length === 0 && <p className="font-iranyekan-regular text-sm text-gray-800 mr-1">-</p>}
                                                                  <div className="mr-1 w-full flex flex-wrap gap-x-2 leading-5">
                                                                       {product.tags.map((item,index) => (
                                                                            <>
-                                                                                {index > 0 && <span className="font-sans text-sm text-gray-800">|</span>}
-                                                                                <span className="font-sans text-sm text-gray-800">{item}</span>
+                                                                                {index > 0 && <span className="font-iranyekan-regular text-sm text-gray-800">|</span>}
+                                                                                <span className="font-iranyekan-regular text-sm text-gray-800">{item}</span>
                                                                            </>
                                                                       ))}
                                                                  </div>

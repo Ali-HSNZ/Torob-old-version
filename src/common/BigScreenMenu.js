@@ -23,16 +23,16 @@ const BigScreenMenu = ({customClassname}) => {
 
      return (  
         <section  className={`w-full overflow-hidden flex items-center`}>
-            <nav id="nav" className="hidden lg:flex px-5 gap-x-6 font-sans text-sm w-full">
+            <nav id="nav" className="hidden lg:flex px-5 gap-x-6 font-iranyekan-regular text-sm w-full">
                 {categories && categories.length > 0 && categories.map(category => {
                         return (
                             <section key={category.id}>
-                                <button onClick={(event)=>  categoryHandler_btn(event.target)}  className="category_btn hover:text-red-500  cursor-pointer text-sm font-sans text-gray-500 z-20" >{category.title}</button>
+                                <button onClick={(event)=>  categoryHandler_btn(event.target)}  className="category_btn hover:text-red-500  cursor-pointer text-sm font-iranyekan-regular text-gray-500 z-20" >{category.title}</button>
                                 <div className={`panel hidden ${customClassname ?? " z-40 absolute mx-10 right-0 left-0 rounded-md top-[130px]"} `}>
                                     <div className="bg-gray-50 pb-4 rounded-md">
                                             <nav className="px-5 py-4"> 
                                                 <Link href={{pathname : '/search' , query : {category:category.slug}}}>
-                                                    <a onClick={()=> categoryHandler_btn(null)} className="hover:text-red-500  text-sm font-bold font-sans text-gray-700">{category.title}</a>
+                                                    <a onClick={()=> categoryHandler_btn(null)} className="hover:text-red-500  text-sm font-iranyekan-bold font-iranyekan-regular text-gray-700">{category.title}</a>
                                                 </Link>
                                             </nav>
                                             <hr/>
@@ -42,7 +42,7 @@ const BigScreenMenu = ({customClassname}) => {
                                                         <div  className=" mb-3 break-inside-avoid" key={main_index}>
                                                                 <nav className="flex gap-x-4">
                                                                     <Link href={{pathname : '/search' , query : {category:sub.slug}}} >
-                                                                        <a onClick={()=> categoryHandler_btn(null)} className="hover:text-red-500 font-sans text-sm font-bold cursor-pointer text-gray-800" >{sub.title}</a>
+                                                                        <a onClick={()=> categoryHandler_btn(null)} className="hover:text-red-500 font-iranyekan-regular text-sm font-iranyekan-bold cursor-pointer text-gray-800" >{sub.title}</a>
                                                                     </Link>
                                                                 </nav>
                                                                 <nav >
@@ -50,7 +50,7 @@ const BigScreenMenu = ({customClassname}) => {
                                                                     const handlePath = sub_sub.type === 'brand' ? {category : sub_sub.category , brand : sub_sub.brand} : {category : sub_sub.slug}
                                                                     return (
                                                                         <Link key={sub_index} href={{pathname : '/search' , query : handlePath}}>
-                                                                            <a onClick={()=> categoryHandler_btn(null)} className="flex gap-x-4 mr-4 mt-3 hover:text-red-500 text-xs font-sans cursor-pointer text-gray-800" >{sub_sub.title}</a>
+                                                                            <a onClick={()=> categoryHandler_btn(null)} className="flex gap-x-4 mr-4 mt-3 hover:text-red-500 text-xs font-iranyekan-regular cursor-pointer text-gray-800" >{sub_sub.title}</a>
                                                                         </Link>
                                                                     )
                                                                 })}

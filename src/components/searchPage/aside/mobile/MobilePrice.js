@@ -47,7 +47,7 @@ const MobilePrice = ({closeHandler , isMobileMenu , price}) => {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                    <h6 className="text-sm  text-center w-full font-sans text-gray-800 ">انتخاب قیمت</h6>
+                    <h6 className="text-sm  text-center w-full font-iranyekan-regular text-gray-800 ">انتخاب قیمت</h6>
                 </div>
 
                 <hr className="mt-5"/>
@@ -56,20 +56,20 @@ const MobilePrice = ({closeHandler , isMobileMenu , price}) => {
 
                     <div className={` flex gap-x-4 flex-between w-full`}>
                         <div className="flex w-1/2 relative">
-                            <span className="absolute right-5 top-3 text-xs font-sans  text-gray-800 ">از</span>
-                            <input dir="ltr" value={setComma(formik.values.price_from)} name="price_from"  onBlur={formik.handleBlur}   onChange={formik.handleChange}  type="text" className=" text-gray-800 border w-full font-sans border-gray-400 text-sm rounded-md"/>
+                            <span className="absolute right-5 top-3 text-xs font-iranyekan-regular  text-gray-800 ">از</span>
+                            <input dir="ltr" value={setComma(formik.values.price_from)} name="price_from"  onBlur={formik.handleBlur}   onChange={formik.handleChange}  type="text" className=" text-gray-800 border w-full font-iranyekan-regular border-gray-400 text-sm rounded-md"/>
                         </div>
                         <div className="flex w-1/2 relative">
-                            <span className="absolute right-5 top-3 text-xs font-sans text-gray-800">تا</span>
+                            <span className="absolute right-5 top-3 text-xs font-iranyekan-regular text-gray-800">تا</span>
                             <input dir="ltr" value={setComma(formik.values.price_to)} name="price_to"  onBlur={formik.handleBlur}   onChange={formik.handleChange} type="text" className=" text-gray-800 border w-full border-gray-400 text-sm rounded-md"/>
                         </div>
                     </div>
-                        {!formik.isValid && <p className={'text-red-600 font-sans text-xs mt-4'}>قیمت باید عدد باشد</p>}
+                        {!formik.isValid && <p className={'text-red-600 font-iranyekan-regular text-xs mt-4'}>قیمت باید عدد باشد</p>}
 
                     <div className="bg-gray-100 flex gap-x-4 w-full h-auto absolute bottom-0 left-0 py-4 px-4">
 
-                        <button type="submit" className="bg-gray-700 font-sans text-sm text-gray-100 py-3 rounded-md w-3/4 text-center">اعمال فیلتر </button>
-                        <button type="button" onClick={()=> {delete query.fromPrice & delete query.toPrice &  router.push({pathname : "/search" , query : {...query}}) & closeHandler("") }}  className="w-1/4 border border-gray-700 rounded-md text-sm font-sans text-gray-800  py-3">حذف</button>
+                        <button type="submit" className="bg-gray-700 font-iranyekan-regular text-sm text-gray-100 py-3 rounded-md w-3/4 text-center">اعمال فیلتر </button>
+                        <button type="button" onClick={()=> {delete query.fromPrice & delete query.toPrice &  router.push({pathname : "/search" , query : {...query}}) & closeHandler("") }}  className="w-1/4 border border-gray-700 rounded-md text-sm font-iranyekan-regular text-gray-800  py-3">حذف</button>
                     </div>
                 </form>
             </div>

@@ -22,7 +22,7 @@ const BreadCrumpAndSort = ({category , similarCategories}) => {
     const sub_subName = similarCategories && similarCategories.sub2 && removeHyphen(similarCategories.sub2.title) !== removeHyphen(category) ? similarCategories.sub2.title + " / " : "";
 
     return (  
-            <div className={`w-full flex ${category ? " justify-between" : "justify-end"}   z-0 font-sans relative items-center`}>
+            <div className={`w-full flex ${category ? " justify-between" : "justify-end"}   z-0 font-iranyekan-regular relative items-center`}>
                 {/* //? BreadCrump */}
                 {query.category &&  <p className="py-4 text-xs text-gray-500">همه دسته ها / {`${mainName} ${subName}  ${sub_subName} ${sub_subName === category  ? "" : " / ",removeHyphen(category)}`}</p>}
                 {/* //? Sort */}
@@ -37,16 +37,16 @@ const BreadCrumpAndSort = ({category , similarCategories}) => {
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                         <div className="flex flex-col">
                             <section  onClick={() => router.push({pathname : '/search' , query : {...query , sort : "mostFavorite"}}) &  handleClose() & setCurrentFilter("محبوب‌ ترین")}>
-                                <p className={`${query.sort && query.sort === "mostFavorite" ? "bg-gray-200" : ""} py-1.5 px-4 w-full font-sans cursor-pointer text-sm text-gray-600 text-center hover:bg-gray-100`}>محبوب‌ ترین</p>
+                                <p className={`${query.sort && query.sort === "mostFavorite" ? "bg-gray-200" : ""} py-1.5 px-4 w-full font-iranyekan-regular cursor-pointer text-sm text-gray-600 text-center hover:bg-gray-100`}>محبوب‌ ترین</p>
                             </section>
                             <section onClick={() => router.push({pathname : '/search' , query : {...query , sort : "dateRecent"}}) & handleClose() & setCurrentFilter("جدید ترین")}>
-                                <p className={`${query.sort && query.sort === "dateRecent" ? "bg-gray-200" : ""} py-1.5 px-4 w-full font-sans cursor-pointer text-sm text-gray-600 text-center hover:bg-gray-100`}>جدید ترین</p>
+                                <p className={`${query.sort && query.sort === "dateRecent" ? "bg-gray-200" : ""} py-1.5 px-4 w-full font-iranyekan-regular cursor-pointer text-sm text-gray-600 text-center hover:bg-gray-100`}>جدید ترین</p>
                             </section>
                             <section onClick={() =>  router.push({pathname : '/search' , query : {...query , sort : "priceMin"}}) & handleClose() & setCurrentFilter("ارزان ترین")}>
-                                <p className={`${query.sort && query.sort === "priceMin" ? "bg-gray-200" : ""} py-1.5 px-4 w-full font-sans cursor-pointer text-sm text-gray-600 text-center hover:bg-gray-100`}>ارزان ترین</p>
+                                <p className={`${query.sort && query.sort === "priceMin" ? "bg-gray-200" : ""} py-1.5 px-4 w-full font-iranyekan-regular cursor-pointer text-sm text-gray-600 text-center hover:bg-gray-100`}>ارزان ترین</p>
                             </section>
                             <section onClick={() => router.push({pathname : '/search' , query : {...query , sort : "priceMax"}}) & handleClose() & setCurrentFilter("گران ترین")}>
-                                <p className={`${query.sort && query.sort === "priceMax" ? "bg-gray-200" : ""} py-1.5 px-4 w-full font-sans cursor-pointer text-sm text-gray-600 text-center hover:bg-gray-100`}>گران ترین</p>
+                                <p className={`${query.sort && query.sort === "priceMax" ? "bg-gray-200" : ""} py-1.5 px-4 w-full font-iranyekan-regular cursor-pointer text-sm text-gray-600 text-center hover:bg-gray-100`}>گران ترین</p>
                             </section>
                         </div>
                     </Menu>

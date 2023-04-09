@@ -196,7 +196,7 @@ const InsertStore = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                    </svg>
                               </button>
-                              <h1 className="font-sans font-bold text-lg text-gray-800">ویرایش کاربر (خریدار)</h1>
+                              <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">ویرایش کاربر (خریدار)</h1>
                          </div>
                          <nav className="flex gap-x-2 items-center">
                               <Link href={'/admin/manage-users'}>
@@ -217,7 +217,7 @@ const InsertStore = () => {
                          </div>
                          <form onSubmit={formik.handleSubmit}>
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-sans font-bold text-gray-800"> مشخصات کاربر</p>
+                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مشخصات کاربر</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         <FormikInput maxLength={50} name={"full_name"} title={"نام و نام خانوادگی"} isRequired={true} formik={formik} placeholder={"نام و نام خانوادگی"} parentClassName="flex flex-col relative"/>
                                         <FormikInput maxLength={10} name={"national_code"} title={"کد ملی"} isRequired={true} formik={formik} placeholder={"کد ملی"} parentClassName="flex flex-col relative"/>
@@ -225,13 +225,13 @@ const InsertStore = () => {
                                         <FormikInput maxLength={11} name={"phone_number_secondary"} title={"شماره همراه دوم"}  formik={formik} placeholder={"شماره همراه دوم"} parentClassName="flex flex-col relative"/>
 
                                         <div className="flex flex-col relative ">
-                                             <p className="font-sans text-[13px] text-gray-800">تلفن ثابت :</p>
-                                             <InputMask dir="ltr"  type={"text"} value={formik.values.house_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="house_number" maskPlaceholder="-" className={`${formik.errors.house_number && formik.touched.house_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-[13px]  font-sans bg-white text-gray-800 rounded-md`} maskchar={null}/>
-                                             {formik.errors.house_number && formik.touched.house_number && <p className="mt-2 font-sans text-xs text-red-700">{formik.errors.house_number}</p>}
+                                             <p className="font-iranyekan-regular text-[13px] text-gray-800">تلفن ثابت :</p>
+                                             <InputMask dir="ltr"  type={"text"} value={formik.values.house_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="house_number" maskPlaceholder="-" className={`${formik.errors.house_number && formik.touched.house_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-[13px]  font-iranyekan-regular bg-white text-gray-800 rounded-md`} maskchar={null}/>
+                                             {formik.errors.house_number && formik.touched.house_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.house_number}</p>}
                                         </div>
 
                                         <div className="flex flex-col relative ">
-                                             <p className="font-sans text-[13px] text-gray-800 before:content-['*'] before:text-red-600">استان :</p>
+                                             <p className="font-iranyekan-regular text-[13px] text-gray-800 before:content-['*'] before:text-red-600">استان :</p>
                                              <div className="mt-2">
                                              <SelectBox 
                                                   notFoundTitle="استان مورد نظر یافت نشد." 
@@ -245,7 +245,7 @@ const InsertStore = () => {
                                         </div>
           
                                         <div className="flex flex-col relative ">
-                                             <p className="font-sans text-gray-800 text-[13px] before:content-['*'] before:text-red-600">شهر :</p>
+                                             <p className="font-iranyekan-regular text-gray-800 text-[13px] before:content-['*'] before:text-red-600">شهر :</p>
                                              <div className="mt-2">
                                                   <SelectBox 
                                                        isDisabled={selectedProvience ? false : true}
@@ -265,11 +265,11 @@ const InsertStore = () => {
                               </div>
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
 
-                                   <p className="font-sans font-bold text-gray-800">تصاویر و فایل ها</p>
+                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800">تصاویر و فایل ها</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                    {/* Profile Image */}
                                    <div className="flex flex-col relative ">
-                                        <p className="font-sans text-[13px] text-gray-800"> تصویر پروفایل :</p>
+                                        <p className="font-iranyekan-regular text-[13px] text-gray-800"> تصویر پروفایل :</p>
                                         <input 
                                              type={'file'}  
                                              id="chooseImage"  
@@ -290,7 +290,7 @@ const InsertStore = () => {
                                         {imageFile ? (
                                              <section  className="flex justify-between h-[38px] items-center mt-2  ">
                                                   <button type={"button"} onClick={()=>setIsImage_Modal(true)} className="flex justify-between items-center w-full h-full rounded-r-md bg-green-50 border-l-0 hover:bg-green-100 hover:border-green-600 border border-green-500">
-                                                       <span className="text-[13px] font-sans text-green-700 pr-2">نمایش تصویر پروفایل</span>
+                                                       <span className="text-[13px] font-iranyekan-regular text-green-700 pr-2">نمایش تصویر پروفایل</span>
                                                   </button>
                                                   <button onClick={()=> {setImageFile(null) ; image_input_ref.current.value = null}}  type={"button"}  className="bg-red-50 h-full items-center hover:bg-red-100 border px-4 rounded-l-md border-red-500 hover:border-red-700">
                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
@@ -299,7 +299,7 @@ const InsertStore = () => {
                                                   </button>
                                              </section>
                                         ) : (
-                                             <label htmlFor="chooseImage"  className="flex justify-between items-center h-[38px] px-2 mt-2 cursor-pointer text-[13px] font-sans rounded-md  bg-blue-50 hover:bg-blue-100 hover:border-blue-700 border border-blue-400 ">
+                                             <label htmlFor="chooseImage"  className="flex justify-between items-center h-[38px] px-2 mt-2 cursor-pointer text-[13px] font-iranyekan-regular rounded-md  bg-blue-50 hover:bg-blue-100 hover:border-blue-700 border border-blue-400 ">
                                                   <span className="text-blue-700">انتخاب تصویر پروفایل</span>
                                                   <svg className="w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
@@ -312,7 +312,7 @@ const InsertStore = () => {
                               </div>
 
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-sans font-bold text-gray-800"> رمز عبور</p>
+                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> رمز عبور</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         <FormikInput maxLength={24} isRequired={false} name={"password"} title={"رمز عبور جدید"} formik={formik} placeholder={"شماره همراه دوم مالک فروشگاه"} parentClassName="flex flex-col relative"/>
                                    </section>

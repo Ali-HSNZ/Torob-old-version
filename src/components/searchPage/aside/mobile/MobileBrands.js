@@ -40,7 +40,7 @@ const MobileBrands = ({closeHandler , brands , isMobileMenu}) => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <h6 className="text-sm  text-center w-full font-sans text-gray-800 ">انتخاب برند</h6>
+                <h6 className="text-sm  text-center w-full font-iranyekan-regular text-gray-800 ">انتخاب برند</h6>
             </div>
 
             <hr className="mt-5"/>
@@ -51,7 +51,7 @@ const MobileBrands = ({closeHandler , brands , isMobileMenu}) => {
                         <svg className="absolute w-6 h-6 top-3 right-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeٌidth="1.5" stroke="gray" >
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
-                        <input type='text' value={inputValue} onChange={ input => setInputValue(input.target.value) } placeholder="جستجوی برند" className="rounded-md w-full font-sans  py-3 focus:ring-0 text-sm pr-11  focus:border-gray-300  border-gray-300" />
+                        <input type='text' value={inputValue} onChange={ input => setInputValue(input.target.value) } placeholder="جستجوی برند" className="rounded-md w-full font-iranyekan-regular  py-3 focus:ring-0 text-sm pr-11  focus:border-gray-300  border-gray-300" />
                     </div>                                   
 
                     <div className={`my-4`}>
@@ -60,19 +60,19 @@ const MobileBrands = ({closeHandler , brands , isMobileMenu}) => {
                                 return(
                                     <Link href={{pathname : '/search' , query : {...query , brand : brand.name}}} key={brand.id} > 
                                         <a onClick={()=> closeHandler(false)} className={`${router.query.brand === brand.name ? "bg-gray-100" : ""} flex justify-between py-3 hover:bg-gray-100 px-2 rounded-md`} key={brand.id}>
-                                            <span className="font-sans text-gray-600 text-sm">{brand.name}</span>
-                                            <span className="font-sans text-gray-600 text-sm">{brand.english_name}</span>
+                                            <span className="font-iranyekan-regular text-gray-600 text-sm">{brand.name}</span>
+                                            <span className="font-iranyekan-regular text-gray-600 text-sm">{brand.english_name}</span>
                                         </a>
                                     </Link>
                                 )
                             }) : (
-                                <p className="text-center font-sans text-sm text-red-700">برند مورد نظر پیدا نشد</p>
+                                <p className="text-center font-iranyekan-regular text-sm text-red-700">برند مورد نظر پیدا نشد</p>
                             )
                         }
                     </div>
 
                     <div className={`bg-gray-100 ${router.query.brand ? "flex" : "hidden"}  right-0 gap-x-4 w-full h-auto absolute bottom-0 py-4 px-4 `}>
-                        <button onClick={()=> {delete query.brand & router.push({pathname : "/search" , query : {...query}}) & closeHandler("")}}  className=" text-gray-800 w-full border border-gray-700 rounded-md text-sm font-sans  py-3">
+                        <button onClick={()=> {delete query.brand & router.push({pathname : "/search" , query : {...query}}) & closeHandler("")}}  className=" text-gray-800 w-full border border-gray-700 rounded-md text-sm font-iranyekan-regular  py-3">
                                 حذف فیلتر برند
                         </button>
                     </div>

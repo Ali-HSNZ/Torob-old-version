@@ -23,18 +23,18 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                    <h6 className="text-sm  text-center w-full font-sans text-gray-800 ">انتخاب دسته بندی</h6>
+                    <h6 className="text-sm  text-center w-full font-iranyekan-regular text-gray-800 ">انتخاب دسته بندی</h6>
                 </div>
 
                 <hr className="mt-5"/>
 
                 <section className="flex flex-col w-full  px-6  h-full overflow-y-auto"  >
-                    <span className=" py-6  font-sans mr-2 text-gray-800 ">{categories && categories.title}</span>
+                    <span className=" py-6  font-iranyekan-regular mr-2 text-gray-800 ">{categories && categories.title}</span>
                     <nav className={`flex flex-col gap-y-6 pr-4 pb-6`}>
                         {!similarCategories ?  categories.data.map((category, index) => {
                             return (
                                 <Link key={index} href={{pathname: "/search",query: { ...query, category: category.slug }}}>
-                                    <a onClick={()=> closeHandler(false)} className="hover:text-red-500  text-sm font-sans  text-gray-800 ">{category.name}</a>
+                                    <a onClick={()=> closeHandler(false)} className="hover:text-red-500  text-sm font-iranyekan-regular  text-gray-800 ">{category.name}</a>
                                 </Link>
                             );
                         }) : (
@@ -45,7 +45,7 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
                                             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5  text-gray-800 " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
                                             </svg>
-                                            <p className="font-sans hover:text-red-500 text-sm  text-gray-800 ">{similarCategories && similarCategories.data.data.parent.title}</p>
+                                            <p className="font-iranyekan-regular hover:text-red-500 text-sm  text-gray-800 ">{similarCategories && similarCategories.data.data.parent.title}</p>
                                         </a>
                                     </Link>
                                 )}
@@ -55,7 +55,7 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5  text-gray-800  " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
                                                 </svg>
-                                                <p className="font-sans hover:text-red-500 text-sm  text-gray-800 ">{similarCategories && similarCategories.data.data.sub1.title}</p>
+                                                <p className="font-iranyekan-regular hover:text-red-500 text-sm  text-gray-800 ">{similarCategories && similarCategories.data.data.sub1.title}</p>
                                             </a>
                                         </Link>
                                 )}
@@ -65,7 +65,7 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5  text-gray-800 " fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
                                                 </svg>
-                                                <p className="font-sans hover:text-red-500 text-sm  text-gray-800 ">{similarCategories && similarCategories.data.data.sub2.title}</p>
+                                                <p className="font-iranyekan-regular hover:text-red-500 text-sm  text-gray-800 ">{similarCategories && similarCategories.data.data.sub2.title}</p>
                                             </a>
                                         </Link>
                                 )}
@@ -73,13 +73,13 @@ const MobileCategories = ({similarCategories , categories, closeHandler , isMobi
                                 {similarCategories.data.list && similarCategories.data.list.map((category, index) => {
                                     return(
                                         <Link key={index} href={{pathname: "/search",query: { ...query, category: category.slug }}}>
-                                            <a onClick={()=> closeHandler(false)} className={`hover:text-red-500 ${similarCategories.data.data.sub2 ? "mr-16" : similarCategories.data.data.sub1 ?  "mr-12" : "mr-9"} py-3  text-sm font-sans  text-gray-800`}>{category.title}</a>
+                                            <a onClick={()=> closeHandler(false)} className={`hover:text-red-500 ${similarCategories.data.data.sub2 ? "mr-16" : similarCategories.data.data.sub1 ?  "mr-12" : "mr-9"} py-3  text-sm font-iranyekan-regular  text-gray-800`}>{category.title}</a>
                                         </Link>
                                     )
                                 })}
 
                                 <div className="bg-gray-100 flex right-0 gap-x-4 w-full h-auto absolute bottom-0 py-4 px-4">
-                                    <button onClick={()=> {delete query.category & router.push({pathname : "/search" , query : {...query}}) ; closeHandler("")}}  className="w-full border border-gray-700  text-gray-800  rounded-md text-sm font-sans  py-3">
+                                    <button onClick={()=> {delete query.category & router.push({pathname : "/search" , query : {...query}}) ; closeHandler("")}}  className="w-full border border-gray-700  text-gray-800  rounded-md text-sm font-iranyekan-regular  py-3">
                                         حذف فیلتر دسته‌بندی
                                     </button>
                                 </div>

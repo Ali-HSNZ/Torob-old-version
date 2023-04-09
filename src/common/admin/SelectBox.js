@@ -4,11 +4,11 @@ import { Combobox, Transition } from '@headlessui/react'
 const SelectBox = ({isDisabled,placeholder ,notFoundTitle, selected , query , setSelected , filteredData , setQuery,isTitle}) => {
     return ( 
         <div className="flex items-center">
-            {isTitle === true && <span className='font-sans text-sm whitespace-nowrap ml-1  md:hidden'>{placeholder} : </span>}
+            {isTitle === true && <span className='font-iranyekan-regular text-sm whitespace-nowrap ml-1  md:hidden'>{placeholder} : </span>}
             <Combobox disabled={isDisabled || false} value={selected} onChange={setSelected}>
                 <div className="relative w-full">
                     <div className="relative  focus:outline-none ">
-                        <Combobox.Input  placeholder={isDisabled ? "ابتدا استان مورد نظر را انتخاب کنید" :  placeholder ? placeholder : ""}  onChange={(event) => setQuery(event.target.value)}  className="z-0 placeholder:text-xs relative w-full border-gray-300 hover:border-gray-600 pl-12 focus:border-gray-600 focus:ring-0 text-sm font-sans bg-white text-gray-800 rounded-md" displayValue={(brand) => brand.name}/>
+                        <Combobox.Input  placeholder={isDisabled ? "ابتدا استان مورد نظر را انتخاب کنید" :  placeholder ? placeholder : ""}  onChange={(event) => setQuery(event.target.value)}  className="z-0 placeholder:text-xs relative w-full border-gray-300 hover:border-gray-600 pl-12 focus:border-gray-600 focus:ring-0 border py-2 px-4 focus:outline-none text-sm font-iranyekan-regular bg-white text-gray-800 rounded-md" displayValue={(brand) => brand.name}/>
                         <Combobox.Button className="absolute inset-y-0 top-[0px] pl-1 left-0 flex items-center group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 group-hover:text-gray-700 text-gray-400">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
@@ -23,13 +23,13 @@ const SelectBox = ({isDisabled,placeholder ,notFoundTitle, selected , query , se
                     <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setQuery('')}>
                         <Combobox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                             {filteredData && filteredData.length === 0 && query !== '' ? (
-                                <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-sans">{notFoundTitle}</div>
+                                <div className="relative cursor-pointer select-none py-2 px-4 text-gray-700 font-iranyekan-regular">{notFoundTitle}</div>
                             ) : (
                                 filteredData && filteredData.map((category) => (
                                     <Combobox.Option  value={category} key={category.id} className={({ active }) => `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-100' : 'text-gray-900'}`}>
                                         {({ selected, active }) => (
                                             <>
-                                                <span className={`  font-sans text-sm block truncate text-gray-800 ${ selected && 'font-bold text-black' }`}> {category.name} </span>
+                                                <span className={`  font-iranyekan-regular text-sm block truncate text-gray-800 ${ selected && 'font-iranyekan-bold text-black' }`}> {category.name} </span>
                                                 {selected && (
                                                     <span className={`absolute  cursor-pointer inset-y-0 left-0 flex items-center pl-3 text-gray-700`}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">

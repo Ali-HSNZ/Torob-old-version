@@ -36,13 +36,13 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                               </svg>
                          </button>
-                         <h6 className="text-sm text-gray-700 text-center w-full font-sans">همه‌ دسته‌بندی ها</h6>
+                         <h6 className="text-sm text-gray-700 text-center w-full font-iranyekan-regular">همه‌ دسته‌بندی ها</h6>
                     </div>
 
                     <hr className="mt-4"/>
 
                     <div className="flex pb-2  gap-x-4 mt-4 z-20 w-full whitespace-nowrap overflow-x-auto px-4">                    
-                         {categories &&  categories.map((category,index) => <button onClick={button=> categoryHandler_btn(button.target , category.id)} key={index}  className="hover:text-red-500 text-xs border px-4 py-2 rounded-md border-gray-400 cursor-pointer flex font-sans text-gray-700" >{category.title}</button>)}
+                         {categories &&  categories.map((category,index) => <button onClick={button=> categoryHandler_btn(button.target , category.id)} key={index}  className="hover:text-red-500 text-xs border px-4 py-2 rounded-md border-gray-400 cursor-pointer flex font-iranyekan-regular text-gray-700" >{category.title}</button>)}
                     </div>
 
                     <div className=" h-full w-full md:mt-4 mt-2 pb-4  px-4 overflow-y-auto">
@@ -51,7 +51,7 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
                                    <div id={`mobilePanel_${category.id}`} className={`mobilePanel hidden`} key={index}>
                                         <section className="pb-4">
                                              <Link  href={{pathname : '/search' , query : {category : category.slug}}}  >
-                                                  <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="flex gap-x-4  text-gray-600  whitespace-nowrap text-sm font-sans font-bold">{category.title}</a>
+                                                  <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="flex gap-x-4  text-gray-600  whitespace-nowrap text-sm font-iranyekan-regular font-iranyekan-bold">{category.title}</a>
                                              </Link>
                                         </section>
                                         <hr/> 
@@ -62,7 +62,7 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
                                                             <input type="checkbox"  className="peer hidden" name={`${main_index}_checkbox_${index}`} id={`${main_index}_checkbox_${index}`} />
                                                             <section className="mt-4 mr-6 ">
                                                                  <Link  href={{pathname : '/search' , query : {category : sub.slug}}}  >
-                                                                      <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="flex mr-2  text-gray-600  whitespace-nowrap text-sm font-sans font-bold">{sub.title}</a>
+                                                                      <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="flex mr-2  text-gray-600  whitespace-nowrap text-sm font-iranyekan-regular font-iranyekan-bold">{sub.title}</a>
                                                                  </Link>
                                                             </section>
                                                             {sub.sub_categories &&  sub.sub_categories.length > 0 && (
@@ -77,7 +77,7 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
                                                                  return(
                                                                       <Fragment key={sub_sub_index}>
                                                                            <Link  href={{pathname : '/search' , query : handlePath}}  >
-                                                                                <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="hidden peer-checked:flex  mr-12 mt-4 text-gray-600 whitespace-nowrap text-sm font-sans ">{sub_sub.title}</a>
+                                                                                <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="hidden peer-checked:flex  mr-12 mt-4 text-gray-600 whitespace-nowrap text-sm font-iranyekan-regular ">{sub_sub.title}</a>
                                                                            </Link>
                                                                            <section className="relative hidden peer-checked:flex">
                                                                                 <input type="checkbox" className="peer hidden" name={`${sub_sub_index}_checkbox_sub_${index}`} id={`${sub_sub_index}_checkbox_sub_${index}`} />
@@ -91,7 +91,7 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
                                                                                           const handlePath_sub = sub_sub.type === 'brand' ? {category : sub_sub_sub.category , brand : sub_sub.brand} : {category : sub_sub_sub.slug}
                                                                                           return(
                                                                                                <Link  key={sub_sub_sub_index} href={{pathname : '/search' , query : handlePath_sub}}  >
-                                                                                                    <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="mr-16 mt-4 text-gray-600 whitespace-nowrap text-sm font-sans ">{sub_sub_sub.title}</a>
+                                                                                                    <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="mr-16 mt-4 text-gray-600 whitespace-nowrap text-sm font-iranyekan-regular ">{sub_sub_sub.title}</a>
                                                                                                </Link>
                                                                                           )
                                                                                      })}
@@ -118,7 +118,7 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
                                         setIsSmallScreenModal(false) & 
                                         categoryHandler_btn(null)
                                    }}
-                                   className="w-full border border-gray-700 bg-white text-gray-700 rounded-md text-sm font-sans  py-3">
+                                   className="w-full border border-gray-700 bg-white text-gray-700 rounded-md text-sm font-iranyekan-regular  py-3">
                                    حذف فیلتر دسته‌بندی
                               </button>
                          </div>

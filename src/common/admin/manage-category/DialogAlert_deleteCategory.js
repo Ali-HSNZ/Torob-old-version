@@ -17,15 +17,15 @@ export default function DialogAlert_deleteCategory({id, isModal , setIsModal , t
     } 
     return (
         <Dialog open={isModal || false} onClose={()=>setIsModal(false)}>
-            <p className='px-4 pt-4 font-sans font-bold'>{title ? title : "عنوان"}</p>
+            <p className='px-4 pt-4 font-iranyekan-regular font-iranyekan-bold'>{title ? title : "عنوان"}</p>
             <DialogContent>
-                <p className='font-sans text-sm leading-6'><b>نکته : </b>برای دسته‌بندی هایی که <b>غیر فعال</b> باشند نمی توان زیردسته اضافه کرد.</p>
-                <p className='font-sans text-sm leading-6 mt-4'>آیا مایل به تغییر وضعیت این دسته‌بندی هستید؟.</p>
+                <p className='font-iranyekan-regular text-sm leading-6'><b>نکته : </b>برای دسته‌بندی هایی که <b>غیر فعال</b> باشند نمی توان زیردسته اضافه کرد.</p>
+                <p className='font-iranyekan-regular text-sm leading-6 mt-4'>آیا مایل به تغییر وضعیت این دسته‌بندی هستید؟.</p>
             </DialogContent>
             <DialogActions>
                 <div className='w-full flex gap-x-4 justify-end pb-2 px-2'>
-                    <button className='font-sans font-bold text-sm '  onClick={() => setIsModal(false)}>خیر</button>
-                    <button className='font-sans font-bold text-sm text-red-700' onClick={deleteCategoryHandler} >بله - تغییر وضعیت</button>
+                    <button className='font-iranyekan-regular font-iranyekan-bold text-sm '  onClick={() => setIsModal(false)}>خیر</button>
+                    <button className='font-iranyekan-regular font-iranyekan-bold text-sm text-red-700' onClick={deleteCategoryHandler} >بله - تغییر وضعیت</button>
                 </div>
             </DialogActions>
         </Dialog>

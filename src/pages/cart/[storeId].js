@@ -47,7 +47,7 @@ const CartStore = () => {
                                    <div className="w-14">
                                         <img className="w-full h-auto" src={data.store.logo_image} alt={`لوگو فروشگاه ${data.store.title}`}/>
                                    </div>
-                                   <span className="font-sans text-sm mr-4 text-gray-800">{data.store.title}</span>
+                                   <span className="font-iranyekan-regular text-sm mr-4 text-gray-800">{data.store.title}</span>
                               </div>
                               <section className="mt-4">
                                    {data.cart.items.map((item,index) => (
@@ -59,13 +59,13 @@ const CartStore = () => {
                                                   </div>
                                                   <section className="w-full mr-4">
                                                        <div className="flex justify-between">
-                                                            <span className="font-sans text-sm text-gray-800">{item.product.title}</span>
-                                                            {item.price.discount_percent !== 0 && <span className="font-sans h-fit mr-2 text-xs text-red-100 bg-red-600 rounded-lg py-2 px-3 font-bold flex items-center">{toPersianDigits(item.price.discount_percent)}%</span>}
+                                                            <span className="font-iranyekan-regular text-sm text-gray-800">{item.product.title}</span>
+                                                            {item.price.discount_percent !== 0 && <span className="font-iranyekan-regular h-fit mr-2 text-xs text-red-100 bg-red-600 rounded-lg py-2 px-3 font-iranyekan-bold flex items-center">{toPersianDigits(item.price.discount_percent)}%</span>}
                                                        </div>
                                                        <div className="flex justify-between items-center mt-4">
                                                             <div className="flex bg-white  border-2 border-red-500 rounded-md items-center overflow-hidden">
                                                                  {/* increase */}
-                                                                 <button disabled={limitHandler({limit : item.state.limit , count : item.price.count})}  onClick={()=> dispatch(increaseProductInCheckout({product_id : item.item_id.product , store_id : item.item_id.store}))} className="font-sans text-sm p-2 text-gray-800 disabled:bg-red-100 disabled:cursor-not-allowed">
+                                                                 <button disabled={limitHandler({limit : item.state.limit , count : item.price.count})}  onClick={()=> dispatch(increaseProductInCheckout({product_id : item.item_id.product , store_id : item.item_id.store}))} className="font-iranyekan-regular text-sm p-2 text-gray-800 disabled:bg-red-100 disabled:cursor-not-allowed">
                                                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                                                       </svg>
@@ -73,10 +73,10 @@ const CartStore = () => {
                                                                  { isIncreaseOrDecreaseProductLoading({product_id : item.item_id.product}) ? (
                                                                       <ReactLoading type="spinningBubbles" height={20} width={20} color="red" className="mr-2"/>
                                                                  ) : (
-                                                                      <span className="font-sans text-base px-3 text-gray-800">{toPersianDigits(item.price.count)}</span>
+                                                                      <span className="font-iranyekan-regular text-base px-3 text-gray-800">{toPersianDigits(item.price.count)}</span>
                                                                  )}
                                                                  {/* Decrease */}
-                                                                 <button onClick={()=>dispatch(decreaseProductInCheckout({product_id : item.item_id.product , store_id : item.item_id.store}))} className="font-sans text-sm p-2">
+                                                                 <button onClick={()=>dispatch(decreaseProductInCheckout({product_id : item.item_id.product , store_id : item.item_id.store}))} className="font-iranyekan-regular text-sm p-2">
                                                                       {item.price.count <= 1 ? (
                                                                            // Trash Icon
                                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-800">
@@ -91,8 +91,8 @@ const CartStore = () => {
                                                                  </button>
                                                             </div> 
                                                             <div>
-                                                                 {item.price.is_discount && <p className="font-sans text-sm text-gray-500 line-through text-left">{toPersianPrice(item.price.original)}</p>}
-                                                                 <p className="font-sans text-sm font-bold">{toPersianPrice(item.price.final)} تومان</p>
+                                                                 {item.price.is_discount && <p className="font-iranyekan-regular text-sm text-gray-500 line-through text-left">{toPersianPrice(item.price.original)}</p>}
+                                                                 <p className="font-iranyekan-regular text-sm font-iranyekan-bold">{toPersianPrice(item.price.final)} تومان</p>
                                                             </div>
                                                        </div>
                                                   </section>
@@ -103,32 +103,32 @@ const CartStore = () => {
                               </section>
                          </section>
                          <section className="bg-white w-full sm:min-w-[400px] sm:max-w-[400px] sm:w-[400px] p-4 rounded-lg h-fit mt-4 lg:mt-0">
-                              <p className="font-sans font-bold text-sm text-gray-700">جزئیات فاکتور</p>
+                              <p className="font-iranyekan-regular font-iranyekan-bold text-sm text-gray-700">جزئیات فاکتور</p>
                               <div className="flex justify-between w-full mt-4">
                                    <div>
-                                        <span className="font-sans text-sm text-gray-600">مجموع خرید شما</span>
-                                        <span className="font-sans text-xs relative bottom-1 text-gray-400 mr-1">({toPersianPrice(data?.store_count)} کالا)</span>
+                                        <span className="font-iranyekan-regular text-sm text-gray-600">مجموع خرید شما</span>
+                                        <span className="font-iranyekan-regular text-xs relative bottom-1 text-gray-400 mr-1">({toPersianPrice(data?.store_count)} کالا)</span>
                                    </div>
-                                   <span className="font-sans text-sm text-gray-600">{toPersianPrice(data.cart.cost.total_price)} تومان</span>
+                                   <span className="font-iranyekan-regular text-sm text-gray-600">{toPersianPrice(data.cart.cost.total_price)} تومان</span>
                               </div>
                               <hr className="border border-gray-100 border-dashed mt-4" />
 
                               <div className="flex justify-between w-full mt-4">
-                                   <span className="font-sans text-sm text-gray-600">تخفیف</span>
+                                   <span className="font-iranyekan-regular text-sm text-gray-600">تخفیف</span>
                                    <div>
-                                        <span className="font-sans text-sm text-gray-600">{data.cart.cost.discount_percent !== 0 ? toPersianDigits(data.cart.cost.discount_percent)+" درصد" : ""} </span>
-                                        <span className="mx-1 font-sans text-gray-400">{data.cart.cost.discount_percent === 0 && data.cart.cost.discount_price === 0 ? "-" : "|"}</span>
-                                        <span className="font-sans text-sm text-gray-600">{data.cart.cost.discount_price !== 0 ? toPersianPrice(data.cart.cost.discount_price)+" تومان " : ""} </span>
+                                        <span className="font-iranyekan-regular text-sm text-gray-600">{data.cart.cost.discount_percent !== 0 ? toPersianDigits(data.cart.cost.discount_percent)+" درصد" : ""} </span>
+                                        <span className="mx-1 font-iranyekan-regular text-gray-400">{data.cart.cost.discount_percent === 0 && data.cart.cost.discount_price === 0 ? "-" : "|"}</span>
+                                        <span className="font-iranyekan-regular text-sm text-gray-600">{data.cart.cost.discount_price !== 0 ? toPersianPrice(data.cart.cost.discount_price)+" تومان " : ""} </span>
                                    </div>
                               </div>
                               <hr className="border border-gray-100 border-dashed mt-4" />
 
                               <div className="flex justify-between w-full mt-4">
-                                   <span className="font-sans text-sm text-gray-600">مبلغ قابل پرداخت</span>
-                                   <span className="font-sans text-sm text-gray-600">{toPersianPrice(data.cart.cost.final_price)} تومان</span>
+                                   <span className="font-iranyekan-regular text-sm text-gray-600">مبلغ قابل پرداخت</span>
+                                   <span className="font-iranyekan-regular text-sm text-gray-600">{toPersianPrice(data.cart.cost.final_price)} تومان</span>
                               </div>
 
-                              <button onClick={()=>dispatch(confirmFactor({store_id : data.store.id}))} disabled={!data.cart.cost.payment_state} className="disabled:cursor-not-allowed font-bold disabled:bg-red-500 bg-red-600 hover:bg-red-700 duration-150 py-3 w-full rounded-lg font-sans text-red-200 mt-6">
+                              <button onClick={()=>dispatch(confirmFactor({store_id : data.store.id}))} disabled={!data.cart.cost.payment_state} className="disabled:cursor-not-allowed font-iranyekan-bold disabled:bg-red-500 bg-red-600 hover:bg-red-700 duration-150 py-3 w-full rounded-lg font-iranyekan-regular text-red-200 mt-6">
                                    تایید و ثبت سفارش
                               </button>
 
@@ -139,9 +139,9 @@ const CartStore = () => {
                          <section className="w-full">
                          <div className="w-full flex flex-col items-center">
                                    <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg"  alt="تصویر سبد کالا" className="w-72 h-auto" />
-                              <h3 className="font-sans font-bold text-center">سبد خرید شما در این فروشگاه خالی است!</h3>
+                              <h3 className="font-iranyekan-regular font-iranyekan-bold text-center">سبد خرید شما در این فروشگاه خالی است!</h3>
                               <Link href={'/cart'}>
-                                   <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-sans text-sm underline underline-offset-4">بازگشت به سبد خرید</a>
+                                   <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-iranyekan-regular text-sm underline underline-offset-4">بازگشت به سبد خرید</a>
                               </Link>
                          </div>
                          </section>

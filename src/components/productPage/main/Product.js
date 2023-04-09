@@ -38,8 +38,8 @@ const Product = ({ product }) => {
                </div>
 
                <section className=" w-full mt-4 p-2 ">
-                    <p className="font-sans text-bold text-sm w-full text-right text-gray-700 leading-8  sm:mt-0 ">{product.product.title}</p>
-                    <p className="w-full mt-1 text-right text-sm font-sans text-red-600">از {toPersianPrice(product.prices_range.min)} تومان تا{" "}{toPersianPrice(product.prices_range.max)} تومان</p>
+                    <p className="font-iranyekan-regular text-bold text-sm w-full text-right text-gray-700 leading-8  sm:mt-0 ">{product.product.title}</p>
+                    <p className="w-full mt-1 text-right text-sm font-iranyekan-regular text-red-600">از {toPersianPrice(product.prices_range.min)} تومان تا{" "}{toPersianPrice(product.prices_range.max)} تومان</p>
                     <div className="w-fit  flex items-center justify-between overflow-hidden rounded-bl-lg bg-gray-100 absolute top-0 right-0 ">
 
                          <div className="flex flex-col w-fit">

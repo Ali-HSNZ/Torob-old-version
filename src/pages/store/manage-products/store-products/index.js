@@ -116,7 +116,7 @@ const StoreManageProducts = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-sans font-bold text-lg text-gray-800">مدیریت محصولات شرکت</h1>
+                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت محصولات شرکت</h1>
                               </div>
                               <nav className="flex gap-x-2 my-2 sm:m-0 justify-end  sm:items-center">
                                    {/* Back SVG */}
@@ -151,14 +151,14 @@ const StoreManageProducts = () => {
                                         <FormikInput formik={formik} title={"نام کالا"} name={"product_title"}/>
 
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800"> برند :</p>
+                                             <p className="font-iranyekan-regular text-sm text-gray-800"> برند :</p>
                                              <div className="w-full mt-2">
                                                   <SelectBox notFoundTitle="برند مورد نظر یافت نشد." query={brandQuery} setQuery={setBrandQuery} filteredData={filteredBrands} selected={selectedBrand} setSelected={setSelectedBrand}/>
                                              </div>
                                         </div>
 
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800"> دسته‌بندی :</p>
+                                             <p className="font-iranyekan-regular text-sm text-gray-800"> دسته‌بندی :</p>
                                              <div className="w-full mt-2">
                                                   <SelectBox notFoundTitle="دسته مورد نظر یافت نشد." query={categoryQuery} setQuery={setCategoryQuery} filteredData={filteredCategories} selected={selectedCategory} setSelected={setSelectedCategory}/>
                                              </div>
@@ -167,21 +167,21 @@ const StoreManageProducts = () => {
                                         <FormikInput formik={formik} placeholder={"بر اساس بارکد محصول"} title={"بارکد"} name={"barcode"} parentClassName={"flex flex-col relative"}/>
 
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
+                                             <p className="font-iranyekan-regular text-sm text-gray-800">ترتیب نمایش (تاریخ ثبت) :</p>
                                              <section className="flex justify-between mt-2 gap-x-2">
                                                   <div className="flex w-1/2">
                                                        <input type="radio" value={'desc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'desc'} className="peer hidden" id="desc" />
-                                                       <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
+                                                       <label htmlFor="desc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">جدیدترین</label>
                                                   </div>
                                                   <div className="flex w-1/2">
                                                        <input type="radio" value={'asc'} name="order" onChange={formik.handleChange} checked={formik.values.order === 'asc'} className="peer hidden" id="asc" />
-                                                       <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-sans text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
+                                                       <label htmlFor="asc" className=" text-gray-500 peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قدیمی‌ترین</label>
                                                   </div>
                                              </section>
                                         </div>
                                         
                                         <div className="flex flex-col relative">
-                                             <p className="font-sans text-sm text-gray-800">وضعیت :</p>
+                                             <p className="font-iranyekan-regular text-sm text-gray-800">وضعیت :</p>
                                              <SelectBox_withoutSearch selected={status} setSelected={setStatus} data={allState}/>                                 
                                         </div>
 
@@ -222,22 +222,22 @@ const StoreManageProducts = () => {
                                                             <img alt="تصویر کالا" onClick={()=> {product.base_product.is_image_url && setIsImage_Modal(true) ; setModal_imageSrc(product.base_product.image_url)}} className="w-full h-auto" src={product.base_product && product.base_product.image_url || ""}/>
                                                        </div>
                                                        <div className="w-full flex justify-start flex-col pr-4 gap-y-3 mt-4 sm:mt-0">
-                                                            <p className="font-sans leading-6 text-sm items-start flex-row flex text-gray-800">
+                                                            <p className="font-iranyekan-regular leading-6 text-sm items-start flex-row flex text-gray-800">
                                                                  <b className="whitespace-nowrap pl-1 ">عنوان : </b>
                                                                  {substringHandler({count : 35 , title : product.base_product.title})}
                                                             </p>
-                                                            <p className="font-sans leading-6 text-sm  items-start flex-row flex text-gray-800 ">
+                                                            <p className="font-iranyekan-regular leading-6 text-sm  items-start flex-row flex text-gray-800 ">
                                                                  <b className="whitespace-nowrap pl-1 text-gray-800">برند : </b> 
                                                                  {substringHandler({count : 35 , title : product.base_product.brand.name})}
                                                             </p>
-                                                            <div className="font-sans leading-6 text-sm flex  w-full flex-row pl-3">
+                                                            <div className="font-iranyekan-regular leading-6 text-sm flex  w-full flex-row pl-3">
                                                                  <b className="whitespace-nowrap pl-1 text-gray-800">دسته‌بندی : </b>
-                                                                 <div>{product.base_product.categories.map((category,index) => <span key={index} className=" font-sans text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                 <div>{product.base_product.categories.map((category,index) => <span key={index} className=" font-iranyekan-regular text-sm text-gray-800">{index >0 && " / "}{category.name}</span>)}</div>
                                                             </div>
                                                        </div>
                                                        <div className={`flex justify-between w-full mt-4 sm:m-0 sm:w-fit  sm:justify-end gap-x-4`}>
                                                             {!product.is_show ?  (
-                                                                 <p className="whitespace-nowrap font-sans text-sm gap-x-1 items-center  bg-red-100 flex text-red-800  rounded-md  px-3">
+                                                                 <p className="whitespace-nowrap font-iranyekan-regular text-sm gap-x-1 items-center  bg-red-100 flex text-red-800  rounded-md  px-3">
                                                                  حذف شده
                                                                  </p>  
                                                             ) : <></>}
@@ -254,75 +254,75 @@ const StoreManageProducts = () => {
                                                   <section className="w-full bg-gray-50 shadow-inner rounded-md mt-4 peer-checked:flex flex-col hidden flex-wrap gap-y-2 p-4">
                                                        
                                                        <div className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تاریخ تولید : </b>
                                                                  {product.production_date && product.production_date.length ===0 ? "-" : product.production_date}
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تاریخ انقضا : </b>
                                                                  {product.expire_date && product.expire_date.length ===0 ? "-" : product.expire_date}
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت تولید : </b>
                                                                  {product.production_price && product.production_price.length === 0 ? "-" : toPersianPrice(product.production_price)+" تومان "}
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت مصرف کننده : </b>
                                                                  {product.consumer_price && product.consumer_price.length === 0 ? "-" : toPersianPrice(product.consumer_price)+" تومان "}
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">قیمت فروش : </b>
                                                                  {product.store_price && product.store_price.length === 0 ? "-" : toPersianPrice(product.store_price)+" تومان "}
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">تعداد در واحد : </b>
                                                                  {product.per_unit && product.per_unit.length === 0 ? "-" : toPersianPrice(product.per_unit)}
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">موجودی انبار : </b>
                                                                  {product.warehouse_count && product.warehouse_count.length === 0 ? "-" : toPersianPrice(product.warehouse_count)}
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">پورسانت بازاریابی محصول : </b>
                                                                  {product.commission && product.commission.length === 0 ? "-" : toPersianPrice(product.commission)}%
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">آخرین تاریخ بروزرسانی قیمت : </b>
                                                                  {product.price_update_time && product.price_update_time.length === 0 ? "-" : timeStampToPersianDate(product.price_update_time)}
                                                             </p>                
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">درصد تخفیف نقدی : </b>
                                                                  {product.cash_payment_discount && product.cash_payment_discount.length === 0 ? "-" : toPersianDigits(product.cash_payment_discount)}%
                                                             </p>                
                                                        </div>
                                                        <section >
                                                             <div className="flex flex-col mt-2">
-                                                                 <div className="flex flex-row test-sm font-sans">
-                                                                      <b className="font-sans text-sm text-gray-800">تخفیف پله‌ایی : </b>
-                                                                      {product.discounts.length === 0 && <p className="mr-1 font-sans text-sm text-gray-800">-</p>}
+                                                                 <div className="flex flex-row test-sm font-iranyekan-regular">
+                                                                      <b className="font-iranyekan-regular text-sm text-gray-800">تخفیف پله‌ایی : </b>
+                                                                      {product.discounts.length === 0 && <p className="mr-1 font-iranyekan-regular text-sm text-gray-800">-</p>}
                                                                  </div>
                                                                  {product.discounts.length > 0 && (
                                                                       <div className="w-full mt-2 border border-gray-400 rounded-lg pt-4 overflow-hidden">
                                                                            <div className="w-full grid grid-cols-3 px-4 mb-2">
-                                                                                <p className="font-sans text-sm font-bold text-gray-800">نوع</p>
-                                                                                <p className="font-sans text-sm font-bold text-gray-800">مقدار </p>
-                                                                                <p className="font-sans text-sm font-bold text-gray-800">قیمت نهایی</p>
+                                                                                <p className="font-iranyekan-regular text-sm font-iranyekan-bold text-gray-800">نوع</p>
+                                                                                <p className="font-iranyekan-regular text-sm font-iranyekan-bold text-gray-800">مقدار </p>
+                                                                                <p className="font-iranyekan-regular text-sm font-iranyekan-bold text-gray-800">قیمت نهایی</p>
                                                                            </div>
                                                                            {product.discounts.map((discount,index) => (
                                                                                 <div key={index} className="px-4 w-full grid grid-cols-3 py-2 odd:bg-gray-200 even:bg-gray-100">
-                                                                                     <p className="font-sans text-sm px-1 sm:p-0 text-gray-800">{discount.discount_type === 'count' ? "تعداد" : 'قیمت'}</p>
-                                                                                     <p className="font-sans text-sm px-1 sm:p-0 text-gray-800">{toPersianPrice(discount.discount_value)} {discount.discount_type === 'price' ? "تومان" : ''} </p>
-                                                                                     <p className="font-sans text-sm px-1 sm:p-0 text-gray-800">{toPersianPrice(discount.final_price)} تومان</p>
+                                                                                     <p className="font-iranyekan-regular text-sm px-1 sm:p-0 text-gray-800">{discount.discount_type === 'count' ? "تعداد" : 'قیمت'}</p>
+                                                                                     <p className="font-iranyekan-regular text-sm px-1 sm:p-0 text-gray-800">{toPersianPrice(discount.discount_value)} {discount.discount_type === 'price' ? "تومان" : ''} </p>
+                                                                                     <p className="font-iranyekan-regular text-sm px-1 sm:p-0 text-gray-800">{toPersianPrice(discount.final_price)} تومان</p>
                                                                                 </div>
                                                                            ))}
                                                                       </div>
                                                                  )}
                                                             </div>
-                                                            <p className="font-sans text-sm flex mt-4 text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex mt-4 text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات ارسال کالا : </b>
                                                                  {product?.delivery_description ||  "-"}
                                                             </p>
-                                                            <p className="font-sans text-sm flex mt-4 text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex mt-4 text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">توضیحات فروشنده : </b>
                                                                  {product?.store_note || "-"}
                                                             </p>
@@ -330,40 +330,40 @@ const StoreManageProducts = () => {
 
                                                        <hr className="border-gray-300 mt-4"/>
                                                   
-                                                       <p className="font-sans text-sm flex mt-4 leading-6 text-gray-800">
+                                                       <p className="font-iranyekan-regular text-sm flex mt-4 leading-6 text-gray-800">
                                                             <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">عنوان : </b>
                                                             {product.base_product.title}
                                                        </p>
                                                        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                             
-                                                            <div className="font-sans text-sm flex ">
+                                                            <div className="font-iranyekan-regular text-sm flex ">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 text-gray-800">دسته‌بندی : </b>
-                                                                 <div>{product.base_product.categories.map((category,index) => <span key={index} className="font-sans text-gray-800 text-sm">{index >0 && " / "}{category.name}</span>)}</div>
+                                                                 <div>{product.base_product.categories.map((category,index) => <span key={index} className="font-iranyekan-regular text-gray-800 text-sm">{index >0 && " / "}{category.name}</span>)}</div>
                                                             </div>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">برند : </b>
                                                                  {product?.base_product?.brand?.name || "-"}
                                                             </p>
-                                                            <p className="font-sans text-sm flex text-gray-800">
+                                                            <p className="font-iranyekan-regular text-sm flex text-gray-800">
                                                                  <b className="whitespace-nowrap mb-1 sm:m-0 pl-1">بارکد : </b>
                                                                  {product?.base_product?.barcode || "-"}
                                                             </p>
                                                             {/* Logo */}
                                                             <div className="flex">
-                                                                 <b className="font-sans text-sm pl-1 text-gray-800">تصویر کالا : </b>
+                                                                 <b className="font-iranyekan-regular text-sm pl-1 text-gray-800">تصویر کالا : </b>
                                                                  {product.base_product.is_image_url ? (
                                                                       <button 
                                                                            onClick={()=> {
                                                                                 setIsImage_Modal(true);
                                                                                 setModal_imageSrc(product.base_product.image_url)
                                                                            }} 
-                                                                           className="hover:text-red-600 font-sans text-sm text-blue-600 underline">
+                                                                           className="hover:text-red-600 font-iranyekan-regular text-sm text-blue-600 underline">
                                                                                 نمایش تصویر
                                                                       </button>
-                                                                 ) : <p className="font-sans text-sm mr-1">-</p>}
+                                                                 ) : <p className="font-iranyekan-regular text-sm mr-1">-</p>}
                                                             </div>
                                                        </div>
-                                                       <p className="mt-2 font-sans text-sm flex text-gray-800">
+                                                       <p className="mt-2 font-iranyekan-regular text-sm flex text-gray-800">
                                                             <b className="whitespace-nowrap mb-1 sm:m-0 pl-1 ">توضیحات : </b>
                                                             {product?.base_product?.description || "-"}
                                                        </p>

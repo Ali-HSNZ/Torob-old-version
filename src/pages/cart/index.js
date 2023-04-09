@@ -29,8 +29,8 @@ const CartPage = () => {
                          {cart_count > 0 ? (
                               <>
                                    <div className="flex">
-                                        <h1 className="font-sans text-right text-gray-800">سبدهای خرید شما</h1>
-                                        <span className="font-sans text-xs text-gray-600 mr-1">({toPersianDigits(cart_count)} کالا)</span>
+                                        <h1 className="font-iranyekan-regular text-right text-gray-800">سبدهای خرید شما</h1>
+                                        <span className="font-iranyekan-regular text-xs text-gray-600 mr-1">({toPersianDigits(cart_count)} کالا)</span>
                                    </div>
                                    <section className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mt-4">
                                         {data && data.length > 0 && data.map(data => (
@@ -41,7 +41,7 @@ const CartPage = () => {
                                                             <div className="border border-gray-300 p-1 rounded-md relative w-16 h-10 overflow-hidden">
                                                                  <Image unoptimized layout="fill" objectFit="cover" loader={()=>data.logo_image} src={data.logo_image} alt="تصویر فروشگاه" className="w-16 h-auto cursor-pointer" />
                                                             </div>
-                                                            <span className="font-sans text-sm font-bold text-gray-700 mr-4">{data.title}</span>
+                                                            <span className="font-iranyekan-regular text-sm font-iranyekan-bold text-gray-700 mr-4">{data.title}</span>
                                                        </div>
                                                        <button onClick={()=> dispatch(deleteStoreInCart({store_id : data.id}))} className="">
                                                             {/* delete Icon */}
@@ -59,7 +59,7 @@ const CartPage = () => {
                                                   </section>
                                                   <div className="w-full flex justify-between gap-x-4 mt-4">
                                                        <Link href={'/'}>
-                                                            <a className="font-sans w-full hover:bg-red-50 duration-150 text-sm border border-gray-400 rounded-lg font-bold py-3 flex text-red-600 items-center justify-center">
+                                                            <a className="font-iranyekan-regular w-full hover:bg-red-50 duration-150 text-sm border border-gray-400 rounded-lg font-iranyekan-bold py-3 flex text-red-600 items-center justify-center">
                                                                  ادامه خرید
                                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-red-600 mr-4">
                                                                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -67,7 +67,7 @@ const CartPage = () => {
                                                             </a>
                                                        </Link>
                                                        <Link  href={`/cart/${data.id}`}>
-                                                            <a className="text-center font-sans hover:bg-red-700 duration-150 w-full font-bold text-sm bg-red-600 text-white py-3 rounded-lg">تکمیل سفارش</a>
+                                                            <a className="text-center font-iranyekan-regular hover:bg-red-700 duration-150 w-full font-iranyekan-bold text-sm bg-red-600 text-white py-3 rounded-lg">تکمیل سفارش</a>
                                                        </Link>
                                                   </div>
                                                   </div>
@@ -79,9 +79,9 @@ const CartPage = () => {
                               <section className="w-full">
                                    <div className="w-full flex flex-col items-center">
                                         <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg" alt="تصویر سبد خرید" className="w-72 h-auto" />
-                                        <h3 className="font-sans font-bold text-center">سبد خرید شما خالی است!</h3>
+                                        <h3 className="font-iranyekan-regular font-iranyekan-bold text-center">سبد خرید شما خالی است!</h3>
                                         <Link href={'/'}>
-                                             <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-sans text-sm underline underline-offset-4">بازگشت به فروشگاه</a>
+                                             <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-iranyekan-regular text-sm underline underline-offset-4">بازگشت به فروشگاه</a>
                                         </Link>
                                    </div>
                               </section>

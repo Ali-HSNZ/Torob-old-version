@@ -40,10 +40,10 @@ const NotFoundPage = () => {
                     <div className="px-4">
                          <title>Page Not Found</title>
                          <img src="https://i.ibb.co/W6tgcKQ/softcodeon.gif" alt="تصویر 404" className="p-2"/>
-                         <h1 className="error-text mt-5 font-sans text-2xl font-bold">صفحه مورد نظر یافت نشد</h1>
-                         <p className="text font-sans mt-4  font-bold">لطفا بررسی کنید که آدرس سایت به درستی نوشته شده باشد. </p>
+                         <h1 className="error-text mt-5 font-iranyekan-regular text-2xl font-iranyekan-bold">صفحه مورد نظر یافت نشد</h1>
+                         <p className="text font-iranyekan-regular mt-4  font-iranyekan-bold">لطفا بررسی کنید که آدرس سایت به درستی نوشته شده باشد. </p>
                          <Link href="/">
-                              <a className="error block font-sans mt-4 font-bold text-red-600" > به فروشگاه بازگردید </a>
+                              <a className="error block font-iranyekan-regular mt-4 font-iranyekan-bold text-red-600" > به فروشگاه بازگردید </a>
                          </Link>
                     </div>
                </div>

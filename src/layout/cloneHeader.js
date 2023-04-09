@@ -157,7 +157,7 @@ const Header = () => {
                                    <div className="w-11 md:w-12">
                                         <img className="w-full h-auto" src={images.src} alt="لوگو ترب"/>
                                    </div>
-                                   <span className="text-[#d73948] font-bold text-[24px] font-sans mr-1">ترب</span>
+                                   <span className="text-[#d73948] font-iranyekan-bold text-[24px] font-iranyekan-regular mr-1">ترب</span>
                               </a>
                          </Link>
                     </section>
@@ -165,14 +165,14 @@ const Header = () => {
                     <section className="w-full mt-4 sm:mt-0 flex justify-between">
 
                         {/* //! Div Search =>  */}
-                            <div id="divSearch" className=" bg-gray-200 relative ml-4 sm:mr-6 placeholder:text-xs text-gray-600 sm:placeholder:text-sm pr-11 outline-none rounded-md  py-2 md:py-3 w-full sm:w-9/12 font-sans lg:w-[420px] px-4">
-                                <span className="font-sans text-sm text-gray-500">جستجو</span>
+                            <div id="divSearch" className=" bg-gray-200 relative ml-4 sm:mr-6 placeholder:text-xs text-gray-600 sm:placeholder:text-sm pr-11 outline-none rounded-md  py-2 md:py-3 w-full sm:w-9/12 font-iranyekan-regular lg:w-[420px] px-4">
+                                <span className="font-iranyekan-regular text-sm text-gray-500">جستجو</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 absolute top-2 md:top-3 right-3 text-gray-400">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                 </svg>
                                 {/*//! Search Panel */}
                                 <form id="searchPanel" onSubmit={e => onSubmit(e)} method="get" className=" hidden w-[420px] bg-white absolute rounded-md z-20 right-[16px] sm:right-[184px] md:right-[196px] lg:right-[132px]">
-                                    <input id="inputSearch_input" onChange={input => changeInputValueHandler(input.target.value) } name="title" className=" py-[10px] md:py-[14px] text-gray-600 placeholder:text-sm pr-11 outline-none rounded-md w-full text-sm font-sans px-4" value={inputValue} placeholder="جستجو" />
+                                    <input id="inputSearch_input" onChange={input => changeInputValueHandler(input.target.value) } name="title" className=" py-[10px] md:py-[14px] text-gray-600 placeholder:text-sm pr-11 outline-none rounded-md w-full text-sm font-iranyekan-regular px-4" value={inputValue} placeholder="جستجو" />
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 absolute top-[8px] sm:top-[12px] right-3 text-gray-400">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                     </svg>
@@ -181,7 +181,7 @@ const Header = () => {
 
 
                         {/* <form onSubmit={formik.handleSubmit} method="get" className="w-full ml-4 relative sm:pr-6 flex justify-start items-center z-10">
-                                <input onBlur={formik.handleBlur} onChange={formik.handleChange } name="title" className="bg-gray-200 placeholder:text-xs text-gray-600 sm:placeholder:text-sm pr-11 outline-none rounded-md  py-2 md:py-3 w-full sm:w-9/12 font-sans lg:w-[420px] px-4" value={formik.values.title} placeholder="جستجو" />
+                                <input onBlur={formik.handleBlur} onChange={formik.handleChange } name="title" className="bg-gray-200 placeholder:text-xs text-gray-600 sm:placeholder:text-sm pr-11 outline-none rounded-md  py-2 md:py-3 w-full sm:w-9/12 font-iranyekan-regular lg:w-[420px] px-4" value={formik.values.title} placeholder="جستجو" />
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 absolute right-3 sm:right-9 text-gray-400">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                 </svg>
@@ -192,7 +192,7 @@ const Header = () => {
                             {/* Cart Page */}
                             <Link href={'/cart'}>
                                 <a className="py-2 md:py-3 h-fit px-4 bg-white border absolute top-4 sm:top-0 left-0  sm:relative border-gray-300 rounded-md ml-4 flex items-center ">
-                                    {cart_count > 0 && <span className="absolute top-[-6px] right-[-6px] bg-red-600 font-sans text-xs  w-6 h-6 text-center flex items-center justify-center rounded-full text-white">{toPersianDigits(cart_count)}</span>}
+                                    {cart_count > 0 && <span className="absolute top-[-6px] right-[-6px] bg-red-600 font-iranyekan-regular text-xs  w-6 h-6 text-center flex items-center justify-center rounded-full text-white">{toPersianDigits(cart_count)}</span>}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                     </svg>
@@ -200,7 +200,7 @@ const Header = () => {
                             </Link>
                             <section className="relative w-[123px]">
                                 {/* Login Button => 0936...*/}
-                                {user?.phone_number_primary && <button  className="w-full userPhoneNumber_btn whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white py-2 md:py-3  font-sans text-sm ">
+                                {user?.phone_number_primary && <button  className="w-full userPhoneNumber_btn whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white py-2 md:py-3  font-iranyekan-regular text-sm ">
                                     {toPersianDigits(user.phone_number_primary)}
                                 </button>}
                                 {user ? (
@@ -208,15 +208,15 @@ const Header = () => {
                                         {user?.account_type === 'normal' ? (
                                             <nav className={`w-full userPanel overflow-hidden bg-white border border-gray-300 border-t-0 rounded-b-md hidden absolute z-50 top-[34px] md:top-[42px] left-[0px]  whitespace-nowrap `}>
                                                 <Link href={'/user/favorites'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
                                                 </Link>
                                                 <Link href={'/user/history'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
                                                 </Link>
                                                 <Link href={'/user/invoices'} >
-                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                    <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
                                                 </Link>
-                                                <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 font-bold text-red-600 w-full py-2 text-center font-sans ">
+                                                <button onClick={()=> {dispatch(userLogout()) ; dispatch(authPanel(false))}} className="text-xs cursor-pointer hover:bg-red-100 font-iranyekan-bold text-red-600 w-full py-2 text-center font-iranyekan-regular ">
                                                     خروج
                                                 </button>
                                             </nav>
@@ -224,34 +224,34 @@ const Header = () => {
                                             <div className={`bg-white rounded-b-md   border overflow-hidden border-gray-300 border-t-0 userPanel hidden absolute top-[34px] md:top-[42px] w-full left-[0px]  whitespace-nowrap `}>
                                                 {user.is_pending ? (
                                                     <nav className="w-ful">
-                                                        <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs w-full cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</button>
+                                                        <button onClick={()=>requestError({error : null , defaultMessage : ' فروشگاه شما در وضعیت "بررسی نشده" است. و پس از بررسی به پنل خود دسترسی خواهید داشت'})} className="text-xs w-full cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">پنل مدیریت</button>
                                                         <Link href={'/user/favorites'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
                                                         </Link>
                                                         <Link href={'/user/history'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
                                                         </Link>
                                                         <Link href={'/user/invoices'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
                                                         </Link>
                                                     </nav>
                                                 ) : (
                                                     <nav className="w-ful">
                                                         <Link href={`/${user.account_type}`} >
-                                                            <a className="text-xs cursor-pointer  hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">پنل مدیریت</a>
+                                                            <a className="text-xs cursor-pointer  hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">پنل مدیریت</a>
                                                         </Link>
                                                         <Link href={'/user/favorites'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">محبوب‌ها</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">محبوب‌ها</a>
                                                         </Link>
                                                         <Link href={'/user/history'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">مشاهدات اخیر</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">مشاهدات اخیر</a>
                                                         </Link>
                                                         <Link href={'/user/invoices'} >
-                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-bold text-gray-700 py-2 text-center font-sans block">سفارشات</a>
+                                                            <a className="text-xs cursor-pointer hover:bg-gray-200 font-iranyekan-bold text-gray-700 py-2 text-center font-iranyekan-regular block">سفارشات</a>
                                                         </Link>
                                                     </nav>
                                                 )}
-                                                <button onClick={()=> {dispatch(userLogout())}} className="text-xs cursor-pointer hover:bg-red-100  font-bold text-red-600 w-full py-2 text-center font-sans ">خروج</button>
+                                                <button onClick={()=> {dispatch(userLogout())}} className="text-xs cursor-pointer hover:bg-red-100  font-iranyekan-bold text-red-600 w-full py-2 text-center font-iranyekan-regular ">خروج</button>
                                             </div>
                                         )}
                                     </>
@@ -260,7 +260,7 @@ const Header = () => {
                                         {loading ? (
                                             <button className="w-full whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white px-4 py-2 md:py-3   text-sm">...</button>
                                         ) : (
-                                            <button onClick={() => dispatch(authPanel({isOpen : true,type : "normal"}))} className="w-full whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white py-2 md:py-3  font-sans text-sm">ورود / ثبت نام</button>
+                                            <button onClick={() => dispatch(authPanel({isOpen : true,type : "normal"}))} className="w-full whitespace-nowrap rounded-md border  text-gray-800  border-gray-300 bg-white py-2 md:py-3  font-iranyekan-regular text-sm">ورود / ثبت نام</button>
                                         )}
                                     </>
                                 )}

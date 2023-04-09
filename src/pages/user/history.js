@@ -44,7 +44,7 @@ const History = () => {
                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                              </svg>
                                         </button>
-                                        <span className="font-sans text-gray-800 font-bold text-xl">مشاهدات اخیر</span>
+                                        <span className="font-iranyekan-regular text-gray-800 font-iranyekan-bold text-xl">مشاهدات اخیر</span>
                                    </div>
                                    {history && history.length > 0 && (
                                         <button onClick={() => dispatch(deleteHistory())} className={buttonClassName({bgColor : "red" , isOutline : true , isValid : true})}>
@@ -57,7 +57,7 @@ const History = () => {
                               <div className="w-full flex justify-center my-7">
                                    <div className="w-full sm:w-1/2 flex flex-col items-center">
                                         <img alt="تصویر مشاهدات اخیر" className="w-full h-auto" src={empty_history.src} />
-                                        <p className=" text-center leading-5 font-sans relative text-gray-500 sm:left-6 sm:w-4/6 text-xs">
+                                        <p className=" text-center leading-5 font-iranyekan-regular relative text-gray-500 sm:left-6 sm:w-4/6 text-xs">
                                              آخرین محصولاتی که دیده‌اید را می‌توانید اینجا پیدا کنید.
                                         </p>
                                    </div>

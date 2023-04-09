@@ -25,13 +25,13 @@ const Categories = ({similarCategories , categories}) => {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rotate-0 duration-100 mr-4 text-gray-800 w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
-                <span className="font-sans mr-2 text-gray-800">{categories.title}</span>
+                <span className="font-iranyekan-regular mr-2 text-gray-800">{categories.title}</span>
             </div>
             <nav className={`${isSuggestedCategories ? "" : "hidden"} flex flex-col gap-y-6 pr-4 pb-6`}>
                 {!similarCategories ? categories.data.map((category, index) => {
                     return (
                         <Link key={index} href={{pathname: "/search",query: { ...query, category: category.slug }}}>
-                            <a className="hover:text-red-500 mr-4 text-sm font-sans text-gray-800">{category.name}</a>
+                            <a className="hover:text-red-500 mr-4 text-sm font-iranyekan-regular text-gray-800">{category.name}</a>
                         </Link>
                     )}
                 ) : (
@@ -42,7 +42,7 @@ const Categories = ({similarCategories , categories}) => {
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-800" fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
                                     </svg>
-                                    <p className="font-sans hover:text-red-500 text-sm text-gray-800">{similarCategories.data.data.parent && similarCategories.data.data.parent.title}</p>
+                                    <p className="font-iranyekan-regular hover:text-red-500 text-sm text-gray-800">{similarCategories.data.data.parent && similarCategories.data.data.parent.title}</p>
                                 </a>
                             </Link>
                         )}
@@ -52,7 +52,7 @@ const Categories = ({similarCategories , categories}) => {
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-800" fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
                                     </svg>
-                                    <p className="font-sans hover:text-red-500 text-sm text-gray-800">{similarCategories.data.data.sub1 && similarCategories.data.data.sub1.title}</p>
+                                    <p className="font-iranyekan-regular hover:text-red-500 text-sm text-gray-800">{similarCategories.data.data.sub1 && similarCategories.data.data.sub1.title}</p>
                                 </a>
                             </Link>
                         )}
@@ -62,14 +62,14 @@ const Categories = ({similarCategories , categories}) => {
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-800" fill="none"viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
                                     </svg>
-                                    <p className="font-sans hover:text-red-500 text-sm text-gray-800">{similarCategories.data.data.sub2 && similarCategories.data.data.sub2.title}</p>
+                                    <p className="font-iranyekan-regular hover:text-red-500 text-sm text-gray-800">{similarCategories.data.data.sub2 && similarCategories.data.data.sub2.title}</p>
                                 </a>
                             </Link>
                         )}
                         {similarCategories.data.list && similarCategories.data.list.map((category, index) => {
                             return(
                                 <Link key={index} href={{pathname: "/search",query: { ...query, category: category.slug }}}>
-                                    <a className={`hover:text-red-500  ${similarCategories.data.data.sub2 ? "mr-16" : similarCategories.data.data.sub1 ?  "mr-12" : "mr-9"} py-3  text-sm font-sans text-gray-800`}>{category.title}</a>
+                                    <a className={`hover:text-red-500  ${similarCategories.data.data.sub2 ? "mr-16" : similarCategories.data.data.sub1 ?  "mr-12" : "mr-9"} py-3  text-sm font-iranyekan-regular text-gray-800`}>{category.title}</a>
                                 </Link>
                             )}
                         )} 
