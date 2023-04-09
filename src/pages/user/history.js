@@ -44,7 +44,7 @@ const History = () => {
                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                              </svg>
                                         </button>
-                                        <span className="font-iranyekan-regular text-gray-800 font-iranyekan-bold text-xl">مشاهدات اخیر</span>
+                                        <span className="text-gray-800 font-iranyekan-bold text-xl">مشاهدات اخیر</span>
                                    </div>
                                    {history && history.length > 0 && (
                                         <button onClick={() => dispatch(deleteHistory())} className={buttonClassName({bgColor : "red" , isOutline : true , isValid : true})}>

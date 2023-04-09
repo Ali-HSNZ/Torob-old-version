@@ -26,7 +26,7 @@ const ManageStore = () => {
                         <><ManageStoreAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
                     <section className="w-full ">
-                        <p className="mt-6 text-1xl font-iranyekan-regular">فروشگاه {auth?.user?.store_name ?? "نامشخص"}</p>
+                        <h3 className="mt-6 text-xl font-iranyekan-bold">فروشگاه {auth?.user?.store_name ?? "نامشخص"}</h3>
                         <nav className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 
                             <Link href={'/store/manage-products'}>
