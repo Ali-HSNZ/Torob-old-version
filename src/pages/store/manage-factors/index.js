@@ -7,10 +7,10 @@ import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
-import FormikInput from "@/common/admin/FormikInput";
+import FormikInput from "@/common/FormikInput";
 import { buttonClassName } from "@/utils/global";
-import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
-import SelectBox from "@/common/admin/SelectBox";
+import SelectBox_withoutSearch from "@/common/SelectBox_withoutSearch";
+import SelectBox from "@/common/SelectBox";
 import { store_changeInvoiceState, store_fetchFactors, store_fetchFactorsFailure, store_fetchFactorsRequest, store_fetchFactorsSuccess } from "@/redux/manage-store/manageFactors/manageFactors_actions";
 import { useSelector , useDispatch} from "react-redux";
 import { toPersianDigits } from "@/utils/toPersianDigits";

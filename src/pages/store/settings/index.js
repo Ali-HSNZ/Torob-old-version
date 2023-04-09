@@ -3,7 +3,7 @@ import { Modal } from "@mui/material";
 import { useState } from "react";
 import ManageStoreAside from "@/components/manageStore/storeAside";
 import Link from "next/link";
-import FormikInput from "@/common/admin/FormikInput";
+import FormikInput from "@/common/FormikInput";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import { ONLY_DIGIT_REGIX } from "@/utils/Regex";

@@ -10,10 +10,10 @@ import { Modal } from '@mui/material';
 import { useRef } from 'react';
 import { toast } from "react-toastify";
 import { useRouter } from 'next/router';
-import FormikInput from '@/common/admin/FormikInput';
+import FormikInput from '@/common/FormikInput';
 import { buttonClassName } from '@/utils/global';
 
-export default function DialogAlert_insertBrand({isModal,setIsModal,title , page , limit}) {
+function Modal_insertBrand({isModal,setIsModal,title , page , limit}) {
      const {query} = useRouter()
      const dispatch =  useDispatch();
      const imageInput_ref = useRef();
@@ -137,3 +137,4 @@ export default function DialogAlert_insertBrand({isModal,setIsModal,title , page
           </Dialog>
      );
 }
+export default Modal_insertBrand

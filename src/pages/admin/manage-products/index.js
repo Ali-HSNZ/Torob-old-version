@@ -11,9 +11,9 @@ import * as Yup from 'yup'
 import { useFormik } from "formik";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
-import SelectBox from "@/common/admin/SelectBox";
-import FormikInput from "@/common/admin/FormikInput";
-import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
+import SelectBox from "@/common/SelectBox";
+import FormikInput from "@/common/FormikInput";
+import SelectBox_withoutSearch from "@/common/SelectBox_withoutSearch";
 import { buttonClassName, linkClassName, substringHandler } from "@/utils/global";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";

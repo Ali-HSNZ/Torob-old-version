@@ -1,21 +1,21 @@
 import AdminPageAside from "@/components/adminPage/Aside";
-import DialogAlert_deleteBrand from "@/components/adminPage/manage-brand/DialogAlert_deleteBrand";
+import Modal_deleteBrand from "@/components/adminPage/manage-brand/Modal_deleteBrand";
 import Layout from "@/layout/Layout";
 import { admin_fetchBrandsRequest, fetchBrands } from "@/redux/admin/admin_manageBrand/admin_manageBrandActions";
 import { Modal, Pagination } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DialogAlert_updateBrand from "@/components/adminPage/manage-brand/DialogAlert_updateBrand";
-import DialogAlert_insertBrand from "@/components/adminPage/manage-brand/DialogAlert_insertBrand";
+import Modal_updateBrand from "@/components/adminPage/manage-brand/Modal_updateBrand";
+import Modal_insertBrand from "@/components/adminPage/manage-brand/Modal_insertBrand";
 import { useRouter } from "next/router";
 import Warning from "@/common/alert/Warning";
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 import Link from "next/link";
 import ReactLoading from 'react-loading';
-import FormikInput from "@/common/admin/FormikInput";
-import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
+import FormikInput from "@/common/FormikInput";
+import SelectBox_withoutSearch from "@/common/SelectBox_withoutSearch";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
@@ -55,15 +55,15 @@ const ManageBrands = () => {
      const [isModal_insertBrand , setIsModal_insertBrand] = useState(false)
      const [modalDetail_insertBrand , setModalDetail_insertBrand] = useState({})
 
-     function showDialogAlert_reduxActions(){
+     function showModal_reduxActions(){
           if(isModal_deleteBrand === true){
-               return <DialogAlert_deleteBrand page={page} limit={limit} isModal={isModal_deleteBrand} setIsModal={setIsModal_deleteBrand} id={modalDetail_deleteBrand.id} title={modalDetail_deleteBrand.title} description={modalDetail_deleteBrand.description} />
+               return <Modal_deleteBrand page={page} limit={limit} isModal={isModal_deleteBrand} setIsModal={setIsModal_deleteBrand} id={modalDetail_deleteBrand.id} title={modalDetail_deleteBrand.title} description={modalDetail_deleteBrand.description} />
           }
           if(isModal_updateBrand === true){
-               return <DialogAlert_updateBrand is_brand_image={modalDetail_updateBrand.is_brand_image} imageUrl={modalDetail_updateBrand.imageUrl}  isModal={isModal_updateBrand} setIsModal={setIsModal_updateBrand} id={modalDetail_updateBrand.id} title={modalDetail_updateBrand.title} faName={modalDetail_updateBrand.faName} enName={modalDetail_updateBrand.enName} company={modalDetail_updateBrand.company} />
+               return <Modal_updateBrand is_brand_image={modalDetail_updateBrand.is_brand_image} imageUrl={modalDetail_updateBrand.imageUrl}  isModal={isModal_updateBrand} setIsModal={setIsModal_updateBrand} id={modalDetail_updateBrand.id} title={modalDetail_updateBrand.title} faName={modalDetail_updateBrand.faName} enName={modalDetail_updateBrand.enName} company={modalDetail_updateBrand.company} />
           }
           if(isModal_insertBrand === true){
-               return <DialogAlert_insertBrand isModal={isModal_insertBrand} setIsModal={setIsModal_insertBrand} title={modalDetail_insertBrand.title} page={page} limit ={limit} />
+               return <Modal_insertBrand isModal={isModal_insertBrand} setIsModal={setIsModal_insertBrand} title={modalDetail_insertBrand.title} page={page} limit ={limit} />
           }
      }
 
@@ -113,7 +113,7 @@ const ManageBrands = () => {
                          </button>
                     </section>
                </Modal>
-                    {showDialogAlert_reduxActions()}
+                    {showModal_reduxActions()}
                <div className="w-full flex flex-col lg:flex-row  justify-between">
                     <AdminPageAside/>
                     <section className="w-full lg:w-4/5 flex-0 h-max px-3 sm:px-4 "> 

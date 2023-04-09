@@ -10,14 +10,14 @@ import * as Yup from 'yup'
 import { useFormik } from "formik";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
-import SelectBox from "@/common/admin/SelectBox";
-import FormikInput from "@/common/admin/FormikInput";
+import SelectBox from "@/common/SelectBox";
+import FormikInput from "@/common/FormikInput";
 import { fetchCompanyProducts, fetchCompanyProductsRequest } from "@/redux/manage-store/companyProducts/companyProducts_Actions";
 import { toPersianPrice } from "@/utils/toPersianPrice";
 import { timeStampToPersianDate } from "@/utils/timeStampToPersianDate";
 import { fetchBrandsFailure, fetchBrandsSuccess, store_fetchCategoriesFailure, store_fetchCategoriesSuccess } from "@/redux/manage-store/manageStore/manageStore_actions";
 import { toPersianDigits } from "@/utils/toPersianDigits";
-import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
+import SelectBox_withoutSearch from "@/common/SelectBox_withoutSearch";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";

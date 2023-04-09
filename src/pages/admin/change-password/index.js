@@ -3,7 +3,7 @@ import { Modal } from "@mui/material";
 import { useState } from "react";
 import AdminAside from "@/components/adminPage/Aside";
 import Link from "next/link";
-import FormikInput from "@/common/admin/FormikInput";
+import FormikInput from "@/common/FormikInput";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import { PASSWORD_REGIX } from "@/utils/Regex";

@@ -1,5 +1,5 @@
-import BigScreenMenu from "@/common/BigScreenMenu";
-import SmallScreenMenu from "@/common/SmallScreenMenu";
+import BigScreenMenu from "@/layout/DesktopMenu";
+import SmallScreenMenu from "@/layout/MobileMenu";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import Link from "next/link";
 import { useState } from "react";

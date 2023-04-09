@@ -10,14 +10,14 @@ import { toast } from "react-toastify";
 import * as Yup from 'yup'
 import InputMask from "react-input-mask";
 import { useDispatch, useSelector } from "react-redux";
-import { provinces } from "@/common/admin/provinces";
-import SelectBox from "@/common/admin/SelectBox";
+import { provinces } from "src/static/provinces";
+import SelectBox from "@/common/SelectBox";
 import { useEffect } from "react";
-import { allCities } from "@/common/admin/cities";
+import { allCities } from "src/static/cities";
 import ReactLoading from 'react-loading';
 import { deleteUser, fetchOneUserFailure, fetchOneUserSuccess, updateUser } from "@/redux/admin/admin_manageUsers/admin_manageUsersActions";
 import { useRouter } from "next/router";
-import FormikInput from "@/common/admin/FormikInput";
+import FormikInput from "@/common/FormikInput";
 import { ONLY_DIGIT_REGIX, PASSWORD_REGIX, PHONE_NUMBER_REGIX, POSTAL_CODE_REGIX } from "@/utils/Regex";
 import http, { requestError, returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";

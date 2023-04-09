@@ -6,7 +6,7 @@ import { Modal } from "@mui/material";
 import ReactLoading from 'react-loading';
 import { ONLY_DIGIT_REGIX, PASSWORD_REGIX} from "@/utils/Regex";
 import { useRouter } from "next/router";
-import FormikInput from "@/common/admin/FormikInput";
+import FormikInput from "@/common/FormikInput";
 
 const Login = () => {
      const {loading, panel ,panelType} = useSelector((state) => state.auth);

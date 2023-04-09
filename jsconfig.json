@@ -11,6 +11,7 @@
             "@/pages/*" : ["src/pages/*"],
             "@/images/*" : ["src/images/*"],
             "@/utils/*" : ["src/utils/*"],
+            "@/static/*" : ["src/static/*"],
         }
     }
 }

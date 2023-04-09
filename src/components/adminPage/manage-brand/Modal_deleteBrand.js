@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { deleteBrand } from '@/redux/admin/admin_manageBrand/admin_manageBrandActions';
 import { useRouter } from 'next/router';
 
-export default function DialogAlert_deleteBrand({ id, isModal , setIsModal , title , description}) {
+function Modal_deleteBrand({ id, isModal , setIsModal , title , description}) {
 
     const dispatch = useDispatch()
     const {query} = useRouter()
@@ -30,3 +30,4 @@ export default function DialogAlert_deleteBrand({ id, isModal , setIsModal , tit
         </Dialog>
     );
 }
+export default Modal_deleteBrand;

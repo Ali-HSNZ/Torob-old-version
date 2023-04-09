@@ -1,5 +1,5 @@
-import BigScreenMenu from "@/common/BigScreenMenu";
-import SmallScreenMenu from "@/common/SmallScreenMenu";
+import DesktopMenu from "@/layout/DesktopMenu";
+import MobileMenu from "@/layout/MobileMenu";
 import Login from "@/components/Login";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import ReactLoading from "react-loading";
@@ -321,11 +321,11 @@ const Header = () => {
 
                {/* //?  Menu For Big Screen  ==> */}
                <section className="mt-4">
-                    <BigScreenMenu customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}/>
+                    <DesktopMenu customClassname={"z-40 absolute mx-10 right-0 left-0 rounded-md top-[140px]"}/>
                </section>
 
                {/* //?  Menu For Small Width - Responsive  ==> */}
-               {isSmallScreenModal && <SmallScreenMenu customClassname="lg:hidden" isSmallScreenModal={true} setIsSmallScreenModal={setIsSmallScreenModal} />} 
+               {isSmallScreenModal && <MobileMenu customClassname="lg:hidden" isSmallScreenModal={true} setIsSmallScreenModal={setIsSmallScreenModal} />} 
             </main>
           </header>
      );

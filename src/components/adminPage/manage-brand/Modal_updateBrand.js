@@ -11,7 +11,7 @@ import { useRef } from 'react';
 import { Modal } from '@mui/material';
 import { useEffect } from 'react';
 import { toast } from "react-toastify";
-import FormikInput from '@/common/admin/FormikInput';
+import FormikInput from '@/common/FormikInput';
 import { buttonClassName } from '@/utils/global';
 
 export default function DialogAlert_updateBrand({imageUrl,is_brand_image,faName, enName, company, id, isModal , setIsModal, title, submitBtnTitle}) {

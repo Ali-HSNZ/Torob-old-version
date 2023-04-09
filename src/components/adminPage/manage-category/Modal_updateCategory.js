@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useRouter } from 'next/router';
 import { buttonClassName } from '@/utils/global';
-import FormikInput from '../FormikInput';
+import FormikInput from '../../../common/FormikInput';
 
 export default function DialogAlert_updateCategory({categoryName , id, isModal , setIsModal , title , submitBtnTitle}) {
     const dispatch =  useDispatch()

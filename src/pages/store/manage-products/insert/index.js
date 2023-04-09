@@ -10,9 +10,9 @@ import * as Yup from 'yup'
 import { useFormik } from "formik";
 import ReactLoading from "react-loading";
 import Warning from "@/common/alert/Warning";
-import FormikInput from "@/common/admin/FormikInput";
+import FormikInput from "@/common/FormikInput";
 import { fetchBaseProducts, fetchBaseProductsRequest, fetchBrands, fetchBrandsFailure, fetchBrandsSuccess, fetchCategories, store_fetchCategoriesFailure, store_fetchCategoriesSuccess } from "@/redux/manage-store/manageStore/manageStore_actions";
-import SelectBox from "@/common/admin/SelectBox";
+import SelectBox from "@/common/SelectBox";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";

@@ -6,17 +6,17 @@ import { useEffect } from "react";
 import { useState  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from 'react-loading';
-import InsertCategoryForm from "@/common/admin/manage-category/inputCommon";
-import DialogAlert_deleteCategory from "@/common/admin/manage-category/DialogAlert_deleteCategory";
-import DialogAlert_updateCategory from "@/common/admin/manage-category/DialogAlert_updateCategory";
-import DialogAlert_insertMainCategory from "@/common/admin/manage-category/DialogAlert_insertMainCategory";
+import InsertCategoryForm from "@/components/adminPage/manage-category/inputCommon";
+import Modal_deleteCategory from "@/components/adminPage/manage-category/Modal_deleteCategory";
+import Modal_updateCategory from "@/components/adminPage/manage-category/Modal_updateCategory";
+import Modal_insertMainCategory from "@/components/adminPage/manage-category/Modal_insertMainCategory";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import Warning from "@/common/alert/Warning";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import FormikInput from "@/common/admin/FormikInput";
-import SelectBox_withoutSearch from "@/common/admin/SelectBox_withoutSearch";
+import FormikInput from "@/common/FormikInput";
+import SelectBox_withoutSearch from "@/common/SelectBox_withoutSearch";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
@@ -56,13 +56,13 @@ const ManageCategory = () => {
 
     function showDialogAlert_reduxActions(){
         if(isModal_deleteCategory === true){
-            return <DialogAlert_deleteCategory  isModal={isModal_deleteCategory} setIsModal={setIsModal_deleteCategory} id={modalDetail_deleteCategory.category_id} title={modalDetail_deleteCategory.title}/>
+            return <Modal_deleteCategory  isModal={isModal_deleteCategory} setIsModal={setIsModal_deleteCategory} id={modalDetail_deleteCategory.category_id} title={modalDetail_deleteCategory.title}/>
         }
         if(isModal_updateCategory === true){ 
-            return <DialogAlert_updateCategory isModal={isModal_updateCategory} setIsModal={setIsModal_updateCategory} id={modalDetail_updateCategory.category_id} title={modalDetail_updateCategory.title} categoryName={modalDetail_updateCategory.categoryName} />
+            return <Modal_updateCategory isModal={isModal_updateCategory} setIsModal={setIsModal_updateCategory} id={modalDetail_updateCategory.category_id} title={modalDetail_updateCategory.title} categoryName={modalDetail_updateCategory.categoryName} />
         }
         if(isModal_insertMainCategory === true){ 
-            return <DialogAlert_insertMainCategory isModal={isModal_insertMainCategory} setIsModal={setIsModal_insertMainCategory} title={modalDetail_insertMainCategory.title}/>
+            return <Modal_insertMainCategory isModal={isModal_insertMainCategory} setIsModal={setIsModal_insertMainCategory} title={modalDetail_insertMainCategory.title}/>
         }
     }
 

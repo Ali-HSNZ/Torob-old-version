@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { Modal } from "@mui/material";
 import { useSelector } from "react-redux";
 
-const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customClassname}) => {
+const MobileMenu = ({setIsSmallScreenModal , isSmallScreenModal , customClassname}) => {
      const router = useRouter()
      const {query} = useRouter()
      const {categories} = useSelector(state => state.categories)
@@ -130,4 +130,4 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
      );
 }
      
-export default SmallScreenMenu;
+export default MobileMenu;

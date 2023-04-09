@@ -6,9 +6,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useRouter } from 'next/router';
 import { buttonClassName } from '@/utils/global';
-import FormikInput from '../FormikInput';
+import FormikInput from '../../../common/FormikInput';
 
-export default function DialogAlert_insertMainCategory({isModal , setIsModal , title}) {
+function Modal_insertMainCategory({isModal , setIsModal , title}) {
     const dispatch =  useDispatch()
     const {query} = useRouter()
     const {limit,page,name : paramsName,state,order} = query
@@ -42,3 +42,5 @@ export default function DialogAlert_insertMainCategory({isModal , setIsModal , t
         </Modal>
     );
 }
+
+export default Modal_insertMainCategory

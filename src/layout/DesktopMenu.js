@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-const BigScreenMenu = ({customClassname}) => {
+const DesctopMenu = ({customClassname}) => {
 
      const {categories} = useSelector(state => state.categories)
 
@@ -70,4 +70,4 @@ const BigScreenMenu = ({customClassname}) => {
 
     );
 }
-export default BigScreenMenu;
+export default DesctopMenu;

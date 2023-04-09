@@ -25,10 +25,10 @@ import {
      fetchMainCategories,
 } from "@/redux/admin/admin_manageProducts/admin_manageProductsActions";
 import { useRouter } from "next/router";
-import SelectBox from "@/common/admin/SelectBox";
+import SelectBox from "@/common/SelectBox";
 import { Modal } from "@mui/material";
 import { toast } from "react-toastify";
-import FormikInput from "@/common/admin/FormikInput";
+import FormikInput from "@/common/FormikInput";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { buttonClassName, validImageTypes } from "@/utils/global";
 import { wrapper } from "@/redux/store";
