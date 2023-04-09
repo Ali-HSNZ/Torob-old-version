@@ -34,7 +34,7 @@ const ManageStore = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت محصولات</h1>
+                            <h1 className="font-iranyekan-bold text-lg text-gray-800">مدیریت محصولات</h1>
                         </div>
                         <div className="flex gap-x-2 items-center">
                             {/* Home SVG */}
@@ -57,7 +57,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.products || 0)} کالا</h2>
+                                        <h2 className="font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.products || 0)} کالا</h2>
                                         <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -74,7 +74,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800">ثبت کالا</h2>
+                                        <h2 className="font-iranyekan-bold text-gray-800">ثبت کالا</h2>
                                         <span className="font-iranyekan-regular text-xs text-gray-500">ثبت </span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">

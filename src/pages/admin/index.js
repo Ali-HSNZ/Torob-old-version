@@ -40,7 +40,7 @@ const AdminPage = () => {
                                                   </svg>
                                              </div>
                                              <div className="mr-4 w-full ">
-                                                  <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.users || 0)} کاربر</h2>
+                                                  <h2 className="font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.users || 0)} کاربر</h2>
                                                   <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                              </div>
                                              <div className="h-full flex items-center ml-1">
@@ -56,7 +56,7 @@ const AdminPage = () => {
                                                   </svg>
                                              </div>
                                              <div className="mr-4 w-full">
-                                                  <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.products || 0)} کالا</h2>
+                                                  <h2 className="font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.products || 0)} کالا</h2>
                                                   <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                              </div>
                                              <div className="h-full flex items-center ml-1">
@@ -70,7 +70,7 @@ const AdminPage = () => {
                                                   <TbBrandAsana className="h-6 w-6 text-pink-700"/>
                                              </div>
                                              <div className="mr-4 w-full">
-                                                  <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.brands || 0)} برند</h2>
+                                                  <h2 className="font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.brands || 0)} برند</h2>
                                                   <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                              </div>
                                              <div className="h-full flex items-center ml-1">
@@ -84,7 +84,7 @@ const AdminPage = () => {
                                                   <BiCategory className="h-6 w-6 text-purple-700"/>
                                              </div>
                                              <div className="mr-4 w-full">
-                                                  <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.categories || 0)} دسته بندی</h2>
+                                                  <h2 className="font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.categories || 0)} دسته بندی</h2>
                                                   <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                              </div>
                                              <div className="h-full flex items-center ml-1">
@@ -100,7 +100,7 @@ const AdminPage = () => {
                                                   </svg>
                                              </div>
                                              <div className="mr-4 w-full">
-                                                  <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.stores || 0)} فروشگاه</h2>
+                                                  <h2 className="font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(data && data.stores || 0)} فروشگاه</h2>
                                                   <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | حذف | جستجو</span>
                                              </div>
                                              <div className="h-full flex items-center ml-1">
@@ -116,7 +116,7 @@ const AdminPage = () => {
                                                   </svg>
                                              </div>
                                              <div className="mr-4 w-full">
-                                                  <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> تغییر رمز عبور</h2>
+                                                  <h2 className="font-iranyekan-bold text-gray-800"> تغییر رمز عبور</h2>
                                                   <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش</span>
                                              </div>
                                              <div className="h-full flex items-center ml-1">
@@ -132,7 +132,7 @@ const AdminPage = () => {
                                              </svg>
                                         </div>
                                         <div className="mr-4 w-full">
-                                                  <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(user?.notifications_count || 0)} اطلاعیه</h2>
+                                                  <h2 className="font-iranyekan-bold text-gray-800">{loading ? "..." : toPersianDigits(user?.notifications_count || 0)} اطلاعیه</h2>
                                              <span className="font-iranyekan-regular text-xs text-gray-500">حذف | جستجو</span>
                                         </div>
                                         <div className="h-full flex items-center ml-1">

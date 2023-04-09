@@ -7,7 +7,7 @@ const Store = ({product}) => {
         <div className={`${Styles.store}  w-full`}>
             
             <div className='bg-white pt-4 mt-4 lg:m-0  rounded-lg'>
-                <h4 className='font-iranyekan-regular font-iranyekan-bold text-gray-800 pr-4 mb-4'>فروشگاه‌های اینترنتی</h4>
+                <h4 className='font-iranyekan-bold text-gray-800 pr-4 mb-4'>فروشگاه‌های اینترنتی</h4>
 
                 {/* //? Store */}
                 {product.stores.map((store,index) => <StoreCommon key={store.id} store={store} index={index}/>)}

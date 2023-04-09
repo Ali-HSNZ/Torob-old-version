@@ -108,7 +108,7 @@ const ManageCategory = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت دسته‌بندی</h1>
+                            <h1 className="font-iranyekan-bold text-lg text-gray-800">مدیریت دسته‌بندی</h1>
                         </div>
                         <nav className="flex gap-x-2 items-center">
                             <Link href={{pathname:"/admin/manage-category"}}>
@@ -178,7 +178,7 @@ const ManageCategory = () => {
                                             <section className="w-full ">
                                                 <input type="checkbox" className="hidden peer"  id={`mainInput_${category.id}`} />
                                                 <div className="w-full flex flex-row justify-between">
-                                                    <p className={`w-full font-iranyekan-regular font-iranyekan-bold ${!category.is_show ? "text-red-600" : "text-gray-800"}`} title={category.name}>{substringHandler({title : category.name , count : 20})}</p>
+                                                    <p className={`w-full font-iranyekan-bold ${!category.is_show ? "text-red-600" : "text-gray-800"}`} title={category.name}>{substringHandler({title : category.name , count : 20})}</p>
                                                     <div className="flex items-center gap-x-2">
                                                         {category.is_show ? (
                                                             <label htmlFor={`mainInput_${category.id}`} className="cursor-pointer whitespace-nowrap font-iranyekan-regular text-xs text-blue-700 hover:underline underline-offset-4"> زیردسته</label>

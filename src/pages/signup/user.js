@@ -175,7 +175,7 @@ const UserSignup = ({numbers}) => {
                 </Modal>
                     <div className="flex justify-between w-full items-center mt-4">
                         <div className="flex items-center">
-                            <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">فرم ثبت نام کاربر</h1>
+                            <h1 className="font-iranyekan-bold text-lg text-gray-800">فرم ثبت نام کاربر</h1>
                         </div>
                         <div className="flex gap-x-2 items-center">
                             <Link href={'/'}>
@@ -190,7 +190,7 @@ const UserSignup = ({numbers}) => {
 
                     <form onSubmit={formik.handleSubmit}>
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                            <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مشخصات کاربر</p>
+                            <p className="font-iranyekan-bold text-gray-800"> مشخصات کاربر</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
 
                                 <FormikInput maxLength={50} name={"full_name"} title={"نام و نام خانوادگی"} isRequired={true} formik={formik} parentClassName="flex flex-col relative"/>
@@ -239,7 +239,7 @@ const UserSignup = ({numbers}) => {
                             </section>
                         </div>
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                            <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800">تصاویر و فایل ها</p>
+                            <p className="font-iranyekan-bold text-gray-800">تصاویر و فایل ها</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                                 {/* Profile Image */}
                                 <div className="flex flex-col relative ">

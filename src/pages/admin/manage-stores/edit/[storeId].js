@@ -293,7 +293,7 @@ const InsertStore = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">ویرایش فروشگاه</h1>
+                                   <h1 className="font-iranyekan-bold text-lg text-gray-800">ویرایش فروشگاه</h1>
                               </div>
                               <nav className="flex gap-x-2 items-center">
                                    <Link href={'/admin/manage-stores'}>
@@ -316,7 +316,7 @@ const InsertStore = () => {
                          <form onSubmit={formik.handleSubmit}>
                               {/*  مالک فروشگاه */}
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مالک فروشگاه</p>
+                                   <p className="font-iranyekan-bold text-gray-800"> مالک فروشگاه</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         <FormikInput  isRequired={true} name={"owner_full_name"} title={"نام و نام خانوادگی مالک فروشگاه"} formik={formik} placeholder={"نام و نام خانوادگی مالک فروشگاه"} parentClassName="flex flex-col relative"/>
                                         <FormikInput maxLength={11} isRequired={true} name={"owner_phone_number"} title={"شماره همراه مالک فروشگاه" } formik={formik} placeholder={"شماره همراه مالک فروشگاه"} parentClassName="flex flex-col relative"/>
@@ -326,7 +326,7 @@ const InsertStore = () => {
                               </div>
                               {/*  فروشگاه | شرکت */}
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> فروشگاه | شرکت</p>
+                                   <p className="font-iranyekan-bold text-gray-800"> فروشگاه | شرکت</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         <FormikInput isRequired={true} name={"name"} title={"نام فروشگاه"} formik={formik} placeholder={"نام فروشگاه"} parentClassName="flex flex-col relative"/>
                                         <FormikInput isRequired={true} name={"office_address"} title={"آدرس دفتر مرکزی شرکت"} formik={formik} placeholder={"آدرس دفتر مرکزی شرکت"} parentClassName="flex flex-col relative"/>
@@ -379,7 +379,7 @@ const InsertStore = () => {
                               </div>
                               {/*  حساب بانکی */}
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> حساب بانکی</p>
+                                   <p className="font-iranyekan-bold text-gray-800"> حساب بانکی</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         <div className="flex flex-col relative ">
                                              <p className="font-iranyekan-regular text-[13px] text-gray-800 ">شماره کارت :</p>
@@ -393,7 +393,7 @@ const InsertStore = () => {
                               </div>
                               {/* تصاویر و فایل ها */}
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800">تصاویر و فایل ها</p>
+                                   <p className="font-iranyekan-bold text-gray-800">تصاویر و فایل ها</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         {/* License Image */}
                                         <div className="flex flex-col relative ">
@@ -477,7 +477,7 @@ const InsertStore = () => {
 
                               {/*  مالک فروشگاه */}
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> رمز عبور</p>
+                                   <p className="font-iranyekan-bold text-gray-800"> رمز عبور</p>
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         <FormikInput maxLength={11} isRequired={false} name={"owner_password"} title={"رمز عبور جدید"} formik={formik} placeholder={"شماره همراه دوم مالک فروشگاه"} parentClassName="flex flex-col relative"/>
                                    </section>

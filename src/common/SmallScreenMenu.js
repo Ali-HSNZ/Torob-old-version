@@ -51,7 +51,7 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
                                    <div id={`mobilePanel_${category.id}`} className={`mobilePanel hidden`} key={index}>
                                         <section className="pb-4">
                                              <Link  href={{pathname : '/search' , query : {category : category.slug}}}  >
-                                                  <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="flex gap-x-4  text-gray-600  whitespace-nowrap text-sm font-iranyekan-regular font-iranyekan-bold">{category.title}</a>
+                                                  <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="flex gap-x-4  text-gray-600  whitespace-nowrap text-sm font-iranyekan-bold">{category.title}</a>
                                              </Link>
                                         </section>
                                         <hr/> 
@@ -62,7 +62,7 @@ const SmallScreenMenu = ({setIsSmallScreenModal , isSmallScreenModal , customCla
                                                             <input type="checkbox"  className="peer hidden" name={`${main_index}_checkbox_${index}`} id={`${main_index}_checkbox_${index}`} />
                                                             <section className="mt-4 mr-6 ">
                                                                  <Link  href={{pathname : '/search' , query : {category : sub.slug}}}  >
-                                                                      <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="flex mr-2  text-gray-600  whitespace-nowrap text-sm font-iranyekan-regular font-iranyekan-bold">{sub.title}</a>
+                                                                      <a onClick={()=> categoryHandler_btn(null) & setIsSmallScreenModal(false)} className="flex mr-2  text-gray-600  whitespace-nowrap text-sm font-iranyekan-bold">{sub.title}</a>
                                                                  </Link>
                                                             </section>
                                                             {sub.sub_categories &&  sub.sub_categories.length > 0 && (

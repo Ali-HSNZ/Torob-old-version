@@ -79,7 +79,7 @@ const CartPage = () => {
                               <section className="w-full">
                                    <div className="w-full flex flex-col items-center">
                                         <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg" alt="تصویر سبد خرید" className="w-72 h-auto" />
-                                        <h3 className="font-iranyekan-regular font-iranyekan-bold text-center">سبد خرید شما خالی است!</h3>
+                                        <h3 className="font-iranyekan-bold text-center">سبد خرید شما خالی است!</h3>
                                         <Link href={'/'}>
                                              <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-iranyekan-regular text-sm underline underline-offset-4">بازگشت به فروشگاه</a>
                                         </Link>

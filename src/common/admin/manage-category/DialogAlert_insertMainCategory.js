@@ -28,7 +28,7 @@ export default function DialogAlert_insertMainCategory({isModal , setIsModal , t
     })
     return (
         <Dialog open={isModal || false} onClose={()=>setIsModal(false)}>
-            <p className='px-4 pt-4 font-iranyekan-regular font-iranyekan-bold'>{title}</p>
+            <p className='px-4 pt-4 font-iranyekan-bold'>{title}</p>
                 <form onSubmit={formik.handleSubmit}>
                     <section className='px-4 pt-4'>
                         <section className=" flex items-center gap-x-1">
@@ -45,7 +45,7 @@ export default function DialogAlert_insertMainCategory({isModal , setIsModal , t
                     </section>
                     <DialogActions>
                         <div className='w-full flex gap-x-4 justify-end p-2'>
-                            <button type={'button'} className='font-iranyekan-regular font-iranyekan-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
+                            <button type={'button'} className='font-iranyekan-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
                             <button type={'submit'}  className={buttonClassName({bgColor : "blue" , isOutline : false , isValid : formik.isValid})}>ثبت</button>
                         </div>
                     </DialogActions>

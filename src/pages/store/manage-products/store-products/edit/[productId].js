@@ -116,7 +116,7 @@ const InsertStoreProduct = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">ویرایش کالا</h1>
+                            <h1 className="font-iranyekan-bold text-lg text-gray-800">ویرایش کالا</h1>
                         </div>
                         <nav className="flex gap-x-2">
                             {/* Back Page Link */}
@@ -158,7 +158,7 @@ const InsertStoreProduct = () => {
                                    return (
                                         <Form>
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مشخصات کالا | تعداد</p>
+                                             <p className="font-iranyekan-bold text-gray-800"> مشخصات کالا | تعداد</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className="flex flex-col ">
                                                        <p className="font-iranyekan-regular text-sm text-gray-800">تاریخ تولید :</p>
@@ -216,7 +216,7 @@ const InsertStoreProduct = () => {
                                              </div>
 
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> قیمت</p>
+                                             <p className="font-iranyekan-bold text-gray-800"> قیمت</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
@@ -274,7 +274,7 @@ const InsertStoreProduct = () => {
                                              </div>
 
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> تخفیف</p>
+                                             <p className="font-iranyekan-bold text-gray-800"> تخفیف</p>
                                              <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                                   <div className={'flex flex-col'}>
                                                        <section className="w-auto flex flex-col items-right gap-x-1 pb-0">
@@ -366,7 +366,7 @@ const InsertStoreProduct = () => {
                                              </FieldArray>
                                              </div>
                                              <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                             <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800">توضیحات</p>
+                                             <p className="font-iranyekan-bold text-gray-800">توضیحات</p>
           
                                              <div className="flex flex-col mt-4">
                                                   <p className="font-iranyekan-regular text-sm text-gray-800">توضیحات ارسال کالا :</p>

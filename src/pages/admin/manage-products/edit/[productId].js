@@ -242,7 +242,7 @@ const EditProduct = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">ویرایش کالا</h1>
+                                   <h1 className="font-iranyekan-bold text-lg text-gray-800">ویرایش کالا</h1>
                               </div>
                               <nav className="flex gap-x-2">
                                    <Link href={'/admin/manage-products'}>
@@ -263,7 +263,7 @@ const EditProduct = () => {
                          </div> 
                          <form onSubmit={formik.handleSubmit}>
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مشخصات کالا</p>
+                                   <p className="font-iranyekan-bold text-gray-800"> مشخصات کالا</p>
                                    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                                         <FormikInput maxLength={250} title={"عنوان کالا"} formik={formik} placeholder={"عنوان کالا"} isRequired={true} name={"product_title"} parentClassName={"flex flex-col relative"}/>
                                         <div>
@@ -295,7 +295,7 @@ const EditProduct = () => {
                               {/* کلیدواژه */}
                               <section className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
                                    <div className=" mb-6">
-                                        <span className="font-iranyekan-regular font-iranyekan-bold text-gray-800">کلیدواژه</span>
+                                        <span className="font-iranyekan-bold text-gray-800">کلیدواژه</span>
                                         <span className="font-iranyekan-regular text-gray-600 text-xs relative bottom-1 mr-1">(برای جستجو این کالا توسط کاربر)</span>
                                    </div>
                                    <TagsInput 
@@ -321,7 +321,7 @@ const EditProduct = () => {
                                    </div>
                               </section>
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> توضیحات</p>
+                                   <p className="font-iranyekan-bold text-gray-800"> توضیحات</p>
                                    <p className="font-iranyekan-regular text-sm mt-4 text-gray-800">توضیحات (در سایت نمایش داده نمی‌شود) :</p>
                                    <textarea value={formik.values.product_description} name='product_description' onBlur={formik.handleBlur} onChange={formik.handleChange} className={`${formik.errors.product_description && formik.touched.product_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-7`}/>
                                    {formik.errors.product_description && formik.touched.product_description && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.product_description}</p>}
@@ -331,7 +331,7 @@ const EditProduct = () => {
 
 
                               <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                   <p className="font-iranyekan-regular font-iranyekan-bold"> تصاویر و فایل ها</p>
+                                   <p className="font-iranyekan-bold"> تصاویر و فایل ها</p>
                                    {/* select Image Section */}
                                    <section className="sm:mt-4 w-full flex flex-row ">
                                         <div className={`flex sm:flex-row flex-col flex-start w-full`}>

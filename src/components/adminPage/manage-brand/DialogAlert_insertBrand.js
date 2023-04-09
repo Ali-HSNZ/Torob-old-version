@@ -74,7 +74,7 @@ export default function DialogAlert_insertBrand({isModal,setIsModal,title , page
      return (
           <Dialog open={isModal || false} fullWidth={true} maxWidth='xs' onClose={()=>setIsModal(false)} className={""}>
                <div className='flex px-4 pt-4 justify-between items-center'>
-                    <p className=' font-iranyekan-regular font-iranyekan-bold '>{title}</p>
+                    <p className=' font-iranyekan-bold '>{title}</p>
                     <button onClick={()=>setIsModal(false)} className='p-1 hover:bg-gray-100 rounded-full'>
                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -129,7 +129,7 @@ export default function DialogAlert_insertBrand({isModal,setIsModal,title , page
                     </section>
                     <DialogActions>
                          <div className='w-full flex gap-x-4 justify-end p-2'>
-                              <button type={'button'} className='font-iranyekan-regular font-iranyekan-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
+                              <button type={'button'} className='font-iranyekan-bold text-sm '  onClick={() => setIsModal(false)}>بستن</button>
                               <button type={'submit'}  className={buttonClassName({isValid : formik.isValid , bgColor : "blue" , isOutline : false})} >ثبت</button>
                          </div>
                     </DialogActions>

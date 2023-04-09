@@ -112,7 +112,7 @@ const ManageStores = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت کاربران</h1>
+                                   <h1 className="font-iranyekan-bold text-lg text-gray-800">مدیریت کاربران</h1>
                               </div>
                               <nav className="flex gap-x-2 items-center">
                                    <Link href={{pathname:"/admin/manage-users"}}>

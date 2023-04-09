@@ -116,7 +116,7 @@ const StoreManageProducts = () => {
                                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                         </svg>
                                    </button>
-                                   <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">مدیریت محصولات شرکت</h1>
+                                   <h1 className="font-iranyekan-bold text-lg text-gray-800">مدیریت محصولات شرکت</h1>
                               </div>
                               <nav className="flex gap-x-2 my-2 sm:m-0 justify-end  sm:items-center">
                                    {/* Back SVG */}

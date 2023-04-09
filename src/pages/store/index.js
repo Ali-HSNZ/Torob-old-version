@@ -37,7 +37,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مدیریت محصولات</h2>
+                                        <h2 className="font-iranyekan-bold text-gray-800"> مدیریت محصولات</h2>
                                         <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -54,7 +54,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> سفارشات</h2>
+                                        <h2 className="font-iranyekan-bold text-gray-800"> سفارشات</h2>
                                         <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -73,7 +73,7 @@ const ManageStore = () => {
 
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> تنظیمات</h2>
+                                        <h2 className="font-iranyekan-bold text-gray-800"> تنظیمات</h2>
                                         <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش | ثبت | حذف | جستجو</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">
@@ -90,7 +90,7 @@ const ManageStore = () => {
                                         </svg>
                                     </div>
                                     <div className="mr-4 w-full">
-                                        <h2 className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> تغییر رمز عبور</h2>
+                                        <h2 className="font-iranyekan-bold text-gray-800"> تغییر رمز عبور</h2>
                                         <span className="font-iranyekan-regular text-xs text-gray-500">ویرایش</span>
                                     </div>
                                     <div className="h-full flex items-center ml-1">

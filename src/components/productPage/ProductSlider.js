@@ -34,7 +34,7 @@ export default function ProductSlider({models}) {
                             <SwiperSlide  key={index} className={`border border-1 whitespace-nowrap rounded-md ${query.hashId === model.hash_id ? "border-black" : "border-gray-300"}  flex flex-col items-center`}>
                                    <Link href={`/product/${model.hash_id}/${model.title}`}>
                                         <a className="py-2 ">
-                                            <p className="font-iranyekan-regular font-iranyekan-bold text-xs px-2 w-full text-gray-800">{model.model_trait} </p>
+                                            <p className="font-iranyekan-bold text-xs px-2 w-full text-gray-800">{model.model_trait} </p>
                                             <p className="font-iranyekan-regular mt-1 text-xs px-2 w-full  text-gray-700">از {toPersianPrice(model.price_start)} تومان</p>
                                         </a>
                                    </Link>

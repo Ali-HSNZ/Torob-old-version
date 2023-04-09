@@ -35,7 +35,7 @@ const Product = ({ data }) => {
      };
      return (
           <div className='w-full '>
-               <p className='font-iranyekan-regular font-iranyekan-bold text-lg w-full text-center  text-gray-800'>محصولات مشابه</p>
+               <p className='font-iranyekan-bold text-lg w-full text-center  text-gray-800'>محصولات مشابه</p>
                <InfiniteScroll
                     dataLength={products.length}
                     next={getMorePost}

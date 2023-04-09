@@ -103,7 +103,7 @@ const CartStore = () => {
                               </section>
                          </section>
                          <section className="bg-white w-full sm:min-w-[400px] sm:max-w-[400px] sm:w-[400px] p-4 rounded-lg h-fit mt-4 lg:mt-0">
-                              <p className="font-iranyekan-regular font-iranyekan-bold text-sm text-gray-700">جزئیات فاکتور</p>
+                              <p className="font-iranyekan-bold text-sm text-gray-700">جزئیات فاکتور</p>
                               <div className="flex justify-between w-full mt-4">
                                    <div>
                                         <span className="font-iranyekan-regular text-sm text-gray-600">مجموع خرید شما</span>
@@ -139,7 +139,7 @@ const CartStore = () => {
                          <section className="w-full">
                          <div className="w-full flex flex-col items-center">
                                    <img src="https://www.digikala.com/statics/img/svg/empty-cart.svg"  alt="تصویر سبد کالا" className="w-72 h-auto" />
-                              <h3 className="font-iranyekan-regular font-iranyekan-bold text-center">سبد خرید شما در این فروشگاه خالی است!</h3>
+                              <h3 className="font-iranyekan-bold text-center">سبد خرید شما در این فروشگاه خالی است!</h3>
                               <Link href={'/cart'}>
                                    <a className="w-full mt-2 text-center text-red-600 hover:text-red-500 font-iranyekan-regular text-sm underline underline-offset-4">بازگشت به سبد خرید</a>
                               </Link>

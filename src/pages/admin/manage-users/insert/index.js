@@ -177,7 +177,7 @@ const InsertStore = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
                             </button>
-                            <h1 className="font-iranyekan-regular font-iranyekan-bold text-lg text-gray-800">ثبت کاربر (خریدار)</h1>
+                            <h1 className="font-iranyekan-bold text-lg text-gray-800">ثبت کاربر (خریدار)</h1>
                         </div>
                         <nav className="flex gap-x-2 items-center">
                             <Link href={'/admin/manage-users'}>
@@ -199,7 +199,7 @@ const InsertStore = () => {
 
                     <form onSubmit={formik.handleSubmit}>
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800"> مشخصات کاربر</p>
+                                <p className="font-iranyekan-bold text-gray-800"> مشخصات کاربر</p>
                                 <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                     <FormikInput maxLength={50} name={"full_name"} title={"نام و نام خانوادگی"} isRequired={true} formik={formik} placeholder={"نام و نام خانوادگی"} parentClassName="flex flex-col relative"/>
                                     <FormikInput maxLength={10} name={"national_code"} title={"کد ملی"} isRequired={true} formik={formik} placeholder={"کد ملی"} parentClassName="flex flex-col relative"/>
@@ -247,7 +247,7 @@ const InsertStore = () => {
                         </div>
                         <div className="p-5 mt-4 bg-white rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
 
-                            <p className="font-iranyekan-regular font-iranyekan-bold text-gray-800">تصاویر و فایل ها</p>
+                            <p className="font-iranyekan-bold text-gray-800">تصاویر و فایل ها</p>
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                             {/* Profile Image */}
                             <div className="flex flex-col relative ">

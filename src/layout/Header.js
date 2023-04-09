@@ -185,7 +185,7 @@ const Header = () => {
                                                                            <SwiperSlide key={index}>
                                                                                 <Link href={{pathname: "/search", query: { query: item }}}>
                                                                                      <a className="w-fit px-4 py-2 flex  rounded-full border border-gray-200">
-                                                                                          <p className="font-iranyekan-regular font-iranyekan-bold text-gray-700 text-sm">{item}</p>
+                                                                                          <p className="font-iranyekan-bold text-gray-700 text-sm">{item}</p>
                                                                                           <svg className="w-5 h-5 mr-1 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                                                                           </svg>
@@ -217,7 +217,7 @@ const Header = () => {
                                                        {searchData.data.search_bar.popular.map((item,index) => (
                                                                  <SwiperSlide key={index}>
                                                                       <Link href={{pathname: "/search", query: { query: item }}}>
-                                                                           <a className="w-fit px-4 py-2 flex font-iranyekan-regular font-iranyekan-bold text-gray-700 text-sm rounded-full border border-gray-200">
+                                                                           <a className="w-fit px-4 py-2 flex font-iranyekan-bold text-gray-700 text-sm rounded-full border border-gray-200">
                                                                                 <p>{item}</p>
                                                                                 <svg className="w-5 h-5 mr-1 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                                                                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />

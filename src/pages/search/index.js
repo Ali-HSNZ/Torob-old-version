@@ -41,7 +41,7 @@ const SearchQuery = ({similarCategories , brands , mainSearch}) => {
                          <BreadCrumpAndSort category={category} similarCategories={similarCategories && similarCategories.data.data}/>
                          <hr/>
                          <MainTags priceMin={priceMin} priceMax={priceMax}/>                               
-                         {/* {!query.query && query.category && <p className="font-iranyekan-regular font-iranyekan-bold text-md lg:text-lg  text-gray-800"> قیمت انواع {removeHyphen(query.category)} </p>} */}
+                         {/* {!query.query && query.category && <p className="font-iranyekan-bold text-md lg:text-lg  text-gray-800"> قیمت انواع {removeHyphen(query.category)} </p>} */}
                          <article>
                          {mainSearch && <Product data={mainSearch.products} query={query}/>}
                          {!mainSearch && <p className="mt-4 text-center font-iranyekan-regular text-sm text-gray-600">کالایی با این مشخصات یافت نشد.</p>}
