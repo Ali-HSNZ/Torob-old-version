@@ -341,8 +341,8 @@ const EditProduct = () => {
                                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                                   </svg>
-                                                  <p className="font-iranyekan-regular text-sm whitespace-nowrap w-full  font-iranyekan-bold mr-2 sm:mt-2">انتخاب تصویر</p>
-                                                  <p className="font-iranyekan-regular text-sm  font-iranyekan-bold  sm:absolute top-2 left-2">{toPersianDigits(`${productImages.length}/20`)}</p>
+                                                  <p className="text-sm whitespace-nowrap w-full  font-iranyekan-bold mr-2 sm:mt-2">انتخاب تصویر</p>
+                                                  <p className="text-sm  font-iranyekan-bold  sm:absolute top-2 left-2">{toPersianDigits(`${productImages.length}/20`)}</p>
                                                   </label> 
                                              </div>
                                              <div className="class_grid_manage_products sm:mr-4">
