@@ -363,7 +363,7 @@ const ManageFactors = () => {
                                                                                 disabled={factor.state !== "pending"} 
                                                                                 defaultValue={factor.store_comment || ""}  
                                                                                 onChange={input => handleInputChange(input)}
-                                                                                className={`disabled:cursor-default disabled:hover:border-gray-300 border-gray-300 hover:border-gray-600  focus:border-gray-600 mt-4 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
+                                                                                className={`disabled:cursor-default disabled:hover:border-gray-300 border-gray-300 hover:border-gray-600  focus:border-gray-600 mt-4 w-full  focus:ring-0 text-sm focus:outline-none border py-2 px-4  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
                                                                            />
                                                                       ) : null }
 

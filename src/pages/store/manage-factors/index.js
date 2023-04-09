@@ -380,7 +380,7 @@ const ManageFactors = () => {
                                                                                 name={factor.id} 
                                                                                 disabled={factor.state === "finished" || factor.state === "rejected" || factor.state === "canceled"} 
                                                                                 onChange={input => handleInputChange(input)} 
-                                                                                className={`disabled:cursor-default disabled:hover:border-gray-300 border-gray-300 hover:border-gray-600  focus:border-gray-600 mt-4 w-full  focus:ring-0 text-xs md:text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
+                                                                                className={`disabled:cursor-default disabled:hover:border-gray-300 border-gray-300 hover:border-gray-600  focus:border-gray-600 mt-4 w-full  focus:ring-0 focus:outline-none border py-2 px-4 text-xs md:text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
                                                                            />
                                                                        ) : null}
                                                                  
