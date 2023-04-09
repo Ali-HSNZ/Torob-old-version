@@ -1,17 +1,18 @@
 
 /* Input */
 .rti--input{
-     width: 100% !important;
-     font-family: iranyekan !important;
-     font-size: 14px !important;
-     border-radius: 4px !important;
-     outline: none !important;
-     outline-offset: 0 !important;
-     border: 1px #CAD4DB solid !important;
+    width: 100% !important;
+    font-family: iranyekan-medium !important;
+    font-size: 14px !important;
+    border-radius: 4px !important;
+    outline: none !important;
+    outline-offset: 0 !important;
+    padding: 8px 16px;
+    border: 1px #CAD4DB solid !important;
  
  }
  .rti--input:hover{
-     border: 1px solid #4B5563 !important;
+    border: 1px solid #4B5563 !important;
  }
  .rti--input:focus{
      outline: none !important;
@@ -35,13 +36,13 @@
  }
  /* Tag  -> Span */
  .rti--tag span {
-     font-family: iranyekan !important;
+     font-family: iranyekan-medium !important;
      font-size: 14px !important;
      color: #1F2937 ;
  }
  /* Tag  -> Delete Button */
  .rti--tag button {
-     font-family: iranyekan !important;
+     font-family: iranyekan-medium !important;
      height: fit-content !important;
      padding: 1px 5px !important;
      background-color: rgb(253, 226, 226) !important;
