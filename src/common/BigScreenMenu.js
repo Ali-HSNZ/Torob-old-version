@@ -32,7 +32,7 @@ const BigScreenMenu = ({customClassname}) => {
                                     <div className="bg-gray-50 pb-4 rounded-md">
                                             <nav className="px-5 py-4"> 
                                                 <Link href={{pathname : '/search' , query : {category:category.slug}}}>
-                                                    <a onClick={()=> categoryHandler_btn(null)} className="hover:text-red-500  text-sm font-iranyekan-bold font-iranyekan-regular text-gray-700">{category.title}</a>
+                                                    <a onClick={()=> categoryHandler_btn(null)} className="hover:text-red-500  text-sm font-iranyekan-bold text-gray-700">{category.title}</a>
                                                 </Link>
                                             </nav>
                                             <hr/>
@@ -42,7 +42,7 @@ const BigScreenMenu = ({customClassname}) => {
                                                         <div  className=" mb-3 break-inside-avoid" key={main_index}>
                                                                 <nav className="flex gap-x-4">
                                                                     <Link href={{pathname : '/search' , query : {category:sub.slug}}} >
-                                                                        <a onClick={()=> categoryHandler_btn(null)} className="hover:text-red-500 font-iranyekan-regular text-sm font-iranyekan-bold cursor-pointer text-gray-800" >{sub.title}</a>
+                                                                        <a onClick={()=> categoryHandler_btn(null)} className="hover:text-red-500 text-sm font-iranyekan-bold cursor-pointer text-gray-800" >{sub.title}</a>
                                                                     </Link>
                                                                 </nav>
                                                                 <nav >
