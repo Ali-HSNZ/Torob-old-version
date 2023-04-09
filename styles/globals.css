@@ -9,10 +9,10 @@
 @import url('./swiper.styles.css');
 
 /* react-tag-input-component Styles */
-@import url('./react-tag-input.styles');
+@import url('./react-tag-input.styles.css');
 
 /* Tostify Styles */
-@import url('./toastify.styles');
+@import url('./toastify.styles.css');
 
 /* other Styles */
 @import url('./other.styles.css');
