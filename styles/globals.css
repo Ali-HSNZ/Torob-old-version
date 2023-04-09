@@ -14,3 +14,5 @@
 /* Tostify Styles */
 @import url('./toastify.styles');
 
+/* other Styles */
+@import url('./other.styles.css');
