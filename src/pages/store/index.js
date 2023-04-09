@@ -15,7 +15,6 @@ import { useSelector } from "react-redux";
 const ManageStore = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
     const auth = useSelector(state => state.auth)
-    console.log("auth : ",auth);
     return (  
         <Layout isFooter={true} pageTitle="پنل فروشگاه ترب">
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
