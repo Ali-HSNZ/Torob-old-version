@@ -53,4 +53,4 @@ const ProductList_infiniteScroll = ({ data }) => {
           </InfiniteScroll>
      );
 };
-export default Product;
+export default ProductList_infiniteScroll;

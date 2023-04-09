@@ -5,7 +5,7 @@ import Brands from "@/components/searchPage/aside/desk/Brands";
 import Categories from "@/components/searchPage/aside/desk/Categories";
 import Price from "@/components/searchPage/aside/desk/Price";
 import Available from "@/components/searchPage/aside/desk/Available";
-import Product from "@/components/searchPage/ProductList_infiniteScroll";
+import ProductList_infiniteScroll from "@/components/searchPage/ProductList_infiniteScroll";
 import MainMenu from "@/components/searchPage/main/Menu";
 import BreadCrumpAndSort from "@/components/searchPage/main/BreadCrumpAndSort";
 import MainTags from "@/components/searchPage/main/Tags";
@@ -43,7 +43,7 @@ const SearchQuery = ({similarCategories , brands , mainSearch}) => {
                          <MainTags priceMin={priceMin} priceMax={priceMax}/>                               
                          {/* {!query.query && query.category && <p className="font-iranyekan-bold text-md lg:text-lg  text-gray-800"> قیمت انواع {removeHyphen(query.category)} </p>} */}
                          <article>
-                         {mainSearch && <Product data={mainSearch.products} query={query}/>}
+                         {mainSearch && <ProductList_infiniteScroll data={mainSearch.products} query={query}/>}
                          {!mainSearch && <p className="mt-4 text-center font-iranyekan-regular text-sm text-gray-600">کالایی با این مشخصات یافت نشد.</p>}
                          </article>
                     </section>
