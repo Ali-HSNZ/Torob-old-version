@@ -1,0 +1,9 @@
+:root {
+     --toastify-font-family: 'iranyekan';
+}
+ 
+.Toastify__toast-body { font-family: 'iranyekan'; font-size: 14px;}
+.Toastify {
+     position: absolute;
+     z-index: 10000000;
+}

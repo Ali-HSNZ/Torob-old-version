@@ -1,0 +1,27 @@
+::selection {
+     background: #f7afaf;
+}
+   
+/* ----------------    Disable Scroll Styles  ---------------- */
+     
+.stop-scrolling { 
+     height: 100%;
+     padding-right: 17px;
+     overflow: hidden;
+} 
+/* ---------------- autoFull Styles ---------------- */
+input[type=text],
+input[type=password]:-webkit-autofill{
+     -webkit-text-fill-color: #1F2937 !important;
+     -webkit-box-shadow: 0 0 0 40px #FFFFFF  inset !important;
+}
+   
+.class_grid_manage_products{
+     width: 100%;
+     padding: 0 0;
+     display: grid;
+     grid-template-columns: repeat( auto-fill , minmax( 120px, 1fr ));
+     grid-column-gap: 1rem;
+     grid-row-gap: 1rem;
+}
+   

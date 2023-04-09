@@ -1,0 +1,66 @@
+
+/* Input */
+.rti--input{
+     width: 100% !important;
+     font-family: iranyekan !important;
+     font-size: 14px !important;
+     border-radius: 4px !important;
+     outline: none !important;
+     outline-offset: 0 !important;
+     border: 1px #CAD4DB solid !important;
+ 
+ }
+ .rti--input:hover{
+     border: 1px solid #4B5563 !important;
+ }
+ .rti--input:focus{
+     outline: none !important;
+     outline-offset: 0px !important;
+     /* border: 1px solid red !important; */
+     border: 1px solid #4B5563 !important;
+     outline:0 !important; /* I have also tried outline:none */
+     -webkit-appearance:none !important;
+     box-shadow: none !important;
+     -moz-box-shadow: none !important;
+     -webkit-box-shadow: none !important;
+     transition: none !important;
+ 
+ }
+ /* Tag */
+ .rti--tag {
+     background-color: rgb(247, 247, 247) !important;
+     padding: 5px 7px 5px 5px !important;
+     border: 1px solid rgb(230, 229, 229);
+     user-select: none;
+ }
+ /* Tag  -> Span */
+ .rti--tag span {
+     font-family: iranyekan !important;
+     font-size: 14px !important;
+     color: #1F2937 ;
+ }
+ /* Tag  -> Delete Button */
+ .rti--tag button {
+     font-family: iranyekan !important;
+     height: fit-content !important;
+     padding: 1px 5px !important;
+     background-color: rgb(253, 226, 226) !important;
+     border-radius: 3px !important;
+     margin-right: 5px !important;
+     color: #2a2a2a !important;
+ }
+ .rti--tag button:hover{
+     background-color: rgb(255, 191, 191) !important;
+     color: #2a2a2a !important;
+ }
+ /* Container  */
+ .rti--container{
+     -webkit-appearance:none !important;
+     outline:0 !important; /* I have also tried outline:none */
+     -moz-box-shadow: none !important;
+     -webkit-box-shadow: none !important;
+     padding: 0 !important;
+     border: 0 !important;
+     transition:  none !important;
+ }
+ 
