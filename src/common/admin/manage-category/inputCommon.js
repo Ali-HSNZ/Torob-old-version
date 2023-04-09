@@ -35,7 +35,7 @@ const InsertCategoryForm = ({category , sub_sub , id , sub}) => {
                     id={id}
                     autoComplete="off"
                     onChange={formik.handleChange}
-                    className={`placeholder:text-xs ${formik.errors.categoryName && formik.touched.categoryName ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} w-full  focus:ring-0 text-sm border-l-0 font-iranyekan-regular bg-white text-gray-800 rounded-r-md `}
+                    className={`placeholder:text-xs ${formik.errors.categoryName && formik.touched.categoryName ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} w-full  focus:ring-0 text-sm border-l-0 font-iranyekan-regular bg-white text-gray-800 border focus:outline-none py-2 px-4 rounded-r-md `}
                 />
                 <button type={"submit"} disabled={!formik.isValid} className={` text-sm font-iranyekan-regular py-[6px] px-4 rounded-l-md ${formik.errors.categoryName? "cursor-not-allowed bg-gray-600 text-white hover:bg-gray-700  " : " bg-blue-600 text-white hover:bg-blue-700 "}  `}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`text-white w-6 h-6`}>
