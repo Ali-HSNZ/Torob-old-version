@@ -10,10 +10,12 @@ import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
 import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
+import { useSelector } from "react-redux";
 
 const ManageStore = () => {
     const [isAsideModal , setIsAsideModal] = useState(false)
-
+    const auth = useSelector(state => state.auth)
+    console.log("auth : ",auth);
     return (  
         <Layout isFooter={true} pageTitle="پنل فروشگاه ترب">
             <div className="w-full flex flex-col lg:flex-row  justify-between ">
@@ -24,8 +26,8 @@ const ManageStore = () => {
                         <><ManageStoreAside isMobileScreen={true} setIsMobileScreen={setIsAsideModal} mobileScreenClassName={'sm:w-1/3 w-full'}/></>
                     </Modal>
                     <section className="w-full ">
-
-                        <nav className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+                        <p className="mt-6 text-1xl font-sans">فروشگاه {auth?.user?.store_name ?? "نامشخص"}</p>
+                        <nav className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 
                             <Link href={'/store/manage-products'}>
                                 <a className="cursor-pointer py-4 hover:bg-blue-50 flex items-center justify-between rounded-xl bg-white shadow-lg overflow-hidden">
@@ -96,9 +98,6 @@ const ManageStore = () => {
                                     </div>
                                 </a>
                             </Link>
-
-
-
                         </nav>
                     </section>
                 </section>
