@@ -46,7 +46,7 @@ const Product = ({ data }) => {
                          </div>
                     }
                     endMessage={
-                         <h4 className="w-full text-center font-iranyekan-regular my-4 text-gray-800">محصولات بیشتری یافت نشد.</h4>
+                         <h4 className="w-full text-center font-iranyekan-bold py-6 text-gray-800">محصولات بیشتری یافت نشد.</h4>
                     }>
                     {products && products.length > 0 && <article className={Styles.productsParent}>
                          {products.map((product, index) => <ProductCommon key={index} product={product}/>)}
