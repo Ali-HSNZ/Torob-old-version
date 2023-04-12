@@ -201,7 +201,7 @@ const UserSignup = ({numbers}) => {
 
                                 <div className="flex flex-col relative ">
                                     <p className="font-iranyekan-regular text-[13px] text-gray-800">تلفن ثابت :</p>
-                                    <InputMask dir="ltr"  type={"text"} value={formik.values.house_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="house_number" maskPlaceholder="-" className={`${formik.errors.house_number && formik.touched.house_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-[13px]  font-iranyekan-regular bg-white text-gray-800 rounded-md`} maskchar={null}/>
+                                    <InputMask dir="ltr"  type={"text"} value={formik.values.house_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="house_number" maskPlaceholder="-" className={`${formik.errors.house_number && formik.touched.house_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full focus:outline-none px-4 py-2 border focus:ring-0 text-[13px]  font-iranyekan-regular bg-white text-gray-800 rounded-md`} maskchar={null}/>
                                     {formik.errors.house_number && formik.touched.house_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.house_number}</p>}
                                 </div>
 
