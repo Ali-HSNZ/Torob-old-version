@@ -311,7 +311,7 @@ const InsertStorePage = () => {
                                 
                                 <div className="flex flex-col relative ">
                                     <p className="font-iranyekan-regular text-[13px] text-gray-800 before:content-['*'] before:text-red-600">شماره تلفن ثابت دفتر مرکزی:</p>
-                                    <InputMask dir="ltr"  type={"text"} value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="office_number"  maskPlaceholder="-" className={`${formik.errors.office_number && formik.touched.office_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
+                                    <InputMask dir="ltr"  type={"text"} value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="office_number"  maskPlaceholder="-" className={`${formik.errors.office_number && formik.touched.office_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md focus:outline-none  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.office_number && formik.touched.office_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.office_number}</p>}
                                 </div>
                                 
@@ -319,7 +319,7 @@ const InsertStorePage = () => {
                                 
                                 <div className="flex flex-col relative ">
                                     <p className="font-iranyekan-regular text-[13px] text-gray-800 ">شماره تلفن ثابت انبار مرکزی شرکت:</p>
-                                    <InputMask dir="ltr"  type={"text"} value={formik.values.warehouse_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="warehouse_number"  maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
+                                    <InputMask dir="ltr"  type={"text"} value={formik.values.warehouse_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="warehouse_number"  maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md focus:outline-none  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.warehouse_number && formik.touched.warehouse_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.warehouse_number}</p>}
                                 </div>
                                 
@@ -361,7 +361,7 @@ const InsertStorePage = () => {
                             <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                 <div className="flex flex-col relative ">
                                     <p className="font-iranyekan-regular text-[13px] text-gray-800 ">شماره کارت :</p>
-                                    <InputMask dir="ltr"  type={"text"} value={formik.values.bank_card_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="9999 9999 9999 9999" name="bank_card_number" maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
+                                    <InputMask dir="ltr"  type={"text"} value={formik.values.bank_card_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="9999 9999 9999 9999" name="bank_card_number" maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md focus:outline-none  focus:ring-0`} maskchar={null}/>
                                     {formik.errors.bank_card_number && formik.touched.bank_card_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.bank_card_number}</p>}
                                 </div>
                                 <FormikInput maxLength={24}  name={"bank_sheba_number"} title={"شماره شبا"} formik={formik} placeholder={"شماره شبا"} parentClassName="flex flex-col relative"/>

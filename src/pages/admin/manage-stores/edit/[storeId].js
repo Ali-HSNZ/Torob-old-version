@@ -10,7 +10,13 @@ import { toast } from "react-toastify";
 import * as Yup from 'yup'
 import InputMask from "react-input-mask";
 import { useDispatch, useSelector } from "react-redux";
-import { confirmStore, deleteStore, fetchOneStore,fetchOneStoreFailure,fetchOneStoreSuccess,updateStore } from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
+import { 
+     confirmStore, 
+     deleteStore,
+     fetchOneStoreFailure,
+     fetchOneStoreSuccess,
+     updateStore 
+} from "@/redux/admin/admin_manageStores/admin_manageStoresAction";
 import { provinces } from "src/static/provinces";
 import SelectBox from "@/common/SelectBox";
 import { useEffect } from "react";
@@ -18,12 +24,17 @@ import { allCities } from "src/static/cities";
 import ReactLoading from 'react-loading';
 import { useRouter } from "next/router";
 import FormikInput from "@/common/FormikInput";
-import { ONLY_DIGIT_REGIX, ONLY_PERSIAN_ALPHABET, PASSWORD_REGIX, PHONE_NUMBER_REGIX } from "@/utils/Regex";
+import { 
+     ONLY_DIGIT_REGIX, 
+     ONLY_PERSIAN_ALPHABET, 
+     PASSWORD_REGIX, 
+     PHONE_NUMBER_REGIX 
+} from "@/utils/Regex";
 import { wrapper } from "@/redux/store";
 import http, { returnTokenInServerSide } from "src/services/http";
 import { authFailure, authSuccess } from "@/redux/user/userActions";
 import { fetchCategoriesFailure, fetchCategoriesSuccess } from "@/redux/categories/categoriesActions";
-import { buttonClassName } from "@/utils/global";
+import { buttonClassName, checkImageFormat } from "@/utils/global";
 import { cartDetails } from "@/redux/cart/cart/cartActions";
 import { fetchSearchDataFailure, fetchSearchDataSuccess } from "@/redux/userSearch/userSaerch_actions";
 
@@ -44,7 +55,6 @@ const InsertStore = () => {
      const [selectedCity,setSelectedCity] = useState("")
 
 
-
      const filteredProvinces = provienceQuery === '' ? provinces : provinces && provinces.filter((province) => province.name.toLowerCase().replace(/\s+/g, '').includes(provienceQuery.toLocaleLowerCase().replace(/\s+/g, '')))
      const filteredCities = cityQuery === '' ? cities : cities && cities.filter((city) => city.name.toLowerCase().replace(/\s+/g, '').includes(cityQuery.toLocaleLowerCase().replace(/\s+/g, '')))
 
@@ -61,19 +71,11 @@ const InsertStore = () => {
      const image_logo_Input_ref = useRef()
      const image_storeBanner_Input_ref = useRef()
 
-     const checkImageFormat = (fileName) => {
-          const type =  fileName.split('.').pop();
-          const valid = ['png','jpg','jpeg','webp']
-          if(!valid.includes(type.toLocaleLowerCase())){
-               return false
-          }
-          return true
-     }
      
      const changeFIleAction_input = (input,min,max,setOnChangeFile,title,minTitle,maxTitle,ref) => {
           const image = input.target.files[0]
           if(input.target.files && image){
-               if(!checkImageFormat(image.name)){
+               if(!checkImageFormat({fileName : image.name})){
                     toast.error(`تصویر ${title} معتبر نیست`)
                     ref.current.value = null
                     return false
@@ -88,7 +90,6 @@ const InsertStore = () => {
                     ref.current.value = null
                     return false
                }
-               
                setOnChangeFile({selectedFile : image , imageUrl : URL.createObjectURL(image)})
           }
      }    
@@ -333,7 +334,7 @@ const InsertStore = () => {
                                         
                                         <div className="flex flex-col relative ">
                                              <p className="font-iranyekan-regular text-[13px] text-gray-800 before:content-['*'] before:text-red-600">شماره تلفن ثابت دفتر مرکزی:</p>
-                                             <InputMask dir="ltr"  type={"text"} value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="office_number"  maskPlaceholder="-" className={`${formik.errors.office_number && formik.touched.office_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
+                                             <InputMask dir="ltr"  type={"text"} value={formik.values.office_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="office_number"  maskPlaceholder="-" className={`${formik.errors.office_number && formik.touched.office_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border focus:outline-none py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                              {formik.errors.office_number && formik.touched.office_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.office_number}</p>}
                                         </div>
                                         
@@ -341,7 +342,7 @@ const InsertStore = () => {
                                         
                                         <div className="flex flex-col relative ">
                                              <p className="font-iranyekan-regular text-[13px] text-gray-800 ">شماره تلفن ثابت انبار مرکزی شرکت:</p>
-                                             <InputMask dir="ltr"  type={"text"} value={formik.values.warehouse_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="warehouse_number"  maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
+                                             <InputMask dir="ltr"  type={"text"} value={formik.values.warehouse_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="warehouse_number"  maskPlaceholder="-" className={`${formik.errors.warehouse_number && formik.touched.warehouse_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border focus:outline-none  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                              {formik.errors.warehouse_number && formik.touched.warehouse_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.warehouse_number}</p>}
                                         </div>
                                         
@@ -383,7 +384,7 @@ const InsertStore = () => {
                                    <section  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
                                         <div className="flex flex-col relative ">
                                              <p className="font-iranyekan-regular text-[13px] text-gray-800 ">شماره کارت :</p>
-                                             <InputMask dir="ltr"  type={"text"} value={formik.values.bank_card_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="9999 9999 9999 9999" name="bank_card_number" maskPlaceholder="-" className={`${formik.errors.bank_card_number && formik.touched.bank_card_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
+                                             <InputMask dir="ltr"  type={"text"} value={formik.values.bank_card_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="9999 9999 9999 9999" name="bank_card_number" maskPlaceholder="-" className={`${formik.errors.bank_card_number && formik.touched.bank_card_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600 px-2 focus:border-gray-600"} border focus:outline-none  py-[6px] text-[13px] mt-2 rounded-md  focus:ring-0`} maskchar={null}/>
                                              {formik.errors.bank_card_number && formik.touched.bank_card_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.bank_card_number}</p>}
                                         </div>
                                         <FormikInput maxLength={24} name={"bank_sheba_number"} title={"شماره شبا"} formik={formik} placeholder={"شماره شبا"} parentClassName="flex flex-col relative"/>
