@@ -162,17 +162,17 @@ const UserSignup = ({numbers}) => {
         <Layout isFooter={true} pageTitle={"ترب | ثبت نام کاربر"}>
             <div className="w-full flex flex-col lg:flex-row  justify-between">
                 <section className="w-full  flex-0 h-max px-4 "> 
-                {/* Modal For Profile Image */}
-                <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
-                    <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
-                        <img alt="تصویر پروفایل" className="max-h-full w-auto" src={onChangeFile && onChangeFile.imageUrl || ""}/>
-                        <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
-                                <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
-                            </svg>
-                        </button>
-                    </section>
-                </Modal>
+                    {/* Modal For Profile Image */}
+                    <Modal open={isImage_Modal} onClose={() => setIsImage_Modal(false)} className="p-4 h-full w-full flex justify-center items-center">
+                        <section className=" bg-white sm:w-1/2 h-1/2 rounded-md  flex justify-center items-center p-4 relative">
+                            <img alt="تصویر پروفایل" className="max-h-full w-auto" src={onChangeFile && onChangeFile.imageUrl || ""}/>
+                            <button onClick={() => setIsImage_Modal(false)} className="absolute top-2 right-2 hover:bg-gray-100 bg-white p-2 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black">
+                                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                                </svg>
+                            </button>
+                        </section>
+                    </Modal>
                     <div className="flex justify-between w-full items-center mt-4">
                         <div className="flex items-center">
                             <h1 className="font-iranyekan-bold text-lg text-gray-800">فرم ثبت نام کاربر</h1>
@@ -201,7 +201,7 @@ const UserSignup = ({numbers}) => {
 
                                 <div className="flex flex-col relative ">
                                     <p className="font-iranyekan-regular text-[13px] text-gray-800">تلفن ثابت :</p>
-                                    <InputMask dir="ltr"  type={"text"} value={formik.values.house_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="house_number" maskPlaceholder="-" className={`${formik.errors.house_number && formik.touched.house_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full focus:outline-none px-4 py-2 border focus:ring-0 text-[13px]  font-iranyekan-regular bg-white text-gray-800 rounded-md`} maskchar={null}/>
+                                    <InputMask dir="ltr"  type={"text"} value={formik.values.house_number} onChange={formik.handleChange} onBlur={formik.handleBlur} mask="(999) 9999 9999" name="house_number" maskPlaceholder="-" className={`${formik.errors.house_number && formik.touched.house_number ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full focus:outline-none px-2 py-2 border focus:ring-0 text-[13px]  font-iranyekan-regular bg-white text-gray-800 rounded-md`} maskchar={null}/>
                                     {formik.errors.house_number && formik.touched.house_number && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{formik.errors.house_number}</p>}
                                 </div>
 
@@ -250,7 +250,7 @@ const UserSignup = ({numbers}) => {
                                             <button type={"button"} onClick={()=>setIsImage_Modal(true)} className="flex justify-between items-center w-full h-full rounded-r-md bg-green-50 border-l-0 hover:bg-green-100 hover:border-green-600 border border-green-500">
                                                 <span className="text-[13px] font-iranyekan-regular text-green-700 pr-2">نمایش تصویر پروفایل</span>
                                             </button>
-                                            <button onClick={()=> {setOnChangeFile(null) ; image_input_ref.current.value = null}}  type={"button"}  className="bg-red-50 h-full items-center hover:bg-red-100 border px-4 rounded-l-md border-red-500 hover:border-red-700">
+                                            <button onClick={()=> {setOnChangeFile(null) ; image_input_ref.current.value = null}}  type={"button"}  className="bg-red-50 h-full items-center hover:bg-red-100 border px-2 rounded-l-md border-red-500 hover:border-red-700">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5  text-red-800">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
