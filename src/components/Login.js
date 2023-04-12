@@ -104,6 +104,28 @@ const Login = () => {
                <div className="mt-[-12px] font-iranyekan-regular w-full flex justify-center">
                     <span className="bg-white px-3 text-gray-700 font-iranyekan-bold text-sm"> ورود به حساب کاربری</span>
                </div>
+               <div className="mt-2">
+                    <span className="font-iranyekan-regular text-sm"> دسترسی به پنل مدیریت :</span>
+                    <div className="w-full grid grid-cols-3 mt-3 bg-gray-200 p-2 border-b  border-gray-300 rounded-t-md">
+                         <span className="font-iranyekan-bold text-center text-sm">نوع پنل</span>
+                         <span className="font-iranyekan-bold text-center text-sm">نام کاربری</span>
+                         <span className="font-iranyekan-bold text-center text-sm">رمز عبور</span>
+                    </div>
+                    <div className="w-full grid grid-cols-3 bg-gray-100 p-2 border-b  border-gray-200">
+                         <span className="font-iranyekan-regular text-center text-sm">مدیریت کل</span>
+                         <span className="font-iranyekan-regular text-center text-sm">2092092090</span>
+                         <span className="font-iranyekan-regular text-center text-sm">Ali499021</span>
+                    </div>
+                    <div className="w-full grid grid-cols-3 bg-gray-50 p-2 rounded-b-md">
+                         <span className="font-iranyekan-regular text-center text-sm">فروشگاه - اطلس</span>
+                         <span className="font-iranyekan-regular text-center text-sm">4990211122</span>
+                         <span className="font-iranyekan-regular text-center text-sm">Ali499021</span>
+                    </div>
+                    <div className="w-full mt-4">
+                         <p className="text-right font-iranyekan-regular text-xs w-fit before:content-['*'] before:text-red-600">امکان ثبت فروشگاه جدید وجود دارد.</p>
+                         <p className="text-right font-iranyekan-regular text-xs w-fit mt-1.5 before:content-['*'] before:text-red-600">پس از ثبت فروشگاه باید توسط ادمین کل تایید/فعال شود.</p>
+                    </div>
+               </div>
                <section className="mt-4">
                     <FormikInput isLtr={true} name={"national_code"} title={"نام کاربری"} formik={formik}  parentClassName="flex flex-col relative"/>
                     <FormikInput type={"password"} isLtr={true} name={"password"} title={"رمز عبور"} formik={formik}  parentClassName="flex flex-col relative mt-4"/>
