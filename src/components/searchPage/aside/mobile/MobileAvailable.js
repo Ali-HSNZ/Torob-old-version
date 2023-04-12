@@ -36,12 +36,10 @@ const MobileAvailable = ({closeHandler,isMobileMenu}) => {
 
                <hr className="mt-5"/>
 
-               <section className="flex flex-col w-full  px-6 mt-8">
-                    <div className={`pb-3  gap-x-4`}>
-                         <input id="checkbox" type="checkbox" checked={isQuantityCheckbox}  onChange={(e) => setIsQuantityCheckbox(e.currentTarget.checked)}  className="w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                         <label htmlFor="checkbox"  className="mr-3 font-iranyekan-regular text-sm  font-medium cursor-pointer text-gray-800 dark:text-gray-300"> فقط نمایش محصولات موجود</label>
-                    </div>
-               </section>
+               <div className={`pb-3 flex gap-x-1 px-6 mt-6`}>
+                    <input id="checkbox" type="checkbox" checked={isQuantityCheckbox}  onChange={(e) => setIsQuantityCheckbox(e.currentTarget.checked)}  className="w-5 h-5 text-blue-600 bg-gray-100 focus:outline-none border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 rounded-md dark:border-gray-600"/>
+                    <label htmlFor="checkbox"  className="mr-3 font-iranyekan-regular text-sm  font-medium cursor-pointer text-gray-800 dark:text-gray-300"> فقط نمایش محصولات موجود</label>
+               </div>
 
                <div className="bg-gray-100 flex gap-x-4 w-full h-auto absolute bottom-0 py-4 px-4">
                     <button onClick={handler} className="bg-gray-700 font-iranyekan-regular text-sm text-gray-100 py-3 rounded-md w-3/4 text-center" >

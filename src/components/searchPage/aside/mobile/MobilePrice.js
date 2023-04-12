@@ -1,4 +1,4 @@
-import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
+ import { ONLY_DIGIT_REGIX } from "@/utils/Regex";
 import { setComma } from "@/utils/setComma";
 import { Modal } from "@mui/material";
 import { useFormik } from "formik";
@@ -57,11 +57,11 @@ const MobilePrice = ({closeHandler , isMobileMenu , price}) => {
                     <div className={` flex gap-x-4 flex-between w-full`}>
                         <div className="flex w-1/2 relative">
                             <span className="absolute right-5 top-3 text-xs font-iranyekan-regular  text-gray-800 ">از</span>
-                            <input dir="ltr" value={setComma(formik.values.price_from)} name="price_from"  onBlur={formik.handleBlur}   onChange={formik.handleChange}  type="text" className=" text-gray-800 border w-full font-iranyekan-regular border-gray-400 text-sm rounded-md"/>
+                            <input dir="ltr" value={setComma(formik.values.price_from)} name="price_from"  onBlur={formik.handleBlur}   onChange={formik.handleChange}  type="text" className=" text-gray-800 border focus:outline-none hover:border-gray-600 focus:border-gray-600 p-2 w-full font-iranyekan-regular border-gray-300 text-sm rounded-md"/>
                         </div>
                         <div className="flex w-1/2 relative">
                             <span className="absolute right-5 top-3 text-xs font-iranyekan-regular text-gray-800">تا</span>
-                            <input dir="ltr" value={setComma(formik.values.price_to)} name="price_to"  onBlur={formik.handleBlur}   onChange={formik.handleChange} type="text" className=" text-gray-800 border w-full border-gray-400 text-sm rounded-md"/>
+                            <input dir="ltr" value={setComma(formik.values.price_to)} name="price_to"  onBlur={formik.handleBlur}   onChange={formik.handleChange} type="text" className=" text-gray-800 border w-full focus:outline-none hover:border-gray-600 focus:border-gray-600 p-2 border-gray-300 text-sm font-iranyekan-regular rounded-md"/>
                         </div>
                     </div>
                         {!formik.isValid && <p className={'text-red-600 font-iranyekan-regular text-xs mt-4'}>قیمت باید عدد باشد</p>}
