@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* iranYekan Fonts Styles */
-@import url('./iranyekan.fonts.css');
+@import url('./iranyekan.fonts.css'); 
 
 /* Swiper Styles */
 @import url('./swiper.styles.css');
