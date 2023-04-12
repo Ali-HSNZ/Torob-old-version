@@ -170,7 +170,7 @@ const InsertStoreProduct = () => {
                                                             locale={persian_fa}
                                                             rangeHover={"black"}
                                                             className=" font-iranyekan-regular w-full"
-                                                            inputClass={"mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md"}
+                                                            inputClass={"mt-2 w-full border-gray-300 hover:border-gray-600  border px-4 py-2 focus:outline-none focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md"}
                                                        />
                                                   </div>
                                                   <div className="flex flex-col ">
@@ -183,7 +183,7 @@ const InsertStoreProduct = () => {
                                                                  locale={persian_fa}
                                                                  rangeHover={"black"}
                                                                  className=" font-iranyekan-regular w-full"
-                                                                 inputClass={"mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md"}
+                                                                 inputClass={"mt-2 w-full border-gray-300 hover:border-gray-600  border px-4 py-2 focus:outline-none focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md"}
                                                        />
                                                   </div>
                                                   <div className={'flex flex-col'}>
@@ -194,7 +194,7 @@ const InsertStoreProduct = () => {
                                                                  autoComplete={"off"}
                                                                  name={`per_unit`} 
                                                                  value={setComma(values.per_unit)}
-                                                                 className={`${errors.per_unit &&  touched.per_unit ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.per_unit &&  touched.per_unit ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md border py-2 px-4 focus:outline-none`}
                                                                  />
                                                        </div>
                                                        {errors.per_unit && touched.per_unit && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.per_unit}</p>}
@@ -207,7 +207,7 @@ const InsertStoreProduct = () => {
                                                                  autoComplete={"off"}     
                                                                  name={`warehouse_count`} 
                                                                  value={setComma(values.warehouse_count)}
-                                                                 className={`${errors.warehouse_count &&  touched.warehouse_count ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.warehouse_count &&  touched.warehouse_count ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md border py-2 px-4 focus:outline-none`}
                                                             />
                                                        </section>
                                                        {errors.warehouse_count && touched.warehouse_count && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.warehouse_count}</p>}
@@ -226,7 +226,7 @@ const InsertStoreProduct = () => {
                                                                  autoComplete={"off"}
                                                                  name={`production_price`}
                                                                  value={setComma(values.production_price)}
-                                                                 className={`${errors.production_price &&  touched.production_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.production_price &&  touched.production_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md border py-2 px-4 focus:outline-none`}
                                                             />
                                                        </section>
                                                        {errors.production_price && touched.production_price && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.production_price}</p>}
@@ -239,7 +239,7 @@ const InsertStoreProduct = () => {
                                                                  autoComplete={"off"}
                                                                  name={`consumer_price`} 
                                                                  value={setComma(values.consumer_price)}
-                                                                 className={`${errors.consumer_price &&  touched.consumer_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.consumer_price &&  touched.consumer_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md border py-2 px-4 focus:outline-none`}
                                                             />
                                                        </section>
                                                        {errors.consumer_price && touched.consumer_price && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.consumer_price}</p>}
@@ -252,7 +252,7 @@ const InsertStoreProduct = () => {
                                                                  autoComplete={"off"}
                                                                  name={`store_price`} 
                                                                  value={setComma(values.store_price)}
-                                                                 className={`${errors.store_price &&  touched.store_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.store_price &&  touched.store_price ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md border py-2 px-4 focus:outline-none`}
                                                             />
                                                        </section>
                                                        {errors.store_price && touched.store_price && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.store_price}</p>}
@@ -265,7 +265,7 @@ const InsertStoreProduct = () => {
                                                                  autoComplete={"off"}
                                                                  name={`commission`} 
                                                                  value={values.commission}
-                                                                 className={`${errors.commission &&  touched.commission ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.commission &&  touched.commission ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md border py-2 px-4 focus:outline-none`}
                                                             />
                                                        </section>
                                                        {errors.commission && touched.commission && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.commission}</p>}
@@ -284,7 +284,7 @@ const InsertStoreProduct = () => {
                                                                  autoComplete={"off"}
                                                                  name={`cash_payment_discount`} 
                                                                  value={values.cash_payment_discount}
-                                                                 className={`${errors.cash_payment_discount &&  touched.cash_payment_discount ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md`}
+                                                                 className={`${errors.cash_payment_discount &&  touched.cash_payment_discount ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md border py-2 px-4 focus:outline-none`}
                                                             />
                                                        </section>
                                                        {errors.cash_payment_discount && touched.cash_payment_discount && <p className={'text-red-600 font-iranyekan-regular text-xs pt-2'}>{errors.cash_payment_discount}</p>}
@@ -305,11 +305,23 @@ const InsertStoreProduct = () => {
                                                                                 <p className="font-iranyekan-regular text-sm whitespace-nowrap text-gray-800">نوع تخفیف : </p>
                                                                                 <section className="w-full flex justify-between  gap-x-2 mt-2">
                                                                                      <div className="flex w-full">
-                                                                                          <Field type="radio"  name={`product_discounts.${index}.discount_type`} id={`discountType_count_${index}`} value="count"  className="peer hidden"/>
+                                                                                          <Field 
+                                                                                               type="radio" 
+                                                                                               name={`product_discounts.${index}.discount_type`} 
+                                                                                               id={`discountType_count_${index}`} 
+                                                                                               value="count"  
+                                                                                               className="peer hidden"
+                                                                                          />
                                                                                           <label htmlFor={`discountType_count_${index}`} className=" text-gray-500 whitespace-nowrap bg-white peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 pl-4 pr-4">تعداد کالا</label>
                                                                                      </div>
                                                                                      <div className="flex w-full">
-                                                                                          <Field type="radio" name={`product_discounts.${index}.discount_type`} id={`discountType_price_${index}`} value="price"  className="peer hidden"/>
+                                                                                          <Field 
+                                                                                               type="radio" 
+                                                                                               name={`product_discounts.${index}.discount_type`} 
+                                                                                               id={`discountType_price_${index}`} 
+                                                                                               value="price"  
+                                                                                               className="peer hidden"
+                                                                                          />
                                                                                           <label htmlFor={`discountType_price_${index}`} className=" text-gray-500  bg-white peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قیمت</label>
                                                                                      </div>
                                                                                 </section>
@@ -323,7 +335,7 @@ const InsertStoreProduct = () => {
                                                                                      value={setComma(values.product_discounts[index].discount_value)}
                                                                                      name={`product_discounts.${index}.discount_value`}
                                                                                      placeholder={ values.product_discounts[index].discount_type === "price" ? "قیمت (تومان)" : "تعداد"}
-                                                                                     className="mt-2 w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md "
+                                                                                     className="mt-2 w-full border-gray-300 px-4 py-2 focus:outline-none border hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md "
                                                                                 />
                                                                                 {calculateTotalPrice(
                                                                                      {
@@ -344,7 +356,7 @@ const InsertStoreProduct = () => {
                                                                                           name={`product_discounts.${index}.final_price`}
                                                                                           value={setComma(values.product_discounts[index].final_price)}
                                                                                           placeholder={"قیمت (تومان)"}
-                                                                                          className="w-full border-gray-300 hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md "
+                                                                                          className="w-full border-gray-300 px-4 py-2 focus:outline-none border hover:border-gray-600  focus:border-gray-600 focus:ring-0 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md "
                                                                                      />
                                                                                      <div className="flex items-center">
                                                                                           {/* Delete  Discount Button */}
