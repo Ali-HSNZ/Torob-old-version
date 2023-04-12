@@ -304,11 +304,11 @@ const InsertStoreProduct = () => {
                                                                                 <section className="w-full flex justify-between  gap-x-2 mt-2">
                                                                                      <div className="flex w-full">
                                                                                           <Field type="radio"  name={`product_discounts.${index}.discount_type`} id={`discountType_count_${index}`} value="count"  className="peer hidden"/>
-                                                                                          <label htmlFor={`discountType_count_${index}`} className=" text-gray-500 whitespace-nowrap bg-white peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 pl-4 pr-4">تعداد کالا</label>
+                                                                                          <label htmlFor={`discountType_count_${index}`} className=" text-gray-500 whitespace-nowrap bg-white peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 text-center">تعداد کالا</label>
                                                                                      </div>
                                                                                      <div className="flex w-full">
                                                                                           <Field type="radio" name={`product_discounts.${index}.discount_type`} id={`discountType_price_${index}`} value="price"  className="peer hidden"/>
-                                                                                          <label htmlFor={`discountType_price_${index}`} className=" text-gray-500  bg-white peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 px-3">قیمت</label>
+                                                                                          <label htmlFor={`discountType_price_${index}`} className=" text-gray-500  bg-white peer-checked:text-black peer-checked:border-gray-700 font-iranyekan-regular text-sm hover:border-gray-400 cursor-pointer rounded-md border border-gray-300 w-full py-2 text-center">قیمت</label>
                                                                                      </div>
                                                                                 </section>
                                                                            </div>
@@ -368,7 +368,7 @@ const InsertStoreProduct = () => {
                                                   <p className="font-iranyekan-regular text-sm text-gray-800">توضیحات ارسال کالا :</p>
                                                   <Field as='textarea'
                                                        name="delivery_description"
-                                                       className={`${errors.delivery_description &&  touched.delivery_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 focus:outline-none border py-2 px-2 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
+                                                       className={`${errors.delivery_description &&  touched.delivery_description ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 focus:outline-none border py-1 px-2 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
                                                   />
                                                   {errors.delivery_description && touched.delivery_description && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{errors.delivery_description}</p>} 
                                              </div>
@@ -377,7 +377,7 @@ const InsertStoreProduct = () => {
                                                   <p className="font-iranyekan-regular text-sm text-gray-800">توضیحات فروشنده :</p>
                                                   <Field as='textarea'
                                                        name="store_note"
-                                                       className={`${errors.store_note &&  touched.store_note ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 focus:outline-none border py-2 px-2 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
+                                                       className={`${errors.store_note &&  touched.store_note ? "border-red-400 hover:border-red-600  focus:border-red-600" : "border-gray-300 hover:border-gray-600  focus:border-gray-600"} mt-2 w-full  focus:ring-0 focus:outline-none border py-1 px-2 text-sm  font-iranyekan-regular bg-white text-gray-800 rounded-md leading-8`}
                                                   />
                                                   {errors.store_note && touched.store_note && <p className="mt-2 font-iranyekan-regular text-xs text-red-700">{errors.store_note}</p>} 
                                              </div>
